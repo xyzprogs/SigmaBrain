@@ -1,13 +1,44 @@
-import React from 'react'
-import { useStyles } from './style'
-
-
+import {useState} from 'react';
+import { useStyles } from './style';
+import { login } from '../../firebase/firebase_auth';
+import { app } from '../../firebase/firebase_init';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
 
     const classes = useStyles()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("")
+
+    const updateEmail = (event) => {
+        setEmail(event.target.value);
+    }
+
+    const updatePassword = (event) => {
+        setPassword(event.target.value);
+    }
+
+    const confirmLogin = (event) => {
+        console.log("login with " + email + " and " + password);
+        const auth = getAuth(app);
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          // ...
+          console.log(user)
+        
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("error")
+          console.log(errorMessage)
+            
+        });
+    }
 
     return (
-        <form className={classes.loginForm}>
+        <div className={classes.loginForm}>
             <div className={classes.titleWrapper}>
                 <h3 className={classes.title}>Sign In</h3>
             </div>
@@ -17,8 +48,9 @@ const Login = () => {
                         <input
                             className={classes.input}
                             type="text"
-                            name="username"
-                            placeholder="Username"
+                            name="email"
+                            placeholder="Email"
+                            onKeyUp = {updateEmail}
                         />
                     </div>
 
@@ -28,6 +60,7 @@ const Login = () => {
                             type="password"
                             name="password"
                             placeholder="Password"
+                            onKeyUp={updatePassword}
                         />
                     </div>
                 </div>
@@ -45,13 +78,13 @@ const Login = () => {
                 </div>
 } */}
                 <div className={classes.buttonContainer}>
-                    <button type="submit" className={classes.button}>
+                    <button type="submit" className={classes.button} onClick={confirmLogin}>
                         Continue
                     </button>
                 </div>
             </div>
             <div className={classes.divider}></div>
-        </form>
+        </div>
     )
 }
 
