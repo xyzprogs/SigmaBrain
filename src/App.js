@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick = {()=> {history.push('/login')}}>Go to Login Page</button>
+      {/* <button onClick = {()=> {history.push('/login')}}>Go to Login Page</button> */}
       <Switch>
         <Route exact path='/' component = {HomePage}/>
         <Route path='/login' component = {LoginPage}/>
