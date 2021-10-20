@@ -1,6 +1,5 @@
 import {useState} from 'react';
 import { useStyles } from './style';
-import { login } from '../../firebase/firebase_auth';
 import { app } from '../../firebase/firebase_init';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
