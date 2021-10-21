@@ -1,22 +1,17 @@
-import {useState} from 'react';
-import { useStyles } from './style';
-const SearchBar = () => {
-    const classes = useStyles()
+import React from 'react'
+
+const SearchInput = () => {
     return (
-        <div className={classes.barContainer}>
-            <div className={classes.icon}>
-                icon
-            </div>
-
-            <div className={classes.search}>
-                search
-            </div>
-
-            <div className={classes.buttons}>
-                buttons
-            </div>
-        </div>
+        <form>
+            <input
+                type="text"
+                id="header-search"
+                placeholder="Search All Quizzes"
+                name="s"
+            />
+            <button>Search</button>
+        </form>
     )
 }
 
-export default SearchBar
+export default SearchInput

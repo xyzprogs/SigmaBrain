@@ -3,10 +3,10 @@ const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'cen
 export const useStyles = createUseStyles({
     barContainer: {
         display: "grid",
-        gridTemplateColumns: "10% 20% 20% 25% 25%",
+        gridTemplateColumns: "10% 65% 25%",
         gridTemplateRows: "50px",
         gridTemplateAreas:`
-        "icon . search . buttons"
+        "icon search buttons"
         `,
         backgroundColor: "#33FFF3",
         border: "solid",
