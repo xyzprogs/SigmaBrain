@@ -128,5 +128,12 @@ export const useStyles = createUseStyles({
         margin: '0',
         paddingLeft: '10px',
         paddingTop: '3px'
+    },
+    textToLeft: {
+        textAlign: "left"
+    },
+    bottomBorder:{
+        // borderStyle: "solid",
+        borderWidth: "0px 0px 1px 0px",
     }
 })

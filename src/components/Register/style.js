@@ -28,13 +28,14 @@ export const useStyles = createUseStyles({
     loginForm: {
         width: '100%',
         height: 'auto',
-        maxWidth: '500px',
+        maxWidth: '400px',
         minHeight: '400px',
-        padding: '40px',
+        padding: '30px',
         borderRadius: '14px',
         ...flexCenter,
         flexDirection: 'column',
-        background: '#ffffff'
+        background: '#ffffff',
+        marginTop: "50px"
     },
     formGroup: {
         width: '100%',
@@ -128,5 +129,12 @@ export const useStyles = createUseStyles({
         margin: '0',
         paddingLeft: '10px',
         paddingTop: '3px'
+    },
+    textToLeft: {
+        textAlign: "left"
+    },
+    bottomBorder:{
+        // borderStyle: "solid",
+        borderWidth: "0px 0px 1px 0px",
     }
 })
