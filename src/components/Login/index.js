@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { useStyles } from './style';
 import { app } from '../../firebase/firebase_init';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from 'react-router-dom';
 const Login = () => {
 
     const classes = useStyles()
@@ -43,19 +44,20 @@ const Login = () => {
             </div>
             <div className={classes.loginWrapper}>
                 <div className={classes.formGroup}>
+                    <div className={classes.textToLeft}>Email</div>
                     <div className={classes.inputWrapper}>
                         <input
-                            className={classes.input}
+                            className={ `${classes.input} ${classes.bottomBorder}` }
                             type="text"
                             name="email"
                             placeholder="Email"
                             onKeyUp = {updateEmail}
                         />
                     </div>
-
+                    <div className={classes.textToLeft}>Password</div>
                     <div className={classes.inputWrapper}>
                         <input
-                            className={classes.input}
+                            className={ `${classes.input} ${classes.bottomBorder}` }
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -63,7 +65,7 @@ const Login = () => {
                         />
                     </div>
                 </div>
-                {/* {
+                {
                 <div className={classes.loginOptions}>
                     <div className={classes.checkboxContainer}>
                         <input type="checkbox" />
@@ -75,10 +77,10 @@ const Login = () => {
                         </Link>
                     </span>
                 </div>
-} */}
+}
                 <div className={classes.buttonContainer}>
                     <button type="submit" className={classes.button} onClick={confirmLogin}>
-                        Continue
+                        Login
                     </button>
                 </div>
             </div>
