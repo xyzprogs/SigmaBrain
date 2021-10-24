@@ -2,6 +2,7 @@ import './App.css';
 import LoginPage from './pages/LoginPage/loginPage';
 import RegisterPage from './pages/RegisterPage/registerPage';
 import HomePage from './pages/HomePage/homePage';
+import UserProfilePage from './pages/UserProfilePage/userProfilePage';
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
 
@@ -17,6 +18,7 @@ function App() {
         <Route exact path='/' component = {HomePage}/>
         <Route path='/login' component = {LoginPage}/>
         <Route path='/register' component = {RegisterPage}/>
+        <Route path='/profile' component = {UserProfilePage}/>
       </Switch>
     </div>
   );

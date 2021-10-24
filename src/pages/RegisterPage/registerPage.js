@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { useStyles } from './style'
 import Register from '../../components/Register/index'
 import SearchBar from '../../components/SearchBar/index'
