@@ -2,9 +2,9 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import { app } from '../firebase/firebase_init'
 
 
-export function register(email, password){
+export async function register(email, password){
     const auth = getAuth(app);
-    createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
       const user = userCredential.user;

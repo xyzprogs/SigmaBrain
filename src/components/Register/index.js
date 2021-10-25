@@ -2,7 +2,10 @@ import {useState} from 'react';
 import { useStyles } from './style';
 import { register } from '../../firebase/firebase_auth';
 import { Link } from 'react-router-dom';
-
+import userApi from '../../api/user-api';
+import BODY_CONSTANT from '../../constant/body';
+import HEADER_CONSTANT from '../../constant/header';
+import {getAuth} from 'firebase/auth'
 const Register = () => {
 
     const classes = useStyles();
@@ -22,10 +25,26 @@ const Register = () => {
         setConfirmPassword(event.target.value);
     }
 
-    const confirmRegister = (event) => {
+    const confirmRegister = async (event) => {
         console.log("login with " + email + " and " + password + " and " + confirmPassword);
         if(password != confirmPassword)return;
-        register(email, password)
+        await register(email, password)
+        let payload = {}
+        let axios_config = {}
+        let headers = {}
+        const token = await getAuth().currentUser.getIdToken()
+        // console.log(token)
+        headers[HEADER_CONSTANT.TOKEN] = token
+        payload[BODY_CONSTANT.EMAIL] = email
+        payload[BODY_CONSTANT.DISPLAYNAME] = "tester"
+        axios_config = {
+            headers: headers
+        }
+        // console.log(axios_config)
+        // console.log("payload: " + payload)
+        // console.log("axios config: " + axios_config)
+        let response = await userApi.createUser(payload, axios_config)
+        // console.log(response)
     }
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStyles } from './style'
 import Login from '../../components/Login/index.js'
-import SearchBar from '../../components/SearchBar/index'
+import NavBar from '../../components/NavBar'
 
 const LoginPage = () => {
     const classes = useStyles()
@@ -9,7 +9,7 @@ const LoginPage = () => {
     return (
         <div className={classes.pageContainer}>
             <div className={classes.loginContainer}>
-                <SearchBar/>
+                <NavBar/>
                 <Login />
             </div>
         </div>
