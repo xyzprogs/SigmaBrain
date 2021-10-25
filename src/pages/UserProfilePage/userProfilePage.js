@@ -1,5 +1,5 @@
 import { useStyles } from "./style";
-import SearchBar from '../../components/SearchBar/index'
+import SearchBar from '../../components/NavBar/SearchBar/index'
 import UserBanner from "../../components/UserBanner";
 import ProfileBar from "../../components/UserProfile/ProfileBar";
 import UserFeatureQuiz from "../../components/UserProfile/UserFeatureQuiz";
