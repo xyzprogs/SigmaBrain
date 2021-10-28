@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage/loginPage';
 import RegisterPage from './pages/RegisterPage/registerPage';
 import HomePage from './pages/HomePage/homePage';
 import UserProfilePage from './pages/UserProfilePage/userProfilePage';
+import QuizTakingPage from './pages/QuizTakingPage/quizTakingPage';
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' component = {LoginPage}/>
         <Route path='/register' component = {RegisterPage}/>
         <Route path='/profile' component = {UserProfilePage}/>
+        <Route path='/quizTaking' component = {QuizTakingPage}/>
       </Switch>
     </div>
   );
