@@ -1,11 +1,17 @@
 import {useState} from 'react';
 import { useStyles } from './style';
-import SearchInput from './SearchBar/index'
-import Logo from './Logo/index'
+import SearchInput from './SearchBar'
+import Logo from './Logo'
+import UserLogin from './UserLogin';
+import UserControl from './UserControls';
 
 const NavBar = () => {
     //or create a context?
     const [searchString, setSearchString] = useState("")
+    //temp is Logged IN variable
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
 
     const classes = useStyles()
     return (
@@ -19,7 +25,7 @@ const NavBar = () => {
             </div>
 
             <div className={classes.buttons}>
-                Temp User Buttons
+                {isLoggedIn ? <UserControl/> : <UserLogin/>}
             </div>
         </div>
     )
