@@ -56,8 +56,4 @@ const QuizTaking = () => {
     );
 }
 
-const handleCallBack = (num) => {
-    this.state.index += num;
-}
-
 export default QuizTaking;
