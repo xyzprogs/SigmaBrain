@@ -1,14 +1,19 @@
 
 import { useStyles } from "./style"
-const FeatureCard = () =>{
+const FeatureCard = () => {
     const classes = useStyles()
-    return(
+    return (
         <div className={classes.featureCardContainer}>
             <div>
-                <div>Most Popular</div>
+                <div className={classes.titleName}>
+                    Most Popular
+                </div>
                 <div>quiz description</div>
             </div>
-            <div>Image</div>
+            <div className={classes.imgContainer}>
+                <img src = 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
+                height='200px'/>
+            </div>
         </div>
     )
 

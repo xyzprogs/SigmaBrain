@@ -1,10 +1,10 @@
 import React from 'react'
 import { useStyles } from '../style'
 
-const UserControl = () => {
+const UserControl = ({setLogin}) => {
     return (
-        <div>
-            User is logged in
+        <div onClick={()=>setLogin(false)}>
+            Sign Out
         </div>
     )
 }
