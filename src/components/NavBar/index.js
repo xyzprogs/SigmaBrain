@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {createContext, useState} from 'react';
 import { useStyles } from './style';
 import SearchInput from './SearchBar'
 import Logo from './Logo'
@@ -10,7 +10,6 @@ const NavBar = () => {
     const [searchString, setSearchString] = useState("")
     //temp is Logged IN variable
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
 
     const classes = useStyles()
@@ -25,7 +24,12 @@ const NavBar = () => {
             </div>
 
             <div className={classes.buttons}>
-                {isLoggedIn ? <UserControl/> : <UserLogin/>}
+                {
+                //If user is logged in, use the userControl component, if not, use userLogin component
+                isLoggedIn ? <UserControl setLogin = {setIsLoggedIn}/> 
+                    : <UserLogin setLogin = {setIsLoggedIn}/>
+                
+                }
             </div>
         </div>
     )
