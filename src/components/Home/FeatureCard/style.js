@@ -16,8 +16,13 @@ export const useStyles = createUseStyles({
     description:{
         gridArea: "description"
     },
+    titleName:{
+        fontSize:'40px',
+        fontWeight:'bold'
+    },
 
-    img:{
+    imgContainer:{
+        height:'100%',
         gridArea: "img",
     }
 })
