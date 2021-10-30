@@ -1,17 +1,23 @@
-import {useState} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { useStyles } from './style';
 import { register } from '../../firebase/firebase_auth';
 import { Link } from 'react-router-dom';
 import userApi from '../../api/user-api';
 import BODY_CONSTANT from '../../constant/body';
 import HEADER_CONSTANT from '../../constant/header';
-import {getAuth} from 'firebase/auth'
+import {getAuth} from 'firebase/auth';
+import AUTH_ERROR from '../../constant/firebase-error-code';
+import { useHistory } from "react-router-dom";
+import AuthContext from '../../context/auth-context'
 const Register = () => {
 
     const classes = useStyles();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorMessages, setErrorMessages] = useState([])
+    const history = useHistory()
+    const { auth } = useContext(AuthContext)
 
     const updateEmail = (event) => {
         setEmail(event.target.value);
@@ -25,30 +31,61 @@ const Register = () => {
         setConfirmPassword(event.target.value);
     }
 
+    useEffect(()=>{
+        if(auth.loggedIn){
+            history.push('/')
+        }
+    })
+
     const confirmRegister = async (event) => {
         console.log("login with " + email + " and " + password + " and " + confirmPassword);
-        if(password != confirmPassword)return;
-        await register(email, password)
-        let payload = {}
-        let axios_config = {}
-        let headers = {}
-        const token = await getAuth().currentUser.getIdToken()
-        // console.log(token)
-        headers[HEADER_CONSTANT.TOKEN] = token
-        payload[BODY_CONSTANT.EMAIL] = email
-        payload[BODY_CONSTANT.DISPLAYNAME] = "tester"
-        axios_config = {
-            headers: headers
+        if(password != confirmPassword){
+            setErrorMessages(["passwords doesn't match"])
+            return
         }
-        // console.log(axios_config)
-        // console.log("payload: " + payload)
-        // console.log("axios config: " + axios_config)
-        let response = await userApi.createUser(payload, axios_config)
-        // console.log(response)
+        register(email, password).then(async (userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            // ...
+            let payload = {}
+            let axios_config = {}
+            let headers = {}
+            const token = await getAuth().currentUser.getIdToken()
+            // console.log(token)
+            headers[HEADER_CONSTANT.TOKEN] = token
+            payload[BODY_CONSTANT.EMAIL] = email
+            payload[BODY_CONSTANT.DISPLAYNAME] = "tester"
+            axios_config = {
+                headers: headers
+            }
+            try{
+                let response = await userApi.createUser(payload, axios_config)
+                history.push("/")
+            }catch(e){
+                console.log("error from creating user to mysql server ", e)
+            }
+            
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            // const errorMessage = error.message;
+            console.log(errorCode)
+            if(errorCode == AUTH_ERROR.ALREADY_REGISTERED){
+                setErrorMessages(["Email has already registered"])
+            }
+            // ..
+          });
     }
 
     return (
         <div className={classes.loginForm}>
+            {
+                errorMessages.map((error, i)=>{
+                    return <div key={i} className="alert alert-danger" role="alert">
+                        {error}
+                    </div>
+                })
+            }
             <div className={classes.titleWrapper}>
                 <h3 className={classes.title}>Register Here</h3>
             </div>
