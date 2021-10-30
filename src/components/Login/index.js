@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useStyles } from './style';
 import { app } from '../../firebase/firebase_init';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
+import AuthContext from '../../context/auth-context'
 const Login = () => {
 
     const classes = useStyles()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
-
+    const history = useHistory()
+    const { auth } = useContext(AuthContext)
     const updateEmail = (event) => {
         setEmail(event.target.value);
     }
@@ -17,25 +20,16 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
-    const confirmLogin = (event) => {
+    const confirmLogin = () => {
         console.log("login with " + email + " and " + password);
-        const auth = getAuth(app);
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          // ...
-          console.log(user)
-        
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("error")
-          console.log(errorMessage)
-            
-        });
+        auth.login(email, password)
     }
+
+    useEffect(()=>{
+        if(auth.loggedIn){
+            history.push('/')
+        }
+    })
 
     return (
         <div className={classes.loginForm}>

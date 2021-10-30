@@ -6,6 +6,7 @@ import UserProfilePage from './pages/UserProfilePage/userProfilePage';
 import QuizTakingPage from './pages/QuizTakingPage/quizTakingPage';
 import QuizCreationPage from './pages/QuizCreationPage/quizCreationPage';
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
+import { AuthContextProvider } from './context/auth-context'
 
 
 
@@ -15,15 +16,16 @@ function App() {
 
   return (
     <div className="App">
-      {/* <button onClick = {()=> {history.push('/login')}}>Go to Login Page</button> */}
-      <Switch>
-        <Route exact path='/' component = {HomePage}/>
-        <Route path='/login' component = {LoginPage}/>
-        <Route path='/register' component = {RegisterPage}/>
-        <Route path='/profile' component = {UserProfilePage}/>
-        <Route path='/quizTaking' component = {QuizTakingPage}/>
-        <Route path='/quizCreation' component = {QuizCreationPage}/>
-      </Switch>
+      <AuthContextProvider>
+        <Switch>
+          <Route exact path='/' component = {HomePage}/>
+          <Route path='/login' component = {LoginPage}/>
+          <Route path='/register' component = {RegisterPage}/>
+          <Route path='/profile' component = {UserProfilePage}/>
+          <Route path='/quizTaking' component = {QuizTakingPage}/>
+          <Route path='/quizCreation' component = {QuizCreationPage}/>
+        </Switch>
+      </AuthContextProvider>
     </div>
   );
 }
