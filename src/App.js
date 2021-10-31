@@ -7,7 +7,7 @@ import QuizTakingPage from './pages/QuizTakingPage/quizTakingPage';
 import QuizCreationPage from './pages/QuizCreationPage/quizCreationPage';
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
-
+import bootstrap from 'bootstrap' 
 
 
 function App() {

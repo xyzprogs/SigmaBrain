@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 const AuthContext = createContext()
 
 export const AuthActionType = {
@@ -16,7 +16,7 @@ function AuthContextProvider(props){
     const fireauth = getAuth()
     onAuthStateChanged(fireauth, (user)=>{
         if(user){
-            if(auth.loggedIn==false){
+            if(!auth.loggedIn){
                 // console.log("user is logged in auth context ", user)
                 authReducer({
                     type: AuthActionType.LOGGED_IN,
@@ -29,6 +29,7 @@ function AuthContextProvider(props){
         }
         else{
             if(auth.loggedIn){
+                console.log("user is logged out")
                 authReducer({
                     type: AuthActionType.NOT_LOGGED_IN,
                     payload: {
@@ -71,6 +72,14 @@ function AuthContextProvider(props){
                 const errorCode = error.code;
                 const errorMessage = error.message;
             })
+    }
+
+    auth.signOut = () => {
+        signOut(fireauth).then(()=>{
+            //log out
+        }).catch((error)=>{
+            console.log(error)
+        })
     }
 
     return(

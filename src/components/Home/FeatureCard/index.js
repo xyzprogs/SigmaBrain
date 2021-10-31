@@ -17,11 +17,9 @@ const FeatureCard = () =>{
 
 
     useEffect(()=>{
-        if(!featureCard.loaded){
-            loadPopularQuiz()
-            console.log("loading quiz")
-        }
-    })
+        loadPopularQuiz()
+        console.log("loading quiz")
+    }, [])
 
     const loadPopularQuiz = async () =>{
         console.log("loadinggggggg")
@@ -39,9 +37,8 @@ const FeatureCard = () =>{
             }
             setFeatureCard(newFeatureCard)
             response = await quizApi.getQuizThumbnail(data[0][BODY.QUIZID])
-            // let src = "data:" + response.headers['content-type'] + ";base64," + Buffer.from(response.data, 'binary').toString('base64')
-            console.log(response.data)
             setImage(response.data)
+             // let src = "data:" + response.headers['content-type'] + ";base64," + Buffer.from(response.data, 'binary').toString('base64')
         }catch(e){
             console.log(e)
         }
@@ -49,12 +46,16 @@ const FeatureCard = () =>{
 
     return(
         <div className={classes.featureCardContainer}>
-            <div>
-                <div>Most Popular Quiz!!!!</div>
-                <div>{featureCard.quizName}</div>
-                <div>{featureCard.quizDescription}</div>
+            <div className={classes.description}>
+                <div className={classes.popularTitle} >Most Popular Quiz!!!!</div>
+                <div className={classes.quizBox}>
+                    <div className={classes.quizName}>{featureCard.quizName}</div>
+                    <div className={classes.quizDescription}>{featureCard.quizDescription}</div>
+                </div>
             </div>
-            <img src={image}/>
+            <div className={classes.img}>
+                <img className={classes.imgSize} src={image}/>
+            </div>
         </div>
     )
 
