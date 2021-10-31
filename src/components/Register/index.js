@@ -59,7 +59,7 @@ const Register = () => {
                 headers: headers
             }
             try{
-                let response = await userApi.createUser(payload, axios_config)
+                await userApi.createUser(payload, axios_config)
                 history.push("/")
             }catch(e){
                 console.log("error from creating user to mysql server ", e)
