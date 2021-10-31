@@ -1,16 +1,23 @@
-import {createContext, useState} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import { useStyles } from './style';
 import SearchInput from './SearchBar'
 import Logo from './Logo'
 import UserLogin from './UserLogin';
 import UserControl from './UserControls';
+import AuthContext from '../../context/auth-context';
 
 const NavBar = () => {
     //or create a context?
     const [searchString, setSearchString] = useState("")
     //temp is Logged IN variable
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { auth } = useContext(AuthContext)
 
+    useEffect(()=>{
+        console.log("nav")
+        setIsLoggedIn(auth.loggedIn)
+    })
+    
 
     const classes = useStyles()
     return (
