@@ -1,8 +1,14 @@
+import CreationCard from "../CreationCard";
+
 
 const QuizCreation = () =>{
     return (
-        <h1>Hello World</h1>
+        <div>
+            <CreationCard />
+        </div>
     );
 }
+
+
 
 export default QuizCreation;
