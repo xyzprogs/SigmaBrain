@@ -9,7 +9,8 @@ const MainBoard = () => {
         <div className={classes.mainContainer}>
             <CategoryBar/>
             <FeatureCard/>
-            <QuizDisplayBoard/>
+            <QuizDisplayBoard 
+                category={0}/>
             <QuizDisplayBoard/>
             <QuizDisplayBoard/>
         </div>
