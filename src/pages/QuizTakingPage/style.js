@@ -1,6 +1,7 @@
 import { createUseStyles } from 'react-jss'
 
-const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' }
+const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' };
+const flexLeft = { display: 'flex', justifyContent: 'left', alignItems: 'left' };
 
 export const useStyles = createUseStyles({
     pageContainer: {
@@ -15,7 +16,13 @@ export const useStyles = createUseStyles({
     },
 
     quizContainer: {
+        ...flexCenter,
         marginTop: '70px',
-        ...flexCenter
+
+    },
+
+    sidebar:{
+        ...flexLeft
     }
+
 })

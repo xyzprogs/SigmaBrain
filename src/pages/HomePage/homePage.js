@@ -1,8 +1,8 @@
 import React from 'react'
 import { useStyles } from './style'
-import SideBar from '../../components/Home/SideBar/index'
+import { SideBar, MainBoard } from '../../components/Home'
 import NavBar from '../../components/NavBar/index'
-import MainBoard from '../../components/Home/MainBoard/index'
+
 
 const HomePage = () => {
     const classes = useStyles()

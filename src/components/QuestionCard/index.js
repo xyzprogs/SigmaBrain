@@ -11,15 +11,33 @@ const QuestionCard = (props) => {
     const object = React.useContext(QuestionContext);
     const questions = object.questions;
     const answers = object.answers;
-    const buttonHandler = (event) =>{
+
+
+    const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
             props.changeIndex(1);
         }
         if (event.target.name === 'prev'){
             props.changeIndex(-1);
         }
-    
-        console.log(event.target.name);
+    }
+
+    const answerHandler = (event) => {
+        props.changeAnswerChoice(questions.questionNum, event.target.value);
+    }
+
+    const nextButtonRender = () =>{
+        if ((questions.questionNum + 1) === object.num){
+            return(<Button variant="danger" className={classes.buttonMargin} name='submit' onClick={props.changeFlag}>Submit</Button>)
+        }else{
+            return(<Button variant="info" className={classes.buttonMargin} name='next' onClick={changeQuestionHandler}>Next Question</Button>)
+        }
+    }
+
+    const prevButtonRender = () =>{
+        if (questions.questionNum !== 0){
+            return(<Button variant="info" className={classes.buttonMargin} name='prev' onClick={changeQuestionHandler}>Previous Question</Button>)
+        }
     }
 
     return(
@@ -34,14 +52,13 @@ const QuestionCard = (props) => {
                     {answers.answerChoices
                         .map((choice) => 
                             <div key={answers.answerChoices.indexOf(choice)}>
-                                <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={buttonHandler} id={answers.answerChoices.indexOf(choice)}>
+                                <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={answers.answerChoices.indexOf(choice)}>
                                     {choice}
                                 </Button>
                                 <br />
                             </div>)}
-                    
-                    <Button variant="info" className={classes.buttonMargin} name='prev' onClick={buttonHandler}>Previous Question</Button>
-                    <Button variant="info" className={classes.buttonMargin} name='next' onClick={buttonHandler}>Next Question</Button>
+                    {prevButtonRender()}
+                    {nextButtonRender()}
                 </Card.Body>
             </Card>
         </div>
