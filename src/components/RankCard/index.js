@@ -1,9 +1,9 @@
 import { useStyles } from "./style"
 
-const RankCard = () => {
+const RankCard = ({username}) => {
     return(
         <div>
-            rank
+            {username}
         </div>
     )
 }

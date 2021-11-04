@@ -5,6 +5,21 @@ import RankCard from "../../RankCard"
 import { useState, useEffect } from 'react'
 import quizApis from "../../../api/quiz-api"
 const QuizDisplayBoard = (props) => {
+    //TEMP DATA
+    const topTen = [
+        { userName: "rank1" },
+        { userName: "rank2" },
+        { userName: "rank3" },
+        { userName: "rank4" },
+        { userName: "rank5" },
+        { userName: "rank6" },
+        { userName: "rank7" },
+        { userName: "rank8" },
+        { userName: "rank9" },
+        { userName: "rank10" }
+    ]
+    
+    
     const classes = useStyles()
 
     const [category, setCategory] = useState(null)
@@ -48,15 +63,9 @@ const QuizDisplayBoard = (props) => {
                 <div className={classes.rankContainer}>
                     <div>Rankings</div>
                     <div>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
-                        <RankCard/>
+                        {topTen.map((user, i)=>
+                        <RankCard username = {user.userName}/>
+                        )}
                     </div>
                 </div>
             </div>
