@@ -7,10 +7,12 @@ const api = axios.create({
 export const getMostPopularQuiz = () => api.get('/popular/topquiz') 
 export const getQuizThumbnail = (quizId) => api.get('/thumbnail/' + quizId) 
 export const getCategoryQuiz = (category) => api.get(`/category/${category}`)
+export const getQuiz = (quizId) => api.get(`/${quizId}`)
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
-    getCategoryQuiz
+    getCategoryQuiz,
+    getQuiz
 }
 
 export default quizApis
