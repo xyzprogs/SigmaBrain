@@ -1,4 +1,3 @@
-
 import { useStyles } from "./style"
 import QuizCard from "../../QuizCard"
 import RankCard from "../../RankCard"
@@ -35,7 +34,6 @@ const QuizDisplayBoard = (props) => {
             const category = props.category
             const response = await quizApis.getCategoryQuiz(category)
             setQuizzes(response.data)
-            console.log(response.data)
        }
     }
 

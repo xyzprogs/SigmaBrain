@@ -12,6 +12,7 @@ const QuestionCard = (props) => {
     const questions = object.questions;
     const answers = object.answers;
 
+
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
             props.changeIndex(1);

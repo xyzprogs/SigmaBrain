@@ -18,11 +18,9 @@ const FeatureCard = () =>{
 
     useEffect(()=>{
         loadPopularQuiz()
-        console.log("loading quiz")
     }, [])
 
     const loadPopularQuiz = async () =>{
-        console.log("loadinggggggg")
         try{
             let response = await quizApi.getMostPopularQuiz()
             let data = response.data

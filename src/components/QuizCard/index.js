@@ -17,13 +17,11 @@ const QuizCard = (props)=>{
 
     const clickQuiz = ()=>{
         let quiz = props.quiz
-        console.log(`/quizDescription/${quiz[BODY.QUIZID]}`)
         history.push(`/quizDescription/${quiz[BODY.QUIZID]}`)
     }
 
     useEffect(()=>{
         if(props.quiz!=undefined){
-            console.log("load images")
             loadImage()
         }
     },[])
