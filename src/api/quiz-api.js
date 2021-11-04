@@ -1,6 +1,7 @@
 import axios from 'axios'
+import SERVER from '../constant/server'
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api/quiz',
+    baseURL: `${SERVER.BASE_URL}/quiz`,
 })
 
 
