@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 
 const tempAnswers = [
@@ -26,10 +27,10 @@ const QuizCreation = () => {
     const classes = userStyles();
 
     return (
-        <div>
+        <div className={classes.creationCardContainer}>
             <form>
                 <Row>
-                    <Card className={classes.creationCardContainer}>
+                    <Card>
                     <Card.Body>
                         <Col>
                             <Button>
@@ -37,9 +38,9 @@ const QuizCreation = () => {
                             </Button>
                         </Col>
                         <Col>
-                            <input type="text" className={classes.inputContainer} placeholder="Title"></input><br />
-                            <input type="text" className={classes.inputContainer} placeholder="Timer"></input><br />
-                            <input type="text" className={classes.inputContainer} placeholder="Description"></input><br />
+                            <input type="text" className={classes.inputContainer} placeholder="Title"></input>
+                            <input type="text" className={classes.inputContainer} placeholder="Timer"></input>
+                            <input type="text" className={classes.inputContainer} placeholder="Description"></input>
                         </Col>
                     </Card.Body>
                     </Card>
@@ -48,16 +49,23 @@ const QuizCreation = () => {
 
                     <hr />
                     <Row>
-                        {tempAnswers
-                            .map((answers) => 
+                        {tempAnswers.map((answers) => 
                                 <div>
                                     <Card className={classes.creationCardContainer}>
                                         <Card.Header>
                                             Question {answers.QuestionNum + 1}
                                         </Card.Header>
+                                        <Card.Body>
                                         <Card.Title>
                                             <input type="text" className={classes.inputContainer} value={answers.QuestionText}></input>
                                         </Card.Title>
+                                        
+                                        <ListGroup>
+                                        {answers.Answers.map((answerChoices) => 
+                                            <ListGroupItem><input type="text" className={classes.inputContainer} value={answerChoices}></input></ListGroupItem>)}
+
+                                        </ListGroup>
+                                        </Card.Body>
                                     </Card>
                                 </div>)}
                         

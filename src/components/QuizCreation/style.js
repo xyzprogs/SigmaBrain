@@ -14,20 +14,20 @@ export const userStyles = createUseStyles({
 
     inputContainer: {
         display: 'flex',
-        textAlign: "left",
+        textAlign: "center",
         color: "black",
         border: '0px',
         fontSize: '25px',
         backgroundColor: "white",
         marginTop: '5px',
         marginBottom: '3px',
-        flexWrap: 'flexwrap'
+        flexWrap: 'flexwrap',
 
     },
 
     imageContainer: {
-        width: '250px',
-        height: '250px',
+        width: '220px',
+        height: '220px',
         marginTop: '20px',
         objectFit: 'cover'
     },
