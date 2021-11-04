@@ -14,7 +14,6 @@ const NavBar = () => {
     const { auth } = useContext(AuthContext)
 
     useEffect(()=>{
-        console.log("nav")
         setIsLoggedIn(auth.loggedIn)
     })
     

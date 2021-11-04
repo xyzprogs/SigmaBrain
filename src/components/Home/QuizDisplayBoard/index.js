@@ -16,11 +16,9 @@ const QuizDisplayBoard = (props) => {
 
     const loadCategoryQuiz = async () => {
        if(props.category!=undefined){
-            console.log("loading quiz from category")
             const category = props.category
             const response = await quizApis.getCategoryQuiz(category)
             setQuizzes(response.data)
-            console.log(response.data)
        }
     }
 

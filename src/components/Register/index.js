@@ -38,7 +38,6 @@ const Register = () => {
     })
 
     const confirmRegister = async (event) => {
-        console.log("login with " + email + " and " + password + " and " + confirmPassword);
         if(password != confirmPassword){
             setErrorMessages(["passwords doesn't match"])
             return
@@ -51,7 +50,6 @@ const Register = () => {
             let axios_config = {}
             let headers = {}
             const token = await getAuth().currentUser.getIdToken()
-            // console.log(token)
             headers[HEADER_CONSTANT.TOKEN] = token
             payload[BODY_CONSTANT.EMAIL] = email
             payload[BODY_CONSTANT.DISPLAYNAME] = "tester"

@@ -11,7 +11,6 @@ const QuestionCard = (props) => {
     const object = React.useContext(QuestionContext);
     const questions = object.questions;
     const answers = object.answers;
-    console.log(questions);
     const buttonHandler = (event) =>{
         if (event.target.name === 'next'){
             props.changeIndex(1);

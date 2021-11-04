@@ -21,7 +21,6 @@ const Login = () => {
     }
 
     const confirmLogin = () => {
-        console.log("login with " + email + " and " + password);
         auth.login(email, password)
     }
 

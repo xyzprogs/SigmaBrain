@@ -9,7 +9,6 @@ const DescriptionBox = (props)=>{
     const [image, setImage] = useState("")
 
     useEffect(()=>{
-        console.log(props.quizId)
         loadQuiz()
     }, [])
 
@@ -24,7 +23,11 @@ const DescriptionBox = (props)=>{
     }
 
 
-
+    if(quiz == undefined){
+        return(
+            <div>loading</div>
+        )
+    }
     return (
     <div className={classes.boxContainer}>
         <div>{quiz[BODY.QUIZNAME]}</div>
