@@ -5,9 +5,11 @@ const api = axios.create({
 
 
 export const createUser = (payload, config) => api.post('/create', payload, config) 
+export const getMainLeaderboard = () => api.get('/leaderboard')
 
 const userApis = {
-    createUser
+    createUser,
+    getMainLeaderboard
 }
 
 export default userApis
