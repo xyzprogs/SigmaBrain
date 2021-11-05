@@ -42,6 +42,12 @@ export const useStyles = createUseStyles({
     cell:{
         width:"30%",
         height:"30%"
+    },
+    colorGreen:{
+        color:'green'
+    },
+    colorYellow:{
+        color:'orange'
     }
 
 })

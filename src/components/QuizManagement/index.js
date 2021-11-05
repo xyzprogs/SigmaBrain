@@ -1,11 +1,11 @@
 import React from 'react'
 import { useStyles } from './style'
-import NavBar from '../../components/NavBar/index'
-import SideBar from '../../components/Home/SideBar/index'
+import { useHistory } from 'react-router'
 import Button from '@restart/ui/esm/Button'
 
 const QuizManagement = () => {
     const classes = useStyles()
+    let history = useHistory()
     return (
         <div>
             <div className={classes.quizContainer}>
@@ -28,8 +28,8 @@ const QuizManagement = () => {
                 </tr>
                 <tr>
                     <td><input type="checkbox"/></td>
-                    <td>Quiz 1</td>
-                    <td>published</td>
+                    <td onClick={()=>history.push('/quizcreation')}>Quiz 1</td>
+                    <td className={classes.colorGreen}>published</td>
                     <td>Oct/29/2019</td>
                     <td>291</td>
                     <td>2</td>
@@ -37,7 +37,7 @@ const QuizManagement = () => {
                 <tr>
                     <td><input type="checkbox"/></td>
                     <td>Quiz 2</td>
-                    <td>published</td>
+                    <td className={classes.colorYellow}>saved</td>
                     <td>Oct/29/2019</td>
                     <td>291</td>
                     <td>2</td>
@@ -45,7 +45,7 @@ const QuizManagement = () => {
                 <tr>
                     <td><input type="checkbox"/></td>
                     <td>Quiz 3</td>
-                    <td>published</td>
+                    <td className={classes.colorGreen}>published</td>
                     <td>Oct/29/2019</td>
                     <td>291</td>
                     <td>2</td>
