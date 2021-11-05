@@ -6,6 +6,7 @@ import UserProfilePage from './pages/UserProfilePage/userProfilePage';
 import QuizTakingPage from './pages/QuizTakingPage/quizTakingPage';
 import QuizCreationPage from './pages/QuizCreationPage/quizCreationPage';
 import QuizDescriptionPage from './pages/QuizDescriptionPage/quizDescriptionPage';
+import SearchResultPage from './pages/SearchResultPage/searchResultPage';
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import bootstrap from 'bootstrap' 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/quizTaking' component = {QuizTakingPage}/>
           <Route path='/quizCreation' component = {QuizCreationPage}/>
           <Route path='/quizDescription/:quizId' component = {QuizDescriptionPage}/>
+          <Route path='/searchResult' component = {SearchResultPage}/>
         </Switch>
       </AuthContextProvider>
     </div>
