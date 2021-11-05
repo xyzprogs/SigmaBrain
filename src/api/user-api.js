@@ -1,6 +1,7 @@
 import axios from 'axios'
+import config from '../config'
 const api = axios.create({
-    baseURL: 'http://localhost:3000/api/user',
+    baseURL: `${config.base_url}/user`,
 })
 
 

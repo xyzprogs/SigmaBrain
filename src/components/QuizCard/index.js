@@ -2,10 +2,12 @@ import { userStyles } from "./style"
 import Card from "react-bootstrap/Card"
 import Button from "react-bootstrap/Button"
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import BODY from '../../constant/body'
 import quizApis from "../../api/quiz-api"
 const QuizCard = (props)=>{
     const classes = userStyles()
+    const history = useHistory()
     const [image, setImage] = useState("")
 
     const loadImage = async ()=>{
@@ -15,12 +17,11 @@ const QuizCard = (props)=>{
 
     const clickQuiz = ()=>{
         let quiz = props.quiz
-        console.log("this is quiz", quiz)
+        history.push(`/quizDescription/${quiz[BODY.QUIZID]}`)
     }
 
     useEffect(()=>{
         if(props.quiz!=undefined){
-            console.log("load images")
             loadImage()
         }
     },[])
