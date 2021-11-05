@@ -1,7 +1,7 @@
 import axios from 'axios'
-import SERVER from '../constant/server'
+import config from '../config'
 const api = axios.create({
-    baseURL: `${SERVER.BASE_URL}/quiz`,
+    baseURL: `${config.base_url}/quiz`,
 })
 
 
