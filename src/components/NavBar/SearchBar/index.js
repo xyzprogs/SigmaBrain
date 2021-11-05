@@ -1,8 +1,10 @@
 import React from 'react'
 import { useStyles } from './style'
+import { useHistory } from 'react-router';
 
 const SearchInput = ({searchInput,setSearchInput}) => {
     const classes = useStyles();
+    let history = useHistory()
     return (
         <div className = {classes.searchBarContainer}>
             <input 
@@ -13,7 +15,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
                 className = {classes.searchBar}
                 onChange = {(e)=> console.log(e.target.value)}
             />
-            <button>Search</button>
+            <button onClick={()=>history.push('/searchResult')}>Search</button>
         </div>
     )
 }
