@@ -6,7 +6,7 @@ const QuizCreationPage = () => {
     const classes = useStyles();
 
     return(
-        <div>
+        <div className={classes.pageContainer}>
             <div className={classes.header}>
                 <Navbar />
             </div>
