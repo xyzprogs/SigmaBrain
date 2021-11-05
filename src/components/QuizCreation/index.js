@@ -1,6 +1,7 @@
 import React from 'react';
 import { userStyles } from "./style";
 import { useState, useEffect, useRef, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from "react-bootstrap/Card";
@@ -20,6 +21,7 @@ const QuizCreation = () => {
     const [imageAsFile, setImageAsFile] = useState()
     const [name, setName] = useState()
     const { auth } = useContext(AuthContext)
+    const history = useHistory()
 
     const clickUpload = ()=>{
         imgRef.current.click()
@@ -67,13 +69,14 @@ const QuizCreation = () => {
         //     [HEADER.CONTENTTYPE] : `${HEADER.MULT_FORMDATA}; boundary=${data.getBoundary()}`,
         //     [HEADER.ACCEPT] : HEADER.APPLICATION_JSON
         // }
-        quizApis.setQuizThumbnail(quizId, data, headers)
+        await quizApis.setQuizThumbnail(quizId, data, headers)
         // testApis.testAnything(data).then(res =>{
         //     console.log(res)
         // })
         // .catch(e=>{
         //     console.log(e)
         // })
+        history.push(`/quizManagement`);
     }
 
     return (

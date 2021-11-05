@@ -3,6 +3,7 @@ import QuizCard from "../../QuizCard"
 import RankCard from "../../RankCard"
 import { useState, useEffect } from 'react'
 import quizApis from "../../../api/quiz-api"
+import userApis from "../../../api/user-api"
 
 const QuizDisplayBoard = (props) => {
     //TEMP DATA
@@ -12,9 +13,17 @@ const QuizDisplayBoard = (props) => {
     const [quizzes, setQuizzes] = useState([])
     const [topUsers, setTopUsers] = useState([])
 
+ 
+    const getTopUsersFromLeaderboard = async () => {
+        await userApis.getMainLeaderboard().then((response) => {
+            setTopUsers(response.data);
+            console.log("topten users",response.data)
+        })
+    }
+
     useEffect(() => {
         loadCategoryQuiz()
-        setTopUsers(props.topUsers)
+        getTopUsersFromLeaderboard();
     }, [])
 
     const loadCategoryQuiz = async () => {
@@ -23,7 +32,6 @@ const QuizDisplayBoard = (props) => {
             const category = props.category
             const response = await quizApis.getCategoryQuiz(category)
             setQuizzes(response.data)
-            // console.log(response.data)
         }
     }
 
@@ -52,7 +60,7 @@ const QuizDisplayBoard = (props) => {
                     <div>Rankings</div>
                     <div>
                         {console.log(props.topUsers)}
-                        {props.topUsers.map((user, i) =>
+                        {topUsers.map((user, i) =>
                             <RankCard user={user} index = {i} />
                         )}
                     </div>
@@ -77,8 +85,8 @@ const QuizDisplayBoard = (props) => {
                 <div className={classes.rankContainer}>
                     <div>Rankings</div>
                     <div>
-                        {props.topUsers.map((user, i) =>
-                            <RankCard username={user.userName} />
+                        {topUsers.map((user, i) =>
+                            <RankCard user={user} index = {i} />
                         )}
                     </div>
                 </div>
