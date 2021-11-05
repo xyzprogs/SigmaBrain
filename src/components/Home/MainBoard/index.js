@@ -8,17 +8,18 @@ import userApis from "../../../api/user-api"
 const MainBoard = () => {
     const classes = useStyles()
 
-    const [topUsers, setTopUsers] = useState([])
+    // const [topUsers, setTopUsers] = useState([])
 
-    useEffect(()=>{
-        getTopUsersFromLeaderboard();
-    },[])    
+    // useEffect(()=>{
+    //     getTopUsersFromLeaderboard();
+    // },[])    
 
-    const getTopUsersFromLeaderboard = async () => {
-        await userApis.getMainLeaderboard().then((response) => {
-            setTopUsers(response.data);
-        })
-    }
+    // const getTopUsersFromLeaderboard = async () => {
+    //     await userApis.getMainLeaderboard().then((response) => {
+    //         setTopUsers(response.data);
+    //         console.log(response.data)
+    //     })
+    // }
 
 
     return (
@@ -26,9 +27,9 @@ const MainBoard = () => {
             <CategoryBar/>
             <FeatureCard/>
             <QuizDisplayBoard 
-                category={0} topUsers = {topUsers}/>
-            <QuizDisplayBoard topUsers = {topUsers}/>
-            <QuizDisplayBoard topUsers = {topUsers}/>
+                category={0}/>
+            {/* <QuizDisplayBoard/>
+            <QuizDisplayBoard/> */}
         </div>
     )
 }
