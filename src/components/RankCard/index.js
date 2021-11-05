@@ -1,4 +1,3 @@
-import { Axios } from "axios"
 import userApis from "../../api/user-api"
 import { useStyles } from "./style"
 
