@@ -22,15 +22,10 @@ const QuizCreation = () => {
     const { auth } = useContext(AuthContext)
 
     const clickUpload = ()=>{
-        console.log(imgRef)
         imgRef.current.click()
     }
 
     const onImageUpload = (event)=>{
-        // var fileExt = filename.split('.').pop();
-        // console.log(fileExt)
-        // var stream = 
-        // setImage(event.target.value)
         console.log(event.target.files[0])
         setImage(URL.createObjectURL(event.target.files[0]))
         setImageAsFile(event.target.files[0])
@@ -57,7 +52,6 @@ const QuizCreation = () => {
         }
 
         const token = await auth.user.getIdToken()
-        console.log("token", token)
         let headers = {
             [HEADER.TOKEN] : token
         }

@@ -11,8 +11,6 @@ const RankCard = ({username,position}) => {
             users = results.data;
             console.log(users);
         });
-       
-       // console.log(users)
     }
     
     return(

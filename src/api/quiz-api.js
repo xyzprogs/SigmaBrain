@@ -11,11 +11,13 @@ export const getCategoryQuiz = (category) => api.get(`/category/${category}`)
 export const getQuiz = (quizId) => api.get(`/${quizId}`)
 export const createQuiz = (quiz, headers) => api.post("/", quiz, {headers: headers})
 export const setQuizThumbnail = (quizId, formData, headers) => api.post(`/quizThumbnail/${quizId}`, formData, {headers: headers})
+export const getUserQuiz = (userId) => api.get(`/user/${userId}`)
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
     getCategoryQuiz,
     getQuiz,
+    getUserQuiz,
     createQuiz,
     setQuizThumbnail
 }

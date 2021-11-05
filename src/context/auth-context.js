@@ -10,31 +10,36 @@ export const AuthActionType = {
 function AuthContextProvider(props){
     const[auth, setAuth] = useState({
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        loading: true
     })
 
     const fireauth = getAuth()
+
     onAuthStateChanged(fireauth, (user)=>{
         if(user){
             if(!auth.loggedIn){
-                // console.log("user is logged in auth context ", user)
+                // console.log("user is logged in auth context ", user.auth.currentUser) //user.auth.currentUser.uid
                 authReducer({
                     type: AuthActionType.LOGGED_IN,
                     payload: {
                         user: user,
-                        loggedIn: true}
+                        loggedIn: true,
+                        loading: false
+                    }
                 })
 
             }
         }
         else{
             if(auth.loggedIn){
-                console.log("user is logged out")
                 authReducer({
                     type: AuthActionType.NOT_LOGGED_IN,
                     payload: {
                         user: null,
-                        loggedIn: false}
+                        loggedIn: false,
+                        loading: false
+                    }
                 })
             }
         }
