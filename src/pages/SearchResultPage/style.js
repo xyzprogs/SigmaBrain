@@ -21,33 +21,24 @@ export const useStyles = createUseStyles({
         // `
         marginTop: "50px"
     },
-    quizContainer: {
-        border: "solid",
-        marginTop: "2.5%",
-        height: "10vh",
-        borderWidth: "0px 0px 1px 0px",
-        display: "grid",
-        gridTemplateColumns: "60% 40%",
-        gridTemplateRows: "auto",
-        gridTemplateAreas:`
-        "quizImg description"
-        `
+
+    header:{
+        gridArea: "header"
     },
-    title: {
-        gridArea: "title"
+
+    main:{
+        // gridArea: "main",
+        // gridColumnStart: "1",
+        // paddingLeft: "20vw"
     },
-    back: {
-        gridArea: "back"
-    },
-    cell:{
-        width:"30%",
-        height:"30%"
-    },
-    colorGreen:{
-        color:'green'
-    },
-    colorYellow:{
-        color:'orange'
+
+    sidebar:{
+        gridArea: "menu",
+    }, 
+
+    searchResults: {
+        gridArea: "main",
+        marginLeft: "30%"
     }
 
 })

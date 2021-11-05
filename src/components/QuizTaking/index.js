@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import QuestionCard from '../QuestionCard'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { useHistory } from 'react-router';
 
 export const QuestionContext = React.createContext();
 
@@ -48,6 +49,8 @@ const tempAnswers = [
 const QuizTaking = () => {
     // const classes = userStyles()
 
+    let history = useHistory();
+
     const [index, setIndex] = useState(0);
     const [flag, setFlag] = useState(false);
     const [answerChoices, setAnswerChoices] = useState(new Array(tempQuestions.length).fill(-1));
@@ -68,7 +71,7 @@ const QuizTaking = () => {
     }
 
     const changeAnswerChoice = (index, choice) => {
-        let temp = new Array();
+        let temp = [];
         for (let i = 0; i < answerChoices.length; i++){
             temp.push(answerChoices[i]);
         }
@@ -93,7 +96,7 @@ const QuizTaking = () => {
                         You got {correct} out of {tempQuestions.length} questions right!
                     </Card.Text>
                     <Button onClick={restartQuiz}>Retake Quiz</Button>
-                    <Button>Return Home</Button>
+                    <Button onClick={() => history.push('/')}>Return Home</Button>
                 </Card.Body>
             </Card>
         </div>
