@@ -68,7 +68,7 @@ const QuizDisplayBoard = (props) => {
                     <div>
                         {console.log(props.topUsers)}
                         {props.topUsers.map((user, i) =>
-                            <RankCard username={user.displayName} />
+                            <RankCard user={user} index = {i} />
                         )}
                     </div>
                 </div>
