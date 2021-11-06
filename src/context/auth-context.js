@@ -87,6 +87,10 @@ function AuthContextProvider(props){
         })
     }
 
+    auth.getCurrentUserUid = () => {
+        return auth.user.auth.currentUser.uid
+    }
+
     return(
         <AuthContext.Provider value={{auth}}>
             {props.children}

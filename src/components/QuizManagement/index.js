@@ -18,9 +18,13 @@ const QuizManagement = () => {
     }, [auth.loading])
 
     const loadUserQuizzes = async () => {
-        let id =  auth.user.auth.currentUser.uid
+        let id =  auth.getCurrentUserUid()
         let response = await quizApis.getUserQuiz(id)
         setQuizzes(response.data)
+    }
+
+    const redirectQuizCreation = () => {
+        history.push(`/quizCreation`)
     }
 
     return (
@@ -31,7 +35,7 @@ const QuizManagement = () => {
             </div>
             <div className={classes.quizContainer}>
                 <div className={classes.quizimg}>Filter</div>
-                <p><Button>Create quiz</Button>
+                <p><Button onClick={redirectQuizCreation}>Create quiz</Button>
                 <Button>delete</Button></p>
             </div>
             <table cellspacing="0" rule="all" border ="1" id="quizzes">

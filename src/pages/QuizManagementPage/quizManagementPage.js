@@ -1,5 +1,5 @@
 import { useStyles } from "./style";
-import SearchBar from '../../components/NavBar/SearchBar/index'
+import NavBar from "../../components/NavBar";
 import UserBanner from "../../components/UserBanner";
 import ProfileBar from "../../components/UserProfile/ProfileBar";
 import QuizManagement from "../../components/QuizManagement";
@@ -8,7 +8,7 @@ const QuizManagementPage = () => {
 
     return (
         <div> 
-        <SearchBar/>
+        <NavBar/>
             <div className={classes.pageContainer}>
                 <UserBanner/>
                 <ProfileBar/>
