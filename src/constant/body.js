@@ -6,6 +6,12 @@ const EXPERIENCE = "experience"
 const CREATIONTIME = "creationTime"
 const PASSWORD = "password"
 const UID = "uid"
+const PROFILEIMAGE = "profileImage"
+const BACKGROUNDIMAGE = "backgroundImage"
+const USERDESCRIPTION = "userDescription"
+const TOPFEATUREQUIZ = "topFeatureQuiz"
+const USERPROFILE = "userProfile"
+const USERPROFILE_IMAGE_TYPE = "imageType"
 
 //Quiz Body
 const QUIZID = "quizId"
@@ -40,6 +46,12 @@ const BODY_CONSTANT = {
     CREATIONTIME,
     PASSWORD,
     UID,
+    PROFILEIMAGE,
+    BACKGROUNDIMAGE,
+    USERDESCRIPTION,
+    TOPFEATUREQUIZ,
+    USERPROFILE,
+    USERPROFILE_IMAGE_TYPE,
 
     //BODY
     QUIZID,

@@ -12,10 +12,10 @@ const UserProfilePage = () => {
         <div>
             <NavBar/>
             <div className={classes.pageContainer}>
-                <UserBanner/>
-                <ProfileBar/>
-                <UserFeatureQuiz/>
-                <MyQuizList/>
+                <UserBanner userId={userId}/>
+                <ProfileBar userId={userId}/>
+                <UserFeatureQuiz userId={userId}/>
+                <MyQuizList userId={userId}/>
                 <div>User is is {userId}</div>
             </div>
         </div>

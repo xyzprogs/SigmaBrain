@@ -1,13 +1,8 @@
 import React from 'react';
 import { userStyles } from "./style";
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import testApis from '../../api/test-api';
 import BODY from '../../constant/body';
 import quizApis from '../../api/quiz-api';
 import AuthContext from '../../context/auth-context';
@@ -28,7 +23,6 @@ const QuizCreation = () => {
     }
 
     const onImageUpload = (event)=>{
-        console.log(event.target.files[0])
         setImage(URL.createObjectURL(event.target.files[0]))
         setImageAsFile(event.target.files[0])
     }
@@ -64,18 +58,7 @@ const QuizCreation = () => {
         const data = new FormData()
         data.append(BODY.QUIZID, quizId)
         data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
-        // headers = {
-        //     [HEADER.TOKEN] : token,
-        //     [HEADER.CONTENTTYPE] : `${HEADER.MULT_FORMDATA}; boundary=${data.getBoundary()}`,
-        //     [HEADER.ACCEPT] : HEADER.APPLICATION_JSON
-        // }
         await quizApis.setQuizThumbnail(quizId, data, headers)
-        // testApis.testAnything(data).then(res =>{
-        //     console.log(res)
-        // })
-        // .catch(e=>{
-        //     console.log(e)
-        // })
         history.push(`/quizManagement`);
     }
 
@@ -85,7 +68,7 @@ const QuizCreation = () => {
             <div className={classes.title}>
                 <div>Quiz Creator</div>
                 <div className={classes.saveBtn}>
-                    <Button>Save</Button>
+                    <Button onClick={onSave}>Save</Button>
                 </div>
             </div>
 
