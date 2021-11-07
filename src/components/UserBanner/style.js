@@ -6,5 +6,21 @@ export const useStyles = createUseStyles({
         borderStyle: "solid",
         height: "25vh",
         // backgroundImage: `url(${background})`,
-    }
+    },
+
+    imgTag: {
+        display: "none"
+    },
+
+    imgSize:{
+        width:"100%",
+        height: "100%"
+    },
+
+    uploadBtn:{
+        position: "absolute",
+        left: "50%",
+    },
+
+
 })
