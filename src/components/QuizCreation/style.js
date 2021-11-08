@@ -86,6 +86,10 @@ export const userStyles = createUseStyles({
         float: 'right'
     },
 
+    toLeft: {
+        float: 'left'
+    },
+
     introductionBox: {
         width: "30vw",
         height: "20vh",
@@ -145,6 +149,14 @@ export const userStyles = createUseStyles({
         height: "15vh"
     },
 
+    questionContainer:{
+        border: "solid",
+        width: "50vw",
+        borderWidth: "0px 0px 1px 0px",
+        minHeight: "20vh"
+    },
 
-    
+    checkboxPadding:{
+        margin: "auto"
+    }
 })

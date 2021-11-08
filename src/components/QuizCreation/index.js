@@ -1,13 +1,16 @@
 import React from 'react';
 import { userStyles } from "./style";
-import { useState, useRef, useContext } from 'react'
+import { useState, useRef, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import Button from "react-bootstrap/Button";
 import BODY from '../../constant/body';
 import quizApis from '../../api/quiz-api';
 import AuthContext from '../../context/auth-context';
 import HEADER from '../../constant/header';
-import {QUIZ_CATEGORY_NAME} from '../../constant/quiz-category'
+import {QUIZ_CATEGORY_NAME, QUIZ_CATEGORY_DICT} from '../../constant/quiz-category'
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import QUESTION_TYPE from '../../constant/question-type';
 const QuizCreation = () => {
     const classes = userStyles()
     const imgRef = useRef()
@@ -18,9 +21,18 @@ const QuizCreation = () => {
     const [name, setName] = useState()
     const { auth } = useContext(AuthContext)
     const history = useHistory()
-    const [auto, setAuto] = useState([[]])
+    const [category, setCategory] = useState()
+    const [categoryList, setCategoryList] = useState([])
+    const [questions, setQuestions] = useState(
+        [
+            {questionType: QUESTION_TYPE.MULTIPLE_CHOICE, numberOfChoice: 4, question: "what is the best team?"}
+        ]
+    )
+    // const [categoryText, setCategoryText] = useState("")
 
-
+    const onAutoChange = (event, value)=>{
+        setCategory(value['value'])
+    }
 
     const clickUpload = ()=>{
         imgRef.current.click()
@@ -43,22 +55,35 @@ const QuizCreation = () => {
         setName(event.target.value)
     }
 
-    const onChangeCategory = (event)=>{
-        let newMatch = []
-        for(var i = 0; i < QUIZ_CATEGORY_NAME.length; i++){
-            if(QUIZ_CATEGORY_NAME[i].toLowerCase().startsWith(event.target.value.toLowerCase()) 
-                && event.target.value != ""){
-                console.log(QUIZ_CATEGORY_NAME[i])
-                newMatch.push([QUIZ_CATEGORY_NAME[i], i])
-            }
-        }
-        setAuto(newMatch)
-    }
+    // const onChangeCategory = (event)=>{
+    //     console.log(event.target.value)
+    //     setCategoryText(event.target.value)
+    //     let newMatch = []
+    //     for(var i = 0; i < QUIZ_CATEGORY_NAME.length; i++){
+    //         if(event.target.value.toLowerCase() == QUIZ_CATEGORY_NAME[i].toLowerCase()){
+    //             setCategory([QUIZ_CATEGORY_NAME[i]], i)
+    //             console.log("setCategory",QUIZ_CATEGORY_NAME[i])
+    //             break
+    //         }
+    //         if(QUIZ_CATEGORY_NAME[i].toLowerCase().startsWith(event.target.value.toLowerCase()) 
+    //             && event.target.value != ""){
+    //             console.log(QUIZ_CATEGORY_NAME[i])
+    //             newMatch.push([QUIZ_CATEGORY_NAME[i], i])
+    //         }
+    //     }
+    //     setAuto(newMatch)
+    // }
+
+    // const clickAutoComplete = (event, category) =>{
+    //     console.log("click auto complete", category[0])
+
+    //     setCategoryText(category[0])
+    // }
 
     const onSave = async ()=>{
         const quiz = {
             [BODY.QUIZNAME]: name,
-            [BODY.QUIZCATEGORY]: 1,
+            [BODY.QUIZCATEGORY]: category,
             [BODY.QUIZDESCRIPTION]: introduction,
             [BODY.ISPUBLISHED]: 0
         }
@@ -77,6 +102,14 @@ const QuizCreation = () => {
         await quizApis.setQuizThumbnail(quizId, data, headers)
         history.push(`/quizManagement`);
     }
+
+    useEffect(()=>{
+        let categorylist = []
+        for(var key in QUIZ_CATEGORY_DICT){
+            categorylist.push({label: key, value: QUIZ_CATEGORY_DICT[key]})
+        }
+        setCategoryList(categorylist)
+    }, [])
 
     return (
         <div className={classes.creationCardContainer}>
@@ -115,12 +148,42 @@ const QuizCreation = () => {
 
             <div className={classes.quizCategory}>
                 <div className={classes.subTitle}>Quiz Category</div>
-                <div>
-                    <input onKeyUp={onChangeCategory}/>
-                    {auto.map((category, i) => <div>{category[0]}</div>)}
-                </div>
+                {/* <div>
+                    <input onKeyUp={onChangeCategory} defaultValue={categoryText}/>
+                    {auto.map((category, i) => <div onClick={(event)=>{clickAutoComplete(event, category)}}>{category[0]}</div>)}
+                </div> */}
+                    <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={categoryList}
+                        sx={{ width: 300 }}
+                        onChange={onAutoChange}
+                        renderInput={(params) => <TextField {...params} label="Movie" />}
+                    />
             </div>
 
+            <div className={`${classes.questionContainer}`}>
+                <div className={classes.subTitle}>Questions</div>
+                <div className={classes.btn}>
+                    <div className={`${classes.btnText}`}>Add</div>
+                </div>
+                <div>
+                    <table className={classes.toCenter}>
+                        <tr>
+                            <th >&nbsp;</th>
+                            <th>Number</th>
+                            <th>Question</th>
+                        </tr>
+                        {questions.map((question,i)=>
+                            <tr className={classes.checkboxPadding}>
+                                <td><input type="checkbox" />&nbsp;</td>
+                                <td>#{i+1}</td>
+                                <td>{question['question']}</td>
+                            </tr>)
+                        }
+                    </table>
+                </div>
+            </div>
             <div>
                 <div className={`${classes.toRight} ${classes.btn}`} onClick={onSave}>
                     <div className={classes.btnText}>Save</div>
