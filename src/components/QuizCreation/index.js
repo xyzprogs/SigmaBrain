@@ -7,6 +7,7 @@ import BODY from '../../constant/body';
 import quizApis from '../../api/quiz-api';
 import AuthContext from '../../context/auth-context';
 import HEADER from '../../constant/header';
+import {QUIZ_CATEGORY_NAME} from '../../constant/quiz-category'
 const QuizCreation = () => {
     const classes = userStyles()
     const imgRef = useRef()
@@ -17,6 +18,9 @@ const QuizCreation = () => {
     const [name, setName] = useState()
     const { auth } = useContext(AuthContext)
     const history = useHistory()
+    const [auto, setAuto] = useState([[]])
+
+
 
     const clickUpload = ()=>{
         imgRef.current.click()
@@ -37,6 +41,18 @@ const QuizCreation = () => {
 
     const onChangeName = (event)=>{
         setName(event.target.value)
+    }
+
+    const onChangeCategory = (event)=>{
+        let newMatch = []
+        for(var i = 0; i < QUIZ_CATEGORY_NAME.length; i++){
+            if(QUIZ_CATEGORY_NAME[i].toLowerCase().startsWith(event.target.value.toLowerCase()) 
+                && event.target.value != ""){
+                console.log(QUIZ_CATEGORY_NAME[i])
+                newMatch.push([QUIZ_CATEGORY_NAME[i], i])
+            }
+        }
+        setAuto(newMatch)
     }
 
     const onSave = async ()=>{
@@ -67,21 +83,20 @@ const QuizCreation = () => {
             <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
             <div className={classes.title}>
                 <div>Quiz Creator</div>
-                <div className={classes.saveBtn}>
-                    <Button onClick={onSave}>Save</Button>
-                </div>
             </div>
 
             <div className={classes.quizName}>
                 <div className={classes.subTitle}>Quiz Name</div>
-                <input onKeyUp={onChangeName}/>
+                <input className={classes.quizNameField} onKeyUp={onChangeName}/>
             </div>
 
             <div className={classes.cover}>
                 <div className={classes.subTitle}>Cover</div>
-                <Button onClick={clickUpload}>upload</Button>
-                <div >
-                <img  className={classes.imgSize} src={image}/>
+                <div className={`${classes.btn} ${classes.toCenter}`} onClick={clickUpload}>
+                    <div className={classes.btnText}>upload</div>
+                </div>
+                <div className={classes.imgContainer}>
+                    <img  className={classes.imgSize} src={image}/>
                 </div>
             </div>
 
@@ -92,56 +107,25 @@ const QuizCreation = () => {
 
             <div className={classes.timeLimit}>
                 <div className={classes.subTitle}>Time Limit</div>
-                <input onKeyUp={onChangeTimeLimit}/>
+                <div className={classes.flexBox}>
+                    <input onKeyUp={onChangeTimeLimit}/>
+                    <div className={classes.unit}>min</div>
+                </div>
+            </div>
+
+            <div className={classes.quizCategory}>
+                <div className={classes.subTitle}>Quiz Category</div>
+                <div>
+                    <input onKeyUp={onChangeCategory}/>
+                    {auto.map((category, i) => <div>{category[0]}</div>)}
+                </div>
             </div>
 
             <div>
-                <Button className={`${classes.toRight}`} onClick={onSave}>Save</Button>
+                <div className={`${classes.toRight} ${classes.btn}`} onClick={onSave}>
+                    <div className={classes.btnText}>Save</div>
+                </div>
             </div>
-            {/* <form>
-                <Row>
-                    <Card>
-                    <Card.Body>
-                        <Col>
-                            <Button>
-                                <Card.Img className={classes.imageContainer} src="https://mdbootstrap.com/img/new/standard/nature/184.jpg"/>
-                            </Button>
-                        </Col>
-                        <Col>
-                            <input type="text" className={classes.inputContainer} placeholder="Title"></input>
-                            <input type="text" className={classes.inputContainer} placeholder="Timer"></input>
-                            <input type="text" className={classes.inputContainer} placeholder="Description"></input>
-                        </Col>
-                    </Card.Body>
-                    </Card>
-                </Row>
-                        
-
-                    <hr />
-                    <Row>
-                        {tempAnswers.map((answers) => 
-                                <div>
-                                    <Card className={classes.creationCardContainer}>
-                                        <Card.Header>
-                                            Question {answers.QuestionNum + 1}
-                                        </Card.Header>
-                                        <Card.Body>
-                                        <Card.Title>
-                                            <input type="text" className={classes.inputContainer} value={answers.QuestionText}></input>
-                                        </Card.Title>
-                                        
-                                        <ListGroup>
-                                        {answers.Answers.map((answerChoices) => 
-                                            <ListGroupItem><input type="text" className={classes.inputContainer} value={answerChoices}></input></ListGroupItem>)}
-
-                                        </ListGroup>
-                                        </Card.Body>
-                                    </Card>
-                                </div>)}
-                        
-                    </Row>
-                <input type="submit" value="Save"></input>
-            </form> */}
         </div>
     )
 }
