@@ -7,7 +7,8 @@ export const useStyles = createUseStyles({
         position: 'fixed',
         width: '100%',
         height: '100%',
-        backgroundColor: 'whitesmoke'
+        backgroundColor: 'whitesmoke',
+        overflowY: "auto"
     },
 
     header:{
