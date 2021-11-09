@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-// import { userStyles, useStyles } from "./style"
+import { userStyles, useStyles } from "./style"
 import QuestionCard from '../QuestionCard'
+import QuizSideBar from './QuizSideBar';
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useHistory } from 'react-router';
@@ -50,13 +51,19 @@ const QuizTaking = () => {
     // const classes = userStyles()
 
     let history = useHistory();
+    const classes = useStyles();
 
     const [index, setIndex] = useState(0);
     const [flag, setFlag] = useState(false);
     const [answerChoices, setAnswerChoices] = useState(new Array(tempQuestions.length).fill(-1));
 
-    const changeIndex = (num) => {
-        let temp = index + num;
+    const changeIndex = (type, num) => {
+        let temp;
+        if (type === 0){
+            temp = index + num;
+        }else{
+            temp = num;
+        }
         setIndex(temp);
     }
 
@@ -108,9 +115,16 @@ const QuizTaking = () => {
             return(handleSubmit());
         }else{
             return (
+                <div>
                 <QuestionContext.Provider value={{questions: tempQuestions[index], answers: tempAnswers[index], num: 3}}>
-                    <QuestionCard changeIndex={changeIndex} handleSubmit={handleSubmit} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
+                     <div className={classes.sidebar}>
+                        <QuizSideBar changeIndex={changeIndex} />
+                    </div>
+                    <div className={classes.quizContainer}>
+                        <QuestionCard changeIndex={changeIndex} handleSubmit={handleSubmit} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
+                    </div>
                 </QuestionContext.Provider>
+                </div>
             );
         }
     }

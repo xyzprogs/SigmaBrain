@@ -1,6 +1,5 @@
 import { useStyles } from './style'
 import QuizTaking from '../../components/QuizTaking'
-import QuizSideBar from '../../components/QuizTaking/QuizSideBar'
 import NavBar from '../../components/NavBar'
 
 const QuizTakingPage = () => {
@@ -11,12 +10,8 @@ const QuizTakingPage = () => {
             <div className={classes.header}>
                 <NavBar/>
             </div>
-            
-            <div className={classes.sidebar}>
-                <QuizSideBar />
-            </div>
 
-            <div className={classes.quizContainer}>
+            <div >
                 <QuizTaking />
             </div>
         </div>
