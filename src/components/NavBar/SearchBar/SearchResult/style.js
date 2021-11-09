@@ -5,7 +5,7 @@ export const useStyles = createUseStyles({
         width: "50%",
         display: "grid",
         gridArea: "main",
-        marginTop: "60px",
+        marginTop: "50px",
         cursor: "pointer"
     },
 
