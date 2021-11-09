@@ -2,7 +2,7 @@ import React from 'react';
 import { userStyles } from "./style";
 import { useState, useRef, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import BODY from '../../constant/body';
 import quizApis from '../../api/quiz-api';
 import AuthContext from '../../context/auth-context';
@@ -11,6 +11,8 @@ import {QUIZ_CATEGORY_NAME, QUIZ_CATEGORY_DICT} from '../../constant/quiz-catego
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import QUESTION_TYPE from '../../constant/question-type';
+import Button from '@mui/material/Button'
+import QuestionCreationModal from '../QuestionCreationModal';
 const QuizCreation = () => {
     const classes = userStyles()
     const imgRef = useRef()
@@ -27,9 +29,8 @@ const QuizCreation = () => {
         [
             {questionType: QUESTION_TYPE.MULTIPLE_CHOICE, numberOfChoice: 4, question: "what is the best team?"}
         ]
-    )
+    )  
     // const [categoryText, setCategoryText] = useState("")
-
     const onAutoChange = (event, value)=>{
         setCategory(value['value'])
     }
@@ -189,6 +190,8 @@ const QuizCreation = () => {
                     <div className={classes.btnText}>Save</div>
                 </div>
             </div>
+            <QuestionCreationModal
+            questions={questions}/>
         </div>
     )
 }

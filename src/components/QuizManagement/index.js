@@ -35,8 +35,8 @@ const QuizManagement = () => {
             </div>
             <div className={classes.quizContainer}>
                 <div className={classes.quizimg}>Filter</div>
-                <p><Button onClick={redirectQuizCreation}>Create quiz</Button>
-                <Button>delete</Button></p>
+                <div><Button onClick={redirectQuizCreation}>Create quiz</Button>
+                <Button>delete</Button></div>
             </div>
             <table cellspacing="0" rule="all" border ="1" id="quizzes">
                 <tr>

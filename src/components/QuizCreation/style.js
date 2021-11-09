@@ -158,5 +158,7 @@ export const userStyles = createUseStyles({
 
     checkboxPadding:{
         margin: "auto"
-    }
+    },
+
+
 })
