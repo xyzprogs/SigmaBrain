@@ -7,7 +7,8 @@ export const useStyles = createUseStyles({
         position: 'fixed',
         width: '100%',
         height: '100%',
-        backgroundColor: '#000000'
+        backgroundColor: 'whitesmoke',
+        overflowY: "auto"
     },
 
     header:{
@@ -15,7 +16,7 @@ export const useStyles = createUseStyles({
     },
 
     quizContainer: {
-        marginTop: '70px',
+        marginTop: '50px',
         ...flexCenter
     }
 })
