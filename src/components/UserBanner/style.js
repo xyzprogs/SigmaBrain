@@ -5,6 +5,7 @@ export const useStyles = createUseStyles({
         marginTop: "50px",
         borderStyle: "solid",
         height: "25vh",
+        position: "relative",
         // backgroundImage: `url(${background})`,
     },
 
@@ -19,7 +20,7 @@ export const useStyles = createUseStyles({
 
     uploadBtn:{
         position: "absolute",
-        left: "50%",
+        bottom:"15%"
     },
 
 

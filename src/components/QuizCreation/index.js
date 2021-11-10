@@ -112,6 +112,7 @@ const QuizCreation = () => {
         let headers = {
             [HEADER.TOKEN] : token
         }
+        
         let response = await quizApis.createQuizWithQuestions(quiz, headers)
         let quizId = response.data.insertId
         const data = new FormData()
