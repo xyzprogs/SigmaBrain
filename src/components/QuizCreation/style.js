@@ -160,5 +160,9 @@ export const userStyles = createUseStyles({
         margin: "auto"
     },
 
+    delete: {
+        paddingLeft: "1%",
+        cursor: "default"
+    }
 
 })

@@ -43,6 +43,11 @@ export const useStyles = createUseStyles({
         width:"30%",
         height:"30%"
     },
+
+    managementContainer: {
+        marginLeft: "10%"
+    },
+
     colorGreen:{
         color:'green'
     },
