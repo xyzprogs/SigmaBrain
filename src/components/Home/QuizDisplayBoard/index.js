@@ -78,7 +78,7 @@ const QuizDisplayBoard = (props) => {
                 </div>
                 <div className={classes.quizContainer}>
                     {quizzes.map((quiz, i) => {
-                        return <QuizCard key={i} quiz={quiz} />
+                        return <QuizCard key={i} quiz={quiz} redirect={true}/>
                     })}
                 </div>
 

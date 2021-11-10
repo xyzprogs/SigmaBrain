@@ -31,7 +31,7 @@ const UserControl = ({setLogin}) => {
                     <li><a className="dropdown-item" onClick={redirectProfile}>Profile</a></li>
                     <li><a className="dropdown-item" onClick={redirectQuizCreation}>Create Quiz</a></li>
                     <li><a className="dropdown-item" onClick={redirectQuizManagement}>Quiz Management</a></li>
-                    <li><a className="dropdown-item" href="#"  onClick={()=>auth.signOut()}>Sign Out</a></li>
+                    <li><a className="dropdown-item" onClick={()=>auth.signOut()}>Sign Out</a></li>
                 </ul>
             </div>
         </div>

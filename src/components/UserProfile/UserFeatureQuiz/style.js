@@ -4,19 +4,15 @@ export const useStyles = createUseStyles({
     quizContainer: {
         border: "solid",
         marginTop: "2.5%",
-        height: "20vh",
+        height: "auto",
         borderWidth: "0px 0px 1px 0px",
-        display: "grid",
-        gridTemplateColumns: "60% 40%",
-        gridTemplateRows: "auto",
-        gridTemplateAreas:`
-        "quizImg description"
-        `
+        paddingBottom: "1.5%"
     },
-    quizimg: {
-        gridArea: "quizImg"
+    toCenter: {
+        margin: "auto"
     },
-    description: {
-        gridArea: "description"
-    }
+    imgSize:{
+        width:"100%",
+        height: "100%",
+    },
 })

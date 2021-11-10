@@ -16,8 +16,10 @@ const QuizCard = (props)=>{
     }
 
     const clickQuiz = ()=>{
-        let quiz = props.quiz
-        history.push(`/quizDescription/${quiz[BODY.QUIZID]}`)
+        if(props.redirect){
+            let quiz = props.quiz
+            history.push(`/quizDescription/${quiz[BODY.QUIZID]}`)
+        }
     }
 
     useEffect(()=>{

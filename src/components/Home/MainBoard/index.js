@@ -3,7 +3,8 @@ import { useStyles } from './style';
 import FeatureCard from '../FeatureCard';
 import CategoryBar from '../CategoryBar';
 import QuizDisplayBoard from '../QuizDisplayBoard';
-import userApis from "../../../api/user-api"
+import quizApis from '../../../api/quiz-api';
+import BODY from '../../../constant/body';
 
 const MainBoard = () => {
     const classes = useStyles()
@@ -21,11 +22,32 @@ const MainBoard = () => {
     //     })
     // }
 
+    const [quiz, setQuiz] = useState()
+    const [image, setImage] = useState("")
+    const loadPopularQuiz = async () =>{
+        try{
+            let response = await quizApis.getMostPopularQuiz()
+            let data = response.data
+            if(data.length <= 0){
+                return
+            }
+            setQuiz(data[0])
+            response = await quizApis.getQuizThumbnail(data[0][BODY.QUIZID])
+            setImage(response.data)
+        }catch(e){
+            console.log(e)
+        }
+    }
 
+    useEffect(()=>{
+        loadPopularQuiz()
+    }, [])
     return (
         <div className={classes.mainContainer}>
             <CategoryBar/>
-            <FeatureCard/>
+            <FeatureCard
+                quiz={quiz}
+                image={image}/>
             <QuizDisplayBoard 
                 category={0}/>
             {/* <QuizDisplayBoard/>
