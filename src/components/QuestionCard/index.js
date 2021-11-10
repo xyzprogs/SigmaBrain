@@ -14,10 +14,10 @@ const QuestionCard = (props) => {
 
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
-            props.changeIndex(1);
+            props.changeIndex(0, 1);
         }
         if (event.target.name === 'prev'){
-            props.changeIndex(-1);
+            props.changeIndex(0, -1);
         }
     }
 

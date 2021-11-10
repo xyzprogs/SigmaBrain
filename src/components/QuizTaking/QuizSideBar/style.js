@@ -17,6 +17,7 @@ export const useStyles = createUseStyles({
     sideBarSelect: {
         paddingTop: "10px"
     },
+    
 
     subscriptionTop: {
         textAlign: "left",

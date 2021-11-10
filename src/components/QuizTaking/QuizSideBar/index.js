@@ -1,39 +1,34 @@
 import {useState} from 'react';
+import React from 'react';
+import Button from 'react-bootstrap/Button'
 import { useStyles } from './style';
-const QuizSideBar = () => {
+import {QuestionContext} from '../../QuizTaking';
+
+
+const QuizSideBar = (props) => {
     const classes = useStyles()
+    const object = React.useContext(QuestionContext);
+    const array = [];
+    for(let i = 1 ; i <= object.num; i++){
+        array.push(i);
+    }
+
+    const changeQuestions = (event) =>{
+        props.changeIndex(-1, event.target.value - 1);
+    }
+
+    const showQuestions = (event) => {
+        console.log(event);
+    }
+
     return (
         <div className={classes.sideBarContainer}>
-            <div className={classes.sideBarSelection}>
-                <div className={classes.sideBarSelect}>
-                    Home
-                </div>
-                <div className={classes.sideBarSelect}>
-                    Subscription
-                </div>
-                <div className={classes.sideBarSelect}>
-                    Channel
-                </div>
-                <div className={classes.sideBarSelect}>
-                    Take Later
-                </div>
-                <div className={classes.sideBarSelect}>
-                    Like Quizzes
-                </div>
-                <div className={classes.sideBarSelect}>
-                    Community
-                </div>
-            </div>
-
-            <div className={`${classes.subscriptionTop} ${classes.sideBarSelection}`}>
-                Subscriptions:
-            </div>
-
-            <div>
-                <div className={classes.sideBarSelect}>
-                    Settings
-                </div>
-            </div>
+            {array
+                .map((questionNum) => 
+                    <div className={classes.sideBarSelect} onMouseEnter={showQuestions} key={questionNum}>
+                         <Button onClick={changeQuestions}
+                                 value={questionNum}>Question {questionNum}</Button>
+                    </div>)}  
         </div>
     )
 }
