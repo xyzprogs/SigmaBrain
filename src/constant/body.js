@@ -31,8 +31,10 @@ const QUESTIONTYPE = "questionType"
 const NUMBEROFCHOICE = "numberOfChoice"
 const IMAGE = "image"
 const QUESTION = "question" 
+const QUESTIONS = "questions"
 
 //QuestionChoice Body
+const CHOICES = "choices"
 const CHOICEID = "choiceId"
 const ISRIGHTCHOICE = "is_right_choice"
 const CHOICE = "choice"
@@ -71,11 +73,13 @@ const BODY_CONSTANT = {
     NUMBEROFCHOICE,
     IMAGE,
     QUESTION,
+    QUESTIONS,
 
     //QUESTION CHOICE BODY
     CHOICEID,
     ISRIGHTCHOICE,
-    CHOICE
+    CHOICE,
+    CHOICES
 }
 
 export default BODY_CONSTANT

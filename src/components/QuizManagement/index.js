@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
 import { useStyles } from './style'
 import { useHistory } from 'react-router'
-import Button from '@restart/ui/esm/Button'
+import Button from '@mui/material/Button'
 import AuthContext from '../../context/auth-context'
 import quizApis from '../../api/quiz-api'
 import BODY from '../../constant/body'
+import HEADER from '../../constant/header'
 const QuizManagement = () => {
     const classes = useStyles()
     let history = useHistory()
@@ -27,6 +28,20 @@ const QuizManagement = () => {
         history.push(`/quizCreation`)
     }
 
+    const removeQuiz = async (i) => {
+        console.log("going to remove",quizzes[i][BODY.QUIZID])
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        await quizApis.deleteQuizWithQuestions(quizzes[i][BODY.QUIZID], headers)
+        let newQuizzes = [...quizzes]
+        if(newQuizzes.length>-1){
+            newQuizzes.splice(i, 1)
+        }
+        setQuizzes(newQuizzes)
+    }
+
     return (
         <div>
             <div className={classes.quizContainer}>
@@ -40,37 +55,13 @@ const QuizManagement = () => {
             </div>
             <table cellspacing="0" rule="all" border ="1" id="quizzes">
                 <tr>
-                    <th className={classes.cell}><input type="checkbox"/>All</th>
-                    <th className={classes.cell}></th>
+                    <th>&nbsp;</th>
+                    <th className={classes.cell}>All</th>
                     <th className={classes.cell}>Statue</th>
                     <th className={classes.cell}>Date</th>
                     <th className={classes.cell}>View</th>
-                    <th className={classes.cell}>Comment</th>
+                    <th className={classes.cell}>&nbsp;</th>
                 </tr>
-                {/* <tr>
-                    <td><input type="checkbox"/></td>
-                    <td onClick={()=>history.push('/quizcreation')}>Quiz 1</td>
-                    <td className={classes.colorGreen}>published</td>
-                    <td>Oct/29/2019</td>
-                    <td>291</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"/></td>
-                    <td>Quiz 2</td>
-                    <td className={classes.colorYellow}>saved</td>
-                    <td>Oct/29/2019</td>
-                    <td>291</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"/></td>
-                    <td>Quiz 3</td>
-                    <td className={classes.colorGreen}>published</td>
-                    <td>Oct/29/2019</td>
-                    <td>291</td>
-                    <td>2</td>
-                </tr> */}
 
                 {quizzes.map((quiz, i) => {
                     return (
@@ -80,6 +71,7 @@ const QuizManagement = () => {
                              <td className={classes.colorGreen}>published</td>
                              <td>{quiz[BODY.CREATIONTIME]}</td>
                              <td>{quiz[BODY.TAKECOUNTS]}</td>
+                             <td><Button onClick={()=>{removeQuiz(i)}} >&#10005;</Button></td>
                         </tr>
                     )
                 })}

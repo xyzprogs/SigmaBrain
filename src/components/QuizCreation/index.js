@@ -25,12 +25,18 @@ const QuizCreation = () => {
     const history = useHistory()
     const [category, setCategory] = useState()
     const [categoryList, setCategoryList] = useState([])
-    const [questions, setQuestions] = useState(
-        [
-            {questionType: QUESTION_TYPE.MULTIPLE_CHOICE, numberOfChoice: 4, question: "what is the best team?"}
-        ]
-    )  
+    const [questions, setQuestions] = useState([])  
+    const [open, setOpen] = useState(false)  
     // const [categoryText, setCategoryText] = useState("")
+
+    const handleOpen = ()=>{
+        setOpen(true)
+    }
+
+    const handleClose = ()=>{
+        setOpen(false)
+    }
+
     const onAutoChange = (event, value)=>{
         setCategory(value['value'])
     }
@@ -56,6 +62,18 @@ const QuizCreation = () => {
         setName(event.target.value)
     }
 
+    const addQuestion = (question)=>{
+        let newQuestions = [...questions]
+        newQuestions.push(question)
+        console.log("add question", newQuestions)
+        setQuestions(newQuestions)
+    }
+
+    const removeQuestion = (i)=>{
+        let newQuestions = [...questions]
+        newQuestions.splice(i, 1)
+        setQuestions(newQuestions)
+    }
     // const onChangeCategory = (event)=>{
     //     console.log(event.target.value)
     //     setCategoryText(event.target.value)
@@ -86,16 +104,15 @@ const QuizCreation = () => {
             [BODY.QUIZNAME]: name,
             [BODY.QUIZCATEGORY]: category,
             [BODY.QUIZDESCRIPTION]: introduction,
-            [BODY.ISPUBLISHED]: 0
+            [BODY.ISPUBLISHED]: 0,
+            [BODY.QUESTIONS]: questions
         }
 
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN] : token
         }
-
-
-        let response = await quizApis.createQuiz(quiz, headers)
+        let response = await quizApis.createQuizWithQuestions(quiz, headers)
         let quizId = response.data.insertId
         const data = new FormData()
         data.append(BODY.QUIZID, quizId)
@@ -103,6 +120,10 @@ const QuizCreation = () => {
         await quizApis.setQuizThumbnail(quizId, data, headers)
         history.push(`/quizManagement`);
     }
+
+    // const createQuiz = ()=>{
+    //     console.log("creating", questions)
+    // }
 
     useEffect(()=>{
         let categorylist = []
@@ -166,7 +187,8 @@ const QuizCreation = () => {
             <div className={`${classes.questionContainer}`}>
                 <div className={classes.subTitle}>Questions</div>
                 <div className={classes.btn}>
-                    <div className={`${classes.btnText}`}>Add</div>
+                    {/* <div className={`${classes.btnText}`}>Add</div> */}
+                    <Button onClick={handleOpen}>Add</Button>
                 </div>
                 <div>
                     <table className={classes.toCenter}>
@@ -176,10 +198,11 @@ const QuizCreation = () => {
                             <th>Question</th>
                         </tr>
                         {questions.map((question,i)=>
-                            <tr className={classes.checkboxPadding}>
+                            <tr key={i} className={classes.checkboxPadding}>
                                 <td><input type="checkbox" />&nbsp;</td>
                                 <td>#{i+1}</td>
                                 <td>{question['question']}</td>
+                                <td className={classes.delete} onClick={()=>{removeQuestion(i)}}>&#10005;</td>
                             </tr>)
                         }
                     </table>
@@ -191,7 +214,11 @@ const QuizCreation = () => {
                 </div>
             </div>
             <QuestionCreationModal
-            questions={questions}/>
+            questions={questions}
+            addQuestion={addQuestion}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+            open={open}/>
         </div>
     )
 }

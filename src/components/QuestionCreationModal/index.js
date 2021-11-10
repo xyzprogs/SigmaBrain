@@ -2,21 +2,31 @@ import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import Typography  from '@mui/material/Typography'
+import QUESTION_TYPE from '../../constant/question-type'
+import BODY from '../../constant/body'
 import { useState } from 'react'
 import { userStyles } from './style'
 
 const QuestionCreationModal = (props)=>{
-    const [open, setOpen] = useState(false)  
     const [numOfChoices, setNumOfChoices] = useState(0)
     const [choices, setChoices] = useState([])
     const [correct, setCorrect] = useState([])
+    const [questionName, setQuestionName] = useState("")
     const classes = userStyles()
+
+    const clearModal = ()=>{
+        setNumOfChoices(0)
+        setChoices([])
+        setCorrect([])
+        setQuestionName("")
+    }
     const handleOpen = ()=>{
-        setOpen(true)
+        props.handleOpen()  
     }
 
     const handleClose = ()=>{
-        setOpen(false)
+        clearModal()
+        props.handleClose()
     }
 
     const addChoice = ()=>{
@@ -31,9 +41,32 @@ const QuestionCreationModal = (props)=>{
         setChoices(newChoices)
     }
 
+    const onChangeQuestionName = (event)=>{
+        setQuestionName(event.target.value)
+    }
+
+    const buildChoiceList = (choices, correct)=>{
+        let list = []
+        for(var i = 0; i < choices.length; i++){
+            list.push(
+                {
+                    [BODY.ISRIGHTCHOICE]: correct[i]?1:0,
+                    [BODY.CHOICE]: choices[i]
+                }
+            )
+        }
+        return list
+    }
     const onSave = ()=>{
-        console.log(choices)
-        console.log(correct)
+        let question = {
+            [BODY.QUESTIONTYPE]: QUESTION_TYPE.MULTIPLE_CHOICE,
+            [BODY.NUMBEROFCHOICE]: choices.length,
+            [BODY.QUESTION]: questionName,
+            [BODY.CHOICES]: buildChoiceList(choices, correct)
+        }
+        props.addQuestion(question)
+        props.handleClose()
+        clearModal()
     }
 
     const onDelete = (i)=>{
@@ -49,9 +82,8 @@ const QuestionCreationModal = (props)=>{
 
     return(
         <div>
-            <Button onClick={handleOpen}>Open modal</Button>
             <Modal
-            open={open}
+            open={props.open}
             // onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
@@ -64,7 +96,7 @@ const QuestionCreationModal = (props)=>{
                         <div>
                             <div className={classes.subSection}>
                                 <div className={classes.subTitle}>Quiz Name</div>
-                                <input className={classes.questionNameField}/>
+                                <input onKeyUp={onChangeQuestionName} className={classes.questionNameField}/>
                             </div>
                             <div className={classes.subSection}>
                                 <div className={classes.toCenter}>
