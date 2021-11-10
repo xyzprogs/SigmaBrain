@@ -8,7 +8,6 @@ import config from "../config"
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-console.log(config.api_key)
 const firebaseConfig = {
   apiKey: config.api_key,
   authDomain: config.auth_domain,

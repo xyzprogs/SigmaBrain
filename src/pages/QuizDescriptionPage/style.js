@@ -7,7 +7,6 @@ export const useStyles = createUseStyles({
         backgroundColor:"whitesmoke",
         width: "100%",
         height: "100%",
-        position: "relative"
     },
 
     descriptionBox:{

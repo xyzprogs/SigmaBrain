@@ -1,20 +1,22 @@
 import { useStyles } from "./style";
-import SearchBar from '../../components/NavBar/SearchBar/index'
+import { useParams } from 'react-router-dom'
+import NavBar from "../../components/NavBar";
 import UserBanner from "../../components/UserBanner";
 import ProfileBar from "../../components/UserProfile/ProfileBar";
 import UserFeatureQuiz from "../../components/UserProfile/UserFeatureQuiz";
 import MyQuizList from "../../components/UserProfile/MyQuizList";
 const UserProfilePage = () => {
     const classes = useStyles()
-
+    const { userId } = useParams()
     return(
         <div>
-            <SearchBar/>
+            <NavBar/>
             <div className={classes.pageContainer}>
-                <UserBanner/>
-                <ProfileBar/>
-                <UserFeatureQuiz/>
-                <MyQuizList/>
+                <UserBanner userId={userId}/>
+                <ProfileBar userId={userId}/>
+                <UserFeatureQuiz userId={userId}/>
+                <MyQuizList userId={userId}/>
+                <div>User is is {userId}</div>
             </div>
         </div>
 

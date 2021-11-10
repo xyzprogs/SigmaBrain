@@ -6,6 +6,12 @@ const EXPERIENCE = "experience"
 const CREATIONTIME = "creationTime"
 const PASSWORD = "password"
 const UID = "uid"
+const PROFILEIMAGE = "profileImage"
+const BACKGROUNDIMAGE = "backgroundImage"
+const USERDESCRIPTION = "userDescription"
+const TOPFEATUREQUIZ = "topFeatureQuiz"
+const USERPROFILE = "userProfile"
+const USERPROFILE_IMAGE_TYPE = "imageType"
 
 //Quiz Body
 const QUIZID = "quizId"
@@ -25,8 +31,10 @@ const QUESTIONTYPE = "questionType"
 const NUMBEROFCHOICE = "numberOfChoice"
 const IMAGE = "image"
 const QUESTION = "question" 
+const QUESTIONS = "questions"
 
 //QuestionChoice Body
+const CHOICES = "choices"
 const CHOICEID = "choiceId"
 const ISRIGHTCHOICE = "is_right_choice"
 const CHOICE = "choice"
@@ -40,6 +48,12 @@ const BODY_CONSTANT = {
     CREATIONTIME,
     PASSWORD,
     UID,
+    PROFILEIMAGE,
+    BACKGROUNDIMAGE,
+    USERDESCRIPTION,
+    TOPFEATUREQUIZ,
+    USERPROFILE,
+    USERPROFILE_IMAGE_TYPE,
 
     //BODY
     QUIZID,
@@ -59,11 +73,13 @@ const BODY_CONSTANT = {
     NUMBEROFCHOICE,
     IMAGE,
     QUESTION,
+    QUESTIONS,
 
     //QUESTION CHOICE BODY
     CHOICEID,
     ISRIGHTCHOICE,
-    CHOICE
+    CHOICE,
+    CHOICES
 }
 
 export default BODY_CONSTANT
