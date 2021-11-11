@@ -1,7 +1,27 @@
-import {useState} from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useStyles } from './style';
+import AuthContext from '../../../context/auth-context';
+import userApis from '../../../api/user-api';
+import HEADER from '../../../constant/header';
 const SideBar = () => {
     const classes = useStyles()
+    const [subscriptions, setSubscriptions] = useState([])
+    const { auth } = useContext(AuthContext)
+
+    useEffect(()=>{
+        if(auth.user!=null){
+            loadSubscriptions()
+        }
+    }, [auth.user])
+
+    const loadSubscriptions = async (userId)=>{
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        let response = await userApis.getSubscriptions(headers)
+        setSubscriptions(response.data)
+    }
     return (
         <div className={classes.sideBarContainer}>
             <div className={classes.sideBarSelection}>
@@ -27,6 +47,11 @@ const SideBar = () => {
 
             <div className={`${classes.subscriptionTop} ${classes.sideBarSelection}`}>
                 Subscriptions:
+                <div>
+                    {subscriptions.map((sub, i)=>{
+                        return <div>{sub["subscribeTo"]}</div>
+                    })}
+                </div>
             </div>
 
             <div>

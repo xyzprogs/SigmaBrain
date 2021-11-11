@@ -88,7 +88,9 @@ function AuthContextProvider(props){
     }
 
     auth.getCurrentUserUid = () => {
-        return auth.user.auth.currentUser.uid
+        if(auth.user!=null){
+            return auth.user.auth.currentUser.uid
+        }
     }
 
     return(

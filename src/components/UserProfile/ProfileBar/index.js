@@ -44,6 +44,20 @@ const ProfileBar = (props) => {
         setProfile(false)
     }
 
+    const onSubscribe = async ()=>{
+        if(auth.getCurrentUserUid()!=undefined || auth.getCurrentUserUid()!=null){
+            console.log("user",auth.getCurrentUserUid())
+            console.log("subscribe to",props.userId)
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.SUBSCRIBETO]: props.userId
+            }
+            userApis.subscribe(payload, headers)
+        }
+    }
 
     useEffect(()=>{
         loadImage()
@@ -75,7 +89,7 @@ const ProfileBar = (props) => {
                 </div>   
 
                 <div className={classes.tableCell3}>
-                    <Button>Subscribe</Button>
+                    <Button onClick={onSubscribe}>Subscribe</Button>
                 </div>            
             </div>
         )

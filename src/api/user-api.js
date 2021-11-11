@@ -3,8 +3,6 @@ import config from '../config'
 const api = axios.create({
     baseURL: `${config.base_url}/user`,
 })
-
-
 export const createUser = (payload, config) => api.post('/create', payload, config) 
 export const getMainLeaderboard = () => api.get('/leaderboard')
 export const setProfilePageImage = (formdata, config) => api.post('/profile/setUserProfileImage', formdata, config)
@@ -14,8 +12,9 @@ export const setTopFeatureQuiz = (payload, config) => api.post('/profile/setTopF
 export const getProfileImage = (userId)=>api.get(`/profile/profileImage/${userId}`)
 export const getBackgroundImage = (userId)=>api.get(`/profile/backgroundImage/${userId}`)
 export const getUserDescription = (userId)=>api.get(`/profile/userDescription/${userId}`)
-
-
+export const subscribe = (payload, headers)=>api.post('/subscribe', payload, {headers: headers})
+export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload, {headers: headers})
+export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -25,7 +24,10 @@ const userApis = {
     setBackgroundImage,
     getProfileImage,
     getBackgroundImage,
-    getUserDescription
+    getUserDescription,
+    subscribe,
+    unsubscribe,
+    getSubscriptions
 }
 
 export default userApis

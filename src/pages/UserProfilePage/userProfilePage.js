@@ -16,7 +16,7 @@ const UserProfilePage = () => {
         if(auth.getCurrentUserUid() == userId){
             setSelf(true)
         }
-    }, [])
+    }, [auth.getCurrentUserUid()])
     return(
         <div>
             <NavBar/>
