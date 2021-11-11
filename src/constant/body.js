@@ -39,6 +39,55 @@ const CHOICEID = "choiceId"
 const ISRIGHTCHOICE = "is_right_choice"
 const CHOICE = "choice"
 
+
+//Quiz Comment
+const QUIZCOMMENTID = "quizCommentId"
+const QUIZCOMMENT = "quizComment"
+const QUIZCOMMENTREPLYID  = "quizCommentReplyId"
+
+//Quiz Grade
+const QUIZGRADEID = "quizGradeId"
+const GRADE = "grade"
+
+//Leaderboard
+const LEADERBOARDID = "leaderboardId"
+const USERCHANNELSCOREID = "userChannelScoreId"
+const SCORE = "score"
+
+//Forum
+const FORUMID = "forumId"
+const FORUMNAME = "forumName"
+const FORUMPOSTID = "forumPostId"
+const POSTTITLE = "postTitle"
+const POSTDESCRIPTION = "postDescription"
+
+//Forum Post Comment
+const FORUMPOSTCOMMENTID = "forumPostCommentId"
+const POSTCOMMENT = "postComment"
+
+//Forum Post Comment Reply
+const FORUMPOSTCOMMENTREPLYID = "forumPostCommentReplyId"
+
+//Forum Admin
+const FORUMADMINID = "forumAdminId"
+
+//Achievement
+const ACHIEVEMENT = "achievementId"
+const ACHIEVEMENTNAME = "achievementName"
+const ACHIEVEMENTDESCRIPTION = "achievementDescription"
+const COMPLETIONAMOUNT = "completionAmount"
+const ACHIEVEMENTLEVEL = "achievementLevel"
+
+//User Achievement Progress
+const USERACHIEVEMENTPROGRESSID = "userAchievementProgressId"
+const PROGRESS = "progress"
+
+//User Achievement Completion
+const USERACHIEVEMENTCOMPLETIONID = "userAchievementCompletionId"
+
+//Subscribe
+const SUBSCRIBETO = "subscribeTo"
+
 const BODY_CONSTANT = {
     //User
     USERID,
@@ -79,7 +128,55 @@ const BODY_CONSTANT = {
     CHOICEID,
     ISRIGHTCHOICE,
     CHOICE,
-    CHOICES
+    CHOICES,
+
+    //QUIZ COMMENT
+    QUIZCOMMENTID,
+    QUIZCOMMENT,
+    QUIZCOMMENTREPLYID,
+
+    //QUIZ GRADE
+    QUIZGRADEID,
+    GRADE,
+
+    //LEADERBOARD
+    LEADERBOARDID,
+    USERCHANNELSCOREID,
+    SCORE,
+
+    //FORUM
+    FORUMID,
+    FORUMNAME,
+    FORUMPOSTID,
+    POSTTITLE,
+    POSTDESCRIPTION,
+
+    //FORUM POST COMMENT 
+    FORUMPOSTCOMMENTID,
+    POSTCOMMENT,
+
+    //FORUM POST COMMENT REPLY
+    FORUMPOSTCOMMENTREPLYID,
+
+    //Forum Admin
+    FORUMADMINID,
+
+    //Achievement
+    ACHIEVEMENT,
+    ACHIEVEMENTNAME,
+    ACHIEVEMENTDESCRIPTION,
+    COMPLETIONAMOUNT,
+    ACHIEVEMENTLEVEL,
+
+    //User Achievement Progress
+    USERACHIEVEMENTPROGRESSID,
+    PROGRESS,
+
+    //User Achievement Completion
+    USERACHIEVEMENTCOMPLETIONID,
+    
+    //SUBSCRIBE
+    SUBSCRIBETO
 }
 
 export default BODY_CONSTANT

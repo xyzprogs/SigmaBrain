@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import Typography  from '@mui/material/Typography'
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { useStyles } from './style'
 import quizApis from '../../api/quiz-api'
 import QuizCard from '../QuizCard'
@@ -13,10 +13,6 @@ import HEADER from '../../constant/header'
 const QuizListModal = (props)=>{
     const classes = useStyles()
     const { auth } = useContext(AuthContext)
-    useEffect(()=>{
-        console.log(props.userId)
-    }, [])
-
 
     const handleClose = ()=>{
         props.setOpen(false)

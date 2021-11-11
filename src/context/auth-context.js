@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 const AuthContext = createContext()
 
@@ -74,8 +74,8 @@ function AuthContextProvider(props){
                 //
             })
             .catch((error)=>{
-                const errorCode = error.code;
-                const errorMessage = error.message;
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
             })
     }
 
@@ -88,7 +88,9 @@ function AuthContextProvider(props){
     }
 
     auth.getCurrentUserUid = () => {
-        return auth.user.auth.currentUser.uid
+        if(auth.user!=null){
+            return auth.user.auth.currentUser.uid
+        }
     }
 
     return(

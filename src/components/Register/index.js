@@ -38,13 +38,13 @@ const Register = () => {
     })
 
     const confirmRegister = async (event) => {
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             setErrorMessages(["passwords doesn't match"])
             return
         }
         register(email, password).then(async (userCredential) => {
             // Signed in 
-            const user = userCredential.user;
+            // const user = userCredential.user;
             // ...
             let payload = {}
             let axios_config = {}
@@ -68,7 +68,7 @@ const Register = () => {
             const errorCode = error.code;
             // const errorMessage = error.message;
             console.log(errorCode)
-            if(errorCode == AUTH_ERROR.ALREADY_REGISTERED){
+            if(errorCode === AUTH_ERROR.ALREADY_REGISTERED){
                 setErrorMessages(["Email has already registered"])
             }
             // ..

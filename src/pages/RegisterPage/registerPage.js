@@ -1,7 +1,5 @@
-// import React from 'react'
 import { useStyles } from './style'
 import Register from '../../components/Register/index'
-import NavBar from '../../components/NavBar'
 
 const RegisterPage = () => {
     const classes = useStyles()

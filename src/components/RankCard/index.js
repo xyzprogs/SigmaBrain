@@ -1,7 +1,4 @@
 import { useHistory } from "react-router";
-import userApis from "../../api/user-api"
-import { useStyles } from "./style"
-import { useEffect } from 'react'
 
 const RankCard = ({user, index}) => {
     //Index starts at 0 
@@ -13,7 +10,7 @@ const RankCard = ({user, index}) => {
         history.push(`/profiles/${user.userId}`);
     }
 
-    if(user==undefined){
+    if(user===undefined){
         return <div>loading</div>
     }
     return(

@@ -13,16 +13,16 @@ const QuizManagement = () => {
     const { auth } = useContext(AuthContext)
 
     useEffect(()=>{
+        const loadUserQuizzes = async () => {
+            let id =  auth.getCurrentUserUid()
+            let response = await quizApis.getUserQuiz(id)
+            setQuizzes(response.data)
+        }
+
         if(!auth.loading){
             loadUserQuizzes()
         }
-    }, [auth.loading])
-
-    const loadUserQuizzes = async () => {
-        let id =  auth.getCurrentUserUid()
-        let response = await quizApis.getUserQuiz(id)
-        setQuizzes(response.data)
-    }
+    }, [auth.loading, auth])
 
     const redirectQuizCreation = () => {
         history.push(`/quizCreation`)

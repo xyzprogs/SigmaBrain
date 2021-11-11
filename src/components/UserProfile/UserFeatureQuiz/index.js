@@ -13,25 +13,28 @@ const UserFeatureQuiz = (props) => {
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState("")
     useEffect(()=>{
+        const loadTopFeatureQuiz = async ()=>{
+            let response = await quizApis.getUserTopFeatureQuiz(props.userId)
+            if(response.data.length>0){
+                setQuiz(response.data[0])
+                let img_response = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
+                setImage(img_response.data)
+                setQuizFound(true)
+            }
+        }
+
+        const loadQuizzes = async ()=>{
+            let response = await quizApis.getUserQuiz(props.userId)
+            console.log(response.data)
+            setQuizzes(response.data)
+        }
+
         loadTopFeatureQuiz()
         loadQuizzes()    
-    },[])
+    },[props.userId])
     
-    const loadTopFeatureQuiz = async ()=>{
-        let response = await quizApis.getUserTopFeatureQuiz(props.userId)
-        if(response.data.length>0){
-            setQuiz(response.data[0])
-            let img_response = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
-            setImage(img_response.data)
-            setQuizFound(true)
-        }
-    }
 
-    const loadQuizzes = async ()=>{
-        let response = await quizApis.getUserQuiz(props.userId)
-        console.log(response.data)
-        setQuizzes(response.data)
-    }
+
 
     const handleOpen = ()=>{
         setOpen(true)
