@@ -14,10 +14,7 @@ const ProfileBar = (props) => {
     const clickUpload = ()=>{
         imgRef.current.click()
     }
-    const loadImage = async ()=>{
-        let response = await userApis.getProfileImage(props.userId)
-        setImage(response.data)
-    }
+
     const onImageUpload = async (event)=>{
         const token = await auth.user.getIdToken()
         let headers = {
@@ -45,7 +42,7 @@ const ProfileBar = (props) => {
     }
 
     const onSubscribe = async ()=>{
-        if(auth.getCurrentUserUid()!=undefined || auth.getCurrentUserUid()!=null){
+        if(auth.getCurrentUserUid()!==undefined || auth.getCurrentUserUid()!=null){
             console.log("user",auth.getCurrentUserUid())
             console.log("subscribe to",props.userId)
             const token = await auth.user.getIdToken()
@@ -60,15 +57,20 @@ const ProfileBar = (props) => {
     }
 
     useEffect(()=>{
+        const loadImage = async ()=>{
+            let response = await userApis.getProfileImage(props.userId)
+            setImage(response.data)
+        }
+
         loadImage()
-    }, [])
+    }, [props.userId])
 
     if(!props.self){
         return(
             <div className={classes.barContainer}>
                 <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         <div className={classes.imgSize}>
-                            <img className={classes.imgSize} src={image}/>
+                            <img alt="user profile" className={classes.imgSize} src={image}/>
                         </div>      
                 </div>
     
@@ -102,12 +104,12 @@ const ProfileBar = (props) => {
                     profile
                     ?
                     <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
-                        <img  className={`${classes.imgSize} ${classes.imgOpacity}`} src={image}/>
+                        <img  alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image}/>
                         <div className={classes.changeText}>Change</div>
                     </div>
                     :
                     <div className={classes.imgSize}>
-                        <img  onMouseEnter={onEnterProfile} className={classes.imgSize} src={image}/>
+                        <img  alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image}/>
                     </div>      
                 }
             </div>

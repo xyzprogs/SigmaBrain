@@ -7,10 +7,9 @@ import BODY from '../../constant/body';
 import quizApis from '../../api/quiz-api';
 import AuthContext from '../../context/auth-context';
 import HEADER from '../../constant/header';
-import {QUIZ_CATEGORY_NAME, QUIZ_CATEGORY_DICT} from '../../constant/quiz-category'
+import { QUIZ_CATEGORY_DICT} from '../../constant/quiz-category'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import QUESTION_TYPE from '../../constant/question-type';
 import Button from '@mui/material/Button'
 import QuestionCreationModal from '../QuestionCreationModal';
 const QuizCreation = () => {
@@ -136,7 +135,7 @@ const QuizCreation = () => {
 
     return (
         <div className={classes.creationCardContainer}>
-            <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
+            <input type="file" name="image" id="image" alt="quiz thumbnail" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
             <div className={classes.title}>
                 <div>Quiz Creator</div>
             </div>
@@ -152,7 +151,7 @@ const QuizCreation = () => {
                     <div className={classes.btnText}>upload</div>
                 </div>
                 <div className={classes.imgContainer}>
-                    <img  className={classes.imgSize} src={image}/>
+                    <img  className={classes.imgSize} src={image} alt="quiz thumbnail"/>
                 </div>
             </div>
 

@@ -1,7 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
 import { useStyles } from './style';
-import { app } from '../../firebase/firebase_init';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../context/auth-context'

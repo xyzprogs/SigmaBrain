@@ -1,9 +1,8 @@
-import { useStyles } from './style'
+// import { useStyles } from './style'
 import QuizTaking from '../../components/QuizTaking'
-import NavBar from '../../components/NavBar'
 
 const QuizTakingPage = () => {
-    const classes = useStyles();
+    // const classes = useStyles();
 
     return (
         <div>

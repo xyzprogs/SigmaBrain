@@ -9,21 +9,23 @@ const DescriptionBox = (props)=>{
     const [image, setImage] = useState("")
 
     useEffect(()=>{
+        console.log("load quiz")
+        const loadQuiz = async () => {
+            let response = await quizApis.getQuiz(props.quizId)
+            if(response.data.length <= 0){
+                return
+            }
+            setQuiz(response.data[0])
+            let response2 = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
+            setImage(response2.data)
+         }
         loadQuiz()
-    }, [])
-
-    const loadQuiz = async () => {
-       let response = await quizApis.getQuiz(props.quizId)
-       if(response.data.length <= 0){
-           return
-       }
-       setQuiz(response.data[0])
-       let response2 = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
-       setImage(response2.data)
-    }
+    }, [props.quizId])
 
 
-    if(quiz == undefined){
+
+
+    if(quiz === undefined){
         return(
             <div>loading</div>
         )
@@ -33,7 +35,7 @@ const DescriptionBox = (props)=>{
         <div>{quiz[BODY.QUIZNAME]}</div>
         <div>{quiz[BODY.CREATIONTIME]}</div>
         <div>{quiz[BODY.QUIZDESCRIPTION]}</div>
-        <img className={classes.imgSize} src={image}/>
+        <img className={classes.imgSize} src={image} alt="quiz thumbnail"/>
         <div>Button</div>
     </div>
     )

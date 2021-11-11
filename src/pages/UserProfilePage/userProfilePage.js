@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from 'react'
 import AuthContext from '../../context/auth-context';
 import { useStyles } from "./style";
 import { useParams } from 'react-router-dom'
-import NavBar from "../../components/NavBar";
 import UserBanner from "../../components/UserBanner";
 import ProfileBar from "../../components/UserProfile/ProfileBar";
 import UserFeatureQuiz from "../../components/UserProfile/UserFeatureQuiz";
@@ -13,10 +12,10 @@ const UserProfilePage = () => {
     const { auth } = useContext(AuthContext)
     const [self, setSelf] = useState(false)
     useEffect(()=>{
-        if(auth.getCurrentUserUid() == userId){
+        if(auth.getCurrentUserUid() === userId){
             setSelf(true)
         }
-    }, [auth.getCurrentUserUid()])
+    }, [auth, userId])
     return(
         <div>
             <div className={classes.pageContainer}>

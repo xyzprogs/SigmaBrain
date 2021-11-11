@@ -8,16 +8,13 @@ import QuizCreationPage from './pages/QuizCreationPage/quizCreationPage';
 import QuizDescriptionPage from './pages/QuizDescriptionPage/quizDescriptionPage';
 import QuizManagementPage  from './pages/QuizManagementPage/quizManagementPage';
 import SearchResultPage from './pages/SearchResultPage/searchResultPage';
-import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import bootstrap from 'bootstrap' 
 import NavBar from './components/NavBar';
 
 
 function App() {
-  let history = useHistory()
-
-
   return (
     <div className="App">
       <AuthContextProvider>

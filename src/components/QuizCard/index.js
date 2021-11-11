@@ -10,11 +10,6 @@ const QuizCard = (props)=>{
     const history = useHistory()
     const [image, setImage] = useState("")
 
-    const loadImage = async ()=>{
-        let response = await quizApis.getQuizThumbnail(props.quiz[BODY.QUIZID])
-        setImage(response.data)
-    }
-
     const clickQuiz = ()=>{
         if(props.redirect){
             let quiz = props.quiz
@@ -23,21 +18,26 @@ const QuizCard = (props)=>{
     }
 
     useEffect(()=>{
-        if(props.quiz!=undefined){
+        const loadImage = async ()=>{
+            let response = await quizApis.getQuizThumbnail(props.quiz[BODY.QUIZID])
+            setImage(response.data)
+        }
+
+        if(props.quiz!==undefined){
             loadImage()
         }
-    },[])
+    },[props.quiz])
 
 
 
-    if(props.quiz!=undefined){
+    if(props.quiz!==undefined){
         return(
             <div onClick={clickQuiz}>
                 <Card className={classes.quizCardContainer}>
                     <Card.Body>
                         <Card.Title>{props.quiz.quizName}</Card.Title>
                         <div>
-                            <img className={classes.imgSize} src={image}/>
+                            <img className={classes.imgSize} src={image} alt="quizimage"/>
                         </div>
                         <Card.Text>
                             {props.quiz.quizDescription}

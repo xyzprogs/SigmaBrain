@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStyles } from './style'
 import { SideBar, MainBoard } from '../../components/Home'
-import NavBar from '../../components/NavBar/index'
+
 
 
 const HomePage = () => {

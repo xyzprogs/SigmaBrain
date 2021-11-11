@@ -15,6 +15,7 @@ export const getUserDescription = (userId)=>api.get(`/profile/userDescription/${
 export const subscribe = (payload, headers)=>api.post('/subscribe', payload, {headers: headers})
 export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload, {headers: headers})
 export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
+export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -27,7 +28,8 @@ const userApis = {
     getUserDescription,
     subscribe,
     unsubscribe,
-    getSubscriptions
+    getSubscriptions,
+    getUserInfo
 }
 
 export default userApis

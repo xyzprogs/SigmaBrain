@@ -1,4 +1,3 @@
-import Navbar from '../../components/NavBar';
 import QuizCreation from '../../components/QuizCreation';
 import { useStyles } from './style';
 

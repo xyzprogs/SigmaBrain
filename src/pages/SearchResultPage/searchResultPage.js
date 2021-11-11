@@ -1,7 +1,6 @@
 import React from 'react'
 import { useStyles } from './style'
 import { SideBar} from '../../components/Home'
-import NavBar from '../../components/NavBar/index'
 import SearchResult from '../../components/NavBar/SearchBar/SearchResult'
 
 

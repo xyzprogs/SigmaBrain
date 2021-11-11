@@ -20,10 +20,7 @@ const QuestionCreationModal = (props)=>{
         setCorrect([])
         setQuestionName("")
     }
-    const handleOpen = ()=>{
-        props.handleOpen()  
-    }
-
+    
     const handleClose = ()=>{
         clearModal()
         props.handleClose()

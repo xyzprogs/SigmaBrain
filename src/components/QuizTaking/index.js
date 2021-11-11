@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { userStyles, useStyles } from "./style"
+import { useStyles } from "./style"
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import Card from "react-bootstrap/Card";
@@ -89,7 +89,7 @@ const QuizTaking = () => {
     const handleSubmit = () => {
         let correct = 0;
         for (let i = 0; i < answerChoices.length; i++){
-            if (answerChoices[i] == tempAnswers[i].correctAnswer){
+            if (answerChoices[i] === tempAnswers[i].correctAnswer){
                 correct++;
             }
         }

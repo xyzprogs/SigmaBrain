@@ -15,7 +15,7 @@ const NavBar = () => {
 
     useEffect(()=>{
         setIsLoggedIn(auth.loggedIn)
-    })
+    }, [auth.loggedIn])
     
 
     const classes = useStyles()

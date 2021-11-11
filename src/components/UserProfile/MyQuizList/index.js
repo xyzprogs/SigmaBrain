@@ -5,15 +5,17 @@ import quizApis from '../../../api/quiz-api'
 const MyQuizList = (props) => {
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])
-    const loadUserQuiz = async ()=>{
-        const response = await quizApis.getUserQuiz(props.userId)
-        console.log(response.data)
-        setQuizzes(response.data)
-    }
+
 
     useEffect(()=>{
+        const loadUserQuiz = async ()=>{
+            const response = await quizApis.getUserQuiz(props.userId)
+            console.log(response.data)
+            setQuizzes(response.data)
+        }
+
         loadUserQuiz()
-    },[])
+    },[props.userId])
     return(
         <div className={classes.quizListContainer}>
             MyQuizList

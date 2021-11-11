@@ -9,33 +9,36 @@ const QuizDisplayBoard = (props) => {
     //TEMP DATA
     const classes = useStyles()
 
-    const [category, setCategory] = useState(null)
+    // const [category, setCategory] = useState(null)
     const [quizzes, setQuizzes] = useState([])
     const [topUsers, setTopUsers] = useState([])
 
  
-    const getTopUsersFromLeaderboard = async () => {
-        await userApis.getMainLeaderboard().then((response) => {
-            setTopUsers(response.data);
-            console.log("topten users",response.data)
-        })
-    }
 
     useEffect(() => {
+        const loadCategoryQuiz = async () => {
+            if (props.category !== undefined) {
+                console.log("loading quiz from category")
+                const category = props.category
+                const response = await quizApis.getCategoryQuiz(category)
+                setQuizzes(response.data)
+            }
+        }
+
+        const getTopUsersFromLeaderboard = async () => {
+            await userApis.getMainLeaderboard().then((response) => {
+                setTopUsers(response.data);
+                console.log("topten users",response.data)
+            })
+        }
+
         loadCategoryQuiz()
         getTopUsersFromLeaderboard();
-    }, [])
+    }, [props.category])
 
-    const loadCategoryQuiz = async () => {
-        if (props.category != undefined) {
-            console.log("loading quiz from category")
-            const category = props.category
-            const response = await quizApis.getCategoryQuiz(category)
-            setQuizzes(response.data)
-        }
-    }
 
-    if (quizzes.length == 0) {
+
+    if (quizzes.length === 0) {
         return (
             <div className={classes.displayBoardContainer}>
                 <div className={classes.headerContainer}>
