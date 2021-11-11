@@ -10,10 +10,6 @@ export const useStyles = createUseStyles({
         backgroundColor: '#DCDCDC'
     },
 
-    header:{
-        gridArea: "header"
-    },
-
     quizContainer: {
         ...flexCenter,
         marginTop: '50px',

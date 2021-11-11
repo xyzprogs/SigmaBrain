@@ -7,10 +7,6 @@ const QuizTakingPage = () => {
 
     return (
         <div>
-            <div className={classes.header}>
-                <NavBar/>
-            </div>
-
             <div >
                 <QuizTaking />
             </div>

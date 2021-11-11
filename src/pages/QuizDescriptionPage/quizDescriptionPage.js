@@ -11,7 +11,6 @@ const QuizDescriptionPage = (props)=>{
 
     return(
     <div className={classes.pageContainer}>
-        <NavBar/>
         <div className={classes.descriptionBox}>
             <DescriptionBox quizId={props.match.params.quizId}/>
         </div>
