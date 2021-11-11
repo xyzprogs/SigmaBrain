@@ -13,9 +13,6 @@ const SearchResultPage = () => {
             <div>
                 <SideBar className={classes.sidebar}/>
             </div>
-            <div className={classes.header}>
-                <NavBar />
-            </div>
             <div className={classes.searchResults}>
                 <SearchResult />
             </div>

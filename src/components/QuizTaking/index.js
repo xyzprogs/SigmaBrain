@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { userStyles, useStyles } from "./style"
-import QuestionCard from '../QuestionCard'
+import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -116,14 +116,12 @@ const QuizTaking = () => {
         }else{
             return (
                 <div>
-                <QuestionContext.Provider value={{questions: tempQuestions[index], answers: tempAnswers[index], num: 3}}>
                      <div className={classes.sidebar}>
-                        <QuizSideBar changeIndex={changeIndex} />
+                        <QuizSideBar questions={tempQuestions[index]} num={tempQuestions.length} changeIndex={changeIndex} />
                     </div>
                     <div className={classes.quizContainer}>
-                        <QuestionCard changeIndex={changeIndex} handleSubmit={handleSubmit} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
+                        <QuestionCard answerChoices={answerChoices} questions={tempQuestions[index]} answers={tempAnswers[index]} num={tempQuestions.length} changeIndex={changeIndex} handleSubmit={handleSubmit} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
                     </div>
-                </QuestionContext.Provider>
                 </div>
             );
         }

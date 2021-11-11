@@ -9,7 +9,6 @@ const LoginPage = () => {
     return (
         <div className={classes.pageContainer}>
             <div className={classes.loginContainer}>
-                <NavBar/>
                 <Login />
             </div>
         </div>

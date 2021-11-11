@@ -11,6 +11,7 @@ import SearchResultPage from './pages/SearchResultPage/searchResultPage';
 import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import bootstrap from 'bootstrap' 
+import NavBar from './components/NavBar';
 
 
 function App() {
@@ -20,6 +21,11 @@ function App() {
   return (
     <div className="App">
       <AuthContextProvider>
+        <div className = "navbarHeader">
+          <NavBar/>
+        </div>
+
+        <div className = "mainPageContainer">
         <Switch>
           <Route exact path='/' component = {HomePage}/>
           <Route path='/login' component = {LoginPage}/>
@@ -31,6 +37,7 @@ function App() {
           <Route path='/quizManagement' component={QuizManagementPage}/>
           <Route path='/searchResult' component = {SearchResultPage}/>
         </Switch>
+        </div>
       </AuthContextProvider>
     </div>
   );
