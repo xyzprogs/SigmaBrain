@@ -21,11 +21,7 @@ export const useStyles = createUseStyles({
         // `
         marginTop: "50px"
     },
-
-    header:{
-        gridArea: "header"
-    },
-
+    
     main:{
         // gridArea: "main",
         // gridColumnStart: "1",

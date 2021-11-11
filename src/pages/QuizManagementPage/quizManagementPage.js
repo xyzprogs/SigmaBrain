@@ -8,7 +8,6 @@ const QuizManagementPage = () => {
 
     return (
         <div> 
-        <NavBar/>
             <div className={classes.pageContainer}>
                 <UserBanner/>
                 <ProfileBar/>

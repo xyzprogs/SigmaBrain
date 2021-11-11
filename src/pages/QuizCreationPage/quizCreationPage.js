@@ -7,9 +7,6 @@ const QuizCreationPage = () => {
 
     return(
         <div className={classes.pageContainer}>
-            <div className={classes.header}>
-                <Navbar />
-            </div>
             <div className={classes.quizContainer}>
                 <QuizCreation />
             </div>

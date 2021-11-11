@@ -12,9 +12,6 @@ const HomePage = () => {
         <div>
             <SideBar className={classes.sidebar}/>
         </div>
-        <div className={classes.header}>
-                <NavBar />
-        </div>
         <div className={classes.homeContainer}>
             {/* <div className={classes.header}>
                 <SearchBar />
