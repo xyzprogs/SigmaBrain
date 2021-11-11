@@ -19,7 +19,6 @@ const UserProfilePage = () => {
     }, [])
     return(
         <div>
-            <NavBar/>
             <div className={classes.pageContainer}>
                 <UserBanner userId={userId} self={self}/>
                 <ProfileBar userId={userId} self={self}/>
