@@ -2,15 +2,11 @@ import React from 'react';
 import { userStyles, useStyles } from "./style";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import {QuestionContext} from '../QuizTaking';
-
-
 
 const QuestionCard = (props) => {
     const classes = userStyles();
-    const object = React.useContext(QuestionContext);
-    const questions = object.questions;
-    const answers = object.answers;
+    const questions = props.questions;
+    const answers = props.answers;
 
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
@@ -25,8 +21,31 @@ const QuestionCard = (props) => {
         props.changeAnswerChoice(questions.questionNum, event.target.value);
     }
 
+    const buttonRender = (choice) => {
+        // eslint-disable-next-line eqeqeq
+        if (answers.answerChoices.indexOf(choice) == props.answerChoices[questions.questionNum]){
+            return(
+                <div key={answers.answerChoices.indexOf(choice)}>
+                    <Button variant="success btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={answers.answerChoices.indexOf(choice)}>
+                        {choice}
+                    </Button>
+                    <br />
+                </div>
+            );
+        }else{
+            return (
+                <div key={answers.answerChoices.indexOf(choice)}>
+                    <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={answers.answerChoices.indexOf(choice)}>
+                        {choice}
+                    </Button>
+                    <br />
+                </div>
+            );
+        }
+    }
+
     const nextButtonRender = () =>{
-        if ((questions.questionNum + 1) === object.num){
+        if ((questions.questionNum + 1) === props.num){
             return(<Button variant="danger" className={classes.buttonMargin} name='submit' onClick={props.changeFlag}>Submit</Button>)
         }else{
             return(<Button variant="info" className={classes.buttonMargin} name='next' onClick={changeQuestionHandler}>Next Question</Button>)
@@ -49,13 +68,7 @@ const QuestionCard = (props) => {
                         {questions.question}
                     </Card.Text>
                     {answers.answerChoices
-                        .map((choice) => 
-                            <div key={answers.answerChoices.indexOf(choice)}>
-                                <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={answers.answerChoices.indexOf(choice)}>
-                                    {choice}
-                                </Button>
-                                <br />
-                            </div>)}
+                        .map((choice) => buttonRender(choice))}
                     {prevButtonRender()}
                     {nextButtonRender()}
                 </Card.Body>
