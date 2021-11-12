@@ -28,10 +28,10 @@ const UserControl = ({setLogin}) => {
                     Dropdown button
                 </div>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><div className="dropdown-item" onClick={redirectProfile}>Profile</div></li>
-                    <li><div className="dropdown-item" onClick={redirectQuizCreation}>Create Quiz</div></li>
-                    <li><div className="dropdown-item" onClick={redirectQuizManagement}>Quiz Management</div></li>
-                    <li><div className="dropdown-item" onClick={()=>auth.signOut()}>Sign Out</div></li>
+                    <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectProfile}>Profile</div></li>
+                    <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectQuizCreation}>Create Quiz</div></li>
+                    <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectQuizManagement}>Quiz Management</div></li>
+                    <li><div className={`${classes.dropItem} dropdown-item`}     onClick={()=>auth.signOut()}>Sign Out</div></li>
                 </ul>
             </div>
         </div>

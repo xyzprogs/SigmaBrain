@@ -22,7 +22,7 @@ export const useStyles = createUseStyles({
     },
     quizContainer: {
         border: "solid",
-        marginTop: "2.5%",
+        marginTop: "15%",
         height: "10vh",
         borderWidth: "0px 0px 1px 0px",
         display: "grid",
@@ -30,7 +30,7 @@ export const useStyles = createUseStyles({
         gridTemplateRows: "auto",
         gridTemplateAreas:`
         "quizImg description"
-        `
+        `,
     },
     title: {
         gridArea: "title"

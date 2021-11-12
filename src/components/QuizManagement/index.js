@@ -50,7 +50,7 @@ const QuizManagement = () => {
         <div>
             <div className={classes.quizContainer}>
                 <div className={classes.quizimg}>Quiz Management</div>
-                <Button className={classes.back}>Back</Button>
+                {/* <Button className={classes.back}>Back</Button> */}
             </div>
             <div className={classes.quizContainer}>
                 <div className={classes.quizimg}>Filter</div>
@@ -81,10 +81,10 @@ const QuizManagement = () => {
                 })}
 
                         
-                    </table>
-            <div className={classes.quizContainer}>
+            </table>
+            {/* <div className={classes.quizContainer}>
                 <Button className={classes.back}>Back</Button>
-            </div>
+            </div> */}
             
         </div>
         )

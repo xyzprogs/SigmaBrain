@@ -1,5 +1,5 @@
 import QuizSection from "../QuizSection";
-
+import QuestionSection from "../QuestionSection";
 const SectionWrapper = ({tag, quiz})=>{
 
     if(tag===0){
@@ -8,7 +8,8 @@ const SectionWrapper = ({tag, quiz})=>{
     }
 
     if(tag===1){
-        return <div>Question List</div>
+        return <QuestionSection
+                quiz={quiz}/>
     }
 }
 

@@ -43,9 +43,11 @@ const QuizSection = ({quiz})=>{
             setCategory(value['value'])
         }
     }
+
     const onSave = async ()=>{
+        let quizId = quiz[BODY.QUIZID]
         const payload = {
-            [BODY.QUIZID]: quiz[BODY.QUIZID],
+            [BODY.QUIZID]: quizId,
             [BODY.QUIZNAME]: name,
             [BODY.QUIZDESCRIPTION]: introduction,
             [BODY.TIMELIMIT]: timeLimit,
@@ -58,6 +60,10 @@ const QuizSection = ({quiz})=>{
         }
 
         await quizApis.updateQuiz(payload, headers)
+        const data = new FormData()
+        data.append(BODY.QUIZID, quizId)
+        data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
+        await quizApis.setQuizThumbnail(quizId, data, headers)
         history.push('/quizManagement')
         console.log("introduction", introduction)
         console.log("quizname", name)
@@ -65,6 +71,11 @@ const QuizSection = ({quiz})=>{
         console.log("quizCategory", category)
     }
     useEffect(()=>{
+        const loadImage = async ()=>{
+            let response = await quizApis.getQuizThumbnail(quiz[BODY.QUIZID])
+            setImage(response.data)
+        }
+
         let categorylist = []
         for(var key in QUIZ_CATEGORY_DICT){
             categorylist.push({label: key, value: QUIZ_CATEGORY_DICT[key]})
@@ -74,6 +85,7 @@ const QuizSection = ({quiz})=>{
         setTimeLimit(quiz[BODY.TIMELIMIT])
         setCategory(quiz[BODY.QUIZCATEGORY])
         setIntroduction(quiz[BODY.QUIZDESCRIPTION])
+        loadImage()
     },[quiz])
 
 
