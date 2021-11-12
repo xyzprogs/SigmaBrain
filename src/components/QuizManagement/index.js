@@ -27,6 +27,10 @@ const QuizManagement = () => {
     const redirectQuizCreation = () => {
         history.push(`/quizCreation`)
     }
+    
+    const redirectQuizEditing = (quizId) => {
+        history.push(`/quizEditing/${quizId}`)
+    }
 
     const removeQuiz = async (i) => {
         console.log("going to remove",quizzes[i][BODY.QUIZID])
@@ -53,7 +57,7 @@ const QuizManagement = () => {
                 <div><Button onClick={redirectQuizCreation}>Create quiz</Button>
                 <Button>delete</Button></div>
             </div>
-            <table cellspacing="0" rule="all" border ="1" id="quizzes">
+            <table cellSpacing="0" rule="all" border ="1" id="quizzes">
                 <tr>
                     <th>&nbsp;</th>
                     <th className={classes.cell}>All</th>
@@ -65,9 +69,9 @@ const QuizManagement = () => {
 
                 {quizzes.map((quiz, i) => {
                     return (
-                        <tr>
+                        <tr key={i}>
                              <td><input type="checkbox"/></td>
-                             <td>{quiz[BODY.QUIZNAME]}</td>
+                             <td onClick={()=>{redirectQuizEditing(quiz[BODY.QUIZID])}}>{quiz[BODY.QUIZNAME]}</td>
                              <td className={classes.colorGreen}>published</td>
                              <td>{quiz[BODY.CREATIONTIME]}</td>
                              <td>{quiz[BODY.TAKECOUNTS]}</td>

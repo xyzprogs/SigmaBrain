@@ -13,14 +13,6 @@ const HomePage = () => {
             <SideBar className={classes.sidebar}/>
         </div>
         <div className={classes.homeContainer}>
-            {/* <div className={classes.header}>
-                <SearchBar />
-            </div> */}
-
-            {/* <div>
-                <SideBar className={classes.sidebar}/>
-            </div> */}
-
             <div>
                 <MainBoard className={classes.main}/>
             </div>

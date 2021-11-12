@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useStyles } from './style';
 import userApis from '../../../api/user-api';
 import BODY from '../../../constant/body';

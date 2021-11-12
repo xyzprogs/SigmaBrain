@@ -2,12 +2,11 @@ import React from 'react';
 import { userStyles } from "./style";
 import { useState, useRef, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-// import Button from "react-bootstrap/Button";
 import BODY from '../../constant/body';
 import quizApis from '../../api/quiz-api';
 import AuthContext from '../../context/auth-context';
 import HEADER from '../../constant/header';
-import { QUIZ_CATEGORY_DICT} from '../../constant/quiz-category'
+import { QUIZ_CATEGORY_DICT } from '../../constant/quiz-category'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button'
@@ -37,7 +36,9 @@ const QuizCreation = () => {
     }
 
     const onAutoChange = (event, value)=>{
-        setCategory(value['value'])
+        if(value!=null){
+            setCategory(value['value'])
+        }
     }
 
     const clickUpload = ()=>{
