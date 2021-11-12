@@ -6,8 +6,7 @@ export const useStyles = createUseStyles({
         borderWidth: "0px 0px 1px 0px",
         height: "10vh",
         width: "100%",
-        display: "flex",
-        // borderSpacing: "0px",      
+        display: "flex",     
     },
     imgTag:{
         display: "none"

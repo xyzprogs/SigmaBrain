@@ -3,7 +3,7 @@ import { useStyles } from './style';
 import AuthContext from '../../../context/auth-context';
 import userApis from '../../../api/user-api';
 import HEADER from '../../../constant/header';
-import UserCard from '../../UserCard';
+import UserCard from '../SubscriptionCard';
 import BODY from '../../../constant/body';
 const SideBar = () => {
     const classes = useStyles()
@@ -19,7 +19,7 @@ const SideBar = () => {
             let response = await userApis.getSubscriptions(headers)
             setSubscriptions(response.data)
         }
-        
+
         if(auth.user!=null){
             loadSubscriptions()
         }
