@@ -17,6 +17,12 @@ const QuestionCard = (props) => {
         }
     }
 
+    const renderImage = () => {
+        if (questions.image !== null){
+            return(<Card.Img variant="bottom" src={questions.image} className={classes.image}alt="No image Found"/>)
+        }
+    }
+
     const answerHandler = (event) => {
         props.changeAnswerChoice(questions.questionNum, event.target.value);
     }
@@ -63,14 +69,17 @@ const QuestionCard = (props) => {
             <Card className={classes.questionCardContainer}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
-                    <Card.Title className={classes.titleFont}>Question {questions.questionNum + 1}</Card.Title>
-                    <Card.Text className={classes.quizTextFont}>
+                    <Card.Title className={classes.titleFont}>
+                        Question {questions.questionNum + 1}
+                    </Card.Title>
+                    <Card.Text className={classes.quizTextFont}> 
                         {questions.question}
                     </Card.Text>
+                    {renderImage()}
                     {answers.answerChoices
                         .map((choice) => buttonRender(choice))}
-                    {prevButtonRender()}
-                    {nextButtonRender()}
+                            {prevButtonRender()}
+                            {nextButtonRender()}
                 </Card.Body>
             </Card>
         </div>

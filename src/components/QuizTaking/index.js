@@ -2,26 +2,26 @@ import React, { useState } from 'react'
 import { useStyles } from "./style"
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+import QuizResult from './QuizResult';
 import { useHistory } from 'react-router';
-
-export const QuestionContext = React.createContext();
 
 // The following array is hard coded and will be replaced with
 // data queried from the database.
 const tempQuestions = [
     {
         questionNum: 0,
-        question: "What is the name of our website?"
+        question: "What is the name of our website?",
+        image: null
     },
     {
         questionNum: 1,
-        question: "What is the name our team?"
+        question: "What is the name our team?",
+        image: null
     },
     {
         questionNum: 2,
-        question: "Who likes container stores?"
+        question: "Who likes container stores?",
+        image: "https://www3.cs.stonybrook.edu/~richard/images/personal_pics/McKennaProfile.jpg"
     }
 ]
 
@@ -86,33 +86,15 @@ const QuizTaking = () => {
         setAnswerChoices(temp);
     }
 
-    const handleSubmit = () => {
-        let correct = 0;
-        for (let i = 0; i < answerChoices.length; i++){
-            if (answerChoices[i] === tempAnswers[i].correctAnswer){
-                correct++;
-            }
-        }
-        return(
-            <div>
-            <Card>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                <Card.Body>
-                    <Card.Title>Congratulations!</Card.Title>
-                    <Card.Text>
-                        You got {correct} out of {tempQuestions.length} questions right!
-                    </Card.Text>
-                    <Button onClick={restartQuiz}>Retake Quiz</Button>
-                    <Button onClick={() => history.push('/')}>Return Home</Button>
-                </Card.Body>
-            </Card>
-        </div>
-        );
-    }
-
     const renderCheck = () => {
         if(flag){
-            return(handleSubmit());
+            return(
+                <div>
+                    <div className={classes.quizContainer}>
+                        <QuizResult answerChoices={answerChoices} restartQuiz={restartQuiz} answers={tempAnswers}/>
+                    </div>
+                </div>
+            );
         }else{
             return (
                 <div>
@@ -120,7 +102,7 @@ const QuizTaking = () => {
                         <QuizSideBar questions={tempQuestions[index]} num={tempQuestions.length} changeIndex={changeIndex} />
                     </div>
                     <div className={classes.quizContainer}>
-                        <QuestionCard answerChoices={answerChoices} questions={tempQuestions[index]} answers={tempAnswers[index]} num={tempQuestions.length} changeIndex={changeIndex} handleSubmit={handleSubmit} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
+                        <QuestionCard answerChoices={answerChoices} questions={tempQuestions[index]} answers={tempAnswers[index]} num={tempQuestions.length} changeIndex={changeIndex} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
                     </div>
                 </div>
             );
