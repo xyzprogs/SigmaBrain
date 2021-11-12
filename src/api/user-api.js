@@ -16,6 +16,7 @@ export const subscribe = (payload, headers)=>api.post('/subscribe', payload, {he
 export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload, {headers: headers})
 export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
 export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
+
 const userApis = {
     createUser,
     getMainLeaderboard,
