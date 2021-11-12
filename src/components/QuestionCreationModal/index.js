@@ -89,7 +89,11 @@ const QuestionCreationModal = (props)=>{
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Create Question
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                    <Typography 
+                    id="modal-modal-description" 
+                    sx={{ mt: 2 }}
+                    component={'span'} 
+                    variant={'body2'}>
                         <div>
                             <div className={classes.subSection}>
                                 <div className={classes.subTitle}>Quiz Name</div>

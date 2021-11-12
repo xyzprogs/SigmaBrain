@@ -45,7 +45,7 @@ const QuizListModal = (props)=>{
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         {props.quizzes.map((quiz, i)=>{
-                            return <div onClick={(event)=>{pickQuiz(event, i)}}>
+                            return <div key={i} onClick={(event)=>{pickQuiz(event, i)}}>
                                 <QuizCard key={i} quiz={quiz}/>
                             </div>
                         })}

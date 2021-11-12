@@ -6,4 +6,8 @@ export const useStyles = createUseStyles({
         // gridTemplateColumns:'25% 25% 25% 25%',
     },
 
+    dropItem:{
+        cursor: "pointer"
+    }
+
 })

@@ -119,6 +119,7 @@ export const useStyles = createUseStyles({
         height: "40px",
         width: "70px",
         borderRadius: "10px",
+        cursor: "pointer"
     },
 
     btnText: {
