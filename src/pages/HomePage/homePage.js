@@ -8,15 +8,15 @@ const HomePage = () => {
     const classes = useStyles()
 
     return (
-        <div> 
         <div>
-            <SideBar className={classes.sidebar}/>
-        </div>
-        <div className={classes.homeContainer}>
             <div>
-                <MainBoard className={classes.main}/>
+                <SideBar className={classes.sidebar} />
             </div>
-        </div>
+            <div className={classes.homeContainer}>
+                <div>
+                    <MainBoard className={classes.main} />
+                </div>
+            </div>
         </div>
     )
 }
