@@ -13,6 +13,7 @@ import { Route, Switch } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import bootstrap from 'bootstrap' 
 import NavBar from './components/NavBar';
+import ChannelLeaderboardPage from './pages/ChannelLeaderboardPage';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/quizManagement' component={QuizManagementPage}/>
           <Route path='/searchResult' component = {SearchResultPage}/>
           <Route path='/quizEditing/:quizId' component = {QuizEditingPage}/>
+          <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/>
         </Switch>
         </div>
       </AuthContextProvider>
