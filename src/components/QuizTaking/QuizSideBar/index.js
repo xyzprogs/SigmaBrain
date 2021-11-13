@@ -5,37 +5,35 @@ import { useStyles } from './style';
 
 const QuizSideBar = (props) => {
     const classes = useStyles()
-    const object = props;
+    const index = props.index;
+    const num = props.num;
     const array = [];
-    for(let i = 1 ; i <= object.num; i++){
+    for(let i = 0 ; i < num; i++){
         array.push(i);
     }
 
     const changeQuestions = (event) =>{
-        props.changeIndex(-1, event.target.value - 1);
+        props.changeIndex(-1, parseInt(event.target.value));
     }
 
     const buttonRender = (questionNum) => {
-        // eslint-disable-next-line eqeqeq
-        if(object.questions.questionNum == questionNum - 1){
+        if(index === questionNum){
             return(
                 <div className={classes.sideBarSelect} onMouseEnter={showQuestions} key={questionNum}>
-                    <Button variant="success" onClick={changeQuestions} value={questionNum}>Question {questionNum}</Button>
+                    <Button variant="success" onClick={changeQuestions} value={questionNum}>Question {questionNum + 1}</Button>
                 </div>
             );
         }else{
             return(
                 <div className={classes.sideBarSelect} onMouseEnter={showQuestions} key={questionNum}>
-                    <Button onClick={changeQuestions} value={questionNum}>Question {questionNum}</Button>
+                    <Button onClick={changeQuestions} value={questionNum}>Question {questionNum + 1}</Button>
                 </div>
             );
         }
     }
 
-
-
     const showQuestions = (event) => {
-        console.log(event);
+
     }
 
     return (

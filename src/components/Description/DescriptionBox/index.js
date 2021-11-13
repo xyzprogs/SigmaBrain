@@ -1,5 +1,6 @@
 import { useStyles } from './style'
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router'
 import quizApis from '../../../api/quiz-api'
 import BODY from '../../../constant/body'
 const DescriptionBox = (props)=>{
@@ -7,6 +8,7 @@ const DescriptionBox = (props)=>{
     const classes = useStyles()
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
+    let history = useHistory();
 
     useEffect(()=>{
         console.log("load quiz")
@@ -18,7 +20,7 @@ const DescriptionBox = (props)=>{
             setQuiz(response.data[0])
             let response2 = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
             setImage(response2.data)
-         }
+        }
         loadQuiz()
     }, [props.quizId])
 
@@ -36,7 +38,7 @@ const DescriptionBox = (props)=>{
         <div>{quiz[BODY.CREATIONTIME]}</div>
         <div>{quiz[BODY.QUIZDESCRIPTION]}</div>
         <img className={classes.imgSize} src={image} alt="quiz thumbnail"/>
-        <div>Button</div>
+        <div onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Button</div>
     </div>
     )
 }

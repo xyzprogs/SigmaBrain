@@ -1,61 +1,40 @@
-import React, { useState } from 'react'
-import { useStyles } from "./style"
+import React, { useState, useEffect } from 'react'
+import { useContext, useStyles } from "./style"
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import QuizResult from './QuizResult';
-import { useHistory } from 'react-router';
-
+import quizApis from '../../api/quiz-api';
 // The following array is hard coded and will be replaced with
 // data queried from the database.
-const tempQuestions = [
-    {
-        questionNum: 0,
-        question: "What is the name of our website?",
-        image: null
-    },
-    {
-        questionNum: 1,
-        question: "What is the name our team?",
-        image: null
-    },
-    {
-        questionNum: 2,
-        question: "Who likes container stores?",
-        image: "https://www3.cs.stonybrook.edu/~richard/images/personal_pics/McKennaProfile.jpg"
-    }
-]
-
-// The following array is hard coded and will be replaced with
-// data queried from the database.
-
-const tempAnswers = [
-    {
-        choiceNum: 4,
-        answerChoices: ["SigmaBrain", "CandyCane", "Santa Claus", "JoJo"],
-        correctAnswer: 0
-    },
-    {
-        choiceNum: 4,
-        answerChoices: ["SigmaBrain", "StoneBlue", "420 Blaze IT", "Jhinigami"],
-        correctAnswer: 1
-    },
-    {
-        choiceNum: 4,
-        answerChoices: ["Erasure Head", "Present Mic", "All Might", "Professor McKenna"],
-        correctAnswer: 3
-    }
-]
-
 
 const QuizTaking = () => {
     // const classes = userStyles()
-
-    let history = useHistory();
     const classes = useStyles();
 
     const [index, setIndex] = useState(0);
     const [flag, setFlag] = useState(false);
-    const [answerChoices, setAnswerChoices] = useState(new Array(tempQuestions.length).fill(-1));
+    const [questions, setQuestions] = useState([]);
+    const [answerChoices, setAnswerChoices] = useState([]);
+    const [correctChoices, setCorrectChoices] = useState([]);
+    
+
+    const quizId = window.location.pathname.split("/")[2];
+
+    useEffect(() => {
+        const loadQuestions = async () =>{
+            let response = await quizApis.getQuestion(quizId);
+            if(response.data.length <= 0){
+                return
+            }
+            setQuestions(response.data);
+            setAnswerChoices(new Array(response.data.length).fill(-1));
+            setCorrectChoices(new Array(response.data.length).fill(-1));
+        }
+        if(questions.length === 0){
+            loadQuestions();
+        }
+
+    }, [quizId, questions, index])
 
     const changeIndex = (type, num) => {
         let temp;
@@ -69,7 +48,7 @@ const QuizTaking = () => {
 
     const restartQuiz = () => {
         setFlag(false);
-        setAnswerChoices(new Array(tempQuestions.length).fill(-1));
+        setQuestions([]);
         setIndex(0);
     }
 
@@ -77,32 +56,48 @@ const QuizTaking = () => {
         setFlag(true);
     }
 
-    const changeAnswerChoice = (index, choice) => {
+    const changeChoice = (type, index, choice) => {
         let temp = [];
         for (let i = 0; i < answerChoices.length; i++){
-            temp.push(answerChoices[i]);
+            if(type === 0){
+                temp.push(answerChoices[i]);
+            }else{
+                temp.push(correctChoices[i]);
+            }
         }
         temp[index] = choice;
-        setAnswerChoices(temp);
+        if(type === 0){
+            setAnswerChoices(temp);
+        }else{
+            setCorrectChoices(temp);
+        }
     }
+
 
     const renderCheck = () => {
         if(flag){
             return(
                 <div>
                     <div className={classes.quizContainer}>
-                        <QuizResult answerChoices={answerChoices} restartQuiz={restartQuiz} answers={tempAnswers}/>
+                        <QuizResult answerChoices={answerChoices} correctChoices={correctChoices} 
+                            restartQuiz={restartQuiz}
+                        />
                     </div>
                 </div>
             );
         }else{
             return (
                 <div>
-                     <div className={classes.sidebar}>
-                        <QuizSideBar questions={tempQuestions[index]} num={tempQuestions.length} changeIndex={changeIndex} />
+                    <div className={classes.sidebar}>
+                        <QuizSideBar index={index} num={questions.length} changeIndex={changeIndex} />
                     </div>
                     <div className={classes.quizContainer}>
-                        <QuestionCard answerChoices={answerChoices} questions={tempQuestions[index]} answers={tempAnswers[index]} num={tempQuestions.length} changeIndex={changeIndex} changeFlag={changeFlag} changeAnswerChoice={changeAnswerChoice}/>
+                        <QuestionCard 
+                            questions={questions[index]} index={index} answerChoices={answerChoices} correctChoices={correctChoices}
+                            changeIndex={changeIndex} 
+                            changeFlag={changeFlag} 
+                            changeChoice={changeChoice}
+                        />
                     </div>
                 </div>
             );
