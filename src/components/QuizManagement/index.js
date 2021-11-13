@@ -14,7 +14,8 @@ const QuizManagement = () => {
 
     useEffect(()=>{
         const loadUserQuizzes = async () => {
-            let id =  auth.getCurrentUserUid()
+            // let id =  auth.getCurrentUserUid()
+            let id = localStorage.getItem("uid")
             let response = await quizApis.getUserQuiz(id)
             setQuizzes(response.data)
         }
