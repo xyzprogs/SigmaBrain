@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import quizApis from '../../../api/quiz-api'
 import BODY from '../../../constant/body'
+import Card from "react-bootstrap/Card"
+import Button from "@mui/material/Button"
 const DescriptionBox = (props)=>{
     
     const classes = useStyles()
@@ -32,13 +34,27 @@ const DescriptionBox = (props)=>{
             <div>loading</div>
         )
     }
+
+
     return (
-    <div className={classes.boxContainer}>
-        <div>{quiz[BODY.QUIZNAME]}</div>
-        <div>{quiz[BODY.CREATIONTIME]}</div>
-        <div>{quiz[BODY.QUIZDESCRIPTION]}</div>
-        <img className={classes.imgSize} src={image} alt="quiz thumbnail"/>
-        <div onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Button</div>
+    // <div className={classes.boxContainer}>
+    //     <div>{quiz[BODY.QUIZNAME]}</div>
+    //     <div>{quiz[BODY.CREATIONTIME]}</div>
+    //     <div>{quiz[BODY.QUIZDESCRIPTION]}</div>
+    //     <img className={classes.imgSize} src={image} alt="quiz thumbnail"/>
+    //     <div onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Button</div>
+    // </div>
+    <div className={classes.cardContainer}>
+        <Card className={classes.cardSize}>
+            <Card.Img variant="top" src={image} />
+            <Card.Body>
+                <Card.Title>{quiz[BODY.QUIZNAME]}</Card.Title>
+                <Card.Text>
+                    {quiz[BODY.QUIZDESCRIPTION]}
+                </Card.Text>
+                <Button onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Start Quiz</Button>
+            </Card.Body>
+        </Card>
     </div>
     )
 }
