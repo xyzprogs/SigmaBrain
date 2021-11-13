@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStyles } from './style'
 import { SideBar} from '../../components/Home'
-import SearchResult from '../../components/NavBar/SearchBar/SearchResult'
+import SearchResult from '../../components/SearchResult'
 
 
 const SearchResultPage = () => {
