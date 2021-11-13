@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss'
 
-//const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' }
+const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' }
 
 export const useStyles = createUseStyles({
     pageContainer: {
@@ -8,5 +8,11 @@ export const useStyles = createUseStyles({
         width: '100%',
         height: '100%',
         backgroundColor: '#DCDCDC'
+    },
+    channelLeaderboardContainer: {
+        height: '100%',
+        marginLeft: '35%',
+        marginRight: '35%',
+        ...flexCenter
     },
 })

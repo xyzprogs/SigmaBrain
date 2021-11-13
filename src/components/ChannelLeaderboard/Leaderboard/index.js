@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useStyles } from './style'
+import userApis from '../../../api/user-api'
 
-const ChannelLeaderboard = () => {
+const ChannelLeaderboard = ({ channelName }) => {
+    const classes = useStyles()
+
+    const [localLeaderboard, setLocalLeaderboard] = useState([])
+    //Add username to the table??
+    useEffect(() => {
+        const getLeaderboard = async (leaderboardId) => {
+            await userApis.getChannelLeaderboard(leaderboardId).then((response) => {
+                setLocalLeaderboard(response.data)
+                //console.log(response.data)
+            })
+        }
+        getLeaderboard(1);
+    }, [])
+
+    //console.log(localLeaderboard)
+
     return (
-        <div>
-            THIS IS CHANNEL LEADERBOARD COMPONENT
+        <div className={classes.channelLeaderboardForm}>
+            <div className={classes.titleWrapper}>
+                <h3 className={classes.title}>Leaderboard for {channelName}</h3>
+            </div>
+            <div>
+                {localLeaderboard.map((user) =>
+                    <div> {user.userId}</div>
+                )}
+            </div>
         </div>
     )
 }
