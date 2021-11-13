@@ -1,9 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import userApis from '../../api/user-api'
+import { useStyles } from './style'
+import ChannelLeaderboard from '../../components/ChannelLeaderboard/Leaderboard'
 
-const ChannelLeaderboard = () => {
+const ChannelLeaderboardPage = () => {
+    const classes = useStyles()
     
+
     useEffect(() => {
         console.log(userApis.getChannelLeaderboard(1));
 
@@ -11,9 +15,11 @@ const ChannelLeaderboard = () => {
 
     return (
         <div>
-            BIG HELLO
+            <div className={classes.pageContainer}>
+                <ChannelLeaderboard />
+            </div>
         </div>
     )
 }
 
-export default ChannelLeaderboard
+export default ChannelLeaderboardPage
