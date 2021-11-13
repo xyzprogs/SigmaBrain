@@ -23,4 +23,7 @@ export const useStyles = createUseStyles({
         fontWeight: '600',
         fontSize: '30px'
     },
+    textToLeft: {
+        textAlign: "left"
+    },
 })

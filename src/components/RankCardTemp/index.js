@@ -15,7 +15,7 @@ const RankCard = ({user, index}) => {
     }
     return(
         <div onClick = {handleClickLeaderboard}>
-            {rank + "."+ user.userId}
+            {rank + ". "+ user.userId}
         </div>
     )
 }
