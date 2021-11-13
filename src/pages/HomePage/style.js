@@ -11,16 +11,13 @@ export const useStyles = createUseStyles({
     // },
 
     homeContainer: {
-        // display: "grid",
-        // gridTemplateColumns: "20vw auto",
-        // gridTemplateRows: "auto",
-        // gridTemplateAreas:`
-        // "header header"
-        // ". main"
-        // `
-        marginTop: "50px"
+        marginTop: "50px",
     },
-    
+    notLoginHomeContainer:{
+        marginTop: "50px",
+        position: "absolute",
+        right: "100px",
+    },
     main:{
         // gridArea: "main",
         // gridColumnStart: "1",
