@@ -11,14 +11,9 @@ export const useStyles = createUseStyles({
     // },
 
     homeContainer: {
-        // display: "grid",
-        // gridTemplateColumns: "20vw auto",
-        // gridTemplateRows: "auto",
-        // gridTemplateAreas:`
-        // "header header"
-        // ". main"
-        // `
-        marginTop: "50px"
+        position: "absolute",
+        marginTop: "50px",
+        right: "100px",
     },
     
     main:{

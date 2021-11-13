@@ -1,5 +1,5 @@
 import { useStyles } from './style'
-import { useContext } from 'react'
+import { useContext,useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../../context/auth-context';
 
@@ -9,8 +9,9 @@ const UserControl = ({setLogin}) => {
     const { auth } = useContext(AuthContext)
     const history = useHistory()
 
+
     const redirectProfile = ()=>{
-        history.push(`/profile/${auth.getCurrentUserUid()}`)
+        history.push(`/profile/${localStorage.getItem('uid')}`)
     }
 
     const redirectQuizManagement = ()=>{

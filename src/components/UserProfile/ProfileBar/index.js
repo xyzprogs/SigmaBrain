@@ -5,12 +5,14 @@ import HEADER from '../../../constant/header'
 import AuthContext from '../../../context/auth-context'
 import userApis from '../../../api/user-api'
 import Button from '@mui/material/Button'
+import default_banner from '../../../images/profile_image.png'
 const ProfileBar = (props) => {
     const classes = useStyles()
     const imgRef = useRef()
     const {auth} = useContext(AuthContext)
     const [image, setImage] = useState("")
     const [profile, setProfile] = useState(false)
+    const [self, setSelf] = useState(false)
     const clickUpload = ()=>{
         imgRef.current.click()
     }
@@ -42,35 +44,39 @@ const ProfileBar = (props) => {
     }
 
     const onSubscribe = async ()=>{
-        if(auth.getCurrentUserUid()!==undefined || auth.getCurrentUserUid()!=null){
-            console.log("user",auth.getCurrentUserUid())
-            console.log("subscribe to",props.userId)
-            const token = await auth.user.getIdToken()
-            let headers = {
-                [HEADER.TOKEN]: token
-            }
-            let payload = {
-                [BODY.SUBSCRIBETO]: props.userId
-            }
-            userApis.subscribe(payload, headers)
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN]: token
         }
+        let payload = {
+            [BODY.SUBSCRIBETO]: props.userId
+        }
+        userApis.subscribe(payload, headers)
     }
 
     useEffect(()=>{
         const loadImage = async ()=>{
-            let response = await userApis.getProfileImage(props.userId)
-            setImage(response.data)
+            try{
+                let response = await userApis.getProfileImage(props.userId)
+                setImage(response.data)
+            }catch(e){
+               console.log("error")
+               setImage(default_banner)
+            }
+
         }
-
         loadImage()
-    }, [props.userId])
+        if(localStorage.getItem('uid') === props.userId){
+            setSelf(true)
+        }
+    }, [props.userId, auth])
 
-    if(!props.self){
+    if(!self){
         return(
             <div className={classes.barContainer}>
                 <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         <div className={classes.imgSize}>
-                            <img alt="user profile" className={classes.imgSize} src={image}/>
+                            <img alt="user profile" className={classes.imgSize} src={require('./default/profile_image.png')}/>
                         </div>      
                 </div>
     

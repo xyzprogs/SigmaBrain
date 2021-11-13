@@ -34,4 +34,8 @@ export const useStyles = createUseStyles({
         width: "85vw",
         marginTop: "5%"
     },
+
+    card:{
+        cursor: "pointer"
+    }
 })

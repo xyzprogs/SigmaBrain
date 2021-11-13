@@ -10,7 +10,7 @@ export const AuthActionType = {
 function AuthContextProvider(props){
     const[auth, setAuth] = useState({
         user: null,
-        loggedIn: false,
+        loggedIn: true,
         loading: true
     })
 
@@ -50,6 +50,7 @@ function AuthContextProvider(props){
 
         switch(type){
             case AuthActionType.LOGGED_IN: {
+                localStorage.setItem("uid", payload.user.uid)
                 return setAuth({
                     user: payload.user,
                     loggedIn: payload.loggedIn
