@@ -11,11 +11,13 @@ export const useStyles = createUseStyles({
     // },
 
     homeContainer: {
-        position: "absolute",
         marginTop: "50px",
+    },
+    notLoginHomeContainer:{
+        marginTop: "50px",
+        position: "absolute",
         right: "100px",
     },
-    
     main:{
         // gridArea: "main",
         // gridColumnStart: "1",

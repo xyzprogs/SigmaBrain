@@ -76,7 +76,7 @@ const ProfileBar = (props) => {
             <div className={classes.barContainer}>
                 <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         <div className={classes.imgSize}>
-                            <img alt="user profile" className={classes.imgSize} src={require('./default/profile_image.png')}/>
+                            <img alt="user profile" className={classes.imgSize} src={image}/>
                         </div>      
                 </div>
     

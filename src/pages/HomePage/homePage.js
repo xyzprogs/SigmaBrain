@@ -14,7 +14,7 @@ const HomePage = () => {
 
     if(!login){
         return(
-            <div className={`${classes.homeContainer} ${classes.notlogin}`}>
+            <div className={`${classes.notLoginHomeContainer} ${classes.notlogin}`}>
                 <MainBoard className={classes.notlogin}/>
             </div>
         )
