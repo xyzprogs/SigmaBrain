@@ -25,7 +25,6 @@ const ProfileBar = (props) => {
         let config = {
             headers: headers
         }
-        console.log(event.target.files[0])
         const data = new FormData()
         data.append(BODY.USERPROFILE_IMAGE_TYPE, BODY.PROFILEIMAGE)
         data.append(BODY.USERPROFILE, event.target.files[0])
@@ -34,12 +33,10 @@ const ProfileBar = (props) => {
 
 
     const onEnterProfile = ()=>{
-        console.log("enter profile")
         setProfile(true)
     }
 
     const onLeaveProfile = ()=>{
-        console.log("leave profile")
         setProfile(false)
     }
 
@@ -60,7 +57,6 @@ const ProfileBar = (props) => {
                 let response = await userApis.getProfileImage(props.userId)
                 setImage(response.data)
             }catch(e){
-               console.log("error")
                setImage(default_banner)
             }
 

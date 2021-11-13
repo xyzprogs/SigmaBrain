@@ -8,6 +8,7 @@ const QuizManagementPage = () => {
     const [login, setLogin] = useState(true)
     const history = useHistory()
     const {auth} = useContext(AuthContext)
+    
     useEffect(()=>{
         setLogin(auth.loggedIn)
     }, [auth])

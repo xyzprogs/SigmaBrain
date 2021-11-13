@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 const AuthContext = createContext()
 
@@ -8,41 +8,77 @@ export const AuthActionType = {
 }
 
 function AuthContextProvider(props){
+    const fireauth = getAuth()
     const[auth, setAuth] = useState({
-        user: null,
+        user: fireauth.currentUser,
         loggedIn: true,
         loading: true
     })
 
-    const fireauth = getAuth()
-
+    
+    // useEffect(()=>{
+    //     let user = fireauth.currentUser
+    //     console.log(fireauth.currentUser)
+    //     if(user){
+    //         authReducer({
+    //             type: AuthActionType.LOGGED_IN,
+    //             payload: {
+    //                 user: user,
+    //                 loggedIn: true,
+    //                 loading: false
+    //             }
+    //         })
+    //     }else{
+    //         authReducer({
+    //             type: AuthActionType.NOT_LOGGED_IN,
+    //             payload: {
+    //                 user: null,
+    //                 loggedIn: false,
+    //                 loading: false
+    //             }
+    //         })
+    //     }
+    // }, [fireauth.currentUser])
     onAuthStateChanged(fireauth, (user)=>{
-        if(user){
-            if(!auth.loggedIn){
-                // console.log("user is logged in auth context ", user.auth.currentUser) //user.auth.currentUser.uid
-                authReducer({
-                    type: AuthActionType.LOGGED_IN,
-                    payload: {
-                        user: user,
-                        loggedIn: true,
-                        loading: false
-                    }
-                })
+        // if(user != auth.user ){
+        //     console.log("update user information")
+        //     if(user){
+        //         setAuth({
+        //             user:user,
+        //             loggedIn:true
+        //         })
+        //     }
+        // }
+        auth.user = user
+        if(user && !auth.loggedIn){
+            console.log("login user")
+            setAuth({
+                user:user,
+                loggedIn: true
+            })
+        }
 
-            }
+        if(user==null && auth.loggedIn){
+            console.log("log out user")
+            setAuth({
+                user:null,
+                loggedIn: false
+            })
         }
-        else{
-            if(auth.loggedIn){
-                authReducer({
-                    type: AuthActionType.NOT_LOGGED_IN,
-                    payload: {
-                        user: null,
-                        loggedIn: false,
-                        loading: false
-                    }
-                })
-            }
-        }
+
+        // if(user){
+        //     console.log("logging in")
+        //     setAuth({
+        //         user: user,
+        //         loggedIn: true
+        //     }, [user])
+        // }else{
+        //     console.log("logging in")
+        //     setAuth({
+        //         user: null,
+        //         loggedIn: false
+        //     }, [user])
+        // }
     })
 
     const authReducer = (action) => {
@@ -58,6 +94,7 @@ function AuthContextProvider(props){
             }
 
             case AuthActionType.NOT_LOGGED_IN: {
+                localStorage.removeItem("uid")
                 return setAuth({
                     user: payload.user,
                     loggedIn: payload.loggedIn
@@ -72,7 +109,14 @@ function AuthContextProvider(props){
     auth.login = (email, password) => {
         signInWithEmailAndPassword(fireauth, email, password)
             .then((userCredential)=>{
-                //
+                authReducer({
+                    type: AuthActionType.LOGGED_IN,
+                    payload: {
+                        user: userCredential.user,
+                        loggedIn: true,
+                        loading: false
+                    }
+                })
             })
             .catch((error)=>{
                 // const errorCode = error.code;
@@ -82,15 +126,21 @@ function AuthContextProvider(props){
 
     auth.signOut = () => {
         signOut(fireauth).then(()=>{
-            //log out
+            authReducer({
+                type: AuthActionType.NOT_LOGGED_IN,
+                payload: {
+                    user: null,
+                    loggedIn: false,
+                    loading: false
+                }
+            })
         }).catch((error)=>{
-            console.log(error)
         })
     }
 
     auth.getCurrentUserUid = () => {
         if(auth.user!=null){
-            return auth.user.auth.currentUser.uid
+            return auth.user.uid
         }
     }
 

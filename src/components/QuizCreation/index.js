@@ -65,7 +65,6 @@ const QuizCreation = () => {
     const addQuestion = (question)=>{
         let newQuestions = [...questions]
         newQuestions.push(question)
-        console.log("add question", newQuestions)
         setQuestions(newQuestions)
     }
 
@@ -193,19 +192,23 @@ const QuizCreation = () => {
                 </div>
                 <div>
                     <table className={classes.toCenter}>
-                        <tr>
-                            <th >&nbsp;</th>
-                            <th>Number</th>
-                            <th>Question</th>
-                        </tr>
-                        {questions.map((question,i)=>
-                            <tr key={i} className={classes.checkboxPadding}>
-                                <td><input type="checkbox" />&nbsp;</td>
-                                <td>#{i+1}</td>
-                                <td>{question['question']}</td>
-                                <td className={classes.delete} onClick={()=>{removeQuestion(i)}}>&#10005;</td>
-                            </tr>)
-                        }
+                        <thead>
+                            <tr>
+                                <th >&nbsp;</th>
+                                <th>Number</th>
+                                <th>Question</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {questions.map((question,i)=>
+                                <tr key={i} className={classes.checkboxPadding}>
+                                    <td><input type="checkbox" />&nbsp;</td>
+                                    <td>#{i+1}</td>
+                                    <td>{question['question']}</td>
+                                    <td className={classes.delete} onClick={()=>{removeQuestion(i)}}>&#10005;</td>
+                                </tr>)
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>

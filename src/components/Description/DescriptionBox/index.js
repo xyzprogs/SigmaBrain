@@ -13,7 +13,6 @@ const DescriptionBox = (props)=>{
     let history = useHistory();
 
     useEffect(()=>{
-        console.log("load quiz")
         const loadQuiz = async () => {
             let response = await quizApis.getQuiz(props.quizId)
             if(response.data.length <= 0){

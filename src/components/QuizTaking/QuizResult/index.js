@@ -9,8 +9,6 @@ const QuizResult = (props) =>{
     const answerChoices = props.answerChoices;
     const restartQuiz = props.restartQuiz;
     const correctChoices = props.correctChoices;
-    console.log(correctChoices);
-    console.log(answerChoices);
     let correct = 0;
     for (let i = 0; i < answerChoices.length; i++){
         if (parseInt(answerChoices[i]) === correctChoices[i]){

@@ -20,7 +20,6 @@ const QuizDisplayBoard = (props) => {
     useEffect(() => {
         const loadCategoryQuiz = async () => {
             if (props.category !== undefined) {
-                console.log("loading quiz from category")
                 const category = props.category
                 const response = await quizApis.getCategoryQuiz(category)
                 setQuizzes(response.data)
@@ -38,10 +37,13 @@ const QuizDisplayBoard = (props) => {
 
         loadCategoryQuiz()
         // getTopUsersFromLeaderboard();
+        return ()=>{
+            setQuizzes()
+            setRankQuiz()
+        }
     }, [props.category])
 
     const moveToStartingPage =(i)=>{
-        console.log(rankQuiz[i])
         history.push(`/quizDescription/${rankQuiz[i][BODY_CONSTANT.QUIZID]}`)
     }
 
@@ -66,7 +68,7 @@ const QuizDisplayBoard = (props) => {
                     <div>Rankings</div>
                     <div>
                         {rankQuiz.map((quiz, i) =>
-                            <div className={classes.card} onClick={()=>moveToStartingPage(i)}>
+                            <div key={i} className={classes.card} onClick={()=>moveToStartingPage(i)}>
                                 <QuizRankCard key={i} quiz={quiz} rank={i+1}/>
                             </div>
                         )}
