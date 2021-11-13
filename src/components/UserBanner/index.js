@@ -26,7 +26,6 @@ const UserBanner = (props) => {
     }
     const onImageUpload = async (event)=>{
         let url = URL.createObjectURL(event.target.files[0])
-        console.log(url)
 
         const token = await auth.user.getIdToken()
         let headers = {
@@ -35,7 +34,7 @@ const UserBanner = (props) => {
         let config = {
             headers: headers
         }
-        console.log(event.target.files[0])
+
         const data = new FormData()
         data.append(BODY.USERPROFILE_IMAGE_TYPE, BODY.BACKGROUNDIMAGE)
         data.append(BODY.USERPROFILE, event.target.files[0])

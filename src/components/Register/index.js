@@ -32,7 +32,7 @@ const Register = () => {
     }
 
     useEffect(()=>{
-        if(auth.loggedIn){
+        if(auth.user!=null){
             history.push('/')
         }
     })

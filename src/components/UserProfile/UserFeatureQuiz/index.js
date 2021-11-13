@@ -25,7 +25,6 @@ const UserFeatureQuiz = (props) => {
 
         const loadQuizzes = async ()=>{
             let response = await quizApis.getUserQuiz(props.userId)
-            console.log(response.data)
             setQuizzes(response.data)
         }
 

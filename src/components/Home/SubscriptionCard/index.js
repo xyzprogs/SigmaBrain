@@ -12,14 +12,11 @@ const UserCard = ({subscribeTo})=>{
         const loadUserInfo = async ()=>{
             let response = await userApis.getUserInfo(subscribeTo)
             setUser(response.data[0])
-            console.log(response.data[0])
-            console.log(response.data[0]['userId'])
-            console.log(response.data[0][BODY.USERID])
             try{
                 response = await userApis.getProfileImage(response.data[0][BODY.USERID])
                 setImage(response.data)
             }catch(e){
-                console.log("image is undefined")
+               
             }
         }
 

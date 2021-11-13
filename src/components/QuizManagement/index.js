@@ -20,10 +20,11 @@ const QuizManagement = () => {
             setQuizzes(response.data)
         }
 
-        if(!auth.loading){
-            loadUserQuizzes()
+        loadUserQuizzes()
+        return ()=>{
+            setQuizzes([])
         }
-    }, [auth.loading, auth])
+    }, [auth])
 
     const redirectQuizCreation = () => {
         history.push(`/quizCreation`)
@@ -34,7 +35,6 @@ const QuizManagement = () => {
     }
 
     const removeQuiz = async (i) => {
-        console.log("going to remove",quizzes[i][BODY.QUIZID])
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN] : token
@@ -59,16 +59,19 @@ const QuizManagement = () => {
                 <Button>delete</Button></div>
             </div>
             <table cellSpacing="0" rule="all" border ="1" id="quizzes">
-                <tr>
-                    <th>&nbsp;</th>
-                    <th className={classes.cell}>All</th>
-                    <th className={classes.cell}>Statue</th>
-                    <th className={classes.cell}>Date</th>
-                    <th className={classes.cell}>View</th>
-                    <th className={classes.cell}>&nbsp;</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>&nbsp;</th>
+                        <th className={classes.cell}>All</th>
+                        <th className={classes.cell}>Statue</th>
+                        <th className={classes.cell}>Date</th>
+                        <th className={classes.cell}>View</th>
+                        <th className={classes.cell}>&nbsp;</th>
+                    </tr>
+                </thead>
 
-                {quizzes.map((quiz, i) => {
+
+                { quizzes.map((quiz, i) => {
                     return (
                         <tr key={i}>
                              <td><input type="checkbox"/></td>

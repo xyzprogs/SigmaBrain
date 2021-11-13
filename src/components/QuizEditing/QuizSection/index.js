@@ -65,10 +65,6 @@ const QuizSection = ({quiz})=>{
         data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
         await quizApis.setQuizThumbnail(quizId, data, headers)
         history.push('/quizManagement')
-        console.log("introduction", introduction)
-        console.log("quizname", name)
-        console.log("timelimit", timeLimit)
-        console.log("quizCategory", category)
     }
     useEffect(()=>{
         const loadImage = async ()=>{

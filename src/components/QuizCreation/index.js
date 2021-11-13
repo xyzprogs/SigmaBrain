@@ -65,7 +65,6 @@ const QuizCreation = () => {
     const addQuestion = (question)=>{
         let newQuestions = [...questions]
         newQuestions.push(question)
-        console.log("add question", newQuestions)
         setQuestions(newQuestions)
     }
 

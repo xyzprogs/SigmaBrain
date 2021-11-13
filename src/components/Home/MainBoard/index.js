@@ -24,23 +24,30 @@ const MainBoard = () => {
 
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
-    const loadPopularQuiz = async () =>{
-        try{
-            let response = await quizApis.getMostPopularQuiz()
-            let data = response.data
-            if(data.length <= 0){
-                return
-            }
-            setQuiz(data[0])
-            response = await quizApis.getQuizThumbnail(data[0][BODY.QUIZID])
-            setImage(response.data)
-        }catch(e){
-            console.log(e)
-        }
-    }
+
 
     useEffect(()=>{
+
+        const loadPopularQuiz = async () =>{
+            try{
+                let response = await quizApis.getMostPopularQuiz()
+                let data = response.data
+                if(data.length <= 0){
+                    return
+                }
+                setQuiz(data[0])
+                response = await quizApis.getQuizThumbnail(data[0][BODY.QUIZID])
+                setImage(response.data)
+            }catch(e){
+                console.log(e)
+            }
+        }
+
         loadPopularQuiz()
+        return ()=>{
+            setQuiz()
+            setImage()
+        }
     }, [])
     return (
         <div className={classes.mainContainer}>

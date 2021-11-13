@@ -9,7 +9,9 @@ const QuizEditingPage = () => {
     const history = useHistory()
     const {auth} = useContext(AuthContext)
     useEffect(()=>{
-        setLogin(auth.loggedIn)
+        if(auth.user==null){
+            setLogin(false)
+        }
     }, [auth])
 
     if(!login){

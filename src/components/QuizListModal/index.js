@@ -19,7 +19,6 @@ const QuizListModal = (props)=>{
     }
 
     const pickQuiz = async (event,i)=>{
-        console.log("pick quiz", props.quizzes[i][BODY.QUIZID])
         const payload = {
             [BODY.QUIZID]: props.quizzes[i][BODY.QUIZID]
         }
