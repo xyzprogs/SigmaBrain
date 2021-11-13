@@ -36,7 +36,7 @@ function App() {
           <Route path='/quizManagement' component={QuizManagementPage}/>
           <Route path='/searchResult' component = {SearchResultPage}/>
           <Route path='/quizEditing/:quizId' component = {QuizEditingPage}/>
-          <Route path='/leaderboard' component = {ChannelLeaderboardPage}/>
+          <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/>
         </Switch>
         </div>
       </AuthContextProvider>

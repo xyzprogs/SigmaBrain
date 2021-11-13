@@ -15,7 +15,7 @@ const ChannelLeaderboard = ({ channelName }) => {
                 //console.log(response.data)
             })
         }
-        getLeaderboard(1);
+        getLeaderboard(channelName);
     }, [])
 
     //console.log(localLeaderboard)
