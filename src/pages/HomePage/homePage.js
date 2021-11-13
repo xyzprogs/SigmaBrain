@@ -20,6 +20,7 @@ const HomePage = () => {
         )
     }
     return (
+
         <div> 
             <div>
                 <SideBar className={classes.sidebar}/>
@@ -27,6 +28,7 @@ const HomePage = () => {
             <div className={classes.homeContainer}>
                 <div>
                     <MainBoard className={classes.main}/>
+
                 </div>
             </div>
         </div>
