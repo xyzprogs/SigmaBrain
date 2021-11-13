@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useStyles } from './style'
 import userApis from '../../../api/user-api'
+import RankCard from '../../RankCardTemp'
 
 const ChannelLeaderboard = ({ channelName }) => {
     const classes = useStyles()
@@ -25,8 +26,8 @@ const ChannelLeaderboard = ({ channelName }) => {
                 <h3 className={classes.title}>Leaderboard for {channelName}</h3>
             </div>
             <div>
-                {localLeaderboard.map((user) =>
-                    <div> {user.userId}</div>
+                {localLeaderboard.map((user, index) =>
+                   <RankCard user = {user} index = {index} key = {index}/>
                 )}
             </div>
         </div>
