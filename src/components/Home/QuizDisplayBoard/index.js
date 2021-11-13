@@ -44,7 +44,6 @@ const QuizDisplayBoard = (props) => {
     }, [props.category])
 
     const moveToStartingPage =(i)=>{
-        console.log(rankQuiz[i])
         history.push(`/quizDescription/${rankQuiz[i][BODY_CONSTANT.QUIZID]}`)
     }
 

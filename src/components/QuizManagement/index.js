@@ -70,7 +70,7 @@ const QuizManagement = () => {
                     </tr>
                 </thead>
 
-
+                <tbody>
                 { quizzes.map((quiz, i) => {
                     return (
                         <tr key={i}>
@@ -83,6 +83,7 @@ const QuizManagement = () => {
                         </tr>
                     )
                 })}
+                </tbody>
 
                         
             </table>

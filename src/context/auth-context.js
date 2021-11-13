@@ -40,12 +40,45 @@ function AuthContextProvider(props){
     //     }
     // }, [fireauth.currentUser])
     onAuthStateChanged(fireauth, (user)=>{
-        if(user != auth.user){
-            console.log("update user information")
+        // if(user != auth.user ){
+        //     console.log("update user information")
+        //     if(user){
+        //         setAuth({
+        //             user:user,
+        //             loggedIn:true
+        //         })
+        //     }
+        // }
+        auth.user = user
+        if(user && !auth.loggedIn){
+            console.log("login user")
             setAuth({
-                user: user,
+                user:user,
+                loggedIn: true
             })
         }
+
+        if(user==null && auth.loggedIn){
+            console.log("log out user")
+            setAuth({
+                user:null,
+                loggedIn: false
+            })
+        }
+
+        // if(user){
+        //     console.log("logging in")
+        //     setAuth({
+        //         user: user,
+        //         loggedIn: true
+        //     }, [user])
+        // }else{
+        //     console.log("logging in")
+        //     setAuth({
+        //         user: null,
+        //         loggedIn: false
+        //     }, [user])
+        // }
     })
 
     const authReducer = (action) => {

@@ -9,8 +9,11 @@ const HomePage = () => {
     const [login, setLogin] = useState(true)
     const {auth} = useContext(AuthContext)
     useEffect(()=>{
-        if(auth.user==null){
+        if(!auth.loggedIn){
             setLogin(false)
+        }
+        else{
+            setLogin(true)
         }
     }, [auth])
 

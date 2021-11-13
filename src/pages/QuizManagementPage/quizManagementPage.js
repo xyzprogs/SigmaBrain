@@ -10,9 +10,7 @@ const QuizManagementPage = () => {
     const {auth} = useContext(AuthContext)
     
     useEffect(()=>{
-        if(auth.user==null){
-            setLogin(false)
-        }
+        setLogin(auth.loggedIn)
     }, [auth])
 
     if(!login){

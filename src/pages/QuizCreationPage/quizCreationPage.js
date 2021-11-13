@@ -11,9 +11,7 @@ const QuizCreationPage = () => {
     const [login, setLogin] = useState(true)
 
     useEffect(()=>{
-        if(auth.user==null){
-            setLogin(false)
-        }
+        setLogin(auth.loggedIn)
     }, [auth])
 
     if(!login){
