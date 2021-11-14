@@ -17,6 +17,9 @@ const NavBar = () => {
         if(auth.loggedIn){
             setIsLoggedIn(true)
         }
+        else{
+            setIsLoggedIn(false)
+        }
     }, [auth])
 
     const classes = useStyles()

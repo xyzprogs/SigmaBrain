@@ -16,70 +16,42 @@ function AuthContextProvider(props){
     })
 
     
-    // useEffect(()=>{
-    //     let user = fireauth.currentUser
-    //     console.log(fireauth.currentUser)
-    //     if(user){
-    //         authReducer({
-    //             type: AuthActionType.LOGGED_IN,
-    //             payload: {
-    //                 user: user,
-    //                 loggedIn: true,
-    //                 loading: false
-    //             }
-    //         })
-    //     }else{
-    //         authReducer({
-    //             type: AuthActionType.NOT_LOGGED_IN,
-    //             payload: {
-    //                 user: null,
-    //                 loggedIn: false,
-    //                 loading: false
-    //             }
+    useEffect(()=>{
+        onAuthStateChanged(fireauth, (user)=>{
+            if(user){
+                console.log("login user")
+                setAuth({
+                    user:user,
+                    loggedIn: true
+                })
+            }
+    
+            if(user==null){
+                console.log("log out user")
+                setAuth({
+                    user:null,
+                    loggedIn: false
+                })
+            }
+        })
+    }, [])
+    // onAuthStateChanged(fireauth, (user)=>{
+    //     if(user && !auth.loggedIn){
+    //         console.log("login user")
+    //         setAuth({
+    //             user:user,
+    //             loggedIn: true
     //         })
     //     }
-    // }, [fireauth.currentUser])
-    onAuthStateChanged(fireauth, (user)=>{
-        // if(user != auth.user ){
-        //     console.log("update user information")
-        //     if(user){
-        //         setAuth({
-        //             user:user,
-        //             loggedIn:true
-        //         })
-        //     }
-        // }
-        auth.user = user
-        if(user && !auth.loggedIn){
-            console.log("login user")
-            setAuth({
-                user:user,
-                loggedIn: true
-            })
-        }
 
-        if(user==null && auth.loggedIn){
-            console.log("log out user")
-            setAuth({
-                user:null,
-                loggedIn: false
-            })
-        }
-
-        // if(user){
-        //     console.log("logging in")
-        //     setAuth({
-        //         user: user,
-        //         loggedIn: true
-        //     }, [user])
-        // }else{
-        //     console.log("logging in")
-        //     setAuth({
-        //         user: null,
-        //         loggedIn: false
-        //     }, [user])
-        // }
-    })
+    //     if(user==null && auth.loggedIn){
+    //         console.log("log out user")
+    //         setAuth({
+    //             user:null,
+    //             loggedIn: false
+    //         })
+    //     }
+    // })
 
     const authReducer = (action) => {
         const {type, payload } = action;
