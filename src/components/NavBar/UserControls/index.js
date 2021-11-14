@@ -32,7 +32,7 @@ const UserControl = ({setLogin}) => {
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectProfile}>Profile</div></li>
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectQuizCreation}>Create Quiz</div></li>
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectQuizManagement}>Quiz Management</div></li>
-                    <li><div className={`${classes.dropItem} dropdown-item`}     onClick={()=>auth.signOut()}>Sign Out</div></li>
+                    <li><div className={`${classes.dropItem} dropdown-item`} onClick={()=>auth.signOut()}>Sign Out</div></li>
                 </ul>
             </div>
         </div>
