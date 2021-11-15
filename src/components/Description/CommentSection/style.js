@@ -14,9 +14,15 @@ export const useStyles = createUseStyles({
     },
 
     userComments: {
+        paddingTop: "20px",
         marginTop: "20px",
         border: "solid",
         borderWidth: "1px 0px 0px 0px",
-    }
+        minHeight: "50vh",
+        
+    },
 
+    commentTitle:{
+        marginRight: "100%"
+    },
 })

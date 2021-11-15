@@ -10,7 +10,7 @@ const QuizDescriptionPage = (props)=>{
         <div className={classes.descriptionBox}>
             <DescriptionBox quizId={props.match.params.quizId}/>
         </div>
-        <CommentSection/>
+        <CommentSection quizId={props.match.params.quizId}/>
     </div>
     )
 }
