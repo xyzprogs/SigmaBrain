@@ -9,6 +9,7 @@ import {getAuth} from 'firebase/auth';
 import AUTH_ERROR from '../../constant/firebase-error-code';
 import { useHistory } from "react-router-dom";
 import AuthContext from '../../context/auth-context'
+import ERRORCODE from '../../constant/firebase-error-code';
 const Register = () => {
 
     const classes = useStyles();
@@ -39,7 +40,7 @@ const Register = () => {
 
     const confirmRegister = async (event) => {
         if(password !== confirmPassword){
-            setErrorMessages(["passwords doesn't match"])
+            setErrorMessages(ERRORCODE.WRONG_PASSWORD_MSG)
             return
         }
         register(email, password).then(async (userCredential) => {
@@ -69,7 +70,10 @@ const Register = () => {
             // const errorMessage = error.message;
             console.log(errorCode)
             if(errorCode === AUTH_ERROR.ALREADY_REGISTERED){
-                setErrorMessages(["Email has already registered"])
+                setErrorMessages([ERRORCODE.ALREADY_REGISTERED_MSG])
+            }
+            else{
+                setErrorMessages([ERRORCODE.REGISTER_UNSUCESS_MSG])
             }
             // ..
           });
