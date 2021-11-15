@@ -14,7 +14,7 @@ function AuthContextProvider(props){
         loggedIn: true,
         loading: true
     })
-
+    const [error, setError] = useState()
     
     useEffect(()=>{
         onAuthStateChanged(fireauth, (user)=>{
@@ -34,7 +34,7 @@ function AuthContextProvider(props){
                 })
             }
         })
-    }, [])
+    }, [fireauth])
     // onAuthStateChanged(fireauth, (user)=>{
     //     if(user && !auth.loggedIn){
     //         console.log("login user")
@@ -91,13 +91,13 @@ function AuthContextProvider(props){
                 })
             })
             .catch((error)=>{
-                // const errorCode = error.code;
-                // const errorMessage = error.message;
+                setError(error.code)
             })
     }
 
     auth.signOut = () => {
         signOut(fireauth).then(()=>{
+            setError()
             authReducer({
                 type: AuthActionType.NOT_LOGGED_IN,
                 payload: {
@@ -117,7 +117,7 @@ function AuthContextProvider(props){
     }
 
     return(
-        <AuthContext.Provider value={{auth}}>
+        <AuthContext.Provider value={{auth, error}}>
             {props.children}
         </AuthContext.Provider>
     )

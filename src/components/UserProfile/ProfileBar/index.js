@@ -28,7 +28,8 @@ const ProfileBar = (props) => {
         const data = new FormData()
         data.append(BODY.USERPROFILE_IMAGE_TYPE, BODY.PROFILEIMAGE)
         data.append(BODY.USERPROFILE, event.target.files[0])
-        userApis.setProfilePageImage(data, config)
+        await userApis.setProfilePageImage(data, config)
+        setImage(URL.createObjectURL(event.target.files[0]))
     }
 
 

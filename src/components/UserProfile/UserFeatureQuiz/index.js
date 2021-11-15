@@ -12,6 +12,7 @@ const UserFeatureQuiz = (props) => {
     const [quizFound, setQuizFound] = useState(false)
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState("")
+
     useEffect(()=>{
         const loadTopFeatureQuiz = async ()=>{
             let response = await quizApis.getUserTopFeatureQuiz(props.userId)
@@ -27,7 +28,6 @@ const UserFeatureQuiz = (props) => {
             let response = await quizApis.getUserQuiz(props.userId)
             setQuizzes(response.data)
         }
-
         loadTopFeatureQuiz()
         loadQuizzes()    
     },[props.userId])
@@ -43,31 +43,64 @@ const UserFeatureQuiz = (props) => {
         setQuiz(quizzes[i])
         setQuizFound(true)
     }
-
-    if(!quizFound){
+    if(props.self){
+        if(!quizFound){
+            return(
+                <div className={classes.quizContainer}>
+                    <div className={classes.toCenter}>
+                        <Button onClick={handleOpen}>Demonstrate Your Favorite Feature Quiz?</Button>
+                    </div>
+                    <QuizListModal
+                        open={open}
+                        setOpen={setOpen}
+                        userId={props.userId}
+                        quizzes={quizzes}
+                        onChangeQuiz={onChangeQuiz}
+                        updateImage={setImage}
+                    />
+                </div>
+            )
+        }
+    
         return(
             <div className={classes.quizContainer}>
+                <FeatureCard
+                    quiz={quiz}
+                    image={image}
+                />
                 <div className={classes.toCenter}>
-                    <Button onClick={handleOpen}>Demonstrate Your Favorite Feature Quiz?</Button>
+                    <Button onClick={handleOpen}>Change Feature Quiz</Button>
                 </div>
                 <QuizListModal
-                    open={open}
-                    setOpen={setOpen}
-                    userId={props.userId}
-                    quizzes={quizzes}
-                    onChangeQuiz={onChangeQuiz}
+                        open={open}
+                        setOpen={setOpen}
+                        userId={props.userId}
+                        quizzes={quizzes}
+                        onChangeQuiz={onChangeQuiz}
+                        updateImage={setImage}
+                    />
+            </div>
+        )
+    }
+    else{
+        if(!quizFound){
+            return(
+                <div className={classes.quizContainer}>
+                        No Quiz Selected
+                </div>
+            )
+        }
+    
+        return(
+            <div className={classes.quizContainer}>
+                <FeatureCard
+                    quiz={quiz}
+                    image={image}
                 />
             </div>
         )
     }
-    return(
-        <div className={classes.quizContainer}>
-            <FeatureCard
-                quiz={quiz}
-                image={image}
-            />
-        </div>
-    )
+
 }
 
 export default UserFeatureQuiz

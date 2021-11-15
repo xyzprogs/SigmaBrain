@@ -38,8 +38,8 @@ const UserBanner = (props) => {
         const data = new FormData()
         data.append(BODY.USERPROFILE_IMAGE_TYPE, BODY.BACKGROUNDIMAGE)
         data.append(BODY.USERPROFILE, event.target.files[0])
-        userApis.setBackgroundImage(data, config)
-
+        await userApis.setBackgroundImage(data, config)
+        setImage(url)
     }
 
 

@@ -20,7 +20,7 @@ const MyQuizList = (props) => {
             MyQuizList
             <div className={classes.displayBoardContainer}>
                 {quizzes.map((quiz, i) => {
-                            return <QuizCard key={i} quiz={quiz} />
+                            return <QuizCard key={i} quiz={quiz} redirect={true}/>
                 })}
             </div>
         </div>
