@@ -17,6 +17,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessages, setErrorMessages] = useState([])
+    const [name, setName] = useState("")
     const history = useHistory()
     const { auth } = useContext(AuthContext)
 
@@ -30,6 +31,10 @@ const Register = () => {
 
     const updateConfirmPassword = (event) => {
         setConfirmPassword(event.target.value);
+    }
+
+    const updateName = (event) => {
+        setName(event.target.value)
     }
 
     useEffect(()=>{
@@ -53,7 +58,7 @@ const Register = () => {
             const token = await getAuth().currentUser.getIdToken()
             headers[HEADER_CONSTANT.TOKEN] = token
             payload[BODY_CONSTANT.EMAIL] = email
-            payload[BODY_CONSTANT.DISPLAYNAME] = "tester"
+            payload[BODY_CONSTANT.DISPLAYNAME] = name
             axios_config = {
                 headers: headers
             }
@@ -101,6 +106,16 @@ const Register = () => {
                             name="email"
                             placeholder="Email"
                             onKeyUp = {updateEmail}
+                        />
+                    </div>
+                    <div className={classes.textToLeft}>Display Name</div>
+                    <div className={classes.inputWrapper}>
+                        <input
+                            className={ `${classes.input} ${classes.bottomBorder}` }
+                            type="text"
+                            name="name"
+                            placeholder="Display Name"
+                            onKeyUp = {updateName}
                         />
                     </div>
                     <div className={classes.textToLeft}>Password</div>

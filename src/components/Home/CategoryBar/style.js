@@ -15,6 +15,20 @@ export const useStyles = createUseStyles({
         border: "solid",
         marginRight: "5%",
         minWidth: "100px",
-        marginBottom: "0.5%"
-    }
+        marginBottom: "0.5%",
+        cursor: "pointer"
+    },
+
+    modal:{
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        backgroundColor: 'white',
+        border: '2px solid #000',
+        boxShadow: 24,
+        minHeight: "50vh",
+        minWidth: "50vw"
+    },
 })

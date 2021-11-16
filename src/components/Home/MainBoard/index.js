@@ -1,30 +1,34 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import { useStyles } from './style';
 import FeatureCard from '../FeatureCard';
 import CategoryBar from '../CategoryBar';
 import QuizDisplayBoard from '../QuizDisplayBoard';
 import quizApis from '../../../api/quiz-api';
 import BODY from '../../../constant/body';
-
+import CatgeorySideBar from '../CategorySideBar';
+import QUIZ_CATEGORY from '../../../constant/quiz-category';
 const MainBoard = () => {
     const classes = useStyles()
-
-    // const [topUsers, setTopUsers] = useState([])
-
-    // useEffect(()=>{
-    //     getTopUsersFromLeaderboard();
-    // },[])    
-
-    // const getTopUsersFromLeaderboard = async () => {
-    //     await userApis.getMainLeaderboard().then((response) => {
-    //         setTopUsers(response.data);
-    //         console.log(response.data)
-    //     })
-    // }
-
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
-
+    const [bar, setBar] = useState([
+        QUIZ_CATEGORY.ALL,
+        QUIZ_CATEGORY.Computer_Science,
+        QUIZ_CATEGORY.Computer_Network,
+        QUIZ_CATEGORY.Computer_Vision,
+        QUIZ_CATEGORY.Machine_Learning,
+        QUIZ_CATEGORY.Data_Structure,
+        QUIZ_CATEGORY.Data_Mining
+    ])
+    const refs = [
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null),
+        useRef(null)
+    ]
 
     useEffect(()=>{
 
@@ -55,10 +59,17 @@ const MainBoard = () => {
             <FeatureCard
                 quiz={quiz}
                 image={image}/>
-            <QuizDisplayBoard 
-                category={0}/>
-            {/* <QuizDisplayBoard/>
-            <QuizDisplayBoard/> */}
+            {bar.map((c,i)=>{
+                return (
+                <div ref={refs[i]}>
+                    <QuizDisplayBoard category={c}/>
+                </div>
+                )
+            })}
+
+            <CatgeorySideBar
+            bar={bar}
+            refs={refs}/>
         </div>
     )
 }

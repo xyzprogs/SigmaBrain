@@ -2,20 +2,17 @@ import { useStyles } from "./style"
 import QuizCard from "../../QuizCard"
 import { useState, useEffect } from 'react'
 import quizApis from "../../../api/quiz-api"
-import userApis from "../../../api/user-api"
 import QuizRankCard from "../../QuizRankCard"
 import { useHistory } from "react-router-dom"
 import BODY_CONSTANT from "../../../constant/body"
+import { QUIZ_CATEGORY_NAME } from '../../../constant/quiz-category'
 const QuizDisplayBoard = (props) => {
     //TEMP DATA
     const classes = useStyles()
     const history = useHistory()
-    // const [category, setCategory] = useState(null)
     const [quizzes, setQuizzes] = useState([])
     const [rankQuiz, setRankQuiz] = useState([])
-    // const [topUsers, setTopUsers] = useState([])
 
- 
 
     useEffect(() => {
         const loadCategoryQuiz = async () => {
@@ -28,15 +25,8 @@ const QuizDisplayBoard = (props) => {
             }
         }
 
-        // const getTopUsersFromLeaderboard = async () => {
-        //     await userApis.getMainLeaderboard().then((response) => {
-        //         setTopUsers(response.data);
-        //         console.log("topten users",response.data)
-        //     })
-        // }
 
         loadCategoryQuiz()
-        // getTopUsersFromLeaderboard();
         return ()=>{
             setQuizzes()
             setRankQuiz()
@@ -47,15 +37,22 @@ const QuizDisplayBoard = (props) => {
         history.push(`/quizDescription/${rankQuiz[i][BODY_CONSTANT.QUIZID]}`)
     }
 
-    if (quizzes.length === 0) {
-        return <div>No Quizzes In this Category</div>
+    if (quizzes==null || quizzes===undefined ||  quizzes.length === 0) {
+        return <div className={classes.displayBoardContainer}>
+                <div className={classes.headerContainer}>
+                    <div className={classes.title}>
+                        {QUIZ_CATEGORY_NAME[props.category]}
+                    </div>
+                    <div>No Quizzes In this Category</div>
+                </div>
+        </div>
     }
     else {
         return (
             <div className={classes.displayBoardContainer}>
                 <div className={classes.headerContainer}>
                     <div className={classes.title}>
-                        All
+                        {QUIZ_CATEGORY_NAME[props.category]}
                     </div>
                 </div>
                 <div className={classes.quizContainer}>
