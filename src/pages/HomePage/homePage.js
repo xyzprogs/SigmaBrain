@@ -33,7 +33,6 @@ const HomePage = () => {
             <div className={classes.homeContainer}>
                 <div>
                     <MainBoard className={classes.main}/>
-
                 </div>
             </div>
         </div>
