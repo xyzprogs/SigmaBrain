@@ -5,6 +5,7 @@ const api = axios.create({
 })
 export const createUser = (payload, config) => api.post('/create', payload, config) 
 export const getMainLeaderboard = () => api.get('/leaderboard')
+export const getChannelLeaderboard = (leaderboardId) => api.get(`/leaderboard/${leaderboardId}`)
 export const setProfilePageImage = (formdata, config) => api.post('/profile/setUserProfileImage', formdata, config)
 export const setBackgroundImage = (formdata, config) => api.post('/profile/setUserBackgroundImage', formdata, config)
 export const setUserDescription = (payload, config) => api.post('/profile/setUserDescription', payload, config)
@@ -16,10 +17,12 @@ export const subscribe = (payload, headers)=>api.post('/subscribe', payload, {he
 export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload, {headers: headers})
 export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
 export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
+export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
 
 const userApis = {
     createUser,
     getMainLeaderboard,
+    getChannelLeaderboard,
     setProfilePageImage,
     setUserDescription,
     setTopFeatureQuiz,
@@ -30,7 +33,8 @@ const userApis = {
     subscribe,
     unsubscribe,
     getSubscriptions,
-    getUserInfo
+    getUserInfo,
+    getUserDisplayName
 }
 
 export default userApis

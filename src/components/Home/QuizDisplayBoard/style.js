@@ -25,7 +25,7 @@ export const useStyles = createUseStyles({
 
     displayBoardContainer: {
         display: "grid",
-        gridTemplateColumns: "80% 0%",
+        gridTemplateColumns: "80% 10%",
         gridTemplateRows: "auto",
         gridTemplateAreas:`
         "header ."
@@ -34,4 +34,8 @@ export const useStyles = createUseStyles({
         width: "85vw",
         marginTop: "5%"
     },
+
+    card:{
+        cursor: "pointer"
+    }
 })

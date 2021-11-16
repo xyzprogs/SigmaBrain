@@ -3,13 +3,15 @@ import { useStyles } from './style';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../context/auth-context'
+import ERRORCODE from '../../constant/firebase-error-code';
 const Login = () => {
 
     const classes = useStyles()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
     const history = useHistory()
-    const { auth } = useContext(AuthContext)
+    const { auth, error } = useContext(AuthContext)
+    const [errorMsg, setErrorMsg] = useState([])
     const updateEmail = (event) => {
         setEmail(event.target.value);
     }
@@ -23,13 +25,35 @@ const Login = () => {
     }
 
     useEffect(()=>{
-        if(auth.loggedIn){
+        if(auth.user!=null){
             history.push('/')
         }
-    })
+
+        if(error != null ){
+            if(error === ERRORCODE.INVALID_EMAIL){
+                setErrorMsg([ERRORCODE.INVALID_EMAIL_MSG])
+            }
+            else if(error === ERRORCODE.USER_NOT_FOUND){
+                setErrorMsg([ERRORCODE.USER_NOT_FOUND_MSG])
+            }
+            else if(error === ERRORCODE.WRONG_PASSWORD){        
+                setErrorMsg([ERRORCODE.WRONG_PASSWORD_MSG])
+            }
+            else{
+                setErrorMsg([ERRORCODE.LOGIN_UNSUCESS_MSG])
+            }
+        }
+    }, [auth.user, error, history])
 
     return (
         <div className={classes.loginForm}>
+            {
+                errorMsg.map((error, i)=>{
+                    return <div key={i} className="alert alert-danger" role="alert">
+                        {error}
+                    </div>
+                })
+            }
             <div className={classes.titleWrapper}>
                 <h3 className={classes.title}>Sign In</h3>
             </div>

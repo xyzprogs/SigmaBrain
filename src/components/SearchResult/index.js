@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStyles } from './style'
+import { useStyles } from './style';
 import Card from "react-bootstrap/Card";
 import { useHistory } from 'react-router';
 

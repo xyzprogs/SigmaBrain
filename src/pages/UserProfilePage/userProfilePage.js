@@ -6,16 +6,17 @@ import UserBanner from "../../components/UserBanner";
 import ProfileBar from "../../components/UserProfile/ProfileBar";
 import UserFeatureQuiz from "../../components/UserProfile/UserFeatureQuiz";
 import MyQuizList from "../../components/UserProfile/MyQuizList";
+
 const UserProfilePage = () => {
     const classes = useStyles()
     const { userId } = useParams()
     const { auth } = useContext(AuthContext)
     const [self, setSelf] = useState(false)
     useEffect(()=>{
-        if(auth.getCurrentUserUid() === userId){
+        if(localStorage.getItem('uid') === userId){
             setSelf(true)
         }
-    }, [auth, userId])
+    }, [userId])
     return(
         <div>
             <div className={classes.pageContainer}>

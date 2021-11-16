@@ -13,10 +13,8 @@ const QuizEditing = () => {
     }
     useEffect(()=>{
         const loadQuiz = async () => {
-            console.log("loading quiz", quizId)
             let response = await quizApis.getQuiz(quizId)
             if(response.data.length>0){
-                console.log(response.data[0])
                 setQuiz(response.data[0])
             }
         }

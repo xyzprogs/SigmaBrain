@@ -10,7 +10,6 @@ const MyQuizList = (props) => {
     useEffect(()=>{
         const loadUserQuiz = async ()=>{
             const response = await quizApis.getUserQuiz(props.userId)
-            console.log(response.data)
             setQuizzes(response.data)
         }
 
@@ -21,7 +20,7 @@ const MyQuizList = (props) => {
             MyQuizList
             <div className={classes.displayBoardContainer}>
                 {quizzes.map((quiz, i) => {
-                            return <QuizCard key={i} quiz={quiz} />
+                            return <QuizCard key={i} quiz={quiz} redirect={true}/>
                 })}
             </div>
         </div>

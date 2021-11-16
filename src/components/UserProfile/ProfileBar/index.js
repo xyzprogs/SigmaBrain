@@ -5,12 +5,14 @@ import HEADER from '../../../constant/header'
 import AuthContext from '../../../context/auth-context'
 import userApis from '../../../api/user-api'
 import Button from '@mui/material/Button'
+import default_banner from '../../../images/profile_image.png'
 const ProfileBar = (props) => {
     const classes = useStyles()
     const imgRef = useRef()
     const {auth} = useContext(AuthContext)
     const [image, setImage] = useState("")
     const [profile, setProfile] = useState(false)
+    const [self, setSelf] = useState(false)
     const clickUpload = ()=>{
         imgRef.current.click()
     }
@@ -23,49 +25,50 @@ const ProfileBar = (props) => {
         let config = {
             headers: headers
         }
-        console.log(event.target.files[0])
         const data = new FormData()
         data.append(BODY.USERPROFILE_IMAGE_TYPE, BODY.PROFILEIMAGE)
         data.append(BODY.USERPROFILE, event.target.files[0])
-        userApis.setProfilePageImage(data, config)
+        await userApis.setProfilePageImage(data, config)
+        setImage(URL.createObjectURL(event.target.files[0]))
     }
 
 
     const onEnterProfile = ()=>{
-        console.log("enter profile")
         setProfile(true)
     }
 
     const onLeaveProfile = ()=>{
-        console.log("leave profile")
         setProfile(false)
     }
 
     const onSubscribe = async ()=>{
-        if(auth.getCurrentUserUid()!==undefined || auth.getCurrentUserUid()!=null){
-            console.log("user",auth.getCurrentUserUid())
-            console.log("subscribe to",props.userId)
-            const token = await auth.user.getIdToken()
-            let headers = {
-                [HEADER.TOKEN]: token
-            }
-            let payload = {
-                [BODY.SUBSCRIBETO]: props.userId
-            }
-            userApis.subscribe(payload, headers)
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN]: token
         }
+        let payload = {
+            [BODY.SUBSCRIBETO]: props.userId
+        }
+        userApis.subscribe(payload, headers)
     }
 
     useEffect(()=>{
         const loadImage = async ()=>{
-            let response = await userApis.getProfileImage(props.userId)
-            setImage(response.data)
+            try{
+                let response = await userApis.getProfileImage(props.userId)
+                setImage(response.data)
+            }catch(e){
+               setImage(default_banner)
+            }
+
         }
-
         loadImage()
-    }, [props.userId])
+        if(localStorage.getItem('uid') === props.userId){
+            setSelf(true)
+        }
+    }, [props.userId, auth])
 
-    if(!props.self){
+    if(!self){
         return(
             <div className={classes.barContainer}>
                 <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>

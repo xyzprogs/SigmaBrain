@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import BODY from '../../constant/body'
 import quizApis from "../../api/quiz-api"
+import default_thumbnail from "../../images/default_quiz_thumbnail.png"
 const QuizCard = (props)=>{
     const classes = userStyles()
     const history = useHistory()
@@ -19,12 +20,21 @@ const QuizCard = (props)=>{
 
     useEffect(()=>{
         const loadImage = async ()=>{
-            let response = await quizApis.getQuizThumbnail(props.quiz[BODY.QUIZID])
-            setImage(response.data)
+            try{
+                let response = await quizApis.getQuizThumbnail(props.quiz[BODY.QUIZID])
+                setImage(response.data)
+            }catch(e){
+                setImage(default_thumbnail)
+            }
+
         }
 
         if(props.quiz!==undefined){
             loadImage()
+        }
+
+        return ()=>{
+            setImage()
         }
     },[props.quiz])
 

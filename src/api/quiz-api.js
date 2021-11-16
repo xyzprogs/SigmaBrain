@@ -9,6 +9,8 @@ export const getMostPopularQuiz = () => api.get('/popular/topquiz')
 export const getQuizThumbnail = (quizId) => api.get('/thumbnail/' + quizId) 
 export const getCategoryQuiz = (category) => api.get(`/category/${category}`)
 export const getQuiz = (quizId) => api.get(`/${quizId}`)
+export const getQuestion = (quizId) => api.get(`/${quizId}/quizQuestion`)
+export const getQuestionChoice = (questionId) => api.get(`/quizQuestionChoice/${questionId}`)
 export const createQuiz = (quiz, headers) => api.post("/", quiz, {headers: headers})
 export const setQuizThumbnail = (quizId, formData, headers) => api.post(`/quizThumbnail/${quizId}`, formData, {headers: headers})
 export const getUserQuiz = (userId) => api.get(`/user/${userId}`)
@@ -21,11 +23,17 @@ export const getChoicesInAQuestion = (questionId) => api.get(`/choicesInAQuestio
 export const getChoicesInAQuestionWithAnswer = (questionId, headers) => api.get(`/choicesInAQuestionWithAnswer/${questionId}`, {headers: headers})
 export const getQuestions = (quizId) => api.get(`/${quizId}/quizQuestion`)
 export const updateQuestionChoice = (payload, headers) => api.post('/updateQuestionChoices', payload, {headers: headers})
+export const getTopQuizByCategory = (category) => api.get(`/getTopQuizByCategory/${category}`)
+export const postQuizComment = (payload, headers) => api.post('/quizComment', payload, {headers:headers})
+export const getQuizComments = (quizId) => api.get(`/quizComment/${quizId}`)
+
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
     getCategoryQuiz,
     getQuiz,
+    getQuestion,
+    getQuestionChoice,
     getUserQuiz,
     createQuiz,
     setQuizThumbnail,
@@ -37,7 +45,10 @@ const quizApis = {
     getQuestions,
     getChoicesInAQuestion,
     getChoicesInAQuestionWithAnswer,
-    updateQuestionChoice
+    updateQuestionChoice,
+    getTopQuizByCategory,
+    postQuizComment,
+    getQuizComments
 }
 
 export default quizApis

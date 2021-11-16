@@ -9,6 +9,7 @@ import {getAuth} from 'firebase/auth';
 import AUTH_ERROR from '../../constant/firebase-error-code';
 import { useHistory } from "react-router-dom";
 import AuthContext from '../../context/auth-context'
+import ERRORCODE from '../../constant/firebase-error-code';
 const Register = () => {
 
     const classes = useStyles();
@@ -16,6 +17,7 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessages, setErrorMessages] = useState([])
+    const [name, setName] = useState("")
     const history = useHistory()
     const { auth } = useContext(AuthContext)
 
@@ -31,15 +33,19 @@ const Register = () => {
         setConfirmPassword(event.target.value);
     }
 
+    const updateName = (event) => {
+        setName(event.target.value)
+    }
+
     useEffect(()=>{
-        if(auth.loggedIn){
+        if(auth.user!=null){
             history.push('/')
         }
     })
 
     const confirmRegister = async (event) => {
         if(password !== confirmPassword){
-            setErrorMessages(["passwords doesn't match"])
+            setErrorMessages(ERRORCODE.WRONG_PASSWORD_MSG)
             return
         }
         register(email, password).then(async (userCredential) => {
@@ -52,7 +58,7 @@ const Register = () => {
             const token = await getAuth().currentUser.getIdToken()
             headers[HEADER_CONSTANT.TOKEN] = token
             payload[BODY_CONSTANT.EMAIL] = email
-            payload[BODY_CONSTANT.DISPLAYNAME] = "tester"
+            payload[BODY_CONSTANT.DISPLAYNAME] = name
             axios_config = {
                 headers: headers
             }
@@ -69,7 +75,10 @@ const Register = () => {
             // const errorMessage = error.message;
             console.log(errorCode)
             if(errorCode === AUTH_ERROR.ALREADY_REGISTERED){
-                setErrorMessages(["Email has already registered"])
+                setErrorMessages([ERRORCODE.ALREADY_REGISTERED_MSG])
+            }
+            else{
+                setErrorMessages([ERRORCODE.REGISTER_UNSUCESS_MSG])
             }
             // ..
           });
@@ -97,6 +106,16 @@ const Register = () => {
                             name="email"
                             placeholder="Email"
                             onKeyUp = {updateEmail}
+                        />
+                    </div>
+                    <div className={classes.textToLeft}>Display Name</div>
+                    <div className={classes.inputWrapper}>
+                        <input
+                            className={ `${classes.input} ${classes.bottomBorder}` }
+                            type="text"
+                            name="name"
+                            placeholder="Display Name"
+                            onKeyUp = {updateName}
                         />
                     </div>
                     <div className={classes.textToLeft}>Password</div>

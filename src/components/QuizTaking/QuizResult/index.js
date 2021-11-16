@@ -7,15 +7,11 @@ const QuizResult = (props) =>{
 
     let history = useHistory();
     const answerChoices = props.answerChoices;
-    const tempAnswers = props.answers;
     const restartQuiz = props.restartQuiz;
-
-    console.log(answerChoices);
-    console.log(tempAnswers);
-
+    const correctChoices = props.correctChoices;
     let correct = 0;
     for (let i = 0; i < answerChoices.length; i++){
-        if (parseInt(answerChoices[i]) === tempAnswers[i].correctAnswer){
+        if (parseInt(answerChoices[i]) === correctChoices[i]){
             correct++;
         }
     }
@@ -27,7 +23,7 @@ const QuizResult = (props) =>{
                 <Card.Body>
                     <Card.Title>Congratulations!</Card.Title>
                     <Card.Text>
-                        You got {correct} out of {tempAnswers.length} questions right!
+                        You got {correct} out of {answerChoices.length} questions right!
                     </Card.Text>
                     <Button onClick={restartQuiz}>Retake Quiz</Button>
                     <Button onClick={() => history.push('/')}>Return Home</Button>

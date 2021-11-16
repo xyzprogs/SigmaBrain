@@ -1,82 +1,58 @@
 import { useStyles } from "./style"
 import QuizCard from "../../QuizCard"
-import RankCard from "../../RankCard"
 import { useState, useEffect } from 'react'
 import quizApis from "../../../api/quiz-api"
-import userApis from "../../../api/user-api"
-
+import QuizRankCard from "../../QuizRankCard"
+import { useHistory } from "react-router-dom"
+import BODY_CONSTANT from "../../../constant/body"
+import { QUIZ_CATEGORY_NAME } from '../../../constant/quiz-category'
 const QuizDisplayBoard = (props) => {
     //TEMP DATA
     const classes = useStyles()
-
-    // const [category, setCategory] = useState(null)
+    const history = useHistory()
     const [quizzes, setQuizzes] = useState([])
-    const [topUsers, setTopUsers] = useState([])
+    const [rankQuiz, setRankQuiz] = useState([])
 
- 
 
     useEffect(() => {
         const loadCategoryQuiz = async () => {
             if (props.category !== undefined) {
-                console.log("loading quiz from category")
                 const category = props.category
                 const response = await quizApis.getCategoryQuiz(category)
                 setQuizzes(response.data)
+                const response2 = await quizApis.getTopQuizByCategory(category)
+                setRankQuiz(response2.data)
             }
         }
 
-        const getTopUsersFromLeaderboard = async () => {
-            await userApis.getMainLeaderboard().then((response) => {
-                setTopUsers(response.data);
-                console.log("topten users",response.data)
-            })
-        }
 
         loadCategoryQuiz()
-        getTopUsersFromLeaderboard();
+        return ()=>{
+            setQuizzes()
+            setRankQuiz()
+        }
     }, [props.category])
 
+    const moveToStartingPage =(i)=>{
+        history.push(`/quizDescription/${rankQuiz[i][BODY_CONSTANT.QUIZID]}`)
+    }
 
-
-    if (quizzes.length === 0) {
-        return (
-            <div className={classes.displayBoardContainer}>
+    if (quizzes==null || quizzes===undefined ||  quizzes.length === 0) {
+        return <div className={classes.displayBoardContainer}>
                 <div className={classes.headerContainer}>
                     <div className={classes.title}>
-                        All
+                        {QUIZ_CATEGORY_NAME[props.category]}
                     </div>
+                    <div>No Quizzes In this Category</div>
                 </div>
-                <div className={classes.quizContainer}>
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                    <QuizCard />
-                </div>
-
-                <div className={classes.rankContainer}>
-                    <div>Rankings</div>
-                    <div>
-                        {console.log(props.topUsers)}
-                        {topUsers.map((user, i) =>
-                            <RankCard user={user} index = {i} />
-                        )}
-                    </div>
-                </div>
-            </div>
-        )
+        </div>
     }
     else {
         return (
             <div className={classes.displayBoardContainer}>
                 <div className={classes.headerContainer}>
                     <div className={classes.title}>
-                        All
+                        {QUIZ_CATEGORY_NAME[props.category]}
                     </div>
                 </div>
                 <div className={classes.quizContainer}>
@@ -88,8 +64,10 @@ const QuizDisplayBoard = (props) => {
                 <div className={classes.rankContainer}>
                     <div>Rankings</div>
                     <div>
-                        {topUsers.map((user, i) =>
-                            <RankCard user={user} index = {i} />
+                        {rankQuiz.map((quiz, i) =>
+                            <div key={i} className={classes.card} onClick={()=>moveToStartingPage(i)}>
+                                <QuizRankCard key={i} quiz={quiz} rank={i+1}/>
+                            </div>
                         )}
                     </div>
                 </div>
