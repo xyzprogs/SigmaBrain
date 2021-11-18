@@ -10,6 +10,7 @@ import QuizManagementPage  from './pages/QuizManagementPage/quizManagementPage';
 import SearchResultPage from './pages/SearchResultPage/searchResultPage';
 import QuizEditingPage from './pages/QuizEditingPage/quizEditingPage';
 import ForumPage from './pages/ForumPage/forumPage';
+import ForumPostPage from './pages/ForumPostPage/forumPostPage';
 import { Route, Switch } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import bootstrap from 'bootstrap' 
@@ -37,7 +38,7 @@ function App() {
           <Route path='/quizManagement' component={QuizManagementPage}/>
           <Route path='/searchResult' component = {SearchResultPage}/>
           <Route path='/quizEditing/:quizId' component = {QuizEditingPage}/>
-          <Route path='/forum' component = {ForumPage}/>
+          <Route path='/forumPost/:forumPostId' component = {ForumPostPage}/>
           <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/>
         </Switch>
         </div>

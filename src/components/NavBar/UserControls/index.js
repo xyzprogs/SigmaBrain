@@ -1,5 +1,5 @@
 import { useStyles } from './style'
-import { useContext,useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../../context/auth-context';
 
