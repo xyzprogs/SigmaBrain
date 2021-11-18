@@ -1,4 +1,3 @@
-import { useStyles } from './style'
 import { useState, useEffect, useContext } from 'react'
 import BODY from '../../../constant/body'
 import quizApis from '../../../api/quiz-api'

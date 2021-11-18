@@ -12,7 +12,7 @@ const CommentBox = ({comment})=>{
             setName(response.data[0][BODY.DISPLAYNAME])
         }
         loadName()
-    },[])
+    },[comment])
     
     return(
 <Card className={classes.commentBox}>

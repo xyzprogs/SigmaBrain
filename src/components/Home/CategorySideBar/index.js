@@ -1,8 +1,7 @@
 
 import { useStyles } from './style'
-import { QUIZ_CATEGORY_DICT, QUIZ_CATEGORY_NAME } from '../../../constant/quiz-category'
-import QUIZ_CATEGORY from '../../../constant/quiz-category'
-import { useState, useEffect, useRef } from 'react'
+import { QUIZ_CATEGORY_NAME } from '../../../constant/quiz-category'
+import { useEffect } from 'react'
 const CatgeorySideBar = ({bar, refs})=>{
     const classes = useStyles()
 

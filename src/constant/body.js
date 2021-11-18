@@ -1,3 +1,6 @@
+//Common
+const OWNERID = "ownerId"
+
 //User Body
 const USERID = "userId"
 const DISPLAYNAME = "displayName"
@@ -89,6 +92,9 @@ const USERACHIEVEMENTCOMPLETIONID = "userAchievementCompletionId"
 const SUBSCRIBETO = "subscribeTo"
 
 const BODY_CONSTANT = {
+    //Common
+    OWNERID,
+    
     //User
     USERID,
     DISPLAYNAME,

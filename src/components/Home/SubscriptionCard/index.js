@@ -29,7 +29,7 @@ const UserCard = ({subscribeTo})=>{
     return(
         <div className={classes.userCardContainer}>
             <div className={`${classes.circle} ${classes.imgContainer}`}>
-                <img className={classes.imgSize} src={image} />
+                <img className={classes.imgSize} src={image} alt="subscription card"/>
             </div>
             <div className={classes.userName}>{user[BODY.DISPLAYNAME]}</div>
         </div>

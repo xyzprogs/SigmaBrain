@@ -1,6 +1,13 @@
 import { createUseStyles } from 'react-jss'
-const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' }
 export const useStyles = createUseStyles({
+    container:{
+        border: "solid",
+        cursor: "pointer",
+        width: "80%",
+        margin: "auto",
+        backgroundColor: "#f5f5f5",
+    },
+
     Block_Background:{
         width:"70%",
         height:'70px',
@@ -18,7 +25,6 @@ export const useStyles = createUseStyles({
     white_box:{
         height:'70px',
         backgroundColor:'#ededed',
-    
         fontSize:'30px'
     },
 

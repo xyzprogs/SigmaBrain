@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStyles } from './style';
-import { ClassNames } from '@emotion/react';
 
 const TitleBar = () => {
     const classes = useStyles()

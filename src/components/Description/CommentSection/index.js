@@ -15,13 +15,13 @@ const CommentSection = (props)=>{
         setComment(event.target.value)
     }
 
-    const loadComments = async ()=>{
+    let loadComments = async ()=>{
         let response = await quizApis.getQuizComments(props.quizId)
         setComments(response.data) 
     }
 
     const submitComment = async ()=>{
-        if(comment!=""){
+        if(comment!==""){
             console.log("submit comment", props.quizId)
             const token = await auth.user.getIdToken()
             let headers = {
@@ -38,6 +38,10 @@ const CommentSection = (props)=>{
     }
 
     useEffect(()=>{
+        let loadComments = async ()=>{
+            let response = await quizApis.getQuizComments(props.quizId)
+            setComments(response.data) 
+        }
         loadComments()
     },[props.quizId])
 

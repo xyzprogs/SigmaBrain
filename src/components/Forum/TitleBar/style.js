@@ -1,7 +1,4 @@
-import { blue, blueGrey } from '@mui/material/colors'
-import { positions } from '@mui/system'
 import { createUseStyles } from 'react-jss'
-const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' }
 export const useStyles = createUseStyles({
     Block_BackgroundImage:{
         width:"70%",
