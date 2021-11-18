@@ -81,19 +81,19 @@ const ProfileBar = (props) => {
                     Home
                 </div>
     
-                <div className={classes.tableCell2}>
+                <div className={classes.tableCell2} onClick={()=>{props.setTag(1)}}>
                     Quizzes
                 </div>
     
-                <div className={classes.tableCell2}>
+                <div className={classes.tableCell2} onClick={()=>{props.setTag(2)}}>
                     About
                 </div>
     
-                <div className={classes.tableCell2}>
+                <div className={classes.tableCell2} onClick={()=>{props.setTag(3)}}>
                     Followers
                 </div>   
 
-                <div className={classes.tableCell2} onClick={()=>{props.setTag(1)}}>
+                <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
                     Forum
                 </div>   
 
@@ -125,19 +125,19 @@ const ProfileBar = (props) => {
                 Home
             </div>
 
-            <div className={classes.tableCell2}>
+            <div className={classes.tableCell2} onClick={()=>{props.setTag(1)}} >
                 Quizzes
             </div>
 
-            <div className={classes.tableCell2}>
+            <div className={classes.tableCell2} onClick={()=>{props.setTag(2)}}>
                 About
             </div>
 
-            <div className={classes.tableCell2}>
+            <div className={classes.tableCell2} onClick={()=>{props.setTag(3)}}>
                 Followers
             </div>
 
-            <div className={classes.tableCell2} onClick={()=>{props.setTag(1)}}>
+            <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
                     Forum
             </div> 
 

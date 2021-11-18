@@ -1,7 +1,9 @@
 import ForumSection from "../../Forum";
 import UserFeatureQuiz from "../UserFeatureQuiz";
 import MyQuizList from "../MyQuizList";
-
+import UserQuizDisplay from "../UserQuizDisplay";
+import About from "../About";
+import FollowerList from "../FollowerList";
 const ProfileSectionWrapper = ({tag, userId, self})=>{
 
     if(tag===0){
@@ -16,10 +18,36 @@ const ProfileSectionWrapper = ({tag, userId, self})=>{
     if(tag===1){
         return(
             <div>
+                <UserQuizDisplay/>
+            </div>
+        )
+    }
+
+    if(tag===2){
+        return(
+            <div>
+                <About/>
+            </div>
+        )
+    }
+
+    if(tag===3){
+        return(<div>
+            <FollowerList/>
+        </div>)
+    }
+
+    if(tag===4){
+        return(
+            <div>
                 <ForumSection/>
             </div>
         )
     }
+
+    return(
+        <div>Something Wrong</div>
+    )
 }
 
 export default ProfileSectionWrapper

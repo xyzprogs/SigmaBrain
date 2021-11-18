@@ -45,7 +45,7 @@ const Register = () => {
 
     const confirmRegister = async (event) => {
         if(password !== confirmPassword){
-            setErrorMessages(ERRORCODE.WRONG_PASSWORD_MSG)
+            setErrorMessages([ERRORCODE.WRONG_PASSWORD_MSG])
             return
         }
         register(email, password).then(async (userCredential) => {

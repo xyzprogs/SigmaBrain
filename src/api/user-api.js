@@ -18,7 +18,7 @@ export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload,
 export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
 export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
 export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
-
+export const getFollowers = (headers)=>api.get("/followers", {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -34,7 +34,8 @@ const userApis = {
     unsubscribe,
     getSubscriptions,
     getUserInfo,
-    getUserDisplayName
+    getUserDisplayName,
+    getFollowers
 }
 
 export default userApis
