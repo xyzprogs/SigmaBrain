@@ -11,11 +11,11 @@ const RankCard = ({user, index}) => {
     }
 
     if(user===undefined){
-        return <div>loading</div>
+        return <div>LOADING</div>
     }
     return(
         <div onClick = {handleClickLeaderboard}>
-            {rank + ". "+ user.userId}
+            {rank + ". "+ user.displayName}
         </div>
     )
 }
