@@ -25,6 +25,11 @@ const ChannelLeaderboard = ({ channelName }) => {
             <div className={classes.titleWrapper}>
                 <h3 className={classes.title}>Leaderboard for {channelName}</h3>
             </div>
+            <div className={classes.rankCardContainer} >
+                <div>  </div>
+                <div> User </div>
+                <div> Score </div>
+            </div>
             <div className={classes.textToLeft}>
                 {localLeaderboard.map((user, index) =>
                    <RankCard user = {user} index = {index} key = {index}/>

@@ -1,11 +1,11 @@
 import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
-    leaderBoardContainer:{
-
+    rankCardContainer:{
+        display:'grid',
+        gridTemplateColumns:'20% 50% 30%'
     },
-    rankNumber:{},
-    username:{
-        
+    rankNumber:{
+        textAlign:'center'
     }
 })

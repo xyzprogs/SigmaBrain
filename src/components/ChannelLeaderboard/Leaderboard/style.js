@@ -24,6 +24,13 @@ export const useStyles = createUseStyles({
         fontSize: '30px'
     },
     textToLeft: {
-        textAlign: "left"
+        textAlign: "left",
+        width:'100%'
+    },
+    rankCardContainer:{
+        display:'grid',
+        gridTemplateColumns:'20% 50% 30%',
+        width:'100%',
+        textAlign:'left'
     },
 })
