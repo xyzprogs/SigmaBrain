@@ -27,7 +27,7 @@ const QuizTaking = () => {
                 return
             }
             setQuestions(response.data);
-            setAnswerChoices(new Array(response.data.length).fill(-1));
+            setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
             setCorrectChoices(new Array(response.data.length).fill(-1));
         }
         if(questions.length === 0){
@@ -82,7 +82,7 @@ const QuizTaking = () => {
             return(
                 <div>
                     <div className={classes.quizContainer}>
-                        <QuizResult answerChoices={answerChoices} correctChoices={correctChoices} 
+                        <QuizResult answerChoices={answerChoices} correctChoices={correctChoices} questions={questions}
                             restartQuiz={restartQuiz}
                         />
                     </div>
