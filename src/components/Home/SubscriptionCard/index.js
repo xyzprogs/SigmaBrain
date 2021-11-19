@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useStyles } from './style';
 import userApis from '../../../api/user-api';
 import BODY from '../../../constant/body';
+import default_profile_img from '../../../images/profile_image.png'
 const UserCard = ({subscribeTo})=>{
 
     const classes = useStyles()
@@ -16,7 +17,7 @@ const UserCard = ({subscribeTo})=>{
                 response = await userApis.getProfileImage(response.data[0][BODY.USERID])
                 setImage(response.data)
             }catch(e){
-               
+               setImage(default_profile_img)
             }
         }
 
@@ -29,7 +30,7 @@ const UserCard = ({subscribeTo})=>{
     return(
         <div className={classes.userCardContainer}>
             <div className={`${classes.circle} ${classes.imgContainer}`}>
-                <img className={classes.imgSize} src={image} alt="subscription card"/>
+                <img className={classes.imgSize} src={image} alt=""/>
             </div>
             <div className={classes.userName}>{user[BODY.DISPLAYNAME]}</div>
         </div>

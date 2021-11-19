@@ -10,6 +10,7 @@ import QuizManagementPage  from './pages/QuizManagementPage/quizManagementPage';
 import SearchResultPage from './pages/SearchResultPage/searchResultPage';
 import QuizEditingPage from './pages/QuizEditingPage/quizEditingPage';
 import ForumPage from './pages/ForumPage/forumPage';
+import CategoryPage from './pages/CategoryPage';
 import ForumPostPage from './pages/ForumPostPage/forumPostPage';
 import { Route, Switch } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
@@ -40,6 +41,7 @@ function App() {
           <Route path='/quizEditing/:quizId' component = {QuizEditingPage}/>
           <Route path='/forumPost/:forumPostId' component = {ForumPostPage}/>
           <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/>
+          <Route path='/category/:categoryId' component = {CategoryPage}/>
         </Switch>
         </div>
       </AuthContextProvider>
