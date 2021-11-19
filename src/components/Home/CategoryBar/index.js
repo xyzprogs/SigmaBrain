@@ -3,13 +3,14 @@ import QUIZ_CATEGORY from '../../../constant/quiz-category';
 import { QUIZ_CATEGORY_NAME, QUIZ_CATEGORY_DICT } from "../../../constant/quiz-category"
 import { useState, useEffect } from 'react'
 import { Modal, Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
-
+import { useHistory } from 'react-router-dom'
 const CategoryBar = () =>{
     const classes  = useStyles()
     const [categoryBar, setCategoryBar] = useState([QUIZ_CATEGORY.ALL, QUIZ_CATEGORY.Computer_Science, QUIZ_CATEGORY.Computer_Network, QUIZ_CATEGORY.Machine_Learning, QUIZ_CATEGORY.Calculus])
     const [categoryList, setCategoryList] = useState()
     const [category, setCategory] = useState()
     const [open, setOpen] = useState(false)
+    const history = useHistory()
     const onAutoChange = (event, value)=>{
         if(value!=null){
             setCategory(value['value'])
@@ -18,11 +19,16 @@ const CategoryBar = () =>{
 
     const onSearch = ()=>{
         console.log("searching", category)
+        history.push(`/category/${category}`)
         setOpen(false)
     }
 
     const openSearch = ()=>{
         setOpen(true)
+    }
+
+    const redirectToCategoryPage = (categoryId) => {
+        history.push(`/category/${categoryId}`)
     }
 
     useEffect(()=>{
@@ -37,7 +43,7 @@ const CategoryBar = () =>{
             {
                 categoryBar.map(categoryBar=>{
                     return (
-                    <div className={classes.categoryBox}>
+                    <div onClick={()=>{redirectToCategoryPage(categoryBar)}} className={classes.categoryBox}>
                         {QUIZ_CATEGORY_NAME[categoryBar]}
                     </div>
                     )
