@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useContext, useStyles } from "./style"
+import { useStyles } from "./style"
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import QuizResult from './QuizResult';
@@ -14,7 +14,7 @@ const QuizTaking = () => {
     const [index, setIndex] = useState(0);
     const [flag, setFlag] = useState(false);
     const [questions, setQuestions] = useState([]);
-    const [answerChoices, setAnswerChoices] = useState([]);
+    const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
     
 
@@ -27,7 +27,7 @@ const QuizTaking = () => {
                 return
             }
             setQuestions(response.data);
-            setAnswerChoices(new Array(response.data.length).fill(-1));
+            setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
             setCorrectChoices(new Array(response.data.length).fill(-1));
         }
         if(questions.length === 0){
@@ -56,30 +56,33 @@ const QuizTaking = () => {
         setFlag(true);
     }
 
-    const changeChoice = (type, index, choice) => {
+    const changeCorrectChoice = (index, choice) => {
         let temp = [];
         for (let i = 0; i < answerChoices.length; i++){
-            if(type === 0){
-                temp.push(answerChoices[i]);
-            }else{
-                temp.push(correctChoices[i]);
-            }
+            temp.push(correctChoices[i]);
         }
         temp[index] = choice;
-        if(type === 0){
-            setAnswerChoices(temp);
-        }else{
-            setCorrectChoices(temp);
-        }
+        setCorrectChoices(temp);
     }
 
+    const changeAnswerChoice = (choice) =>{
+        let temp = [];
+        for (let i = 0; i < answerChoices.length; i++){
+            temp.push(answerChoices[i]);
+        }
+        let firstComma = choice.indexOf(",");
+        temp[index] = [].fill(-1);
+        temp[index][0] = parseInt(choice.substring(0, firstComma));
+        temp[index][1] = choice.substring(firstComma + 1);
+        setAnswerChoices(temp);
+    }
 
     const renderCheck = () => {
         if(flag){
             return(
                 <div>
                     <div className={classes.quizContainer}>
-                        <QuizResult answerChoices={answerChoices} correctChoices={correctChoices} 
+                        <QuizResult answerChoices={answerChoices} correctChoices={correctChoices} questions={questions}
                             restartQuiz={restartQuiz}
                         />
                     </div>
@@ -96,7 +99,8 @@ const QuizTaking = () => {
                             questions={questions[index]} index={index} answerChoices={answerChoices} correctChoices={correctChoices}
                             changeIndex={changeIndex} 
                             changeFlag={changeFlag} 
-                            changeChoice={changeChoice}
+                            changeCorrectChoice={changeCorrectChoice}
+                            changeAnswerChoice={changeAnswerChoice}
                         />
                     </div>
                 </div>

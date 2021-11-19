@@ -24,16 +24,17 @@ const QuestionCard = (props) => {
                 if(correctChoices[index] === -1){
                     for(let i = 0; i < response.data.length; i++){
                         if(parseInt(response.data[i].is_right_choice) === 1){
-                            props.changeChoice(1, index, i);
+                            props.changeCorrectChoice(index, i);
                         }
                     }
                 }
             }
         }
+    if(answer.length === 0){
         loadQuestionChoices();
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [correctChoices, index, questions])
+    }
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [correctChoices, answer])
 
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
@@ -55,14 +56,14 @@ const QuestionCard = (props) => {
     }
 
     const answerHandler = (event) => {
-        props.changeChoice(0, index, event.target.value);
+        props.changeAnswerChoice(event.target.value);
     }
 
     const buttonRender = (choice, index) => {
-        if (index === parseInt(answerChoices[props.index])){
+        if (index === parseInt(answerChoices[props.index][0])){
             return(
                 <div key={choice.choiceId}>
-                    <Button variant="success btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={index}>
+                    <Button variant="success btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />
@@ -71,7 +72,7 @@ const QuestionCard = (props) => {
         }else{
             return (
                 <div key={choice.choiceId}>
-                    <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={index}>
+                    <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />
