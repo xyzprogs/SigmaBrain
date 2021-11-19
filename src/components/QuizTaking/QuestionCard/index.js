@@ -30,10 +30,14 @@ const QuestionCard = (props) => {
                 }
             }
         }
+    if(answer.length === 0){
         loadQuestionChoices();
+        console.log("once");
+    }
+        
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [correctChoices, index, questions])
+    }, [correctChoices, answer])
 
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){

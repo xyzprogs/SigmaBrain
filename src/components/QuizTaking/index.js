@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useContext, useStyles } from "./style"
+import { useStyles } from "./style"
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import QuizResult from './QuizResult';
