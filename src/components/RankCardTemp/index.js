@@ -10,7 +10,7 @@ const RankCard = ({ user, index }) => {
 
     const handleClickLeaderboard = () => {
         //For Now, redirect to the userProfile Page
-        history.push(`/profiles/${user.userId}`);
+        history.push(`/profile/${user.userId}`);
     }
 
     if (user === undefined) {

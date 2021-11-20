@@ -36,6 +36,7 @@ export const useStyles = createUseStyles({
     imgContainer: {
         position: "relative",
         textAlign: "center",
+        gridRow:'1 / 3',
     },
 
     changeText: {
@@ -69,6 +70,19 @@ export const useStyles = createUseStyles({
 
     defaultCursor:{
         cursor: "default"
+    },
+
+    userInfoGrid:{
+        display:'grid',
+        width:'20%',
+        gridTemplateColumns: 'auto auto',
+
+    },
+    userInfoGrid2:{
+        display:'grid',
+        width:'40%',
+        gridTemplateColumns: 'auto auto',
+
     }
     
 })
