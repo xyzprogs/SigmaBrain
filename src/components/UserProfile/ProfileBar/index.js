@@ -91,7 +91,7 @@ const ProfileBar = (props) => {
                             <img alt="user profile" className={classes.imgSize} src={image} />
                         </div>
                     </div>
-                    <div>{userInfo.displayName}</div>
+                    <div>Channel Name: {userInfo.displayName}</div>
                     <div>{userInfo.email}</div>
                 </div>
 
@@ -133,20 +133,26 @@ const ProfileBar = (props) => {
 
     return (
         <div>
-            <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell} ${classes.pointerCursor}`}>
-                {
-                    profile
-                        ?
-                        <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
-                            <img alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image} />
-                            <div className={classes.changeText}>Change</div>
-                        </div>
-                        :
-                        <div className={classes.imgSize}>
-                            <img alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image} />
-                        </div>
-                }
-                <div>ADijioawjdoij</div>
+            <div className={classes.userInfoGrid2}>
+                <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell} ${classes.pointerCursor}`}>
+                    {
+                        profile
+                            ?
+                            <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
+                                <img alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image} />
+                                <div className={classes.changeText}>Change</div>
+                            </div>
+                            :
+                            <div className={classes.imgSize}>
+                                <img alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image} />
+                            </div>
+                    }
+                </div>
+
+                <div>Channel Name: {userInfo.displayName}</div>
+                <div>{userInfo.email}</div>
+
+
             </div>
             <div className={classes.barContainer}>
 

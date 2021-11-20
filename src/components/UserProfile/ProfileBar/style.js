@@ -77,6 +77,12 @@ export const useStyles = createUseStyles({
         width:'20%',
         gridTemplateColumns: 'auto auto',
 
+    },
+    userInfoGrid2:{
+        display:'grid',
+        width:'40%',
+        gridTemplateColumns: 'auto auto',
+
     }
     
 })
