@@ -1,30 +1,19 @@
 import { createUseStyles } from 'react-jss'
-export const useStyles = createUseStyles({
-    
-    container:{
-        width: "80%",
-    },
 
+export const useStyles = createUseStyles({
     searchResultContainer:{
-        width: "50%",
+        width: "100%",
         display: "grid",
         gridArea: "main",
-        marginTop: "50px",
+        paddingTop: "10%",
         cursor: "pointer"
     },
 
     cardContainer: {
-        width: "50%",
+        width: "100vh",
         display: "grid",
         gridArea: "main",
         marginTop: "10px",
         cursor: "pointer"
     },
-
-    // container: {
-    //     display: "flex",
-    //     flexGrow: "1",
-    //     padding: "1rem",
-    // }
-
 })

@@ -15,7 +15,7 @@ const CatgeorySideBar = ({bar, refs})=>{
     return(
         <div className={classes.fixOnRight}>
             {bar.map((category,i)=>{
-                return <div onClick={()=>{scroll(i)}}>{QUIZ_CATEGORY_NAME[category]}</div>
+                return <div className={classes.item} key={i} onClick={()=>{scroll(i)}}>{QUIZ_CATEGORY_NAME[category]}</div>
             })}
         </div>
     )

@@ -10,6 +10,28 @@ export const useStyles = createUseStyles({
     },
 
     searchBar:{
+        width: "100%"
+    },
+
+    searchResult:{
+        position: "absolute",
+        marginTop: "5.5%",
+        backgroundColor: "white"
+    },
+
+    resultBox: {
+        cursor: "pointer",
+        border: "solid",
+        width: "50vw",
+        background: "white"
+    },
+
+    resultText: {
+        marginRight: "100%",
+        clear: "both",
+        display: "inline-block",
+        overflow: "hidden",
+        whiteSpace: "nowrap"
         width: "100%",
         borderRadius:"10px 0px 0px 10px",
         outline:'none'
