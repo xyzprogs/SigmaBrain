@@ -4,6 +4,7 @@ import MyQuizList from "../MyQuizList";
 import UserQuizDisplay from "../UserQuizDisplay";
 import About from "../About";
 import FollowerList from "../FollowerList";
+import ChannelLeaderboard from "../../ChannelLeaderboard/Leaderboard";
 const ProfileSectionWrapper = ({tag, userId, self})=>{
 
     if(tag===0){
@@ -41,6 +42,14 @@ const ProfileSectionWrapper = ({tag, userId, self})=>{
         return(
             <div>
                 <ForumSection/>
+            </div>
+        )
+    }
+
+    if(tag===5){
+        return(
+            <div>
+                <ChannelLeaderboard/>
             </div>
         )
     }

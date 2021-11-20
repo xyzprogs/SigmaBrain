@@ -97,6 +97,10 @@ const ProfileBar = (props) => {
                     Forum
                 </div>   
 
+                <div className={classes.tableCell2} onClick={()=>{props.setTag(5)}}>
+                    Leaderboard
+                </div>   
+
                 <div className={classes.tableCell3}>
                     <Button onClick={onSubscribe}>Subscribe</Button>
                 </div>            
@@ -140,6 +144,10 @@ const ProfileBar = (props) => {
             <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
                     Forum
             </div> 
+
+            <div className={classes.tableCell2} onClick={()=>{props.setTag(5)}}>
+                    Leaderboard
+            </div>   
 
             <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
         </div>

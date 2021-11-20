@@ -5,7 +5,7 @@ const api = axios.create({
 })
 export const createUser = (payload, config) => api.post('/create', payload, config) 
 export const getMainLeaderboard = () => api.get('/leaderboard')
-export const getChannelLeaderboard = (leaderboardId) => api.get(`/leaderboard/${leaderboardId}`)
+export const getChannelLeaderboard = (ownerId) => api.get(`/leaderboard/${ownerId}`)
 export const setProfilePageImage = (formdata, config) => api.post('/profile/setUserProfileImage', formdata, config)
 export const setBackgroundImage = (formdata, config) => api.post('/profile/setUserBackgroundImage', formdata, config)
 export const setUserDescription = (payload, config) => api.post('/profile/setUserDescription', payload, config)

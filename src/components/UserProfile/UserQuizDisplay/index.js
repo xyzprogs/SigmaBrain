@@ -3,7 +3,7 @@ import QuizCard from "../../QuizCard"
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import quizApis from "../../../api/quiz-api"
-import BODY from "../../../constant/body"
+
 const UserQuizDisplay = (props) => {
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])

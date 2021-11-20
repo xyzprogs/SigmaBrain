@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { useStyles } from './style'
 import userApis from '../../../api/user-api'
 import RankCard from '../../RankCardTemp'
-
-const ChannelLeaderboard = ({ channelName }) => {
+import { useParams } from 'react-router-dom'
+const ChannelLeaderboard = () => {
     const classes = useStyles()
-
+    const { userId } = useParams()
     const [localLeaderboard, setLocalLeaderboard] = useState([])
     //Add username to the table??
     useEffect(() => {
-        const getLeaderboard = async (leaderboardId) => {
-            await userApis.getChannelLeaderboard(leaderboardId).then((response) => {
+        const getLeaderboard = async (ownerId) => {
+            await userApis.getChannelLeaderboard(ownerId).then((response) => {
                 setLocalLeaderboard(response.data)
-                //console.log(response.data)
+                console.log(response.data)
             })
         }
-        getLeaderboard(channelName);
+        getLeaderboard(userId);
     }, [])
 
     //console.log(localLeaderboard)
@@ -23,9 +23,9 @@ const ChannelLeaderboard = ({ channelName }) => {
     return (
         <div className={classes.channelLeaderboardForm}>
             <div className={classes.gridContainer}>
-                <div className={classes.titleWrapper}>
-                    <h3 className={classes.title}>Leaderboard for {channelName}</h3>
-                </div>
+                {/* <div className={classes.titleWrapper}>
+                    <h3 className={classes.title}>Leaderboard</h3>
+                </div> */}
                 <div className={classes.rankCardContainer} >
                     <div>  </div>
                     <div> User </div>

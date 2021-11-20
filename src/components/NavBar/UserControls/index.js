@@ -27,7 +27,7 @@ const UserControl = ({setLogin}) => {
         <div className={classes.userControlsContainers}>
             <div className="dropdown">
                 <div className={`dropdown-toggle `} type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img className={classes.image_setting} src={profile_image}/>
+                <img className={classes.image_setting} src={profile_image} alt=""/>
                 </div>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectProfile}>Profile</div></li>

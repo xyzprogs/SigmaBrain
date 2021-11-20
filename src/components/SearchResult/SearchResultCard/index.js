@@ -18,7 +18,7 @@ const SearchResultCard = ({result})=>{
             }
         }
         loadName()
-    },[])
+    },[result])
     return(
         <div className={classes.searchResultContainer}>
             <Card className={classes.cardContainer} onClick={()=>history.push('/QuizTaking')}>

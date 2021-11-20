@@ -1,14 +1,13 @@
 import React from 'react'
 import { useStyles } from './style'
-import { useHistory } from 'react-router';
 import quizApi from '../../../api/quiz-api'
-import { useState } from 'react'
-import QUERY_PARAMS from '../../../constant/query_params';
+import { useState, useContext } from 'react'
+import SearchContext from '../../../context/search-context';
 const SearchInput = ({searchInput,setSearchInput}) => {
     const classes = useStyles();
-    let history = useHistory()
     const [searches, setSearches] = useState([])
     const [userSearch, setUserSearch] = useState("")
+    const { searchAndRedirect } = useContext(SearchContext)
     const onSearch = async (event)=>{
         setUserSearch(event.target.value)
         let response = await quizApi.getQuizNameSearchResult(event.target.value)
@@ -20,8 +19,8 @@ const SearchInput = ({searchInput,setSearchInput}) => {
         console.log("choose", searches[i])
     }
 
-    const redirectToSearchResult = ()=>{
-        history.push(`/searchResult/?${QUERY_PARAMS.SEARCH_RESULT}=${userSearch}`)
+    const redirectToSearchResult = async ()=>{
+        searchAndRedirect(userSearch)
         setSearches([])
     }
 
