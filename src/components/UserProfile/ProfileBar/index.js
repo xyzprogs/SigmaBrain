@@ -118,7 +118,7 @@ const ProfileBar = (props) => {
                         Forum
                     </div>
 
-                    <div className={classes.tableCell2} onClick={() => { redirectToLeaderboardpage() }}>
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(5) }}>
                         Leaderboard
                     </div>
 
@@ -176,7 +176,7 @@ const ProfileBar = (props) => {
                     Forum
                 </div>
 
-                <div className={classes.tableCell2} onClick={() => { redirectToLeaderboardpage() }}>
+                <div className={classes.tableCell2} onClick={() => { props.setTag(5) }}>
                     Leaderboard
                 </div>
 
