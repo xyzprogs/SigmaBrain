@@ -35,27 +35,27 @@ const SideBar = () => {
         <div className={classes.sideBarContainer}>
             <div className={classes.sideBarSelection}>
                 <div className={classes.sideBarSelect}>
-                    <img className={classes.image_setting} src={Home_Sign}/>
+                    <img className={classes.image_setting} src={Home_Sign} alt=""/>
                     &nbsp;&nbsp;Home
                 </div>
                 <div className={classes.sideBarSelect}>
-                    <img className={classes.image_setting} src={Subcription_sign}/>
+                    <img className={classes.image_setting} src={Subcription_sign} alt=""/>
                     &nbsp;&nbsp;Subscription
                 </div>
                 <div className={classes.sideBarSelect}>
-                    <img className={classes.image_setting} src={Channel_sign}/>
+                    <img className={classes.image_setting} src={Channel_sign} alt=""/>
                     &nbsp;&nbsp;Channel
                 </div>
                 <div className={classes.sideBarSelect}>
-                <img className={classes.image_setting} src={Watch_Later_sign}/>
+                <img className={classes.image_setting} src={Watch_Later_sign} alt=""/>
                     &nbsp;&nbsp;Take Later
                 </div>
                 <div className={classes.sideBarSelect}>
-                <img className={classes.image_setting} src={Like_Quizzes_sign}/>
+                <img className={classes.image_setting} src={Like_Quizzes_sign} alt=""/>
                     &nbsp;&nbsp;Like Quizzes
                 </div>
                 <div className={classes.sideBarSelect}>
-                <img className={classes.image_setting} src={Community_sign}/>
+                <img className={classes.image_setting} src={Community_sign} alt=""/>
                     &nbsp;&nbsp;Community
                 </div>
             </div>
@@ -64,7 +64,7 @@ const SideBar = () => {
                 Subscriptions:
                 <div>
                     {subscriptions.map((sub, i)=>{
-                        return <UserCard
+                        return <UserCard key={i}
                                     subscribeTo={sub[BODY.SUBSCRIBETO]}/>
                     })}
                 </div>

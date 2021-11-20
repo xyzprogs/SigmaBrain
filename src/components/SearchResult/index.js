@@ -6,8 +6,8 @@ const SearchResult = ({results}) => {
     const classes = useStyles();
     return (
         <div className={classes.cardContainer}>
-            {results.map(r => {
-                return  <div><SearchResultCard
+            {results.map((r,i) => {
+                return  <div key={i}><SearchResultCard
                             result={r}
                         /></div>
             })}

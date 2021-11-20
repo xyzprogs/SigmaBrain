@@ -1,26 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useStyles } from './style'
 import { SideBar} from '../../components/Home'
 import SearchResult from '../../components/SearchResult'
-import QUERY_PARAMS from '../../constant/query_params'
 import { useEffect, useState } from 'react'
-import quizApis from '../../api/quiz-api'
+import SearchContext from '../../context/search-context'
 const SearchResultPage = () => {
     const classes = useStyles()
     const [results, setResults] = useState([])
+    const {searchResult} = useContext(SearchContext)
     useEffect(()=>{
-        const getResults = async (search)=> {
-            let response = await quizApis.getQuizSearchResult(search)
-            console.log(response.data)
-            setResults(response.data)
-        }
-        const params = new URLSearchParams(window.location.search)
-        let search = params.get(QUERY_PARAMS.SEARCH_RESULT)
-        console.log("searching", search)
-        if(search!=null && search!==undefined){
-            getResults(search)
-        }
-    },[window.location.search])
+        setResults(searchResult)
+    },[searchResult])
     return (
         <div className={classes.homeContainer}> 
             <div>

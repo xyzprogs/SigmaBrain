@@ -30,13 +30,14 @@ export const useStyles = createUseStyles({
     },
     textToLeft: {
         textAlign: "left",
-        width:'100%'
+        width:'100%',
+        marginTop: "5%",
     },
     rankCardContainer:{
         display:'grid',
         gridTemplateColumns:'20% 50% 30%',
         width:'100%',
         textAlign:'left',
-        marginBottom:'10px'
+        marginBottom:'10px',
     },
 })
