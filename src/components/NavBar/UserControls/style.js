@@ -8,6 +8,9 @@ export const useStyles = createUseStyles({
 
     dropItem:{
         cursor: "pointer"
+    },
+    image_setting:{
+        width:"40px"
     }
 
 })

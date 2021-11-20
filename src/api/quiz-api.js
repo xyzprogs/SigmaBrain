@@ -15,6 +15,7 @@ export const createQuiz = (quiz, headers) => api.post("/", quiz, {headers: heade
 export const setQuizThumbnail = (quizId, formData, headers) => api.post(`/quizThumbnail/${quizId}`, formData, {headers: headers})
 export const getUserQuiz = (userId) => api.get(`/user/${userId}`)
 export const createQuizWithQuestions = (quiz, headers) => api.post("/quizWithQuestions", quiz, {headers: headers})
+export const createQuizGrade = (payload, headers) => api.post('/createQuizGrade', payload, {headers: headers})
 export const deleteQuizWithQuestions = (quizId, headers) => api.delete(`/quizWithQuestions/${quizId}`, {headers: headers})
 export const getUserTopFeatureQuiz = (userId) => api.get(`/userTopFeatureQuiz/${userId}`)
 export const setUserTopFeatureQuiz = (payload, headers) => api.post('/userTopFeatureQuiz', payload, {headers: headers})
@@ -38,6 +39,7 @@ const quizApis = {
     getQuestionChoice,
     getUserQuiz,
     createQuiz,
+    createQuizGrade,
     setQuizThumbnail,
     createQuizWithQuestions,
     deleteQuizWithQuestions,

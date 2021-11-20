@@ -5,6 +5,12 @@ import userApis from '../../../api/user-api';
 import HEADER from '../../../constant/header';
 import UserCard from '../SubscriptionCard';
 import BODY from '../../../constant/body';
+import Home_Sign from '../../../images/Home.png'
+import Subcription_sign from '../../../images/Subcription.png'
+import Channel_sign from '../../../images/Channel.png'
+import Watch_Later_sign from '../../../images/watchLater.png'
+import Like_Quizzes_sign from '../../../images/LikeQuizzes.png'
+import Community_sign from '../../../images/Community.png'
 const SideBar = () => {
     const classes = useStyles()
     const [subscriptions, setSubscriptions] = useState([])
@@ -29,22 +35,28 @@ const SideBar = () => {
         <div className={classes.sideBarContainer}>
             <div className={classes.sideBarSelection}>
                 <div className={classes.sideBarSelect}>
-                    Home
+                    <img className={classes.image_setting} src={Home_Sign}/>
+                    &nbsp;&nbsp;Home
                 </div>
                 <div className={classes.sideBarSelect}>
-                    Subscription
+                    <img className={classes.image_setting} src={Subcription_sign}/>
+                    &nbsp;&nbsp;Subscription
                 </div>
                 <div className={classes.sideBarSelect}>
-                    Channel
+                    <img className={classes.image_setting} src={Channel_sign}/>
+                    &nbsp;&nbsp;Channel
                 </div>
                 <div className={classes.sideBarSelect}>
-                    Take Later
+                <img className={classes.image_setting} src={Watch_Later_sign}/>
+                    &nbsp;&nbsp;Take Later
                 </div>
                 <div className={classes.sideBarSelect}>
-                    Like Quizzes
+                <img className={classes.image_setting} src={Like_Quizzes_sign}/>
+                    &nbsp;&nbsp;Like Quizzes
                 </div>
                 <div className={classes.sideBarSelect}>
-                    Community
+                <img className={classes.image_setting} src={Community_sign}/>
+                    &nbsp;&nbsp;Community
                 </div>
             </div>
 
@@ -60,7 +72,7 @@ const SideBar = () => {
 
             <div>
                 <div className={classes.sideBarSelect}>
-                    Settings
+                    &nbsp;&nbsp;Settings
                 </div>
             </div>
         </div>
