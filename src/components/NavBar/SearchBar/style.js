@@ -31,7 +31,7 @@ export const useStyles = createUseStyles({
         clear: "both",
         display: "inline-block",
         overflow: "hidden",
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
         width: "100%",
         borderRadius:"10px 0px 0px 10px",
         outline:'none'

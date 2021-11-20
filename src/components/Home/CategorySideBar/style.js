@@ -10,7 +10,7 @@ export const useStyles = createUseStyles({
     },
 
     item: {
-        cursor: "pointer"
+        cursor: "pointer",
         borderRadius:'25px',
         borderWidth:'thin',
         lineHeight:"200%"
