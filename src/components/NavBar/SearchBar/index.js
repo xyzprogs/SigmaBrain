@@ -15,7 +15,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
                 className = {classes.searchBar}
                 onChange = {(e)=> console.log(e.target.value)}
             />
-            <button onClick={()=>history.push('/searchResult')}>Search</button>
+            <button className={classes.buttonBar} onClick={()=>history.push('/searchResult')}>Search</button>
         </div>
     )
 }

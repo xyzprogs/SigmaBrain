@@ -4,7 +4,7 @@ export const useStyles = createUseStyles({
         borderStyle: "solid",
         borderWidth: "0px 1px 0px 0px",
         height: "100vh",
-        width: "15vw",
+        width: "8vw",
         // marginTop: "50px",
         position: "fixed",
     },
@@ -15,12 +15,18 @@ export const useStyles = createUseStyles({
     },
 
     sideBarSelect: {
-        paddingTop: "10px"
+        paddingTop: "10px",
+        paddingLeft:"17px",
+        textAlign:"left",
+        lineHeight:"200%"
     },
 
     subscriptionTop: {
         textAlign: "left",
         paddingTop: "10px",
     },
+    image_setting:{
+        width:'19px',
+    }
 
 })

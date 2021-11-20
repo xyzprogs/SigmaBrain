@@ -16,7 +16,10 @@ export const useStyles = createUseStyles({
         marginRight: "5%",
         minWidth: "100px",
         marginBottom: "0.5%",
-        cursor: "pointer"
+        cursor: "pointer",
+        borderRadius:'5px',
+        borderWidth:'thin',
+        padding:"5px"
     },
 
     modal:{
