@@ -19,6 +19,7 @@ export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: h
 export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
 export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
 export const getFollowers = (headers)=>api.get("/followers", {headers: headers})
+export const updateUserExperience = (payload) => api.put('/updateUserExperience', payload)
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -35,7 +36,8 @@ const userApis = {
     getSubscriptions,
     getUserInfo,
     getUserDisplayName,
-    getFollowers
+    getFollowers,
+    updateUserExperience
 }
 
 export default userApis

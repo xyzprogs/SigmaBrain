@@ -25,6 +25,14 @@ export const userStyles = createUseStyles({
         marginBlock: '10px'
     },
 
+    resultNoSelectionCardContainer: {
+        width: '30vw',
+        textAlign: 'center',
+        color: 'black',
+        backgroundColor: '#f0ad4e',
+        marginBlock: '10px'
+    },
+
     titleFont: {
         fontSize: '50px'
     },

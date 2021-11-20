@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
+import AuthContext from '../../context/auth-context';
 import { useStyles } from "./style"
+import HEADER from '../../constant/header';
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import QuizResult from './QuizResult';
@@ -10,7 +12,7 @@ import quizApis from '../../api/quiz-api';
 const QuizTaking = () => {
     // const classes = userStyles()
     const classes = useStyles();
-
+    const { auth } = useContext(AuthContext)
     const [index, setIndex] = useState(0);
     const [flag, setFlag] = useState(false);
     const [questions, setQuestions] = useState([]);
@@ -52,8 +54,28 @@ const QuizTaking = () => {
         setIndex(0);
     }
 
+    const saveResults = async (correct) => {
+        const payload = {
+        "quizId" : quizId,
+        "quizGrade" : (correct/answerChoices.length).toFixed(2)
+        }
+
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        await quizApis.createQuizGrade(payload, headers);
+    }
+
     const changeFlag = () => {
         setFlag(true);
+        let correct = 0;
+        for (let i = 0; i < answerChoices.length; i++){
+            if (parseInt(answerChoices[i]) === correctChoices[i]){
+                correct++;
+            }
+        }
+        saveResults(correct);
     }
 
     const changeCorrectChoice = (index, choice) => {
@@ -82,7 +104,7 @@ const QuizTaking = () => {
             return(
                 <div>
                     <div className={classes.quizContainer}>
-                        <QuizResult answerChoices={answerChoices} correctChoices={correctChoices} questions={questions}
+                        <QuizResult quizId={quizId} answerChoices={answerChoices} correctChoices={correctChoices} questions={questions}
                             restartQuiz={restartQuiz}
                         />
                     </div>

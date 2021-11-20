@@ -30,11 +30,11 @@ const QuestionCard = (props) => {
                 }
             }
         }
-    if(answer.length === 0){
-        loadQuestionChoices();
-    }
+    
+    loadQuestionChoices();
+    
     //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [correctChoices, answer])
+    }, [correctChoices, answer, index, questions])
 
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
