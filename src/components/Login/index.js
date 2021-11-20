@@ -87,7 +87,7 @@ const Login = () => {
                         <span>Stay Logged In</span>
                     </div>
                     <span className={classes.forgotPassword}>
-                        <Link to="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                        <Link to="/forgetPassword" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
                             forgot password?
                         </Link>
                     </span>

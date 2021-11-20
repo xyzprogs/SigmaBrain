@@ -11,6 +11,7 @@ import SearchResultPage from './pages/SearchResultPage/searchResultPage';
 import QuizEditingPage from './pages/QuizEditingPage/quizEditingPage';
 import CategoryPage from './pages/CategoryPage';
 import ForumPostPage from './pages/ForumPostPage/forumPostPage';
+import ResetPasswordPage from './pages/ResetPassword/resetPasswordPage';
 import { Route, Switch } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import 'bootstrap' 
@@ -39,7 +40,9 @@ function App() {
             <Route path='/quizManagement' component={QuizManagementPage}/>
             <Route path='/searchResult' component = {SearchResultPage}/>
             <Route path='/quizEditing/:quizId' component = {QuizEditingPage}/>
+            <Route path='/forgetPassword' component = {ResetPasswordPage}/>
             <Route path='/forumPost/:forumPostId' component = {ForumPostPage}/>
+
             {/* <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/> */}
             <Route path='/category/:categoryId' component = {CategoryPage}/>
           </Switch>
