@@ -8,7 +8,7 @@ export const useStyles = createUseStyles({
         gridTemplateAreas:`
         "icon search buttons"
         `,
-        backgroundColor: "#33FFF3",
+        backgroundColor: "#9DCADB",
         border: "solid",
         borderWidth: "0px 0px 1px 0px",
         width: "100vw",
