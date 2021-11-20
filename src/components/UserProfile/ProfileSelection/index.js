@@ -4,7 +4,7 @@ import MyQuizList from "../MyQuizList";
 import UserQuizDisplay from "../UserQuizDisplay";
 import About from "../About";
 import FollowerList from "../FollowerList";
-import ChannelLeaderboard from "../../ChannelLeaderboard/Leaderboard";
+import ChannelLeaderboard from "../../Leaderboard/ChannelLeaderboard";
 const ProfileSectionWrapper = ({tag, userId, self})=>{
 
     if(tag===0){
