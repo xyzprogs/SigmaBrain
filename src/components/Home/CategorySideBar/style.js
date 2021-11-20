@@ -6,6 +6,12 @@ export const useStyles = createUseStyles({
         right: 0,
         top: "25%",
         minHeight: "50vh",
-        border: "solid"
+        border: "solid",
+    },
+
+    item: {
+        cursor: "pointer"
     }
+
+    
 })

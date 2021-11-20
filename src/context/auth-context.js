@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import LOCAL_CONSTANT from '../constant/local-storage';
 const AuthContext = createContext()
 
 export const AuthActionType = {
@@ -20,6 +21,7 @@ function AuthContextProvider(props){
         onAuthStateChanged(fireauth, (user)=>{
             if(user){
                 console.log("login user")
+                localStorage.setItem(LOCAL_CONSTANT.UID, user.uid)
                 setAuth({
                     user:user,
                     loggedIn: true
@@ -35,23 +37,6 @@ function AuthContextProvider(props){
             }
         })
     }, [fireauth])
-    // onAuthStateChanged(fireauth, (user)=>{
-    //     if(user && !auth.loggedIn){
-    //         console.log("login user")
-    //         setAuth({
-    //             user:user,
-    //             loggedIn: true
-    //         })
-    //     }
-
-    //     if(user==null && auth.loggedIn){
-    //         console.log("log out user")
-    //         setAuth({
-    //             user:null,
-    //             loggedIn: false
-    //         })
-    //     }
-    // })
 
     const authReducer = (action) => {
         const {type, payload } = action;

@@ -5,6 +5,7 @@ import quizApis from '../../api/quiz-api'
 import QuizCard from '../../components/QuizCard'
 import { QUIZ_CATEGORY_NAME } from '../../constant/quiz-category'
 import { Button } from '@mui/material'
+import LOCAL_CONSTANT from '../../constant/local-storage'
 const CategoryPage = () => {
     const {categoryId} = useParams()
     const classes = useStyles()
@@ -14,6 +15,9 @@ const CategoryPage = () => {
             const response = await quizApis.getCategoryQuiz(categoryId)
             console.log("calling this")
             setQuizzes(response.data)
+            if(response.data.length>0){
+                localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ, response.data[response.data.length-1])
+            }
         }
         loadCategoryQuiz()
     },[categoryId])

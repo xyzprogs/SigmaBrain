@@ -26,6 +26,8 @@ export const updateQuestionChoice = (payload, headers) => api.post('/updateQuest
 export const getTopQuizByCategory = (category) => api.get(`/getTopQuizByCategory/${category}`)
 export const postQuizComment = (payload, headers) => api.post('/quizComment', payload, {headers:headers})
 export const getQuizComments = (quizId) => api.get(`/quizComment/${quizId}`)
+export const getQuizNameSearchResult = (search) => api.get(`/search/${search}`)
+export const getQuizSearchResult = (search) => api.get(`/searchQuiz/${search}`)
 
 const quizApis = {
     getMostPopularQuiz,
@@ -48,7 +50,9 @@ const quizApis = {
     updateQuestionChoice,
     getTopQuizByCategory,
     postQuizComment,
-    getQuizComments
+    getQuizComments,
+    getQuizNameSearchResult,
+    getQuizSearchResult
 }
 
 export default quizApis
