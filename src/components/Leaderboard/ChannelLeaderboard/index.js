@@ -7,6 +7,7 @@ const ChannelLeaderboard = ({ channelName }) => {
     const classes = useStyles()
 
     const [localLeaderboard, setLocalLeaderboard] = useState([])
+    const [channel, setChannel] = useState("")
     //Add username to the table??
     useEffect(() => {
         const getLeaderboard = async (leaderboardId) => {
@@ -14,6 +15,11 @@ const ChannelLeaderboard = ({ channelName }) => {
                 setLocalLeaderboard(response.data)
                 //console.log(response.data)
             })
+
+            await userApis.getUserDisplayName(leaderboardId).then((response)=>{
+                setChannel(response.data[0].displayName)
+            })
+
         }
         getLeaderboard(channelName);
     }, [])
@@ -24,7 +30,7 @@ const ChannelLeaderboard = ({ channelName }) => {
         <div className={classes.channelLeaderboardForm}>
             <div className={classes.gridContainer}>
                 <div className={classes.titleWrapper}>
-                    <h3 className={classes.title}>Leaderboard for {channelName}</h3>
+                    <h3 className={classes.title}>Leaderboard for {channel}</h3>
                 </div>
                 <div className={classes.rankCardContainer} >
                     <div>  </div>

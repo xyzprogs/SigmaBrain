@@ -1,4 +1,5 @@
 import { useStyles } from './style'
+import { useHistory } from 'react-router'
 import { useRef, useContext, useState, useEffect } from 'react'
 import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
@@ -8,6 +9,7 @@ import Button from '@mui/material/Button'
 import default_banner from '../../../images/profile_image.png'
 const ProfileBar = (props) => {
     const classes = useStyles()
+    const history = useHistory()
     const imgRef = useRef()
     const {auth} = useContext(AuthContext)
     const [image, setImage] = useState("")
@@ -32,7 +34,6 @@ const ProfileBar = (props) => {
         setImage(URL.createObjectURL(event.target.files[0]))
     }
 
-
     const onEnterProfile = ()=>{
         setProfile(true)
     }
@@ -50,6 +51,10 @@ const ProfileBar = (props) => {
             [BODY.SUBSCRIBETO]: props.userId
         }
         userApis.subscribe(payload, headers)
+    }
+
+    const redirectToLeaderboardpage=()=>{
+        history.push(`/leaderboard/${props.userId}`)
     }
 
     useEffect(()=>{
@@ -95,6 +100,10 @@ const ProfileBar = (props) => {
 
                 <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
                     Forum
+                </div>
+
+                <div className={classes.tableCell2} onClick={()=>{redirectToLeaderboardpage()}}>
+                    Leaderboard
                 </div>   
 
                 <div className={classes.tableCell3}>
@@ -138,8 +147,12 @@ const ProfileBar = (props) => {
             </div>
 
             <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
-                    Forum
+                Forum
             </div> 
+            
+            <div className={classes.tableCell2} onClick={()=>{redirectToLeaderboardpage()}}>
+                Leaderboard
+            </div>
 
             <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
         </div>
