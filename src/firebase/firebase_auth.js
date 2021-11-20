@@ -1,4 +1,4 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { app } from '../firebase/firebase_init'
 
 
@@ -32,4 +32,16 @@ export function signOut(){
       }).catch((error) => {
         // An error happened.
       });
+}
+
+export function sendResetPasswordEmail(email){
+    const auth = getAuth(app);
+    sendPasswordResetEmail(auth,email).then(() => {
+        // sendResetPasswordEmail
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      //error
+      console.log(errorMessage)
+    });
 }
