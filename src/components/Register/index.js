@@ -10,6 +10,7 @@ import AUTH_ERROR from '../../constant/firebase-error-code';
 import { useHistory } from "react-router-dom";
 import AuthContext from '../../context/auth-context'
 import ERRORCODE from '../../constant/firebase-error-code';
+import User_image from '../../images/user.png'
 const Register = () => {
 
     const classes = useStyles();
@@ -98,6 +99,7 @@ const Register = () => {
             </div>
             <div className={classes.loginWrapper}>
                 <div className={classes.formGroup}>
+                
                     <div className={classes.textToLeft}>Email</div>
                     <div className={classes.inputWrapper}>
                         <input

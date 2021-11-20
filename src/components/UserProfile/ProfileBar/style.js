@@ -55,7 +55,8 @@ export const useStyles = createUseStyles({
         paddingRight: "10px",
         marginRight: "10px",
         marginLeft: "50px",
-        cursor: "pointer"
+        cursor: "pointer",
+        fontSize:"30px"
     },
 
     tableCell3:{
