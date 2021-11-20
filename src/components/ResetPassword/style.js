@@ -135,5 +135,8 @@ export const useStyles = createUseStyles({
     bottomBorder:{
         // borderStyle: "solid",
         borderWidth: "0px 0px 1px 0px",
+    },
+    redirectText:{
+        color:'white'
     }
 })
