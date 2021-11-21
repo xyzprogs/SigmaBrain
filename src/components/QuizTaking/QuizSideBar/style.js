@@ -1,5 +1,6 @@
 import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
+
     sideBarContainer: {
         borderStyle: "solid",
         borderWidth: "0px 1px 0px 0px",
@@ -17,11 +18,18 @@ export const useStyles = createUseStyles({
     sideBarSelect: {
         paddingTop: "10px"
     },
-    
 
-    subscriptionTop: {
-        textAlign: "left",
-        paddingTop: "10px",
+    buttonSelected: {
+        backgroundColor: "#444140",
+        color: "#0275d8",
+        borderStyle: "solid"
     },
+
+    buttonDefault: {
+        backgroundColor: "#0275d8",
+        color: "white",
+        borderStyle: "solid"
+    }
+
 
 })
