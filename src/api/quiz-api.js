@@ -29,7 +29,11 @@ export const postQuizComment = (payload, headers) => api.post('/quizComment', pa
 export const getQuizComments = (quizId) => api.get(`/quizComment/${quizId}`)
 export const getQuizNameSearchResult = (search) => api.get(`/search/${search}`)
 export const getQuizSearchResult = (search) => api.get(`/searchQuiz/${search}`)
-
+export const likedQuiz = (payload, headers) => api.post('/likedquiz', payload, {headers: headers})
+export const takeLaterQuiz = (payload, headers) => api.post('/takelater', payload, {headers: headers})
+export const dislikeQuiz = (quizId, headers) => api.delete(`/likedquiz/${quizId}`, {headers: headers})
+export const getLikedQuiz = (headers) => api.get('/main/likedquiz', {headers: headers})
+export const getTakeLaterQuiz = (headers) => api.get('/main/takelater', {headers: headers})
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -54,7 +58,12 @@ const quizApis = {
     postQuizComment,
     getQuizComments,
     getQuizNameSearchResult,
-    getQuizSearchResult
+    getQuizSearchResult,
+    likedQuiz,
+    takeLaterQuiz,
+    dislikeQuiz,
+    getLikedQuiz,
+    getTakeLaterQuiz
 }
 
 export default quizApis

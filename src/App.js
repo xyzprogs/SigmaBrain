@@ -18,7 +18,9 @@ import 'bootstrap'
 import NavBar from './components/NavBar';
 import ChannelLeaderboardPage from './pages/ChannelLeaderboardPage';
 import { SearchContextProvider } from './context/search-context';
-
+import SubscriptionPage from './pages/SubscriptionPage';
+import TakeLaterPage from './pages/TakeLaterPage';
+import LikeQuizPage from './pages/LikeQuizPage/likeQuizPage';
 function App() {
   return (
     <div className="App">
@@ -42,7 +44,10 @@ function App() {
             <Route path='/quizEditing/:quizId' component = {QuizEditingPage}/>
             <Route path='/forgetPassword' component = {ResetPasswordPage}/>
             <Route path='/forumPost/:forumPostId' component = {ForumPostPage}/>
-
+            <Route path='/subscription' component={SubscriptionPage}/>
+            <Route path='/takelater' component={TakeLaterPage}/>
+            <Route path='/likequizzes' component={LikeQuizPage}/>
+            {/* <Route path='/community'/> */}
             {/* <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/> */}
             <Route path='/category/:categoryId' component = {CategoryPage}/>
           </Switch>

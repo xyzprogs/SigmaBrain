@@ -91,6 +91,12 @@ const USERACHIEVEMENTCOMPLETIONID = "userAchievementCompletionId"
 //Subscribe
 const SUBSCRIBETO = "subscribeTo"
 
+//TakeLater
+const TAKELATERID = "takeLaterId"
+
+//LikedQuiz
+const LIKEDQUIZID = "likedQuizId"
+
 const BODY_CONSTANT = {
     //Common
     OWNERID,
@@ -182,7 +188,11 @@ const BODY_CONSTANT = {
     USERACHIEVEMENTCOMPLETIONID,
     
     //SUBSCRIBE
-    SUBSCRIBETO
+    SUBSCRIBETO,
+
+    TAKELATERID,
+
+    LIKEDQUIZID
 }
 
 export default BODY_CONSTANT

@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 const CategoryBar = () =>{
     const classes  = useStyles()
     const [categoryBar, setCategoryBar] = useState([QUIZ_CATEGORY.ALL, QUIZ_CATEGORY.Computer_Science, QUIZ_CATEGORY.Computer_Network, QUIZ_CATEGORY.Machine_Learning, QUIZ_CATEGORY.Calculus])
-    const [categoryList, setCategoryList] = useState()
+    const [categoryList, setCategoryList] = useState([])
     const [category, setCategory] = useState()
     const [open, setOpen] = useState(false)
     const history = useHistory()
@@ -41,9 +41,9 @@ const CategoryBar = () =>{
     return(
         <div className={classes.categoryBarContainer}>
             {
-                categoryBar.map(categoryBar=>{
+                categoryBar.map((categoryBar,i)=>{
                     return (
-                    <div onClick={()=>{redirectToCategoryPage(categoryBar)}} className={classes.categoryBox}>
+                    <div key={i} onClick={()=>{redirectToCategoryPage(categoryBar)}} className={classes.categoryBox}>
                         {QUIZ_CATEGORY_NAME[categoryBar]}
                     </div>
                     )
