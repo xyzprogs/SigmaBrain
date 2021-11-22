@@ -30,11 +30,11 @@ const CategoryPage = () => {
     return(
         <div className={classes.pageContainer}>
             <div className={classes.title}>{QUIZ_CATEGORY_NAME[categoryId]}</div>
-            <div className={classes.quizContainer}>
-                {quizzes.map((quiz, i) => {
-                    return <QuizCard key={i} quiz={quiz} redirect={true}/>
-                })}
-            </div>
+                <div className={classes.quizContainer}>
+                    {quizzes.map((quiz, i) => {
+                        return <QuizCard key={i} quiz={quiz} redirect={true}/>
+                    })}
+                </div>
             <Button onClick={getMore}>More</Button>
         </div>
     )

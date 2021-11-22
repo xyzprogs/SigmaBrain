@@ -11,11 +11,12 @@ import Channel_sign from '../../../images/Channel.png'
 import Watch_Later_sign from '../../../images/watchLater.png'
 import Like_Quizzes_sign from '../../../images/LikeQuizzes.png'
 import Community_sign from '../../../images/Community.png'
+import { useHistory } from 'react-router-dom'
 const SideBar = () => {
     const classes = useStyles()
     const [subscriptions, setSubscriptions] = useState([])
     const { auth } = useContext(AuthContext)
-
+    const history = useHistory()
     useEffect(()=>{
         const loadSubscriptions = async (userId)=>{
             const token = await auth.user.getIdToken()
@@ -31,33 +32,53 @@ const SideBar = () => {
         }
     }, [auth.user])
 
+    const redirectToHome = ()=>{
+        console.log("redtriect home")
+        history.push('/')
+    }
+
+    const redirectToSubscription = ()=>{
+        console.log("redirect subscription")
+        history.push('/subscription')
+    }
+
+
+    const redirectTakeLater = ()=>{
+        history.push('/takelater')
+    }
+
+    const redirectLikeQuizzes = ()=>{
+        history.push('/likequizzes')
+    }
+
+
     return (
         <div className={classes.sideBarContainer}>
             <div className={classes.sideBarSelection}>
-                <div className={classes.sideBarSelect}>
+                <div onClick={redirectToHome} className={classes.sideBarSelect}>
                     <img className={classes.image_setting} src={Home_Sign} alt=""/>
                     &nbsp;&nbsp;Home
                 </div>
-                <div className={classes.sideBarSelect}>
+                <div onClick={redirectToSubscription} className={classes.sideBarSelect}>
                     <img className={classes.image_setting} src={Subcription_sign} alt=""/>
                     &nbsp;&nbsp;Subscription
                 </div>
-                <div className={classes.sideBarSelect}>
+                {/* <div className={classes.sideBarSelect}>
                     <img className={classes.image_setting} src={Channel_sign} alt=""/>
                     &nbsp;&nbsp;Channel
-                </div>
-                <div className={classes.sideBarSelect}>
+                </div> */}
+                <div onClick={redirectTakeLater} className={classes.sideBarSelect}>
                 <img className={classes.image_setting} src={Watch_Later_sign} alt=""/>
                     &nbsp;&nbsp;Take Later
                 </div>
-                <div className={classes.sideBarSelect}>
+                <div onClick={redirectLikeQuizzes} className={classes.sideBarSelect}>
                 <img className={classes.image_setting} src={Like_Quizzes_sign} alt=""/>
                     &nbsp;&nbsp;Like Quizzes
                 </div>
-                <div className={classes.sideBarSelect}>
+                {/* <div className={classes.sideBarSelect}>
                 <img className={classes.image_setting} src={Community_sign} alt=""/>
                     &nbsp;&nbsp;Community
-                </div>
+                </div> */}
             </div>
 
             <div className={`${classes.subscriptionTop} ${classes.sideBarSelection}`}>

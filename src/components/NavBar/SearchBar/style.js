@@ -15,7 +15,7 @@ export const useStyles = createUseStyles({
 
     searchResult:{
         position: "absolute",
-        marginTop: "5.5%",
+        marginTop: "3%",
         backgroundColor: "white"
     },
 
@@ -23,18 +23,22 @@ export const useStyles = createUseStyles({
         cursor: "pointer",
         border: "solid",
         width: "50vw",
-        background: "white"
+        background: "white",
+        borderStyle: "none none none none",
+        display: "flex"
+
     },
 
     resultText: {
-        marginRight: "100%",
+        textAlign: "left",
+        float: "right",
         clear: "both",
         display: "inline-block",
         overflow: "hidden",
         whiteSpace: "nowrap",
         width: "100%",
         borderRadius:"10px 0px 0px 10px",
-        outline:'none'
+        outline:'none',
 
     },
     buttonBar:{

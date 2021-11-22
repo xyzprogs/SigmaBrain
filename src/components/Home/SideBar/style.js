@@ -18,7 +18,8 @@ export const useStyles = createUseStyles({
         paddingTop: "10px",
         paddingLeft:"17px",
         textAlign:"left",
-        lineHeight:"200%"
+        lineHeight:"200%",
+        cursor: "pointer"
     },
 
     subscriptionTop: {
