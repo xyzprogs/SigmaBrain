@@ -8,33 +8,9 @@ import { useState, useEffect } from 'react';
 const QuestionCard = (props) => {
     const classes = userStyles();
     const questions = props.questions;
+    const answers = props.answers;
     const answerChoices = props.answerChoices;
-    const correctChoices = props.correctChoices;
     const index = props.index;
-    const [answer, setAnswer] = useState([]);
-
-    useEffect(() => {
-        const loadQuestionChoices = async () => {
-            if(questions !== undefined){
-                let response = await quizApis.getQuestionChoice(questions.questionId);
-                if(response.data.length <= 0){
-                    return
-                }
-                setAnswer(response.data);
-                if(correctChoices[index] === -1){
-                    for(let i = 0; i < response.data.length; i++){
-                        if(parseInt(response.data[i].is_right_choice) === 1){
-                            props.changeCorrectChoice(index, i);
-                        }
-                    }
-                }
-            }
-        }
-    
-    loadQuestionChoices();
-    
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [correctChoices, answer, index, questions])
 
     const changeQuestionHandler = (event) =>{
         if (event.target.name === 'next'){
@@ -43,7 +19,6 @@ const QuestionCard = (props) => {
         if (event.target.name === 'prev'){
             props.changeIndex(0, -1);
         }
-        setAnswer([]);
     }
 
     const renderImage = () => {
@@ -63,7 +38,7 @@ const QuestionCard = (props) => {
         if (index === parseInt(answerChoices[props.index][0])){
             return(
                 <div key={choice.choiceId}>
-                    <Button variant="success btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
+                    <Button variant="warning btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />
@@ -112,10 +87,10 @@ const QuestionCard = (props) => {
     }
 
     const renderAnswer = () =>{
-        if(answer === undefined){
+        if(answers === undefined){
             return
         }
-        return(answer.map((choice, index) => buttonRender(choice, index)));
+        return(answers.map((choice, index) => buttonRender(choice, index)));
     }
 
     return(

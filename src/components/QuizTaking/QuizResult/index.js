@@ -24,7 +24,6 @@ const QuizResult = (props) =>{
     }
 
     const convertExperienceToLevel = (experience) =>{
-        console.log(experience);
         let level = 1;
         let threshHold = 3;
         while(experience !== 0){
@@ -33,7 +32,7 @@ const QuizResult = (props) =>{
             }else{
                 experience -= threshHold;
                 level += 1;
-                threshHold *= 2;
+                threshHold += 5;
             }
         }
         return level;

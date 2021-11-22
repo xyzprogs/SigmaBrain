@@ -16,6 +16,7 @@ const QuizTaking = () => {
     const [index, setIndex] = useState(0);
     const [flag, setFlag] = useState(false);
     const [questions, setQuestions] = useState([]);
+    const [answers, setAnswers] = useState([]);
     const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
     
@@ -28,9 +29,23 @@ const QuizTaking = () => {
             if(response.data.length <= 0){
                 return
             }
+            let answerArray = [];
+            let correctArray = [];
+            for (let i = 0; i < response.data.length; i++){
+                let answer = await quizApis.getQuestionChoice(response.data[i].questionId);
+                if (answer.data.length !== 0){
+                    answerArray.push(answer.data);
+                    for (let j = 0; j < answer.data.length; j++){
+                        if (answer.data[j].is_right_choice === 1){
+                            correctArray.push(j);
+                        }
+                    }
+                }
+            }
             setQuestions(response.data);
+            setAnswers(answerArray);
+            setCorrectChoices(correctArray);
             setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
-            setCorrectChoices(new Array(response.data.length).fill(-1));
         }
         if(questions.length === 0){
             loadQuestions();
@@ -77,16 +92,7 @@ const QuizTaking = () => {
         }
         saveResults(correct);
     }
-
-    const changeCorrectChoice = (index, choice) => {
-        let temp = [];
-        for (let i = 0; i < answerChoices.length; i++){
-            temp.push(correctChoices[i]);
-        }
-        temp[index] = choice;
-        setCorrectChoices(temp);
-    }
-
+    
     const changeAnswerChoice = (choice) =>{
         let temp = [];
         for (let i = 0; i < answerChoices.length; i++){
@@ -118,10 +124,9 @@ const QuizTaking = () => {
                     </div>
                     <div className={classes.quizContainer}>
                         <QuestionCard 
-                            questions={questions[index]} index={index} answerChoices={answerChoices} correctChoices={correctChoices}
+                            questions={questions[index]} answers={answers[index]} index={index} answerChoices={answerChoices} correctChoices={correctChoices}
                             changeIndex={changeIndex} 
                             changeFlag={changeFlag} 
-                            changeCorrectChoice={changeCorrectChoice}
                             changeAnswerChoice={changeAnswerChoice}
                         />
                     </div>
