@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import LOCAL_CONSTANT from '../constant/local-storage';
+import BODY from '../constant/body';
+import userApis from '../api/user-api';
+import HEADER from '../constant/header';
 const AuthContext = createContext()
 
 export const AuthActionType = {
@@ -65,7 +68,19 @@ function AuthContextProvider(props){
 
     auth.login = (email, password) => {
         signInWithEmailAndPassword(fireauth, email, password)
-            .then((userCredential)=>{
+            .then( async (userCredential)=>{
+                let token = await userCredential.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let payload = {
+                    [BODY.EMAIL]: userCredential.user.email,
+                    [BODY.DISPLAYNAME]: "DEFAULT CHANGE YOUR NAME"
+                }
+                let axios_config = {
+                    headers: headers
+                }
+                await userApis.createUser(payload, axios_config)
                 authReducer({
                     type: AuthActionType.LOGGED_IN,
                     payload: {
