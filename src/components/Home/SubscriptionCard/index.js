@@ -24,11 +24,16 @@ const UserCard = ({subscribeTo})=>{
         loadUserInfo()
     }, [subscribeTo])
     
+
+    const redirectToUserProfile = ()=>{
+        console.log(user[BODY.USERID])
+    }
+
     if(user===undefined || user==null){
         return <div>loading</div>
     }
     return(
-        <div className={classes.userCardContainer}>
+        <div onClick={redirectToUserProfile} className={classes.userCardContainer}>
             <div className={`${classes.circle} ${classes.imgContainer}`}>
                 <img className={classes.imgSize} src={image} alt=""/>
             </div>
