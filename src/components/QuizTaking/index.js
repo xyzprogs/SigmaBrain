@@ -51,7 +51,7 @@ const QuizTaking = () => {
             loadQuestions();
         }
 
-    }, [quizId, questions, index])
+    }, [quizId, questions])
 
     const changeIndex = (type, num) => {
         let temp;
@@ -71,15 +71,17 @@ const QuizTaking = () => {
 
     const saveResults = async (correct) => {
         const payload = {
-        "quizId" : quizId,
-        "quizGrade" : (correct/answerChoices.length).toFixed(2)
+            "quizId" : quizId,
+            "quizGrade" : (correct/answerChoices.length).toFixed(2)
         }
 
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN] : token
+        if(auth.user !== null){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            await quizApis.createQuizGrade(payload, headers);
         }
-        await quizApis.createQuizGrade(payload, headers);
     }
 
     const changeFlag = () => {

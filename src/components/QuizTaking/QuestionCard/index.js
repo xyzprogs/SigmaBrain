@@ -1,9 +1,8 @@
 import React from 'react';
-import { userStyles, useStyles } from "./style";
+import { userStyles} from "./style";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import quizApis from '../../../api/quiz-api';
-import { useState, useEffect } from 'react';
+
 
 const QuestionCard = (props) => {
     const classes = userStyles();
