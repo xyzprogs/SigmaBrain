@@ -17,7 +17,12 @@ export const userStyles = createUseStyles({
     },
 
     buttonMargin: {
-        margin: '5px',
+        width: '28vw',
+        marginLeft: '2px',
+        fontSize: '20px',
+        marginTop: `10px`,
+        fontWeight: 'bold',
+        fontFamily: 'Arial'
        
     },
 
