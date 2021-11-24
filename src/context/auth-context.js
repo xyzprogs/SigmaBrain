@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth'
 import LOCAL_CONSTANT from '../constant/local-storage';
 import BODY from '../constant/body';
 import userApis from '../api/user-api';
@@ -19,7 +19,7 @@ function AuthContextProvider(props){
         loading: true
     })
     const [error, setError] = useState()
-    
+    const [passwordError, setPasswordError] = useState()
     useEffect(()=>{
         onAuthStateChanged(fireauth, (user)=>{
             if(user){
@@ -95,6 +95,24 @@ function AuthContextProvider(props){
             })
     }
 
+    auth.changePassword = (originalPassword ,newPassword) => {
+        signInWithEmailAndPassword(fireauth, auth.user.email, originalPassword)
+            .then((userCredential)=>{
+                updatePassword(userCredential.user, newPassword).then(()=>{
+                    //change sucessfully
+                    console.log("update sucessfully")
+                    setPasswordError([1, "update sucessfully"])
+                  }).catch((error)=>{
+                    //change unsucessfully
+                    console.log(error)
+                  })
+            })
+            .catch((error)=>{
+                console.log(error)
+                setPasswordError([0, error.code])
+            })
+    }
+
     auth.signOut = () => {
         signOut(fireauth).then(()=>{
             setError()
@@ -117,7 +135,7 @@ function AuthContextProvider(props){
     }
 
     return(
-        <AuthContext.Provider value={{auth, error}}>
+        <AuthContext.Provider value={{auth, error, passwordError}}>
             {props.children}
         </AuthContext.Provider>
     )

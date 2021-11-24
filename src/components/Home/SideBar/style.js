@@ -28,6 +28,5 @@ export const useStyles = createUseStyles({
     },
     image_setting:{
         width:'19px',
-    }
-
+    },
 })

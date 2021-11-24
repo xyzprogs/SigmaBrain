@@ -21,6 +21,7 @@ import { SearchContextProvider } from './context/search-context';
 import SubscriptionPage from './pages/SubscriptionPage';
 import TakeLaterPage from './pages/TakeLaterPage';
 import LikeQuizPage from './pages/LikeQuizPage/likeQuizPage';
+import SettingPage from './pages/SettingPage/settingPage';
 function App() {
   return (
     <div className="App">
@@ -50,6 +51,7 @@ function App() {
             {/* <Route path='/community'/> */}
             {/* <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/> */}
             <Route path='/category/:categoryId' component = {CategoryPage}/>
+            <Route path='/setting' component={SettingPage}/>
           </Switch>
           </div>
         </SearchContextProvider>
