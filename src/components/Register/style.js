@@ -54,7 +54,8 @@ export const useStyles = createUseStyles({
         background: 'rgba(255, 255, 255, 0.1)',
         letterSpacing: '1px',
         border: '2px solid rgba(69, 102, 191, 0.5)',
-        borderRadius: '11px'
+        borderRadius: '11px',
+        borderWidth: "0px 0px 1px 0px",
     },
     loginOptions: {
         width: '100%',
@@ -120,7 +121,8 @@ export const useStyles = createUseStyles({
     //errors
     inputError: {
         extend: 'input',
-        border: '2px solid var(--danger)'
+        border: '2px solid red',
+        borderWidth: "0px 0px 1px 0px",
     },
     formError: {
         fontSize: '13px',
@@ -133,9 +135,11 @@ export const useStyles = createUseStyles({
     textToLeft: {
         textAlign: "left"
     },
-    bottomBorder:{
-        // borderStyle: "solid",
-        borderWidth: "0px 0px 1px 0px",
+    errorMsg: {
+        margin: '0 15px',
+        fontSize: '12px',
+        color: 'red',
+        textAlign: 'left'
     },
     image_setting:{
         width:"40px"
