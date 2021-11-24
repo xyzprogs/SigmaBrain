@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 import { userStyles, useStyles } from "./style";
 import userApis from '../../../api/user-api'
-import ExperienceModal from './ExperienceModal';
+import { Modal } from 'react-bootstrap/';
 
 
 const QuizResult = (props) =>{
@@ -15,9 +15,9 @@ const QuizResult = (props) =>{
     const questions = props.questions;
     const restartQuiz = props.restartQuiz;
     const correctChoices = props.correctChoices;
-    const [loadOnce, setLoadOnce] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [experience, setExperience] = useState(0);
+    const [prevExperience, setPrevExperience] = useState(0);
 
     let correct = 0;
     for (let i = 0; i < answerChoices.length; i++){
@@ -29,11 +29,21 @@ const QuizResult = (props) =>{
     const handleClose = () => {
         setShowModal(false);
     }
-
-    const handleExperience = (value) => {
-        setExperience(value);
+    const convertExperienceToLevel = (experience) =>{
+        let level = 1;
+        let threshHold = 5;
+        let flag = true;
+        while(flag){
+            if (threshHold > experience){
+                flag = false;
+            }else{
+                experience -= threshHold;
+                level += 1;
+            }
+        }
+        return {"level": level, "experience": experience, "leftOver": threshHold - experience}
     }
-    
+
     useEffect(() => {
         const handleExperience = async () => {
             let id = localStorage.getItem("uid");
@@ -45,6 +55,7 @@ const QuizResult = (props) =>{
             if(response.data.length <= 0){
                 return
             }
+            setPrevExperience(response.data[0].experience);
             const payload = {
                 "userId" : id,
                 "experience" : response.data[0].experience + correct
@@ -54,7 +65,6 @@ const QuizResult = (props) =>{
                 return
             }
             setShowModal(true);
-            setLoadOnce(false);
             setExperience(response.data[0].experience + correct);
         }
         
@@ -97,6 +107,21 @@ const QuizResult = (props) =>{
 
     return(
         <div>
+            <Modal show={showModal} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Experience</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {convertExperienceToLevel(prevExperience).level !== convertExperienceToLevel(experience).level ?
+                        `Conratulations! You Level Up` : 
+                        `Experience needed for next level: ${convertExperienceToLevel(experience).leftOver}`}
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
             <Card key={-1} className={classes.congratualtionCardContainer}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
@@ -108,9 +133,7 @@ const QuizResult = (props) =>{
                     <Button onClick={() => history.push('/')}>Return Home</Button>
                 </Card.Body>
             </Card>
-            <ExperienceModal prevExperience={experience - correct < 0 ? 0 : experience - correct} experience={experience} showModal={showModal} 
-                            handleClose={handleClose} 
-                            handleExperience={handleExperience}/>
+            
             {questions.map((content, index) => renderCards(index, content.question, answerChoices[index]))}
         </div>
     );
