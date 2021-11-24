@@ -1,5 +1,5 @@
 import { useStyles } from './style'
-import { useHistory } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { useRef, useContext, useState, useEffect } from 'react'
 import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
@@ -16,6 +16,7 @@ const ProfileBar = (props) => {
     const [profile, setProfile] = useState(false)
     const [self, setSelf] = useState(false)
     const [userInfo, setUserInfo] = useState({})
+    const {userId} = useParams()
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -70,8 +71,10 @@ const ProfileBar = (props) => {
 
 
             //Loads the user information 
-            await userApis.getUserInfo(props.userId).then((response) => {
+            console.log("getting user info", userId)
+            await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
+                console.log(response.data)
             })
 
 
@@ -150,7 +153,7 @@ const ProfileBar = (props) => {
                 </div>
 
                 <div>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                <div>{userInfo.email}</div>
+                <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
 
 
             </div>

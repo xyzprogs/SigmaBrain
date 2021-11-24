@@ -25,6 +25,7 @@ const Login = () => {
     }
 
     useEffect(()=>{
+
         if(auth.user!=null){
             history.push('/')
         }
@@ -92,7 +93,7 @@ const Login = () => {
                         </Link>
                     </span>
                 </div>
-}
+                }
                 <div className={classes.buttonContainer}>
                     <button type="submit" className={classes.button} onClick={confirmLogin}>
                         Login

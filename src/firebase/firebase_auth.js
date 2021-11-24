@@ -1,7 +1,7 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { app } from '../firebase/firebase_init'
-
-
+import AuthContext from "../context/auth-context";
+import { useContext } from 'react'
 export function register(email, password){
     const auth = getAuth(app);
     return createUserWithEmailAndPassword(auth, email, password)
@@ -21,7 +21,6 @@ export async function login(email, password){
       const errorMessage = error.message;
       console.log("error")
       console.log(errorMessage)
-        
     });
 }
 
@@ -44,4 +43,12 @@ export function sendResetPasswordEmail(email){
       //error
       console.log(errorMessage)
     });
+}
+
+export function resetPassword(user, newPassword){
+  updatePassword(user, newPassword).then(()=>{
+    //change sucessfully
+  }).catch((error)=>{
+    //change unsucessfully
+  })
 }
