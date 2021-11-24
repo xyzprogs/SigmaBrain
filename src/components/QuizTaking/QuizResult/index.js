@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 import { userStyles, useStyles } from "./style";
 import userApis from '../../../api/user-api'
+import ExperienceModal from './ExperienceModal';
 
 
 const QuizResult = (props) =>{
@@ -15,6 +16,8 @@ const QuizResult = (props) =>{
     const restartQuiz = props.restartQuiz;
     const correctChoices = props.correctChoices;
     const [loadOnce, setLoadOnce] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [experience, setExperience] = useState(0);
 
     let correct = 0;
     for (let i = 0; i < answerChoices.length; i++){
@@ -23,30 +26,25 @@ const QuizResult = (props) =>{
         }
     }
 
-    const convertExperienceToLevel = (experience) =>{
-        let level = 1;
-        let threshHold = 3;
-        while(experience !== 0){
-            if (threshHold > experience){
-                experience = 0;
-            }else{
-                experience -= threshHold;
-                level += 1;
-                threshHold += 5;
-            }
-        }
-        return level;
+    const handleClose = () => {
+        setShowModal(false);
+    }
+
+    const handleExperience = (value) => {
+        setExperience(value);
     }
     
     useEffect(() => {
         const handleExperience = async () => {
             let id = localStorage.getItem("uid");
+            if (id === null){
+                alert(`Create an account to save your results!`);
+                return
+            }
             let response = await userApis.getUserInfo(id);
             if(response.data.length <= 0){
                 return
             }
-            let currentLevel = convertExperienceToLevel(response.data[0].experience);
-            let newLevel = convertExperienceToLevel(response.data[0].experience + correct);
             const payload = {
                 "userId" : id,
                 "experience" : response.data[0].experience + correct
@@ -55,19 +53,14 @@ const QuizResult = (props) =>{
             if(response2.data.length <= 0){
                 return
             }
-
-            if(currentLevel !== newLevel){
-                alert(`Congratulations, you leveled up! ${currentLevel} -> ${newLevel}`);
-            }
-
+            setShowModal(true);
             setLoadOnce(false);
+            setExperience(response.data[0].experience + correct);
         }
-        if(loadOnce){
-            handleExperience();
-        }
-    })
-
-
+        
+        handleExperience();
+        
+    }, [])
 
     const renderCards = (index, question, answerChoices) => {
         if(answerChoices[1] === -1){
@@ -82,12 +75,9 @@ const QuizResult = (props) =>{
                     <Card.Text>
                         You selected: No Answer Choice Selected
                     </Card.Text>
-    
                 </Card>
             );
         }
-
-
         let correct = answerChoices[0] === correctChoices[index];
         return (
             <Card key={index} className={correct ? classes.resultCorrectCardContainer : classes.resultWrongtCardContainer}>
@@ -112,13 +102,15 @@ const QuizResult = (props) =>{
                 <Card.Body>
                     <Card.Title>Congratulations!</Card.Title>
                     <Card.Text>
-                        You got {correct} out of {answerChoices.length} questions right!
+                        You got {correct} out of {answerChoices.length} questions right! {showModal + ""}
                     </Card.Text>
                     <Button onClick={restartQuiz}>Retake Quiz</Button>
                     <Button onClick={() => history.push('/')}>Return Home</Button>
                 </Card.Body>
             </Card>
-
+            <ExperienceModal prevExperience={experience - correct < 0 ? 0 : experience - correct} experience={experience} showModal={showModal} 
+                            handleClose={handleClose} 
+                            handleExperience={handleExperience}/>
             {questions.map((content, index) => renderCards(index, content.question, answerChoices[index]))}
         </div>
     );
