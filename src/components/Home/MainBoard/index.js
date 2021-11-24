@@ -62,7 +62,7 @@ const MainBoard = () => {
             {bar.map((c,i)=>{
                 return (
                 <div ref={refs[i]}>
-                    <QuizDisplayBoard category={c}/>
+                    <QuizDisplayBoard key={i} category={c}/>
                 </div>
                 )
             })}

@@ -25,6 +25,7 @@ const Login = () => {
     }
 
     useEffect(()=>{
+
         if(auth.user!=null){
             history.push('/')
         }
@@ -87,12 +88,12 @@ const Login = () => {
                         <span>Stay Logged In</span>
                     </div>
                     <span className={classes.forgotPassword}>
-                        <Link to="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                        <Link to="/forgetPassword" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
                             forgot password?
                         </Link>
                     </span>
                 </div>
-}
+                }
                 <div className={classes.buttonContainer}>
                     <button type="submit" className={classes.button} onClick={confirmLogin}>
                         Login

@@ -1,5 +1,9 @@
 import { createContext, useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth'
+import LOCAL_CONSTANT from '../constant/local-storage';
+import BODY from '../constant/body';
+import userApis from '../api/user-api';
+import HEADER from '../constant/header';
 const AuthContext = createContext()
 
 export const AuthActionType = {
@@ -15,11 +19,12 @@ function AuthContextProvider(props){
         loading: true
     })
     const [error, setError] = useState()
-    
+    const [passwordError, setPasswordError] = useState()
     useEffect(()=>{
         onAuthStateChanged(fireauth, (user)=>{
             if(user){
                 console.log("login user")
+                localStorage.setItem(LOCAL_CONSTANT.UID, user.uid)
                 setAuth({
                     user:user,
                     loggedIn: true
@@ -35,23 +40,6 @@ function AuthContextProvider(props){
             }
         })
     }, [fireauth])
-    // onAuthStateChanged(fireauth, (user)=>{
-    //     if(user && !auth.loggedIn){
-    //         console.log("login user")
-    //         setAuth({
-    //             user:user,
-    //             loggedIn: true
-    //         })
-    //     }
-
-    //     if(user==null && auth.loggedIn){
-    //         console.log("log out user")
-    //         setAuth({
-    //             user:null,
-    //             loggedIn: false
-    //         })
-    //     }
-    // })
 
     const authReducer = (action) => {
         const {type, payload } = action;
@@ -80,7 +68,19 @@ function AuthContextProvider(props){
 
     auth.login = (email, password) => {
         signInWithEmailAndPassword(fireauth, email, password)
-            .then((userCredential)=>{
+            .then( async (userCredential)=>{
+                let token = await userCredential.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let payload = {
+                    [BODY.EMAIL]: userCredential.user.email,
+                    [BODY.DISPLAYNAME]: "DEFAULT CHANGE YOUR NAME"
+                }
+                let axios_config = {
+                    headers: headers
+                }
+                await userApis.createUser(payload, axios_config)
                 authReducer({
                     type: AuthActionType.LOGGED_IN,
                     payload: {
@@ -92,6 +92,24 @@ function AuthContextProvider(props){
             })
             .catch((error)=>{
                 setError(error.code)
+            })
+    }
+
+    auth.changePassword = (originalPassword ,newPassword) => {
+        signInWithEmailAndPassword(fireauth, auth.user.email, originalPassword)
+            .then((userCredential)=>{
+                updatePassword(userCredential.user, newPassword).then(()=>{
+                    //change sucessfully
+                    console.log("update sucessfully")
+                    setPasswordError([1, "update sucessfully"])
+                  }).catch((error)=>{
+                    //change unsucessfully
+                    console.log(error)
+                  })
+            })
+            .catch((error)=>{
+                console.log(error)
+                setPasswordError([0, error.code])
             })
     }
 
@@ -117,7 +135,7 @@ function AuthContextProvider(props){
     }
 
     return(
-        <AuthContext.Provider value={{auth, error}}>
+        <AuthContext.Provider value={{auth, error, passwordError}}>
             {props.children}
         </AuthContext.Provider>
     )

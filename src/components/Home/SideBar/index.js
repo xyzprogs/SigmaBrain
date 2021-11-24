@@ -5,11 +5,18 @@ import userApis from '../../../api/user-api';
 import HEADER from '../../../constant/header';
 import UserCard from '../SubscriptionCard';
 import BODY from '../../../constant/body';
+import Home_Sign from '../../../images/Home.png'
+import Subcription_sign from '../../../images/Subcription.png'
+import Channel_sign from '../../../images/Channel.png'
+import Watch_Later_sign from '../../../images/watchLater.png'
+import Like_Quizzes_sign from '../../../images/LikeQuizzes.png'
+import Community_sign from '../../../images/Community.png'
+import { useHistory } from 'react-router-dom'
 const SideBar = () => {
     const classes = useStyles()
     const [subscriptions, setSubscriptions] = useState([])
     const { auth } = useContext(AuthContext)
-
+    const history = useHistory()
     useEffect(()=>{
         const loadSubscriptions = async (userId)=>{
             const token = await auth.user.getIdToken()
@@ -25,42 +32,72 @@ const SideBar = () => {
         }
     }, [auth.user])
 
+    const redirectToHome = ()=>{
+        console.log("redtriect home")
+        history.push('/')
+    }
+
+    const redirectToSubscription = ()=>{
+        console.log("redirect subscription")
+        history.push('/subscription')
+    }
+
+
+    const redirectTakeLater = ()=>{
+        history.push('/takelater')
+    }
+
+    const redirectLikeQuizzes = ()=>{
+        history.push('/likequizzes')
+    }
+
+    const redirectToSetting = ()=>{
+        history.push('/setting')
+    }
+
+
     return (
         <div className={classes.sideBarContainer}>
             <div className={classes.sideBarSelection}>
-                <div className={classes.sideBarSelect}>
-                    Home
+                <div onClick={redirectToHome} className={classes.sideBarSelect}>
+                    <img className={classes.image_setting} src={Home_Sign} alt=""/>
+                    &nbsp;&nbsp;Home
                 </div>
-                <div className={classes.sideBarSelect}>
-                    Subscription
+                <div onClick={redirectToSubscription} className={classes.sideBarSelect}>
+                    <img className={classes.image_setting} src={Subcription_sign} alt=""/>
+                    &nbsp;&nbsp;Subscription
                 </div>
-                <div className={classes.sideBarSelect}>
-                    Channel
+                {/* <div className={classes.sideBarSelect}>
+                    <img className={classes.image_setting} src={Channel_sign} alt=""/>
+                    &nbsp;&nbsp;Channel
+                </div> */}
+                <div onClick={redirectTakeLater} className={classes.sideBarSelect}>
+                <img className={classes.image_setting} src={Watch_Later_sign} alt=""/>
+                    &nbsp;&nbsp;Take Later
                 </div>
-                <div className={classes.sideBarSelect}>
-                    Take Later
+                <div onClick={redirectLikeQuizzes} className={classes.sideBarSelect}>
+                <img className={classes.image_setting} src={Like_Quizzes_sign} alt=""/>
+                    &nbsp;&nbsp;Like Quizzes
                 </div>
-                <div className={classes.sideBarSelect}>
-                    Like Quizzes
-                </div>
-                <div className={classes.sideBarSelect}>
-                    Community
-                </div>
+                {/* <div className={classes.sideBarSelect}>
+                <img className={classes.image_setting} src={Community_sign} alt=""/>
+                    &nbsp;&nbsp;Community
+                </div> */}
             </div>
 
             <div className={`${classes.subscriptionTop} ${classes.sideBarSelection}`}>
                 Subscriptions:
                 <div>
                     {subscriptions.map((sub, i)=>{
-                        return <UserCard
+                        return <UserCard key={i}
                                     subscribeTo={sub[BODY.SUBSCRIBETO]}/>
                     })}
                 </div>
             </div>
 
             <div>
-                <div className={classes.sideBarSelect}>
-                    Settings
+                <div onClick={redirectToSetting} className={classes.sideBarSelect}>
+                    &nbsp;&nbsp;Settings
                 </div>
             </div>
         </div>

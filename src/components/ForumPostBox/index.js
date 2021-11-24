@@ -1,6 +1,6 @@
 import BODY from "../../constant/body"
 import { useEffect, useState, useContext } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import forumnApi from "../../api/forumn-api"
 import PostCommentBox from "./CommentBox"
 import { useStyles } from './style'
@@ -56,7 +56,7 @@ const ForumPostBox = ()=>{
         loadPost()
         loadComments()
 
-    }, [])
+    }, [forumPostId])
 
     const loadComments = async ()=>{
         let response = await forumnApi.getFroumPostComment(forumPostId)

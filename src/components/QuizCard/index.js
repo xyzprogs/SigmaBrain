@@ -63,9 +63,9 @@ const QuizCard = (props)=>{
                 <Card className={classes.quizCardContainer}>
                     {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                     <Card.Body>
-                        <Card.Title>Quiz Title</Card.Title>
+                        <Card.Title>loading</Card.Title>
                         <Card.Text>
-                            Something
+                            loading
                         </Card.Text>
                         <Button variant="primary">Visit Quiz</Button>
                     </Card.Body>

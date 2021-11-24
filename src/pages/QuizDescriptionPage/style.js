@@ -10,6 +10,6 @@ export const useStyles = createUseStyles({
     },
 
     descriptionBox:{
-        paddingTop: "100px"
+        paddingTop: "100px",
     }
 })

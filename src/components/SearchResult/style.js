@@ -1,6 +1,10 @@
 import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
     
+    container:{
+        width: "80%",
+    },
+
     searchResultContainer:{
         width: "50%",
         display: "grid",
@@ -17,10 +21,10 @@ export const useStyles = createUseStyles({
         cursor: "pointer"
     },
 
-    container: {
-        display: "flex",
-        flexGrow: "1",
-        padding: "1rem",
-    }
+    // container: {
+    //     display: "flex",
+    //     flexGrow: "1",
+    //     padding: "1rem",
+    // }
 
 })

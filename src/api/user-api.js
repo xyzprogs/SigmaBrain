@@ -5,7 +5,7 @@ const api = axios.create({
 })
 export const createUser = (payload, config) => api.post('/create', payload, config) 
 export const getMainLeaderboard = () => api.get('/leaderboard')
-export const getChannelLeaderboard = (leaderboardId) => api.get(`/leaderboard/${leaderboardId}`)
+export const getChannelLeaderboard = (ownerId) => api.get(`/leaderboard/${ownerId}`)
 export const setProfilePageImage = (formdata, config) => api.post('/profile/setUserProfileImage', formdata, config)
 export const setBackgroundImage = (formdata, config) => api.post('/profile/setUserBackgroundImage', formdata, config)
 export const setUserDescription = (payload, config) => api.post('/profile/setUserDescription', payload, config)
@@ -19,7 +19,8 @@ export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: h
 export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
 export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
 export const getFollowers = (headers)=>api.get("/followers", {headers: headers})
-export const updateUserExperience = (payload) => api.put('/updateUserExperience', payload)
+/*TODO: REQUIRE AUTHENTICATION*/export const updateUserExperience = (payload) => api.put('/updateUserExperience', payload)
+export const updateUserDisplayNamem = (payload, headers) => api.put('/updateUserDisplayName', payload, {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -37,7 +38,8 @@ const userApis = {
     getUserInfo,
     getUserDisplayName,
     getFollowers,
-    updateUserExperience
+    updateUserExperience,
+    updateUserDisplayNamem
 }
 
 export default userApis

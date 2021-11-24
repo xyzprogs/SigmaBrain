@@ -1,4 +1,5 @@
 import { useStyles } from './style'
+import { useHistory, useParams } from 'react-router'
 import { useRef, useContext, useState, useEffect } from 'react'
 import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
@@ -8,19 +9,22 @@ import Button from '@mui/material/Button'
 import default_banner from '../../../images/profile_image.png'
 const ProfileBar = (props) => {
     const classes = useStyles()
+    const history = useHistory()
     const imgRef = useRef()
-    const {auth} = useContext(AuthContext)
+    const { auth } = useContext(AuthContext)
     const [image, setImage] = useState("")
     const [profile, setProfile] = useState(false)
     const [self, setSelf] = useState(false)
-    const clickUpload = ()=>{
+    const [userInfo, setUserInfo] = useState({})
+    const {userId} = useParams()
+    const clickUpload = () => {
         imgRef.current.click()
     }
 
-    const onImageUpload = async (event)=>{
+    const onImageUpload = async (event) => {
         const token = await auth.user.getIdToken()
         let headers = {
-            [HEADER.TOKEN] : token
+            [HEADER.TOKEN]: token
         }
         let config = {
             headers: headers
@@ -32,16 +36,15 @@ const ProfileBar = (props) => {
         setImage(URL.createObjectURL(event.target.files[0]))
     }
 
-
-    const onEnterProfile = ()=>{
+    const onEnterProfile = () => {
         setProfile(true)
     }
 
-    const onLeaveProfile = ()=>{
+    const onLeaveProfile = () => {
         setProfile(false)
     }
 
-    const onSubscribe = async ()=>{
+    const onSubscribe = async () => {
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN]: token
@@ -52,98 +55,138 @@ const ProfileBar = (props) => {
         userApis.subscribe(payload, headers)
     }
 
-    useEffect(()=>{
-        const loadImage = async ()=>{
-            try{
+    //temp solution for build 5
+    const redirectToLeaderboardpage = () => {
+        history.push(`/leaderboard/${props.userId}`)
+    }
+
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
                 let response = await userApis.getProfileImage(props.userId)
                 setImage(response.data)
-            }catch(e){
-               setImage(default_banner)
+            } catch (e) {
+                setImage(default_banner)
             }
+
+
+            //Loads the user information 
+            console.log("getting user info", userId)
+            await userApis.getUserInfo(userId).then((response) => {
+                setUserInfo(response.data[0])
+                console.log(response.data)
+            })
+
 
         }
         loadImage()
-        if(localStorage.getItem('uid') === props.userId){
+        if (localStorage.getItem('uid') === props.userId) {
             setSelf(true)
         }
     }, [props.userId, auth])
 
-    if(!self){
-        return(
-            <div className={classes.barContainer}>
-                <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
+    if (!self) {
+        return (
+            <div>
+                <div className={classes.userInfoGrid}>
+                    <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         <div className={classes.imgSize}>
-                            <img alt="user profile" className={classes.imgSize} src={image}/>
-                        </div>      
+                            <img alt="user profile" className={classes.imgSize} src={image} />
+                        </div>
+                    </div>
+                    <div>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                    <div>{userInfo.email}</div>
                 </div>
-    
-                <div className={classes.tableCell2} onClick={()=>{props.setTag(0)}}>
-                    Home
-                </div>
-    
-                <div className={classes.tableCell2} onClick={()=>{props.setTag(1)}}>
-                    Quizzes
-                </div>
-    
-                <div className={classes.tableCell2} onClick={()=>{props.setTag(2)}}>
-                    About
-                </div>
-    
-                <div className={classes.tableCell2} onClick={()=>{props.setTag(3)}}>
-                    Followers
-                </div>   
 
-                <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
-                    Forum
-                </div>   
 
-                <div className={classes.tableCell3}>
-                    <Button onClick={onSubscribe}>Subscribe</Button>
-                </div>            
+                <div className={classes.barContainer}>
+
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(0) }}>
+                        Home
+                    </div>
+
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(1) }}>
+                        Quizzes
+                    </div>
+
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(2) }}>
+                        About
+                    </div>
+
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(3) }}>
+                        Followers
+                    </div>
+
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(4) }}>
+                        Forum
+                    </div>
+
+                    <div className={classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                        Leaderboard
+                    </div>
+
+                    <div className={classes.tableCell3}>
+                        <Button onClick={onSubscribe}>Subscribe</Button>
+                    </div>
+
+                </div>
             </div>
         )
     }
 
-    return(
-        <div className={classes.barContainer}>
-            <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell} ${classes.pointerCursor}`}>
-                {
-                    profile
-                    ?
-                    <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
-                        <img  alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image}/>
-                        <div className={classes.changeText}>Change</div>
-                    </div>
-                    :
-                    <div className={classes.imgSize}>
-                        <img  alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image}/>
-                    </div>      
-                }
-            </div>
+    return (
+        <div>
+            <div className={classes.userInfoGrid2}>
+                <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell} ${classes.pointerCursor}`}>
+                    {
+                        profile
+                            ?
+                            <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
+                                <img alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image} />
+                                <div className={classes.changeText}>Change</div>
+                            </div>
+                            :
+                            <div className={classes.imgSize}>
+                                <img alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image} />
+                            </div>
+                    }
+                </div>
 
-            <div className={classes.tableCell2} onClick={()=>{props.setTag(0)}}>
-                Home
-            </div>
+                <div>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
 
-            <div className={classes.tableCell2} onClick={()=>{props.setTag(1)}} >
-                Quizzes
-            </div>
 
-            <div className={classes.tableCell2} onClick={()=>{props.setTag(2)}}>
-                About
             </div>
+            <div className={classes.barContainer}>
 
-            <div className={classes.tableCell2} onClick={()=>{props.setTag(3)}}>
-                Followers
-            </div>
+                <div className={classes.tableCell2} onClick={() => { props.setTag(0) }}>
+                    Home
+                </div>
 
-            <div className={classes.tableCell2} onClick={()=>{props.setTag(4)}}>
+                <div className={classes.tableCell2} onClick={() => { props.setTag(1) }} >
+                    Quizzes
+                </div>
+
+                <div className={classes.tableCell2} onClick={() => { props.setTag(2) }}>
+                    About
+                </div>
+
+                <div className={classes.tableCell2} onClick={() => { props.setTag(3) }}>
+                    Followers
+                </div>
+
+                <div className={classes.tableCell2} onClick={() => { props.setTag(4) }}>
                     Forum
-            </div> 
+                </div>
 
-            <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
+                <div className={classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                    Leaderboard
+                </div>
+
+                <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag} />
+            </div>
         </div>
     )
 }
 
-export default ProfileBar 
+export default ProfileBar

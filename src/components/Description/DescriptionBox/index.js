@@ -1,17 +1,19 @@
 import { useStyles } from './style'
-import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router'
+import { useEffect, useState, useContext } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 import quizApis from '../../../api/quiz-api'
 import BODY from '../../../constant/body'
 import Card from "react-bootstrap/Card"
 import Button from "@mui/material/Button"
+import AuthContext from '../../../context/auth-context'
+import HEADER from '../../../constant/header'
 const DescriptionBox = (props)=>{
-    
     const classes = useStyles()
+    const {quizId} = useParams()
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
-    let history = useHistory();
-
+    const {auth} = useContext(AuthContext)
+    const history = useHistory()
     useEffect(()=>{
         const loadQuiz = async () => {
             let response = await quizApis.getQuiz(props.quizId)
@@ -25,8 +27,38 @@ const DescriptionBox = (props)=>{
         loadQuiz()
     }, [props.quizId])
 
+    const likeQuiz = async ()=>{
+        let payload = {
+            [BODY.QUIZID]: quizId
+        }
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+       await quizApis.likedQuiz(payload, headers)
+        console.log(`like quiz ${quizId} by ${localStorage.getItem(BODY.UID)}`)
+    }
 
+    const dislikeQuiz = async ()=>{
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        await quizApis.dislikeQuiz(quizId, headers)
+        console.log(`dislike quiz ${quizId} by ${localStorage.getItem(BODY.UID)}`)
+    }
 
+    const takeLater = async ()=>{
+        let payload = {
+            [BODY.QUIZID]: quizId
+        }
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        await quizApis.takeLaterQuiz(payload, headers)
+        console.log(`user ${localStorage.getItem(BODY.UID)} puts quiz ${quizId} into take later`)
+    }
 
     if(quiz === undefined){
         return(
@@ -36,24 +68,26 @@ const DescriptionBox = (props)=>{
 
 
     return (
-    // <div className={classes.boxContainer}>
-    //     <div>{quiz[BODY.QUIZNAME]}</div>
-    //     <div>{quiz[BODY.CREATIONTIME]}</div>
-    //     <div>{quiz[BODY.QUIZDESCRIPTION]}</div>
-    //     <img className={classes.imgSize} src={image} alt="quiz thumbnail"/>
-    //     <div onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Button</div>
-    // </div>
-    <div className={classes.cardContainer}>
-        <Card className={classes.cardSize}>
-            <Card.Img variant="top" src={image} />
-            <Card.Body>
-                <Card.Title>{quiz[BODY.QUIZNAME]}</Card.Title>
-                <Card.Text>
-                    {quiz[BODY.QUIZDESCRIPTION]}
-                </Card.Text>
-                <Button onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Start Quiz</Button>
-            </Card.Body>
-        </Card>
+    <div>
+        <div className={classes.cardContainer}>
+        <div className={classes.title}>{quiz[BODY.QUIZNAME]}</div>
+        <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
+            <Card className={classes.cardSize}>
+                <Card.Img className={classes.imgSize} variant="top" src={image} />
+                <Card.Body>
+                    <Card.Title>{quiz[BODY.QUIZNAME]}</Card.Title>
+                    <Card.Text>
+                        {quiz[BODY.QUIZDESCRIPTION]}
+                    </Card.Text>
+                    <Button onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Start Quiz</Button>
+                </Card.Body>
+            </Card>
+            <div className={classes.buttonBar}>
+                <div onClick={likeQuiz} className={`${classes.buttonMargin}`}>Like</div>
+                <div onClick={dislikeQuiz} className={`${classes.buttonMargin}`}>Dislike</div>
+                <div onClick={takeLater} className={`${classes.buttonMargin}`}>Saved Later</div>
+            </div>
+        </div>
     </div>
     )
 }

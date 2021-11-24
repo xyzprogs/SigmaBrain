@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss'
 
-const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'center' }
+const flexCenter = { display: 'flex', alignItems: 'center' }
 
 export const useStyles = createUseStyles({
     channelLeaderboardForm: {
@@ -12,11 +12,16 @@ export const useStyles = createUseStyles({
         borderRadius: '14px',
         ...flexCenter,
         flexDirection: 'column',
-        background: '#ffffff'
+        background: '#ffffff',
+    },
+    gridContainer:{
+        display:'grid',
+        gridTemplateRows: '10% 10% 80%',
+        width:'100%',
+        alignItems: 'stretch'
     },
     titleWrapper: {
         width: '100%',
-        marginBottom: '25px'
     },
     title: {
         color: 'black',
@@ -24,6 +29,15 @@ export const useStyles = createUseStyles({
         fontSize: '30px'
     },
     textToLeft: {
-        textAlign: "left"
+        textAlign: "left",
+        width:'100%',
+        marginTop: "5%",
+    },
+    rankCardContainer:{
+        display:'grid',
+        gridTemplateColumns:'20% 50% 30%',
+        width:'100%',
+        textAlign:'left',
+        marginBottom:'10px',
     },
 })

@@ -15,12 +15,18 @@ export const useStyles = createUseStyles({
     },
 
     sideBarSelect: {
-        paddingTop: "10px"
+        paddingTop: "10px",
+        paddingLeft:"17px",
+        textAlign:"left",
+        lineHeight:"200%",
+        cursor: "pointer"
     },
 
     subscriptionTop: {
         textAlign: "left",
         paddingTop: "10px",
     },
-
+    image_setting:{
+        width:'19px',
+    },
 })
