@@ -10,7 +10,10 @@ import AUTH_ERROR from '../../constant/firebase-error-code';
 import { useHistory } from "react-router-dom";
 import AuthContext from '../../context/auth-context'
 import ERRORCODE from '../../constant/firebase-error-code';
+
+
 import User_image from '../../images/user.png'
+import validateRegistration from './validateRegistration';
 const Register = () => {
 
     const classes = useStyles();
@@ -18,6 +21,9 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errorMessages, setErrorMessages] = useState([])
+
+    const [formErrors, setFormErrors] = useState({})
+
     const [name, setName] = useState("")
     const history = useHistory()
     const { auth } = useContext(AuthContext)
@@ -45,6 +51,10 @@ const Register = () => {
     })
 
     const confirmRegister = async (event) => {
+        //checks the validation in the front end
+        setFormErrors(validateRegistration({name, email, password, confirmPassword}))
+        
+
         if(password !== confirmPassword){
             setErrorMessages([ERRORCODE.WRONG_PASSWORD_MSG])
             return
@@ -110,6 +120,11 @@ const Register = () => {
                             onKeyUp = {updateEmail}
                         />
                     </div>
+
+                    {formErrors?.EmailError && (
+                                <p className={classes.errorMsg}>{formErrors.EmailError}</p>
+                    )}
+
                     <div className={classes.textToLeft}>Display Name</div>
                     <div className={classes.inputWrapper}>
                         <input
@@ -120,6 +135,11 @@ const Register = () => {
                             onKeyUp = {updateName}
                         />
                     </div>
+
+                    {formErrors?.UsernameError && (
+                                <p className={classes.errorMsg}>{formErrors.UsernameError}</p>
+                    )}
+
                     <div className={classes.textToLeft}>Password</div>
                     <div className={classes.inputWrapper}>
                         <input
@@ -130,6 +150,11 @@ const Register = () => {
                             onKeyUp={updatePassword}
                         />
                     </div>
+                    
+                    {formErrors?.PasswordError && (
+                                <p className={classes.errorMsg}>{formErrors.PasswordError}</p>
+                    )}
+
                     <div className={classes.textToLeft}>Confirm Password</div>
                     <div className={classes.inputWrapper}>
                         <input
@@ -140,6 +165,11 @@ const Register = () => {
                             onKeyUp={updateConfirmPassword}
                         />
                     </div>
+
+                    {formErrors?.ConfirmPasswordError && (
+                                <p className={classes.errorMsg}>{formErrors.ConfirmPasswordError}</p>
+                    )}
+
                 </div>
                 {
                 <div className={classes.loginOptions}>
