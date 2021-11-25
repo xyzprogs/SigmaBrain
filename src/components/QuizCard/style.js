@@ -1,6 +1,14 @@
 import { createUseStyles } from "react-jss";
 
 export const userStyles = createUseStyles({
+
+    container:{
+       Height: "20vh",
+       display: "flex"
+    },  
+    img:{
+        height:"20vh",
+    },
     quizCardContainer: {
         width: '12.8vw',
         cursor: "pointer",
@@ -8,7 +16,7 @@ export const userStyles = createUseStyles({
     },
     imgSize:{
         width:"100%",
-        height: "150px"
+        height: "100%"
     },
 
     cursor:{
@@ -17,7 +25,10 @@ export const userStyles = createUseStyles({
     titleText:{
         textAlign:"left",
         fontSize:30,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
 
     },
     descriptionText:{

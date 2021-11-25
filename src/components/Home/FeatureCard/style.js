@@ -9,7 +9,7 @@ export const useStyles = createUseStyles({
         "description img"
         `,
         width: "65vw",
-        height:"10vw",
+        // height:"10vw",
         border: "solid",
         marginLeft: "2.5%",
         //marginTop: "2.5%"
@@ -20,7 +20,7 @@ export const useStyles = createUseStyles({
     },
 
     img:{
-        gridArea: "img"
+        // height:"100%",
     },
 
     imgSize:{
