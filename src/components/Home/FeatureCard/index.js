@@ -8,16 +8,19 @@ const FeatureCard = (props) =>{
     }
     return(
         <div className={classes.featureCardContainer}>
+            
             <div className={classes.description}>
                 {/* <div className={classes.popularTitle} >Most Popular Quiz!!!!</div> */}
                 <div className={classes.quizBox}>
                     <div className={classes.quizName}>{props.quiz[BODY.QUIZNAME]}</div>
                     <div className={classes.quizDescription}>{props.quiz[BODY.QUIZDESCRIPTION]}</div>
+                    <div className={classes.clickButton}>SEE MORE</div>
                 </div>
             </div>
             <div className={classes.img}>
                 <img className={classes.imgSize} src={props.image} alt="feature card thumbnial"/>
             </div>
+            
         </div>
     )
 

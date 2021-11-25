@@ -9,9 +9,10 @@ export const useStyles = createUseStyles({
         "description img"
         `,
         width: "65vw",
+        height:"10vw",
         border: "solid",
         marginLeft: "2.5%",
-        marginTop: "2.5%"
+        //marginTop: "2.5%"
     },
 
     description:{
@@ -46,10 +47,30 @@ export const useStyles = createUseStyles({
     },
 
     quizName: {
-        fontFamily: "fantasy"
+        textAlign:"Left",
+        marginLeft:"30%",
+        fontFamily: "fantasy",
+        fontSize:50
     },
 
     quizDescription:{
+        textAlign:"Left",
+        marginLeft:"30%",
+        fontSize:20,
         fontFamily: "serif"
+    },
+    clickButton:{
+        backgroundColor:"#9BAFD8",
+        position:"center",
+        color:"white",
+        textAlign:"Left",
+        marginLeft:"30%",
+        marginTop:"5%",
+        fontSize:15,
+        fontWeight:"bold",
+        width:90,
+        height:30,
+        borderRadius:50,
+        padding:4
     }
 })
