@@ -27,7 +27,7 @@ const ProfileSectionWrapper = ({tag, userId, self})=>{
     if(tag===2){
         return(
             <div>
-                <About/>
+                <About self={self}/>
             </div>
         )
     }

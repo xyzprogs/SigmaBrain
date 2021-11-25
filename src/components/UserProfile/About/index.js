@@ -5,7 +5,7 @@ import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
 import { useStyles } from './style'
 import AuthContext from '../../../context/auth-context'
-const About = () => {
+const About = ({ self }) => {
     //sets the character limit in the about me page
     const CHARACTER_LIMIT = 500
 
@@ -53,17 +53,23 @@ const About = () => {
     }
 
     return (
-        <div>
-            <div onClick={() => updateAboutMe()}>About Me!</div>
-            {isEditing ?
-                <input defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
-                :
-                <div className={classes.aboutContainer}>{about}</div>
-            }
+        self ?
+            <div>
+                <div>About Me!</div>
+                {isEditing ?
+                    <input defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
+                    :
+                    <div className={classes.aboutContainer}>{about}</div>
+                }
 
-            <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</button>
-            <button onClick={() => handleSubmit()}>submit</button>
-        </div>
+                <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</button>
+                <button onClick={() => handleSubmit()}>submit</button>
+            </div>
+            :
+            <div>
+                <div>About Me!</div>
+                <div className={classes.aboutContainer}>{about}</div>
+            </div>
     )
 }
 
