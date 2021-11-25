@@ -1,7 +1,5 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { app } from '../firebase/firebase_init'
-import AuthContext from "../context/auth-context";
-import { useContext } from 'react'
 export function register(email, password){
     const auth = getAuth(app);
     return createUserWithEmailAndPassword(auth, email, password)

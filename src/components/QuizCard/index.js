@@ -1,11 +1,10 @@
 import { userStyles } from "./style"
-import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import BODY from '../../constant/body'
 import quizApis from "../../api/quiz-api"
 import default_thumbnail from "../../images/default_quiz_thumbnail.png"
+import view_number from "../../images/viewNumber.png"
 
 const QuizCard = (props)=>{
     const classes = userStyles()
@@ -38,39 +37,48 @@ const QuizCard = (props)=>{
             setImage()
         }
     },[props.quiz])
+    
+    function CreateDate(date){
+        const array=date.split('T');
 
+        return array[0];
+    }
 
 
     if(props.quiz!==undefined){
         return(
-            <div onClick={clickQuiz}>
-                <Card className={classes.quizCardContainer}>
-                    <Card.Body>
-                        <Card.Title>{props.quiz.quizName}</Card.Title>
-                        <div>
+            <div onClick={clickQuiz} className={`${classes.container}`}>
+                <div className={classes.quizCardContainer}>
+                    <div>
+                        <div className={classes.img}>
                             <img className={classes.imgSize} src={image} alt="quizimage"/>
                         </div>
-                        <Card.Text>
+                        <div className={classes.titleText}>
+                            {props.quiz.quizName}
+                        </div>
+                        <div className={classes.descriptionText}>
+                        <div>
                             {props.quiz.quizDescription}
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
+                        </div>
+                        </div>
+                        <div className={classes.informationContainer}>
+                            <div className={classes.dateText}>
+                                {CreateDate(props.quiz.creationTime)}
+                            </div>
+                            <div className={classes.viewNumberContainer}>
+                                <img className={classes.viewNumberImage} src={view_number}/>
+                                &nbsp;{props.quiz.takeCounts}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>   
         )
     }
     else{
         return(
             <div>
-                <Card className={classes.quizCardContainer}>
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                    <Card.Body>
-                        <Card.Title>loading</Card.Title>
-                        <Card.Text>
-                            loading
-                        </Card.Text>
-                        <Button variant="primary">Visit Quiz</Button>
-                    </Card.Body>
-                </Card>
+                No Quiz Found
             </div>
             
         )

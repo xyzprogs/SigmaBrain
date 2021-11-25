@@ -36,6 +36,7 @@ export const getLikedQuiz = (headers) => api.get('/main/likedquiz', {headers: he
 export const getTakeLaterQuiz = (headers) => api.get('/main/takelater', {headers: headers})
 export const getSubscriptionQuiz = (headers) => api.get('/main/subscriptionquiz', {headers: headers})
 export const getMoreQuizByCategoryById = (payload) => api.post('/getMoreQuizByCategoryById', payload)
+export const getMoreSearchResult = (search, row) => api.get(`/searchMore/getMoreSearchResult?search=${search}&row=${row}`)
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -67,7 +68,8 @@ const quizApis = {
     getLikedQuiz,
     getTakeLaterQuiz,
     getSubscriptionQuiz,
-    getMoreQuizByCategoryById
+    getMoreQuizByCategoryById,
+    getMoreSearchResult
 }
 
 export default quizApis

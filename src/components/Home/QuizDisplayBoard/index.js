@@ -62,7 +62,7 @@ const QuizDisplayBoard = (props) => {
                 </div>
 
                 <div className={classes.rankContainer}>
-                    <div>Rankings</div>
+                    <div className={classes.RankingsText}>Rankings</div>
                     <div>
                         {rankQuiz.map((quiz, i) =>
                             <div key={i} className={classes.card} onClick={()=>moveToStartingPage(i)}>

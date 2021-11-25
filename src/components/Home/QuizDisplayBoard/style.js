@@ -14,13 +14,19 @@ export const useStyles = createUseStyles({
         gridArea: "ranking"
     },
 
+    RankingsText:{
+        fontSize:"25px",
+        fontWeight:"bold"
+    },
     headerContainer: {
         gridArea: "header"
     },
 
     title: {
         textAlign: "left",
-        marginLeft: "2.5%"
+        marginLeft: "2%",
+        fontSize:"26px",
+        fontWeight:"bold"
     },
 
     displayBoardContainer: {
@@ -32,10 +38,12 @@ export const useStyles = createUseStyles({
         "quiz ranking"
         `,
         width: "85vw",
-        marginTop: "5%"
+        marginTop: "4%"
     },
 
     card:{
-        cursor: "pointer"
-    }
+        cursor: "pointer",
+        //fontSize:10
+    },
+    
 })
