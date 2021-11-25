@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import BODY from '../../constant/body'
 import quizApis from "../../api/quiz-api"
 import default_thumbnail from "../../images/default_quiz_thumbnail.png"
+import view_number from "../../images/viewNumber.png"
 const QuizCard = (props)=>{
     const classes = userStyles()
     const history = useHistory()
@@ -37,7 +38,13 @@ const QuizCard = (props)=>{
             setImage()
         }
     },[props.quiz])
+    
+    function CreateDate(date){
+        console.log(date)
+        const array=date.split('T');
 
+        return array[0];
+    }
 
 
     if(props.quiz!==undefined){
@@ -45,13 +52,26 @@ const QuizCard = (props)=>{
             <div onClick={clickQuiz}>
                 <Card className={classes.quizCardContainer}>
                     <Card.Body>
-                        <Card.Title>{props.quiz.quizName}</Card.Title>
                         <div>
                             <img className={classes.imgSize} src={image} alt="quizimage"/>
                         </div>
+                        <div className={classes.titleText}>
+                            {props.quiz.quizName}
+                        </div>
+                        <div className={classes.descriptionText}>
                         <Card.Text>
                             {props.quiz.quizDescription}
                         </Card.Text>
+                        </div>
+                        <div className={classes.informationContainer}>
+                            <div className={classes.dateText}>
+                                {CreateDate(props.quiz.creationTime)}
+                            </div>
+                            <div className={classes.viewNumberContainer}>
+                                <img className={classes.viewNumberImage} src={view_number}/>
+                                &nbsp;{props.quiz.takeCounts}
+                            </div>
+                        </div>
                     </Card.Body>
                 </Card>
             </div>   
