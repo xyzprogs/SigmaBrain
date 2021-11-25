@@ -4,52 +4,75 @@ import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../context/auth-context'
 import ERRORCODE from '../../constant/firebase-error-code';
+import validateLogin from './validateLogin';
 const Login = () => {
 
     const classes = useStyles()
-    const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const history = useHistory()
     const { auth, error } = useContext(AuthContext)
+    const [formErrors, setFormErrors] = useState({})
     const [errorMsg, setErrorMsg] = useState([])
     const updateEmail = (event) => {
-        setEmail(event.target.value);
+        setEmail(event.target.value)
     }
 
     const updatePassword = (event) => {
-        setPassword(event.target.value);
+        setPassword(event.target.value)
     }
 
     const confirmLogin = () => {
-        auth.login(email, password)
+        const errorMessages = validateLogin({ email, password })
+        setFormErrors(errorMessages)
+
+        //If no front end errors, then proceed
+        if (Object.keys(errorMessages).length === 0)
+            auth.login(email, password)
+
+        checkForLoginErrors()
     }
 
-    useEffect(()=>{
 
+    useEffect(()=>{
         if(auth.user!=null){
             history.push('/')
         }
 
-        if(error != null ){
-            if(error === ERRORCODE.INVALID_EMAIL){
-                setErrorMsg([ERRORCODE.INVALID_EMAIL_MSG])
-            }
-            else if(error === ERRORCODE.USER_NOT_FOUND){
-                setErrorMsg([ERRORCODE.USER_NOT_FOUND_MSG])
-            }
-            else if(error === ERRORCODE.WRONG_PASSWORD){        
-                setErrorMsg([ERRORCODE.WRONG_PASSWORD_MSG])
-            }
-            else{
-                setErrorMsg([ERRORCODE.LOGIN_UNSUCESS_MSG])
-            }
+        if (error != null) {
+            checkForLoginErrors()
         }
     }, [auth.user, error, history])
+
+
+
+    const checkForLoginErrors = () => {
+        let errorMessages = {}
+
+            if (error === ERRORCODE.INVALID_EMAIL) {
+                errorMessages.EmailError = "Invalid Email Address"
+            }
+            else if (error === ERRORCODE.USER_NOT_FOUND) {
+                errorMessages.EmailError = " "
+                errorMessages.PasswordError = "Either the Email or the Password is incorrect"
+            }
+            else if (error === ERRORCODE.WRONG_PASSWORD) {
+                errorMessages.EmailError = " "
+                errorMessages.PasswordError = "Either the Email or the Password is incorrect"
+            }
+            else if (error === ERRORCODE.TOO_MANY_ATTEMPTS) {
+                setErrorMsg([ERRORCODE.TOO_MANY_ATTEMPTS_MSG])
+            }
+
+        setFormErrors(errorMessages)
+
+        return errorMessages
+    }
 
     return (
         <div className={classes.loginForm}>
             {
-                errorMsg.map((error, i)=>{
+                errorMsg.map((error, i) => {
                     return <div key={i} className="alert alert-danger" role="alert">
                         {error}
                     </div>
@@ -63,36 +86,42 @@ const Login = () => {
                     <div className={classes.textToLeft}>Email</div>
                     <div className={classes.inputWrapper}>
                         <input
-                            className={ `${classes.input} ${classes.bottomBorder}` }
+                            className={formErrors?.EmailError ? classes.inputError : classes.input}
                             type="text"
                             name="email"
                             placeholder="Email"
-                            onKeyUp = {updateEmail}
+                            onChange={updateEmail}
                         />
+                        {formErrors?.EmailError && (
+                            <p className={classes.errorMsg}>{formErrors.EmailError}</p>
+                        )}
                     </div>
                     <div className={classes.textToLeft}>Password</div>
                     <div className={classes.inputWrapper}>
                         <input
-                            className={ `${classes.input} ${classes.bottomBorder}` }
+                            className={formErrors?.PasswordError ? classes.inputError : classes.input}
                             type="password"
                             name="password"
                             placeholder="Password"
-                            onKeyUp={updatePassword}
+                            onChange={updatePassword}
                         />
+                        {formErrors?.PasswordError && (
+                            <p className={classes.errorMsg}>{formErrors.PasswordError}</p>
+                        )}
                     </div>
                 </div>
                 {
-                <div className={classes.loginOptions}>
-                    <div className={classes.checkboxContainer}>
-                        <input type="checkbox" />
-                        <span>Stay Logged In</span>
+                    <div className={classes.loginOptions}>
+                        <div className={classes.checkboxContainer}>
+                            <input type="checkbox" />
+                            <span>Stay Logged In</span>
+                        </div>
+                        <span className={classes.forgotPassword}>
+                            <Link to="/forgetPassword" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                                forgot password?
+                            </Link>
+                        </span>
                     </div>
-                    <span className={classes.forgotPassword}>
-                        <Link to="/forgetPassword" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
-                            forgot password?
-                        </Link>
-                    </span>
-                </div>
                 }
                 <div className={classes.buttonContainer}>
                     <button type="submit" className={classes.button} onClick={confirmLogin}>

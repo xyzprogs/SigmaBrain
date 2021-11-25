@@ -119,7 +119,7 @@ export const useStyles = createUseStyles({
     //errors
     inputError: {
         extend: 'input',
-        border: '2px solid var(--danger)'
+        border: '2px solid red',
     },
     formError: {
         fontSize: '13px',
@@ -132,8 +132,10 @@ export const useStyles = createUseStyles({
     textToLeft: {
         textAlign: "left"
     },
-    bottomBorder:{
-        // borderStyle: "solid",
-        borderWidth: "0px 0px 1px 0px",
-    }
+    errorMsg: {
+        margin: '0 15px',
+        fontSize: '12px',
+        color: 'red',
+        textAlign: 'left'
+    },
 })
