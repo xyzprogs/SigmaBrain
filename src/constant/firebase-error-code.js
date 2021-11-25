@@ -9,7 +9,6 @@ const TOO_MANY_ATTEMPTS = "auth/too-many-requests"
 
 const WEAK_PASSWORD = "auth/weak-password"
 const REQUIRE_RECENT_LOGIN = "auth/requires-recent-login"
-const TOO_MANY_ATTEMPTS = "auth/too-many-requests"
 
 // ERROR MESSAGE
 const ALREADY_REGISTERED_MSG = "Email has already been registered"
@@ -22,11 +21,9 @@ const REGISTER_UNSUCESS_MSG = "Register unsucessfully"
 
 const TOO_MANY_ATTEMPTS_MSG = "too many attempts, please try again later"
 
-
 const WEAK_PASSWORD_MSG = "Password should be at least 6 characters"
 const CHANGE_PASSWORD_FAIL_MSG = "Fail to change password"
 const PASS_EMPTY_MSG = "Password shouldn't empty"
-const TOO_MANY_ATTEMPTS_MSG = "Fail for too many attempts, try again later"
 
 const ERRORCODE = {
     ALREADY_REGISTERED,
@@ -50,12 +47,10 @@ const ERRORCODE = {
     LOGIN_UNSUCESS_MSG,
     REGISTER_UNSUCESS_MSG,
 
-    TOO_MANY_ATTEMPTS_MSG
-
+    TOO_MANY_ATTEMPTS_MSG,
     WEAK_PASSWORD_MSG,
     CHANGE_PASSWORD_FAIL_MSG,
     PASS_EMPTY_MSG,
-    TOO_MANY_ATTEMPTS_MSG,
 
 }
 export default ERRORCODE
