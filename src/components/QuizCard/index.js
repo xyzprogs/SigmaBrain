@@ -38,7 +38,6 @@ const QuizCard = (props)=>{
     },[props.quiz])
     
     function CreateDate(date){
-        console.log(date)
         const array=date.split('T');
 
         return array[0];

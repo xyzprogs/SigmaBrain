@@ -90,6 +90,7 @@ const USERACHIEVEMENTCOMPLETIONID = "userAchievementCompletionId"
 
 //Subscribe
 const SUBSCRIBETO = "subscribeTo"
+const SUBSCRIBEID = "subscribeId"
 
 //TakeLater
 const TAKELATERID = "takeLaterId"
@@ -189,6 +190,7 @@ const BODY_CONSTANT = {
     
     //SUBSCRIBE
     SUBSCRIBETO,
+    SUBSCRIBEID,
 
     TAKELATERID,
 
