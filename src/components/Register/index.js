@@ -54,6 +54,7 @@ const Register = () => {
         //checks the validation in the front end
         const errorsRegisters = await validateRegistration({ name, email, password, confirmPassword })
         setFormErrors(errorsRegisters)
+
         //If no front end issues, then proceed
         if (Object.keys(errorsRegisters).length === 0)
             register(email, password).then(async (userCredential) => {
@@ -85,7 +86,9 @@ const Register = () => {
                     // const errorMessage = error.message;
                     console.log(errorCode)
                     if (errorCode === AUTH_ERROR.ALREADY_REGISTERED) {
-                        setErrorMessages([ERRORCODE.ALREADY_REGISTERED_MSG])
+                        const errors = {}
+                        errors.EmailError = "This Email already has an account with us. Please try a different email or log in"
+                        setFormErrors(errors)
                     }
                     else {
                         setErrorMessages([ERRORCODE.REGISTER_UNSUCESS_MSG])
@@ -96,13 +99,6 @@ const Register = () => {
 
     return (
         <div className={classes.loginForm}>
-            {
-                errorMessages.map((error, i) => {
-                    return <div key={i} className="alert alert-danger" role="alert">
-                        {error}
-                    </div>
-                })
-            }
             <div className={classes.titleWrapper}>
                 <h3 className={classes.title}>Register Here</h3>
             </div>
