@@ -16,11 +16,6 @@ const CategoryPage = () => {
     useEffect(()=>{
         const loadCategoryQuiz = async ()=>{
             const response = await quizApis.getCategoryQuiz(categoryId)
-            // setQuizzes(response.data)
-            // if(response.data.length>0){
-            //     localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_ID, response.data[response.data.length-1][BODY.QUIZID])
-            //     localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_DATE, response.data[response.data.length-1]["creationTime"])
-            // }
             updateQuizzes(response)
         }
         loadCategoryQuiz()
@@ -29,7 +24,7 @@ const CategoryPage = () => {
     const updateQuizzes = (response) => {
         let sub_arr = response.data
         if(response.data.length>0){
-            if(response.data.length == 11){
+            if(response.data.length === 11){
                 console.log("last quiz id",response.data[response.data.length-1][BODY.QUIZID] )
                 localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_ID, response.data[response.data.length-1][BODY.QUIZID])
                 localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_DATE, response.data[response.data.length-1]["creationTime"])
