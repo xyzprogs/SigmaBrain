@@ -35,6 +35,7 @@ export const dislikeQuiz = (quizId, headers) => api.delete(`/likedquiz/${quizId}
 export const getLikedQuiz = (headers) => api.get('/main/likedquiz', {headers: headers})
 export const getTakeLaterQuiz = (headers) => api.get('/main/takelater', {headers: headers})
 export const getSubscriptionQuiz = (headers) => api.get('/main/subscriptionquiz', {headers: headers})
+export const getMoreQuizByCategoryById = (payload) => api.post('/getMoreQuizByCategoryById', payload)
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -65,7 +66,8 @@ const quizApis = {
     dislikeQuiz,
     getLikedQuiz,
     getTakeLaterQuiz,
-    getSubscriptionQuiz
+    getSubscriptionQuiz,
+    getMoreQuizByCategoryById
 }
 
 export default quizApis
