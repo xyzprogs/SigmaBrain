@@ -1,6 +1,4 @@
 import { userStyles } from "./style"
-import Card from "react-bootstrap/Card"
-import Button from "react-bootstrap/Button"
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import BODY from '../../constant/body'
@@ -49,19 +47,19 @@ const QuizCard = (props)=>{
 
     if(props.quiz!==undefined){
         return(
-            <div onClick={clickQuiz}>
-                <Card className={classes.quizCardContainer}>
-                    <Card.Body>
-                        <div>
+            <div onClick={clickQuiz} className={`${classes.container}`}>
+                <div className={classes.quizCardContainer}>
+                    <div>
+                        <div className={classes.img}>
                             <img className={classes.imgSize} src={image} alt="quizimage"/>
                         </div>
                         <div className={classes.titleText}>
                             {props.quiz.quizName}
                         </div>
                         <div className={classes.descriptionText}>
-                        <Card.Text>
+                        <div>
                             {props.quiz.quizDescription}
-                        </Card.Text>
+                        </div>
                         </div>
                         <div className={classes.informationContainer}>
                             <div className={classes.dateText}>
@@ -72,24 +70,15 @@ const QuizCard = (props)=>{
                                 &nbsp;{props.quiz.takeCounts}
                             </div>
                         </div>
-                    </Card.Body>
-                </Card>
+                    </div>
+                </div>
             </div>   
         )
     }
     else{
         return(
             <div>
-                <Card className={classes.quizCardContainer}>
-                    {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                    <Card.Body>
-                        <Card.Title>loading</Card.Title>
-                        <Card.Text>
-                            loading
-                        </Card.Text>
-                        <Button variant="primary">Visit Quiz</Button>
-                    </Card.Body>
-                </Card>
+                No Quiz Found
             </div>
             
         )

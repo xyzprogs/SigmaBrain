@@ -21,9 +21,8 @@ const FeatureCard = (props) =>{
                 <div className={classes.quizBox}>
                     <div className={classes.quizName}>{props.quiz[BODY.QUIZNAME]}</div>
                     <div className={classes.quizDescription}>{props.quiz[BODY.QUIZDESCRIPTION]}</div>
-                    <div className={classes.clickButton}>SEE MORE</div>
+                    <div className={classes.clickButton} onClick={viewQuiz}>SEE MORE</div>
                 </div>
-                <Button onClick={viewQuiz}>View Quiz</Button>
             </div>
             <div className={classes.img}>
                 <img className={classes.imgSize} src={props.image} alt="feature card thumbnial"/>
