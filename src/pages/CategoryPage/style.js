@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
     pageContainer:{
-        marginTop: "7%"
+        marginTop: "3.5%"
     },
 
     quizContainer: {
@@ -10,13 +10,22 @@ export const useStyles = createUseStyles({
         // flexDirection: "column",
         flexWrap: "wrap",
         // width: "80vw",
-        marginLeft: "2.5%",
         gridArea: "quiz",
         // border: "solid"
-        marginTop: "1%"
+        // marginTop: "2.5%",
+        marginLeft: "15vw",
     },
 
     title: {
-        borderStyle: "none none solid none"
+        paddingTop: "2.5%",
+        borderStyle: "none none solid none",
+        // width: "80vw",
+        marginLeft: "15vw"
+    },
+
+    boardContainer:{
+        // display: "absolute",
+        // marginTop: "7%"
+        // width: "80vw"
     }
 })

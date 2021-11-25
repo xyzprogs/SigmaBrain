@@ -1,8 +1,15 @@
 import { useStyles } from "./style"
 import BODY from "../../../constant/body"
-
+import { Button } from '@mui/material'
+import { useHistory } from 'react-router-dom'
 const FeatureCard = (props) =>{
     const classes = useStyles()
+    const history = useHistory()
+    const viewQuiz = ()=>{
+        let quizId = props.quiz[BODY.QUIZID]
+        history.push(`/quizDescription/${quizId}`)
+    }
+
     if(props.quiz===undefined){
         return <div>loading</div>
     }
@@ -14,6 +21,7 @@ const FeatureCard = (props) =>{
                     <div className={classes.quizName}>{props.quiz[BODY.QUIZNAME]}</div>
                     <div className={classes.quizDescription}>{props.quiz[BODY.QUIZDESCRIPTION]}</div>
                 </div>
+                <Button onClick={viewQuiz}>View Quiz</Button>
             </div>
             <div className={classes.img}>
                 <img className={classes.imgSize} src={props.image} alt="feature card thumbnial"/>
