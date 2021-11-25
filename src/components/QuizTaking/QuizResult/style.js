@@ -1,12 +1,13 @@
 import { createUseStyles } from "react-jss";
 
 export const userStyles = createUseStyles({
+    
 
     congratualtionCardContainer: {
         textAlign: 'center',
         color: 'white',
         backgroundColor: '#5bc0de',
-        marginBlock: '10px'
+        marginBlock: '20px'
     },
 
     resultCorrectCardContainer: {
@@ -32,7 +33,6 @@ export const userStyles = createUseStyles({
         backgroundColor: '#f0ad4e',
         marginBlock: '10px'
     },
-
     titleFont: {
         fontSize: '50px'
     },
@@ -44,10 +44,5 @@ export const userStyles = createUseStyles({
     buttonMargin: {
         margin: '5px',
        
-    },
-
-    image: {
-        maxHeight: '300px'
-
     }
 })

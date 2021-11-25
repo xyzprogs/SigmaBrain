@@ -5,6 +5,7 @@ import BODY from '../../constant/body'
 import quizApis from "../../api/quiz-api"
 import default_thumbnail from "../../images/default_quiz_thumbnail.png"
 import view_number from "../../images/viewNumber.png"
+
 const QuizCard = (props)=>{
     const classes = userStyles()
     const history = useHistory()
