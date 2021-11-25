@@ -1,28 +1,68 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import userApis from '../../../api/user-api'
 import { useParams } from 'react-router-dom'
 import BODY from '../../../constant/body'
+import HEADER from '../../../constant/header'
 import { useStyles } from './style'
-const About = ()=>{
+import AuthContext from '../../../context/auth-context'
+const About = () => {
+    //sets the character limit in the about me page
+    const CHARACTER_LIMIT = 500
+
+    const { auth } = useContext(AuthContext)
     const { userId } = useParams()
-    const [about, setAbout] = useState("")
+
+    const [isEditing, setIsEditing] = useState(false)
     const classes = useStyles()
-    useEffect(()=>{
-        const loadAbout = async ()=>{
-            try{
+
+    const [about, setAbout] = useState("")
+    const [editAbout, setEditAbout] = useState("")
+
+    useEffect(() => {
+        const loadAbout = async () => {
+            try {
                 let response = await userApis.getUserDescription(userId)
                 setAbout(response.data[BODY.USERDESCRIPTION])
-            }catch(e){
-    
+            } catch (e) {
+
             }
         }
 
         loadAbout()
-    },[userId])
-    return(
+    }, [userId])
+
+
+    const updateAboutMe = async () => {
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN]: token
+        }
+        let config = {
+            headers: headers
+        }
+        let payload = {
+            [BODY.USERDESCRIPTION]: editAbout
+        }
+        setAbout(editAbout)
+        await userApis.setUserDescription(payload, config)
+    }
+
+    const handleSubmit = async () => {
+        updateAboutMe()
+        setIsEditing(false)
+    }
+
+    return (
         <div>
-            <div>About Me!</div>
-            <div className={classes.aboutContainer}>{about}</div>
+            <div onClick={() => updateAboutMe()}>About Me!</div>
+            {isEditing ?
+                <input defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
+                :
+                <div className={classes.aboutContainer}>{about}</div>
+            }
+
+            <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</button>
+            <button onClick={() => handleSubmit()}>submit</button>
         </div>
     )
 }
