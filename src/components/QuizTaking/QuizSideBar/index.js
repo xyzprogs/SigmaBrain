@@ -7,33 +7,30 @@ const QuizSideBar = (props) => {
     const classes = useStyles()
     const index = props.index;
     const num = props.num;
+    const [showModal, setShowModal] = useState([]);
     const array = [];
+
     for(let i = 0 ; i < num; i++){
         array.push(i);
     }
+    // setShowModal(new Array(array.length).fill(false));
+
 
     const changeQuestions = (event) =>{
         props.changeIndex(-1, parseInt(event.target.value));
     }
 
     const buttonRender = (questionNum) => {
-        if(index === questionNum){
-            return(
-                <div className={classes.sideBarSelect} onMouseEnter={showQuestions} key={questionNum}>
-                    <Button variant="success" onClick={changeQuestions} value={questionNum}>Question {questionNum + 1}</Button>
-                </div>
-            );
-        }else{
-            return(
-                <div className={classes.sideBarSelect} onMouseEnter={showQuestions} key={questionNum}>
-                    <Button onClick={changeQuestions} value={questionNum}>Question {questionNum + 1}</Button>
-                </div>
-            );
-        }
-    }
-
-    const showQuestions = (event) => {
-
+        return(
+            <div className={classes.sideBarSelect} key={questionNum}>
+                <Button variant={index === questionNum ? "success" : "primary"} onClick={changeQuestions} value={questionNum}>
+                    Question {questionNum + 1}
+                </Button>
+                {/* {
+                    showModal[questionNum] && 
+                } */}
+            </div>
+        )
     }
 
     return (

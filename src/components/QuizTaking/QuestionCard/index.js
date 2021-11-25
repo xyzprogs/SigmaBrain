@@ -1,9 +1,8 @@
 import React from 'react';
-import { userStyles, useStyles } from "./style";
+import { userStyles} from "./style";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import quizApis from '../../../api/quiz-api';
-import { useState, useEffect } from 'react';
+
 
 const QuestionCard = (props) => {
     const classes = userStyles();
@@ -38,7 +37,7 @@ const QuestionCard = (props) => {
         if (index === parseInt(answerChoices[props.index][0])){
             return(
                 <div key={choice.choiceId}>
-                    <Button variant="warning btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
+                    <Button variant="warning btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />
@@ -47,7 +46,7 @@ const QuestionCard = (props) => {
         }else{
             return (
                 <div key={choice.choiceId}>
-                    <Button variant="primary btn-lg btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
+                    <Button variant="primary btn-lg" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />

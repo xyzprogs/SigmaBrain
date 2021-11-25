@@ -33,8 +33,9 @@ const Login = () => {
         checkForLoginErrors()
     }
 
-    useEffect(() => {
-        if (auth.user != null) {
+
+    useEffect(()=>{
+        if(auth.user!=null){
             history.push('/')
         }
 

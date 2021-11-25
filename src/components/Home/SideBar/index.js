@@ -51,6 +51,10 @@ const SideBar = () => {
         history.push('/likequizzes')
     }
 
+    const redirectToSetting = ()=>{
+        history.push('/setting')
+    }
+
 
     return (
         <div className={classes.sideBarContainer}>
@@ -92,7 +96,7 @@ const SideBar = () => {
             </div>
 
             <div>
-                <div className={classes.sideBarSelect}>
+                <div onClick={redirectToSetting} className={classes.sideBarSelect}>
                     &nbsp;&nbsp;Settings
                 </div>
             </div>
