@@ -112,7 +112,7 @@ const Register = () => {
                             type="text"
                             name="email"
                             placeholder="Email"
-                            onKeyUp={updateEmail}
+                            onChange={updateEmail}
                         />
                         {formErrors?.EmailError && (
                             <p className={classes.errorMsg}>{formErrors.EmailError}</p>
@@ -126,7 +126,7 @@ const Register = () => {
                             type="text"
                             name="name"
                             placeholder="Display Name"
-                            onKeyUp={updateName}
+                            onChange={updateName}
                         />
 
                         {formErrors?.UsernameError && (
@@ -141,7 +141,7 @@ const Register = () => {
                             type="password"
                             name="password"
                             placeholder="Password"
-                            onKeyUp={updatePassword}
+                            onChange={updatePassword}
                         />
 
                         {formErrors?.PasswordError && (
@@ -156,7 +156,7 @@ const Register = () => {
                             type="password"
                             name="password"
                             placeholder="Enter Password Again"
-                            onKeyUp={updateConfirmPassword}
+                            onChange={updateConfirmPassword}
                         />
                         {formErrors?.ConfirmPasswordError && (
                             <p className={classes.errorMsg}>{formErrors.ConfirmPasswordError}</p>
