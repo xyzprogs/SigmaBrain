@@ -56,7 +56,7 @@ const About = () => {
         <div>
             <div onClick={() => updateAboutMe()}>About Me!</div>
             {isEditing ?
-                <input onChange={e => setEditAbout(e.target.value)} />
+                <input defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
                 :
                 <div className={classes.aboutContainer}>{about}</div>
             }
