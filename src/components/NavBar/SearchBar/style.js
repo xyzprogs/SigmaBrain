@@ -6,6 +6,8 @@ export const useStyles = createUseStyles({
         display: "grid",
         gridTemplateColumns: "90% 10%",
         gridTemplateRows: "40px",
+        paddingRight: "50px",
+        marginLeft: "25%",
         
     },
 
@@ -42,9 +44,11 @@ export const useStyles = createUseStyles({
 
     },
     buttonBar:{
-        borderRadius:"0px 10px 10px 0px",
+        borderRadius: "15px",
         backgroundColor:"#B1D2D4",
-        color:'white'
+        color:'black',
+        marginLeft: "-50px",
+
     }
 
 })

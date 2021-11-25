@@ -107,7 +107,7 @@ const QuizResult = (props) =>{
 
     return(
         <div>
-            <Modal show={showModal} onHide={handleClose}>
+            <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Experience</Modal.Title>
                 </Modal.Header>
@@ -125,9 +125,9 @@ const QuizResult = (props) =>{
             <Card key={-1} className={classes.congratualtionCardContainer}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
-                    <Card.Title>Congratulations!</Card.Title>
+                    <Card.Header>Congratulations!</Card.Header>
                     <Card.Text>
-                        You got {correct} out of {answerChoices.length} questions right! {showModal + ""}
+                        You got {correct} out of {answerChoices.length} questions right!
                     </Card.Text>
                     <Button onClick={restartQuiz}>Retake Quiz</Button>
                     <Button onClick={() => history.push('/')}>Return Home</Button>

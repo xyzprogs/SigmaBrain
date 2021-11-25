@@ -37,7 +37,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
                 onChange = {onSearch}
             />
 
-            <button onClick={redirectToSearchResult}>Search</button>
+            <button className={classes.buttonBar} onClick={redirectToSearchResult}>Search</button>
             <div className={classes.searchResult}>
                 {searches.map((search,i)=>{
                     return (

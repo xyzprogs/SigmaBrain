@@ -5,7 +5,7 @@ const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'cen
 export const useStyles = createUseStyles({
     quizContainer: {
         ...flexCenter,
-        marginTop: '50px',
+        marginTop: '100px',
     },
 
     sidebar:{
