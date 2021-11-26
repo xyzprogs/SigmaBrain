@@ -1,4 +1,3 @@
-
 import { useHistory } from 'react-router';
 import { useStyles } from "./style"
 import { useEffect, useState } from "react"
@@ -32,11 +31,11 @@ const SearchResultCard = ({result})=>{
         loadImage()
     },[result])
     return(
-        <div className={classes.searchResultContainer}>
+        <div className={classes.searchResultContainer} onClick={()=>history.push(`/quizDescription/${result[BODY.QUIZID]}`)}>
             <div className={classes.imgContainer}>
                 <img className={classes.imgSize} src={image}/>
             </div>
-            <div className={classes.cardContainer} onClick={()=>history.push(`/quizDescription/${result[BODY.QUIZID]}`)}>
+            <div className={classes.cardContainer}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <div>
                     <div>{result[BODY.QUIZNAME]}</div>
