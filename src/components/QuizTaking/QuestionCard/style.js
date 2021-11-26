@@ -24,7 +24,7 @@ export const userStyles = createUseStyles({
         marginTop: `10px`,
         fontWeight: 'bold',
         fontFamily: 'Arial',
-        borderRadius: '20px'
+        borderRadius: '20px',
     },
 
     image: {
