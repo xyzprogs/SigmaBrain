@@ -5,13 +5,14 @@ export const useStyles = createUseStyles({
         // flexDirection: "column",
         flexWrap: "wrap",
         // width: "80vw",
-        marginLeft: "2.5%",
+        marginLeft: "3.75%",
         gridArea: "quiz"
         // border: "solid"
     },
 
     rankContainer: {
-        gridArea: "ranking"
+        gridArea: "ranking",
+        marginRight:"10px"
     },
 
     RankingsText:{
@@ -24,7 +25,7 @@ export const useStyles = createUseStyles({
 
     title: {
         textAlign: "left",
-        marginLeft: "2%",
+        marginLeft: "2.4%",
         fontSize:"26px",
         fontWeight:"bold"
     },
