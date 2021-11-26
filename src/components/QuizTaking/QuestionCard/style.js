@@ -5,7 +5,8 @@ export const userStyles = createUseStyles({
         width: '30vw',
         textAlign: 'left',
         color: 'white',
-        backgroundColor: '#292b2c'
+        backgroundColor: '#292b2c',
+        borderRadius: "10px"
     },
 
     titleFont: {
@@ -22,8 +23,8 @@ export const userStyles = createUseStyles({
         fontSize: '20px',
         marginTop: `10px`,
         fontWeight: 'bold',
-        fontFamily: 'Arial'
-       
+        fontFamily: 'Arial',
+        borderRadius: '20px'
     },
 
     image: {

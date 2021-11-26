@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import React from 'react';
 import Button from 'react-bootstrap/Button'
 import { useStyles } from './style';
@@ -7,7 +6,6 @@ const QuizSideBar = (props) => {
     const classes = useStyles()
     const index = props.index;
     const num = props.num;
-    const [showModal, setShowModal] = useState([]);
     const array = [];
 
     for(let i = 0 ; i < num; i++){
@@ -23,12 +21,9 @@ const QuizSideBar = (props) => {
     const buttonRender = (questionNum) => {
         return(
             <div className={classes.sideBarSelect} key={questionNum}>
-                <Button variant={index === questionNum ? "success" : "primary"} onClick={changeQuestions} value={questionNum}>
+                <Button className={classes.buttonDefault}variant={index === questionNum ? "success" : "primary"} onClick={changeQuestions} value={questionNum}>
                     Question {questionNum + 1}
                 </Button>
-                {/* {
-                    showModal[questionNum] && 
-                } */}
             </div>
         )
     }

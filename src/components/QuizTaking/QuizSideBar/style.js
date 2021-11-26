@@ -2,7 +2,6 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
 
     sideBarContainer: {
-        borderStyle: "solid",
         borderWidth: "0px 1px 0px 0px",
         height: "100vh",
         width: "15vw",
@@ -10,13 +9,8 @@ export const useStyles = createUseStyles({
         position: "fixed",
     },
 
-    sideBarSelection: {
-        borderStyle: "solid",
-        borderWidth: "0px 0px 1px 0px",
-    },
-
     sideBarSelect: {
-        paddingTop: "10px"
+        paddingTop: "15px"
     },
 
     buttonSelected: {
@@ -26,10 +20,8 @@ export const useStyles = createUseStyles({
     },
 
     buttonDefault: {
-        backgroundColor: "#0275d8",
         color: "white",
-        borderStyle: "solid"
+        borderStyle: "solid",
+        borderRadius: "20px"
     }
-
-
 })
