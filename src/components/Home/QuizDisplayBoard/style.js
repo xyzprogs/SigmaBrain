@@ -5,22 +5,29 @@ export const useStyles = createUseStyles({
         // flexDirection: "column",
         flexWrap: "wrap",
         // width: "80vw",
-        marginLeft: "2.5%",
+        marginLeft: "3.75%",
         gridArea: "quiz"
         // border: "solid"
     },
 
     rankContainer: {
-        gridArea: "ranking"
+        gridArea: "ranking",
+        marginRight:"10px"
     },
 
+    RankingsText:{
+        fontSize:"25px",
+        fontWeight:"bold"
+    },
     headerContainer: {
         gridArea: "header"
     },
 
     title: {
         textAlign: "left",
-        marginLeft: "2.5%"
+        marginLeft: "2.4%",
+        fontSize:"26px",
+        fontWeight:"bold"
     },
 
     displayBoardContainer: {
@@ -32,10 +39,12 @@ export const useStyles = createUseStyles({
         "quiz ranking"
         `,
         width: "85vw",
-        marginTop: "5%"
+        marginTop: "4%"
     },
 
     card:{
-        cursor: "pointer"
-    }
+        cursor: "pointer",
+        //fontSize:10
+    },
+    
 })

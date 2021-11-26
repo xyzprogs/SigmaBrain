@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom'
 import userApis from '../../api/user-api'
 import BODY from '../../constant/body'
 import HEADER from '../../constant/header'
-import { updatePassword, signInWithEmailAndPassword } from 'firebase/auth'
 import ERRORCODE from '../../constant/firebase-error-code'
 const SettingPage = ()=>{
     const classes = useStyles()

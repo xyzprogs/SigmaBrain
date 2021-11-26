@@ -37,7 +37,7 @@ const QuestionCard = (props) => {
         if (index === parseInt(answerChoices[props.index][0])){
             return(
                 <div key={choice.choiceId}>
-                    <Button variant="warning btn-block" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
+                    <Button variant="warning btn-lg" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />

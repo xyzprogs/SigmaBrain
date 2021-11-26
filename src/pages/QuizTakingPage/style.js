@@ -16,8 +16,4 @@ export const useStyles = createUseStyles({
 
     },
 
-    sidebar:{
-        gridArea: "sidebar",
-    },
-
 })

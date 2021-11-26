@@ -1,5 +1,3 @@
-
-
 import { useHistory } from 'react-router';
 import { useStyles } from "./style"
 import { useEffect, useState } from "react"

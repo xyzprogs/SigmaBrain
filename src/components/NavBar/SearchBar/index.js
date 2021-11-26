@@ -3,6 +3,7 @@ import { useStyles } from './style'
 import quizApi from '../../../api/quiz-api'
 import { useState, useContext } from 'react'
 import SearchContext from '../../../context/search-context';
+
 const SearchInput = ({searchInput,setSearchInput}) => {
     const classes = useStyles();
     const [searches, setSearches] = useState([])
@@ -11,12 +12,14 @@ const SearchInput = ({searchInput,setSearchInput}) => {
     const onSearch = async (event)=>{
         setUserSearch(event.target.value)
         let response = await quizApi.getQuizNameSearchResult(event.target.value)
-        setSearches(response.data)
-        
+        setSearches(response.data)   
     }
+
 
     const chooseSearch = (i)=>{
         console.log("choose", searches[i])
+        searchAndRedirect(searches[i])
+        setSearches([])
     }
 
     const redirectToSearchResult = async ()=>{
@@ -37,7 +40,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
                 onChange = {onSearch}
             />
 
-            <button onClick={redirectToSearchResult}>Search</button>
+            <button className={classes.buttonBar} onClick={redirectToSearchResult}>Search</button>
             <div className={classes.searchResult}>
                 {searches.map((search,i)=>{
                     return (
