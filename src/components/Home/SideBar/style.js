@@ -3,10 +3,11 @@ export const useStyles = createUseStyles({
     sideBarContainer: {
         borderStyle: "solid",
         borderWidth: "0px 1px 0px 0px",
-        height: "100vh",
+        height: "100%",
         width: "15vw",
         // marginTop: "50px",
         position: "fixed",
+        overflowY: "auto",
     },
 
     sideBarSelection: {
@@ -25,8 +26,17 @@ export const useStyles = createUseStyles({
     subscriptionTop: {
         textAlign: "left",
         paddingTop: "10px",
+        // overflowY: "auto",
+        // height: "50vh"
     },
     image_setting:{
         width:'19px',
     },
+    container:{
+
+    },
+
+    settingBar:{
+        height: "30vh"
+    }
 })

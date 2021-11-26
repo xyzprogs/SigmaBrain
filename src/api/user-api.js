@@ -21,6 +21,7 @@ export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
 export const getFollowers = (headers)=>api.get("/followers", {headers: headers})
 /*TODO: REQUIRE AUTHENTICATION*/export const updateUserExperience = (payload) => api.put('/updateUserExperience', payload)
 export const updateUserDisplayNamem = (payload, headers) => api.put('/updateUserDisplayName', payload, {headers: headers})
+export const getMoreSubscriptionsById = (payload, headers) => api.post('/getMoreSubscriptionsById', payload, {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -39,7 +40,8 @@ const userApis = {
     getUserDisplayName,
     getFollowers,
     updateUserExperience,
-    updateUserDisplayNamem
+    updateUserDisplayNamem,
+    getMoreSubscriptionsById
 }
 
 export default userApis
