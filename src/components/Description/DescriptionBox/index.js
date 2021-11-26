@@ -7,11 +7,14 @@ import Card from "react-bootstrap/Card"
 import Button from "@mui/material/Button"
 import AuthContext from '../../../context/auth-context'
 import HEADER from '../../../constant/header'
+import NoUserModal from '../../NoUserModal'
+
 const DescriptionBox = (props)=>{
     const classes = useStyles()
     const {quizId} = useParams()
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
+    const [showModal, setShowModal] = useState(false);
     const {auth} = useContext(AuthContext)
     const history = useHistory()
     useEffect(()=>{
@@ -28,6 +31,10 @@ const DescriptionBox = (props)=>{
     }, [props.quizId])
 
     const likeQuiz = async ()=>{
+        if(!auth.loggedIn){
+            setShowModal(true);
+            return
+        }
         let payload = {
             [BODY.QUIZID]: quizId
         }
@@ -40,6 +47,10 @@ const DescriptionBox = (props)=>{
     }
 
     const dislikeQuiz = async ()=>{
+        if(!auth.loggedIn){
+            setShowModal(true);
+            return
+        }
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN] : token
@@ -49,6 +60,10 @@ const DescriptionBox = (props)=>{
     }
 
     const takeLater = async ()=>{
+        if(!auth.loggedIn){
+            setShowModal(true);
+            return
+        }
         let payload = {
             [BODY.QUIZID]: quizId
         }
@@ -60,6 +75,14 @@ const DescriptionBox = (props)=>{
         console.log(`user ${localStorage.getItem(BODY.UID)} puts quiz ${quizId} into take later`)
     }
 
+    const startQuiz = () => {
+        if(!auth.loggedIn){
+            setShowModal(true);
+            return
+        }
+        history.push(`/quizTaking/${props.quizId}`);
+    }
+
     if(quiz === undefined){
         return(
             <div>loading</div>
@@ -69,6 +92,9 @@ const DescriptionBox = (props)=>{
 
     return (
     <div>
+        <div>
+            <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
+        </div>
         <div className={classes.cardContainer}>
         <div className={classes.title}>{quiz[BODY.QUIZNAME]}</div>
         <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
@@ -79,7 +105,7 @@ const DescriptionBox = (props)=>{
                     <Card.Text>
                         {quiz[BODY.QUIZDESCRIPTION]}
                     </Card.Text>
-                    <Button onClick={() => history.push(`/quizTaking/${props.quizId}`)}>Start Quiz</Button>
+                    <Button onClick={startQuiz}>Start Quiz</Button>
                 </Card.Body>
             </Card>
             <div className={classes.buttonBar}>

@@ -6,6 +6,7 @@ import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import QuizResult from './QuizResult';
 import quizApis from '../../api/quiz-api';
+import NoUserModal from '../NoUserModal';
 // The following array is hard coded and will be replaced with
 // data queried from the database.
 
@@ -19,8 +20,8 @@ const QuizTaking = () => {
     const [answers, setAnswers] = useState([]);
     const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
+    const [showModal, setShowModal] = useState(false);
     
-
     const quizId = window.location.pathname.split("/")[2];
 
     useEffect(() => {
@@ -47,11 +48,16 @@ const QuizTaking = () => {
             setCorrectChoices(correctArray);
             setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
         }
+        if (!auth.loggedIn){
+            console.log(auth.loggedIn);
+            setShowModal(true);
+        }
+
         if(questions.length === 0){
             loadQuestions();
         }
 
-    }, [quizId, questions])
+    }, [quizId, questions, auth])
 
     const changeIndex = (type, num) => {
         let temp;
@@ -139,6 +145,7 @@ const QuizTaking = () => {
 
     return(
         <div>
+            <NoUserModal show={showModal} continue={false} handleClose={() => setShowModal(false)}></NoUserModal>
             {renderCheck()}
         </div>
     )
