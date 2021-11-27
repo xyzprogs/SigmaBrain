@@ -75,12 +75,25 @@ const DescriptionBox = (props)=>{
         console.log(`user ${localStorage.getItem(BODY.UID)} puts quiz ${quizId} into take later`)
     }
 
-    const startQuiz = () => {
+    const startQuiz = async () => {
         if(!auth.loggedIn){
             setShowModal(true);
             return
         }
         history.push(`/quizTaking/${props.quizId}`);
+        var date = new Date()
+        var dateString = date.getUTCFullYear() +"/"+ (date.getUTCMonth()+1) +"/"+ date.getUTCDate() + " " + date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds()
+        console.log("add to history", props.quizId, dateString)
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        let payload = {
+            [BODY.QUIZID]: props.quizId,
+            [BODY.HISTORYTIME]: dateString
+        }
+        await quizApis.createQuizHistory(payload, headers)
+        console.log("create new quiz history")
     }
 
     if(quiz === undefined){

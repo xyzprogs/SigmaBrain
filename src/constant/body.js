@@ -98,9 +98,13 @@ const TAKELATERID = "takeLaterId"
 //LikedQuiz
 const LIKEDQUIZID = "likedQuizId"
 
+const HISTORYTIME = "historyTime"
+
+const ROW = "row"
 const BODY_CONSTANT = {
     //Common
     OWNERID,
+    ROW,
     
     //User
     USERID,
@@ -194,7 +198,9 @@ const BODY_CONSTANT = {
 
     TAKELATERID,
 
-    LIKEDQUIZID
+    LIKEDQUIZID,
+
+    HISTORYTIME
 }
 
 export default BODY_CONSTANT

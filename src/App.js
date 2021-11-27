@@ -22,6 +22,7 @@ import SubscriptionPage from './pages/SubscriptionPage';
 import TakeLaterPage from './pages/TakeLaterPage';
 import LikeQuizPage from './pages/LikeQuizPage/likeQuizPage';
 import SettingPage from './pages/SettingPage/settingPage';
+import HistoryPage from './pages/HistoryPage/historyPage';
 function App() {
   return (
     <div className="App">
@@ -52,6 +53,7 @@ function App() {
             {/* <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/> */}
             <Route path='/category/:categoryId' component = {CategoryPage}/>
             <Route path='/setting' component={SettingPage}/>
+            <Route path='/history' component={HistoryPage}/>
           </Switch>
           </div>
         </SearchContextProvider>

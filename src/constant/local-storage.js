@@ -5,6 +5,8 @@ const LAST_SUBSCRIBE_ID = "last_subscribe_id"
 const LAST_SUBSCRIBE_DATE = "last_subscribe_date"
 const LAST_SEARCH_ROW = "last_search_row"
 const SEARCH_KEYWORD = "search_keyword"
+const LAST_HISTORY_DATE = "last_history_date"
+const LAST_HISTORY_ROW = "last_history_row"
 const LOCAL_CONSTANT = {
     LAST_QUIZ_ID,
     LAST_QUIZ_DATE,
@@ -12,7 +14,9 @@ const LOCAL_CONSTANT = {
     LAST_SUBSCRIBE_DATE,
     LAST_SUBSCRIBE_ID,
     LAST_SEARCH_ROW,
-    SEARCH_KEYWORD
+    SEARCH_KEYWORD,
+    LAST_HISTORY_DATE,
+    LAST_HISTORY_ROW
 }
 
 export default LOCAL_CONSTANT

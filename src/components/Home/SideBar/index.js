@@ -103,10 +103,10 @@ const SideBar = () => {
                         <img className={classes.image_setting} src={Subcription_sign} alt=""/>
                         &nbsp;&nbsp;Subscription
                     </div>
-                    {/* <div className={classes.sideBarSelect}>
+                    <div onClick={()=>{history.push('/history')}} className={classes.sideBarSelect}>
                         <img className={classes.image_setting} src={Channel_sign} alt=""/>
-                        &nbsp;&nbsp;Channel
-                    </div> */}
+                        &nbsp;&nbsp;History
+                    </div>
                     <div onClick={redirectTakeLater} className={classes.sideBarSelect}>
                     <img className={classes.image_setting} src={Watch_Later_sign} alt=""/>
                         &nbsp;&nbsp;Take Later
