@@ -1,6 +1,6 @@
 //Common
 const OWNERID = "ownerId"
-
+const CATEGORYLIST = "categoryList"
 //User Body
 const USERID = "userId"
 const DISPLAYNAME = "displayName"
@@ -105,6 +105,7 @@ const BODY_CONSTANT = {
     //Common
     OWNERID,
     ROW,
+    CATEGORYLIST,
     
     //User
     USERID,
