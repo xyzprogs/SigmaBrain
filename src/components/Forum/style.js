@@ -10,6 +10,8 @@ export const useStyles = createUseStyles({
         minHeight: "50vh",
         border: "solid",
         width: "70%",
-        margin: "auto"
+        margin: "auto",
+        overflowY: "auto",
+        height: "70vh"
     }
 })
