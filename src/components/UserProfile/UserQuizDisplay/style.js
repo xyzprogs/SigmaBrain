@@ -21,7 +21,9 @@ export const useStyles = createUseStyles({
 
     title: {
         textAlign: "left",
-        marginLeft: "2.5%"
+        marginLeft: "2.5%",
+        fontSize:50,
+        fontWeight:"bold"
     },
 
     displayBoardContainer: {
