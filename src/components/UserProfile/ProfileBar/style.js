@@ -1,10 +1,11 @@
+import { textAlign } from '@mui/system'
 import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
     barContainer: {
         border: "solid",
         borderWidth: "0px 0px 1px 0px",
-        height: "10vh",
+        height: "5vh",
         width: "100%",
         display: "flex",     
     },
@@ -13,8 +14,8 @@ export const useStyles = createUseStyles({
     },
     circle: {
         borderRadius: "50%",
-        width: "60px",
-        height: "60px",
+        width: "100px",
+        height: "100px",
         borderStyle: "solid",
         marginLeft: "1.5%",
         marginTop: "1%"
@@ -82,8 +83,16 @@ export const useStyles = createUseStyles({
     userInfoGrid2:{
         display:'grid',
         width:'40%',
-        gridTemplateColumns: 'auto auto',
+        gridTemplateColumns: '20% auto',
 
+    },
+    ChannelNameText:{
+        fontSize:"50px",
+        textAlign:"Left",
+        fontWeight:900
+    },
+    EmailText:{
+        fontSize:"20px",
+        textAlign:"left"
     }
-    
 })

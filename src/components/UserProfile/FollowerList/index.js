@@ -26,7 +26,7 @@ const FollowerList = ()=>{
     },[auth.user])
     return(
         <div className={classes.container}>
-            <div>Followers</div>
+            <div className={classes.title}>Followers</div>
             {followers.map(f=>{
                 return <div className={classes.followerContainer}>{f[BODY.USERID]}</div>
             })}
