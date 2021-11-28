@@ -5,7 +5,7 @@ const api = axios.create({
 })
 
 export const createForumnPost = (payload, headers) => api.post('/', payload, {headers: headers})
-export const getForumPost = (userId) => api.get(`/${userId}`)
+export const getForumPost = (userId, row) => api.get(`/${userId}?row=${row}`)
 export const getForumPostById = (forumPostId) => api.get(`/id/${forumPostId}`)
 export const deleteForumPost = (forumPostId, headers) => api.delete(`/${forumPostId}`, {headers: headers})
 

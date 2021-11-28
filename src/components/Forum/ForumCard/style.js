@@ -1,11 +1,12 @@
+import { height } from '@mui/system'
 import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
     container:{
-        border: "solid",
         cursor: "pointer",
         width: "80%",
         margin: "auto",
         backgroundColor: "#f5f5f5",
+        marginTop: "2%",
     },
 
     Block_Background:{
