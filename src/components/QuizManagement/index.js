@@ -11,6 +11,8 @@ const QuizManagement = () => {
     let history = useHistory()
     let [quizzes, setQuizzes] = useState([])
     const [selectedQuizzes, setSelectedQuizzes] = useState([])
+    const [checkedState, setCheckedState] = useState([]);
+
     const { auth } = useContext(AuthContext)
 
     useEffect(() => {
@@ -19,6 +21,7 @@ const QuizManagement = () => {
             let id = localStorage.getItem("uid")
             let response = await quizApis.getUserQuiz(id)
             setQuizzes(response.data)
+            setCheckedState(new Array(response.data.length).fill(false))
         }
 
         loadUserQuizzes()
@@ -40,10 +43,15 @@ const QuizManagement = () => {
         //index stores the index of the quiz
         let tempQuizzes = selectedQuizzes
 
+        const updatedCheckedState = checkedState.map((item, index) =>
+            index === i ? !item : item
+        );
+
+        setCheckedState(updatedCheckedState);
+
         if (checked) {
             //if the box is checked
             tempQuizzes.push(i)
-
         } else {
             //if the box is unchecked
             let index = tempQuizzes.indexOf(i);
@@ -51,8 +59,11 @@ const QuizManagement = () => {
                 tempQuizzes.splice(index, 1);
             }
         }
-        console.log(tempQuizzes)
+
         setSelectedQuizzes(tempQuizzes)
+
+        //set the value of the checked array
+
     }
 
     const removeQuiz = async (i) => {
@@ -69,22 +80,35 @@ const QuizManagement = () => {
     }
 
     const handleDeleteMultipleQuizzes = async () => {
+        //temp solution, should write api to delete multiple quizzes
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN]: token
         }
 
-        for (let i in selectedQuizzes) {
+        for (let quizzId in selectedQuizzes) {
+            let i = selectedQuizzes[quizzId]
             await quizApis.deleteQuizWithQuestions(quizzes[i][BODY.QUIZID], headers)
-            let newQuizzes = [...quizzes]
-            if (newQuizzes.length > -1) {
-                newQuizzes.splice(i, 1)
-            }
-
-            setQuizzes(newQuizzes)
         }
-    }
 
+
+        //reloads the page
+        const loadUserQuizzes = async () => {
+            // let id =  auth.getCurrentUserUid()
+            let id = localStorage.getItem("uid")
+            let response = await quizApis.getUserQuiz(id)
+            setQuizzes(response.data)
+            //set false for the checkboxes
+            setCheckedState(new Array(response.data.length).fill(false))
+        }
+
+        loadUserQuizzes()
+        setSelectedQuizzes([])
+        return () => {
+            setQuizzes([])
+        }
+
+    }
 
     return (
         <div>
@@ -113,7 +137,7 @@ const QuizManagement = () => {
                     {quizzes.map((quiz, i) => {
                         return (
                             <tr key={i}>
-                                <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" /></td>
+                                <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
                                 <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td>
                                 <td className={classes.colorGreen}>published</td>
                                 <td>{quiz[BODY.CREATIONTIME]}</td>
