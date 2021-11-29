@@ -41,21 +41,19 @@ const HistoryPage = ()=>{
             for(var i = 0; i < sub_arr.length; i++){
                 new_histories.push(sub_arr[i])
             }
-            localStorage.setItem(LOCAL_CONSTANT.LAST_HISTORY_ROW, new_histories.length)
             setHistories(new_histories)
         }
     }
     
     const getMore = async ()=>{
-        let last_history_row = localStorage.getItem(LOCAL_CONSTANT.LAST_HISTORY_ROW)
-        if(last_history_row!=null && auth.user!=null && auth.user!==undefined){
+        if(auth.user!=null && auth.user!==undefined){
             // let payload
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN] : token
             }
             let payload = {
-                [BODY.ROW]: last_history_row
+                [BODY.ROW]: histories.length
             }
             const response = await quizApis.getQuizHistory(payload, headers)
             updateHistories(response)

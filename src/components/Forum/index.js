@@ -40,13 +40,12 @@ const ForumSection = () => {
             for(var i = 0; i < sub_arr.length; i++){
                 new_posts.push(sub_arr[i])
             }
-            localStorage.setItem(LOCAL_CONSTANT.LAST_POST_ROW, new_posts.length)
             setPosts(new_posts)
         }
     }
 
     const loadMore = async ()=>{
-        let row = localStorage.getItem(LOCAL_CONSTANT.LAST_POST_ROW)
+        let row = posts.length
         let response = await forumApi.getForumPost(userId, row)
         updatePosts(response)
     }
