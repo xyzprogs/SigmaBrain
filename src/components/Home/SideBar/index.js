@@ -40,8 +40,6 @@ const SideBar = () => {
         let sub_arr = response.data
         if(response.data.length>0){
             if(response.data.length == 11){
-                localStorage.setItem(LOCAL_CONSTANT.LAST_SUBSCRIBE_ID, response.data[response.data.length-1][BODY.SUBSCRIBEID])
-                localStorage.setItem(LOCAL_CONSTANT.LAST_SUBSCRIBE_DATE, response.data[response.data.length-1][BODY.CREATIONTIME])
                 sub_arr.pop()
             }
             else{
@@ -82,8 +80,8 @@ const SideBar = () => {
     }
 
     const getMore = async ()=>{
-        const last_subscription_id = localStorage.getItem(LOCAL_CONSTANT.LAST_SUBSCRIBE_ID)
-        if(last_subscription_id!=null){
+        if(subscriptions.length>0){
+            const last_subscription_id = subscriptions[subscriptions.length-1][BODY.SUBSCRIBEID]
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN] : token

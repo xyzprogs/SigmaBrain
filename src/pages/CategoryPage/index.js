@@ -24,13 +24,7 @@ const CategoryPage = () => {
     const updateQuizzes = (response) => {
         let sub_arr = response.data
         if(response.data.length>0){
-            if(response.data.length === 11){
-                console.log("last quiz id",response.data[response.data.length-1][BODY.QUIZID] )
-                localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_ID, response.data[response.data.length-1][BODY.QUIZID])
-                localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_DATE, response.data[response.data.length-1]["creationTime"])
-                sub_arr.pop()
-            }
-            else{
+            if(response.data.length !== 10){
                 setEnd(true)
             }
             let new_quizzes = [...quizzes]
@@ -43,26 +37,15 @@ const CategoryPage = () => {
 
     const getMore = async ()=>{
         // event.preventDefault()
-        console.log("calling get more!")
-        let last_quiz_id = localStorage.getItem(LOCAL_CONSTANT.LAST_QUIZ_ID)
-        if(last_quiz_id != null){
-            
+        if(quizzes.length>0){
+            let last_quiz_id = quizzes[quizzes.length-1][BODY.QUIZID]
             let payload = {
                 [BODY.QUIZID]: last_quiz_id,
                 [BODY.QUIZCATEGORY]: categoryId
             }
             const response = await quizApis.getMoreQuizByCategoryById(payload)
-            // if(response.data.length>0){
-            //     let more = [...quizzes]
-            //     for(var i = 0; i < response.data.length; i++){
-            //         more.push(response.data[i])
-            //     }
-            //     setQuizzes(more)
-            //     localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_ID, response.data[response.data.length-1][BODY.QUIZID])
-            //     localStorage.setItem(LOCAL_CONSTANT.LAST_QUIZ_DATE, response.data[response.data.length-1]["creationTime"])
-            // }
             updateQuizzes(response)
-        }
+        }        
     }
 
     return(
