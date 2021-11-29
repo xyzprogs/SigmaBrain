@@ -6,29 +6,57 @@ import AuthContext from '../../context/auth-context'
 import quizApis from '../../api/quiz-api'
 import BODY from '../../constant/body'
 import HEADER from '../../constant/header'
+
 const QuizManagement = () => {
     const classes = useStyles()
     let history = useHistory()
     let [quizzes, setQuizzes] = useState([])
     const [selectedQuizzes, setSelectedQuizzes] = useState([])
     const [checkedState, setCheckedState] = useState([]);
-
+    const [end, setEnd] = useState(false)
     const { auth } = useContext(AuthContext)
 
     useEffect(() => {
         const loadUserQuizzes = async () => {
             // let id =  auth.getCurrentUserUid()
             let id = localStorage.getItem("uid")
-            let response = await quizApis.getUserQuiz(id)
-            setQuizzes(response.data)
-            setCheckedState(new Array(response.data.length).fill(false))
+            if(id!==undefined && id!=null){
+                let response = await quizApis.getUserQuiz(id)
+                updateQuizzes(response)
+            }            
         }
 
         loadUserQuizzes()
         return () => {
             setQuizzes([])
         }
-    }, [auth])
+    }, [])
+
+    const updateQuizzes = (response)=>{
+        let sub_arr = response.data
+        if(response.data.length>0){
+            if(response.data.length !== 10){
+                setEnd(true)
+            }
+            let newarr = [...quizzes]
+            let newcheckarr = [...checkedState]
+            for(var i = 0; i < sub_arr.length; i++){
+                newarr.push(sub_arr[i])
+                newcheckarr.push(false)
+            }
+            setQuizzes(newarr)
+            setCheckedState(newcheckarr)
+        }
+    }
+
+    const loadMore = async()=>{
+        let id = localStorage.getItem("uid")
+        if(id!==undefined && id!=null){
+            let row = quizzes.length
+            let response = await quizApis.getUserQuiz(id, row)
+            updateQuizzes(response)
+        }     
+    }
 
     const redirectQuizCreation = () => {
         history.push(`/quizCreation`)
@@ -147,8 +175,10 @@ const QuizManagement = () => {
                         )
                     })}
                 </tbody>
-
-
+                    {
+                        end?<div>No More</div>
+                        :<Button onClick={loadMore}>More</Button>
+                    }
             </table>
             {/* <div className={classes.quizContainer}>
                 <Button className={classes.back}>Back</Button>

@@ -18,7 +18,7 @@ export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload,
 export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
 export const getUserInfo = (userId)=>api.get(`/info/${userId}`)
 export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
-export const getFollowers = (headers)=>api.get("/followers", {headers: headers})
+export const getFollowers = (headers, row)=>api.get(`/followers?row=${row}`, {headers: headers})
 /*TODO: REQUIRE AUTHENTICATION*/export const updateUserExperience = (payload) => api.put('/updateUserExperience', payload)
 export const updateUserDisplayNamem = (payload, headers) => api.put('/updateUserDisplayName', payload, {headers: headers})
 export const getMoreSubscriptionsById = (payload, headers) => api.post('/getMoreSubscriptionsById', payload, {headers: headers})
