@@ -10,7 +10,7 @@ export const getForumPostById = (forumPostId) => api.get(`/id/${forumPostId}`)
 export const deleteForumPost = (forumPostId, headers) => api.delete(`/${forumPostId}`, {headers: headers})
 
 export const createFroumPostComment = (payload, headers) => api.post('/postComment', payload, {headers: headers})
-export const getFroumPostComment = (forumPostId) => api.get(`/postComments/${forumPostId}`)
+export const getFroumPostComment = (forumPostId, row) => api.get(`/postComments/${forumPostId}?row=${row}`)
 export const deleteForumPostComment = (forumPostCommentId, headers) => api.delete(`/postComment/${forumPostCommentId}`,  {headers: headers})
 
 export const createFroumPostCommentReply = (payload, headers) => api.post('/postCommentReply', payload, {headers: headers})

@@ -2,7 +2,6 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
     container: {
-        border: "solid",
         marginTop: "1%",
         minHeight: "10vh",
         display: "flex"

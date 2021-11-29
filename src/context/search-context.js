@@ -36,7 +36,7 @@ function SearchContextProvider(props){
     }
 
     const updateSearches = (response) => {
-        if(response.data.length==0)return
+        if(response.data.length===0)return
         let sub_arr = response.data
         console.log(response.data)
         if(sub_arr.length<5){

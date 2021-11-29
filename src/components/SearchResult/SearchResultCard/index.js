@@ -33,7 +33,7 @@ const SearchResultCard = ({result})=>{
     return(
         <div className={classes.searchResultContainer} onClick={()=>history.push(`/quizDescription/${result[BODY.QUIZID]}`)}>
             <div className={classes.imgContainer}>
-                <img className={classes.imgSize} src={image}/>
+                <img className={classes.imgSize} src={image} alt=""/>
             </div>
             <div className={classes.cardContainer}>
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}

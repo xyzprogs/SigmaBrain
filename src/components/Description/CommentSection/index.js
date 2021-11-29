@@ -11,13 +11,34 @@ const CommentSection = (props)=>{
     const classes = useStyles()
     const [comment, setComment] = useState("")
     const [comments, setComments] = useState([])
+    const [end, setEnd] = useState(false)
     const onChangeComment =(event)=>{
         setComment(event.target.value)
     }
 
     let loadComments = async ()=>{
         let response = await quizApis.getQuizComments(props.quizId)
-        setComments(response.data) 
+        updateComments(response)
+    }
+
+    const updateComments = (response)=>{
+        let sub_arr = response.data
+        if(response.data.length>0){
+            if(response.data.length !== 10){
+                setEnd(true)
+            }
+            let newarr = [...comments]
+            for(var i = 0; i < sub_arr.length; i++){
+                newarr.push(sub_arr[i])
+            }
+            setComments(newarr)
+        }
+    }
+
+    let loadMore = async ()=>{
+        let row = comments.length
+        let response = await quizApis.getQuizComments(props.quizId,row)
+        updateComments(response)
     }
 
     const submitComment = async ()=>{
@@ -40,7 +61,7 @@ const CommentSection = (props)=>{
     useEffect(()=>{
         let loadComments = async ()=>{
             let response = await quizApis.getQuizComments(props.quizId)
-            setComments(response.data) 
+            updateComments(response)
         }
         loadComments()
     },[props.quizId])
@@ -61,6 +82,10 @@ const CommentSection = (props)=>{
                 {comments.map((c, i)=>{
                     return <CommentBox comment={c}/>
                 })}
+                {
+                    end?<div>No More</div>
+                    :<Button onClick={loadMore}>More</Button>
+                }
             </div>
         </div>
     )

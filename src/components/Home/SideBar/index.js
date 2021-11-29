@@ -77,6 +77,10 @@ const SideBar = () => {
         history.push('/setting')
     }
 
+    const redirectToProfile = (userId)=>{
+        history.push(`/profile/${userId}`)
+    }
+
     const getMore = async ()=>{
         const last_subscription_id = localStorage.getItem(LOCAL_CONSTANT.LAST_SUBSCRIBE_ID)
         if(last_subscription_id!=null){
@@ -125,8 +129,8 @@ const SideBar = () => {
                     Subscriptions:
                     <div>
                         {subscriptions.map((sub, i)=>{
-                            return <UserCard key={i}
-                                        subscribeTo={sub[BODY.SUBSCRIBETO]}/>
+                            return <div onClick={()=>{redirectToProfile(sub[BODY.SUBSCRIBETO])}}><UserCard key={i}
+                                        subscribeTo={sub[BODY.SUBSCRIBETO]}/></div>
                         })}
 
                         {   end?<div>Thta's the end</div>:

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useStyles } from './style';
 import { sendResetPasswordEmail } from '../../firebase/firebase_auth';

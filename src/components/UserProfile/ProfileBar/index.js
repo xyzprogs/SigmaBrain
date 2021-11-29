@@ -1,5 +1,5 @@
 import { useStyles } from './style'
-import { useHistory, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { useRef, useContext, useState, useEffect } from 'react'
 import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
@@ -9,7 +9,6 @@ import Button from '@mui/material/Button'
 import default_banner from '../../../images/profile_image.png'
 const ProfileBar = (props) => {
     const classes = useStyles()
-    const history = useHistory()
     const imgRef = useRef()
     const { auth } = useContext(AuthContext)
     const [image, setImage] = useState("")
@@ -56,9 +55,9 @@ const ProfileBar = (props) => {
     }
 
     //temp solution for build 5
-    const redirectToLeaderboardpage = () => {
-        history.push(`/leaderboard/${props.userId}`)
-    }
+    // const redirectToLeaderboardpage = () => {
+    //     history.push(`/leaderboard/${props.userId}`)
+    // }
 
     useEffect(() => {
         const loadImage = async () => {
@@ -71,7 +70,6 @@ const ProfileBar = (props) => {
 
 
             //Loads the user information 
-            console.log("getting user info", userId)
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
                 console.log(response.data)
@@ -83,7 +81,7 @@ const ProfileBar = (props) => {
         if (localStorage.getItem('uid') === props.userId) {
             setSelf(true)
         }
-    }, [props.userId, auth])
+    }, [props.userId, auth, userId])
 
     if (!self) {
         return (
@@ -94,10 +92,9 @@ const ProfileBar = (props) => {
                             <img alt="user profile" className={classes.imgSize} src={image} />
                         </div>
                     </div>
-                    <div className={classes.ChannelNameText}>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                    <div>{userInfo.email}</div>
-                </div>
 
+                    <div className={classes.ChannelNameText}>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                    <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
 
                 <div className={classes.barContainer}>
 
