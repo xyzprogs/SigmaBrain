@@ -55,7 +55,31 @@ export const useStyles = createUseStyles({
         cursor: "pointer"
     },
 
+    userImageSize:{
+        width:"100%",
+        height: "100%",
+        borderRadius: "50%",
+    },
+    circle: {
+        borderRadius: "50%",
+        width: "60px",
+        height: "60px",
+        borderStyle: "solid",
+        marginLeft: "1.5%",
+        marginTop: "1%"
+    },
 
-    
+    userDisplayName:{
+        display: "inline-block",
+        marginRight: "80%"
+    },
 
+    userBox:{
+        border: "solid",
+        width: "30%"
+    },
+
+    btn:{
+        cursor: "pointer"
+    }
 })
