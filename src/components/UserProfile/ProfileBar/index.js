@@ -95,7 +95,7 @@ const ProfileBar = (props) => {
 
                     <div className={classes.ChannelNameText}>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
                     <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
-
+                </div>
                 <div className={classes.barContainer}>
 
                     <div className={classes.tableCell2} onClick={() => { props.setTag(0) }}>
