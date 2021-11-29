@@ -121,7 +121,6 @@ const DescriptionBox = (props)=>{
         let payload = {
             [BODY.SUBSCRIBETO]: quiz[BODY.USERID]
         }
-        console.log("subscribe to", quiz[BODY.USERID])
         userApis.subscribe(payload, headers)
     }
 
