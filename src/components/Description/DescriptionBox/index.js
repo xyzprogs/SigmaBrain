@@ -8,24 +8,37 @@ import Button from "@mui/material/Button"
 import AuthContext from '../../../context/auth-context'
 import HEADER from '../../../constant/header'
 import NoUserModal from '../../NoUserModal'
-
+import userApis from '../../../api/user-api'
 const DescriptionBox = (props)=>{
     const classes = useStyles()
     const {quizId} = useParams()
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
+    const [userImage, setUserImage] = useState("")
     const [showModal, setShowModal] = useState(false);
     const {auth} = useContext(AuthContext)
     const history = useHistory()
     useEffect(()=>{
         const loadQuiz = async () => {
-            let response = await quizApis.getQuiz(props.quizId)
+            let response = await quizApis.getQuizWithUser(props.quizId)
             if(response.data.length <= 0){
                 return
             }
             setQuiz(response.data[0])
-            let response2 = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
+            // let response2 = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
+            // setImage(response2.data)
+            loadQuizThumbnail(response.data[0][BODY.QUIZID])
+            loadUserImage(response.data[0][BODY.USERID])
+        }
+
+        const loadQuizThumbnail = async(quizId)=>{
+            let response2 = await quizApis.getQuizThumbnail(quizId)
             setImage(response2.data)
+        }
+
+        const loadUserImage = async (userId)=>{
+            let response = await userApis.getProfileImage(userId)
+            setUserImage(response.data)
         }
         loadQuiz()
     }, [props.quizId])
@@ -95,6 +108,22 @@ const DescriptionBox = (props)=>{
         await quizApis.createQuizHistory(payload, headers)
         console.log("create new quiz history")
     }
+    
+    const redirectToProfile = (userId)=>{
+        history.push(`/profile/${userId}`)
+    }
+
+    const onSubscribe = async () => {
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN]: token
+        }
+        let payload = {
+            [BODY.SUBSCRIBETO]: quiz[BODY.USERID]
+        }
+        console.log("subscribe to", quiz[BODY.USERID])
+        userApis.subscribe(payload, headers)
+    }
 
     if(quiz === undefined){
         return(
@@ -109,6 +138,22 @@ const DescriptionBox = (props)=>{
             <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
         </div>
         <div className={classes.cardContainer}>
+            <div className={classes.userBox}>
+                    <div className={classes.userDisplayName}>
+                        {quiz[BODY.DISPLAYNAME]}
+                    </div>
+    
+                    <div onClick={()=>{redirectToProfile(quiz[BODY.USERID])}} className={`${classes.circle}`}>
+                        <div className={classes.userImageSize}>
+                                <img alt="user profile" className={classes.userImageSize} src={userImage} />
+                        </div>
+                    </div>
+
+                    <div onClick={onSubscribe} className={`${classes.btn}`}>Subscribe</div>
+    
+        <div>
+            </div>
+        </div>
         <div className={classes.title}>{quiz[BODY.QUIZNAME]}</div>
         <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
             <Card className={classes.cardSize}>
