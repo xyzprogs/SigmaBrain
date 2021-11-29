@@ -12,6 +12,7 @@ const ForumPostBox = ()=>{
     const [post, setPost] = useState()
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState("")
+    const [end, setEnd] = useState(false)
     const { forumPostId } = useParams()
     const classes = useStyles()
     const { auth } = useContext(AuthContext)
@@ -20,6 +21,19 @@ const ForumPostBox = ()=>{
         setComment(event.target.value)
     }
 
+    const updateComments = (response)=>{
+        let sub_arr = response.data
+        if(response.data.length>0){
+            if(response.data.length !== 10){
+                setEnd(true)
+            }
+            let newarr = [...comments]
+            for(var i = 0; i < sub_arr.length; i++){
+                newarr.push(sub_arr[i])
+            }
+            setComments(newarr)
+        }
+    }
     const onSendComment = async ()=>{
         if(comment===""){
             return
@@ -35,8 +49,11 @@ const ForumPostBox = ()=>{
         }
 
         await forumnApi.createFroumPostComment(payload, headers)
+        // loadComments()
+        if(end){
+            setEnd(false)
+        }
         setComment("")
-        loadComments()
     }
 
     useEffect(()=>{
@@ -49,8 +66,7 @@ const ForumPostBox = ()=>{
 
         const loadComments = async ()=>{
             let response = await forumnApi.getFroumPostComment(forumPostId)
-            setComments(response.data)
-            console.log(response.data)
+            updateComments(response)
         }
 
         loadPost()
@@ -58,10 +74,10 @@ const ForumPostBox = ()=>{
 
     }, [forumPostId])
 
-    const loadComments = async ()=>{
-        let response = await forumnApi.getFroumPostComment(forumPostId)
-        setComments(response.data)
-        console.log(response.data)
+    const loadMore = async ()=>{
+        let row = comments.length
+        let response = await forumnApi.getFroumPostComment(forumPostId, row)
+        updateComments(response)
     }
 
     if(post===undefined || post==null){
@@ -76,10 +92,15 @@ const ForumPostBox = ()=>{
         <div>
             <div className={classes.titleBox}>{post[BODY.POSTTITLE]}</div>
             <div className={classes.commentsContainer}> 
-                {comments.map(comment=>{
-                    return <PostCommentBox
-                     comment={comment}/>
-                })}
+                <div>{post[BODY.POSTDESCRIPTION]}</div>
+                    {comments.map(comment=>{
+                        return <PostCommentBox
+                        comment={comment}/>
+                    })}
+                    {
+                        end?<div>No more</div>
+                        :<Button onClick={loadMore}>More</Button>
+                    }
             </div>
             <div>
                 <textarea value={comment} onChange={onChangeComment} className={classes.commentInputBox}/>

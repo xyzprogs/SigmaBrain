@@ -5,14 +5,17 @@ export const useStyles = createUseStyles({
     titleBox: {
         border: "solid",
         width: "80vw",
-        margin: "auto"
+        margin: "auto",
+        paddingRight: "80%",
+        marginBottom: "1%"
     },
 
     commentsContainer: {
         border: "solid",
-        minHeight: "50vh",
+        height: "70vh",
         width: "80vw",
-        margin: "auto"
+        margin: "auto",
+        overflowY: "auto"
     },
 
     commentInputBox: {

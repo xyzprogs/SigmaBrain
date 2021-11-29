@@ -101,7 +101,7 @@ const MainBoard = () => {
                 image={image}/>
             {bar.map((c,i)=>{
                 return (
-                <div ref={refs[i]}>
+                <div key={i} ref={refs[i]}>
                     <QuizDisplayBoard key={i} category={c['categoryId']}/>
                 </div>
                 )

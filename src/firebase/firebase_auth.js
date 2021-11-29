@@ -36,7 +36,7 @@ export function sendResetPasswordEmail(email){
     sendPasswordResetEmail(auth,email).then(() => {
         // sendResetPasswordEmail
     }).catch((error) => {
-      const errorCode = error.code;
+      // const errorCode = error.code;
       const errorMessage = error.message;
       //error
       console.log(errorMessage)
