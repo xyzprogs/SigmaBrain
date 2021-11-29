@@ -8,5 +8,10 @@ export const useStyles = createUseStyles({
     followerContainer:{
         border: "solid",
         minHeight: "5vh"
+    },
+    title:{
+        fontSize:50,
+        textAlign:'left',
+        fontWeight:"bold"
     }
 })

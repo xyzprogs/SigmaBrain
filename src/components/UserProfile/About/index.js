@@ -55,7 +55,7 @@ const About = ({ self }) => {
     return (
         self ?
             <div>
-                <div>About Me!</div>
+                <div className={classes.aboutText}>About Me!</div>
                 {isEditing ?
                     <input defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
                     :

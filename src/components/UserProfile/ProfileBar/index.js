@@ -92,10 +92,9 @@ const ProfileBar = (props) => {
                             <img alt="user profile" className={classes.imgSize} src={image} />
                         </div>
                     </div>
-                    <div>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                    <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
-                </div>
 
+                    <div className={classes.ChannelNameText}>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                    <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
 
                 <div className={classes.barContainer}>
 
@@ -150,8 +149,8 @@ const ProfileBar = (props) => {
                     }
                 </div>
 
-                <div>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
+                <div className={classes.ChannelNameText}> {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
 
 
             </div>
