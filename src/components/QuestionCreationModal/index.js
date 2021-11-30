@@ -72,14 +72,16 @@ const QuestionCreationModal = (props)=>{
         }
         let error = {};
         let flag = false;
-        if (question[BODY.NUMBEROFCHOICE] === 0){
-            error.AnswerError = "Question must have atleast one answer choice";
-            flag = true;
-        }
+
         if(question[BODY.QUESTION].length === 0){
             error.QuestionError = "Question cannot be empty";
             flag = true;
         } 
+
+        if (question[BODY.NUMBEROFCHOICE] === 0){
+            error.AnswerError = "Question must have atleast one answer choice";
+            flag = true;
+        }
         
         if(question[BODY.CHOICES].length !== 0){
             let temp = false;
@@ -103,10 +105,12 @@ const QuestionCreationModal = (props)=>{
     }
 
     const onDelete = (i)=>{
+        setErrorMsg({});
         let newChoices = [...choices]
         newChoices.splice(i, 1)
         correct.splice(i, 1)
         setChoices(newChoices)
+        setNumOfChoices(numOfChoices - 1);
     }
 
     const onChecked = (event, i)=>{

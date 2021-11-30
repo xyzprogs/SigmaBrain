@@ -163,6 +163,12 @@ export const userStyles = createUseStyles({
     delete: {
         paddingLeft: "1%",
         cursor: "default"
-    }
+    },
 
+    errorMsg: {
+        margin: '0 15px',
+        fontSize: '12px',
+        color: 'red',
+        textAlign: 'center'
+    },
 })
