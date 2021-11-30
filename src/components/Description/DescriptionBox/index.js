@@ -17,6 +17,8 @@ const DescriptionBox = (props)=>{
     const [userImage, setUserImage] = useState("")
     const [showModal, setShowModal] = useState(false);
     const [admin, setAdmin] = useState(false);
+    const [likedStatus, setLikedStatus] = useState(2)
+    const [saveStatus, setSaveStatus] = useState(false)
     const {auth} = useContext(AuthContext)
     const history = useHistory()
     useEffect(()=>{
@@ -66,38 +68,61 @@ const DescriptionBox = (props)=>{
                     }
                 }
             }
-        }   
+        }
+        
+        const getLikedStatus = async ()=> {
+            if(auth.user!=null && auth.user!==undefined){
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await quizApis.getLikedStatusOnQuiz(quizId, headers)
+                console.log(response.data)
+                if(response.data.length>0){
+                    setLikedStatus(response.data[0][BODY.LIKEDSTATUS])
+                }
+            }
+        }
+
+        const getSavelaterStatus = async ()=>{
+            if(auth.user!=null && auth.user!==undefined){
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await quizApis.getTakeLaterStatus(quizId, headers)
+                if(response.data.length>0){
+                    setSaveStatus(true)
+                }
+                else{
+                    setSaveStatus(false)
+                }
+            }
+        }
+
         loadQuiz()
         checkAdmin()
+        getLikedStatus()
+        getSavelaterStatus()
     }, [quizId, auth.user])
 
-    const likeQuiz = async ()=>{
+    /*Can integrate together with a like status parameter*/
+    const changeLikedStatusOnQuiz = async (likeStatus)=>{
         if(!auth.loggedIn){
             setShowModal(true);
             return
+        }
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
         }
         let payload = {
-            [BODY.QUIZID]: quizId
+            [BODY.QUIZID]: quizId,
+            [BODY.LIKEDSTATUS]: likeStatus
         }
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN] : token
-        }
-       await quizApis.likedQuiz(payload, headers)
-        console.log(`like quiz ${quizId} by ${localStorage.getItem(BODY.UID)}`)
-    }
-
-    const dislikeQuiz = async ()=>{
-        if(!auth.loggedIn){
-            setShowModal(true);
-            return
-        }
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN] : token
-        }
-        await quizApis.dislikeQuiz(quizId, headers)
-        console.log(`dislike quiz ${quizId} by ${localStorage.getItem(BODY.UID)}`)
+        setLikedStatus(likeStatus)
+        await quizApis.likedQuiz(payload, headers)
+        console.log(`change quiz${quizId} to ${likeStatus}`)
     }
 
     const takeLater = async ()=>{
@@ -113,7 +138,22 @@ const DescriptionBox = (props)=>{
             [HEADER.TOKEN] : token
         }
         await quizApis.takeLaterQuiz(payload, headers)
+        setSaveStatus(true)
         console.log(`user ${localStorage.getItem(BODY.UID)} puts quiz ${quizId} into take later`)
+    }
+
+    const removeTakeLater = async ()=>{
+        if(!auth.loggedIn){
+            setShowModal(true);
+            return
+        }
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN] : token
+        }
+        await quizApis.removeTakeLaterQuiz(quizId, headers)
+        setSaveStatus(false)
+        console.log(`user ${localStorage.getItem(BODY.UID)} removes quiz ${quizId} into take later`)
     }
 
     const startQuiz = async () => {
@@ -197,6 +237,7 @@ const DescriptionBox = (props)=>{
         }
     }
 
+
     if(quiz === undefined){
         return(
             <div>loading</div>
@@ -239,9 +280,20 @@ const DescriptionBox = (props)=>{
                 </Card.Body>
             </Card>
             <div className={classes.buttonBar}>
-                <div onClick={likeQuiz} className={`${classes.buttonMargin}`}>Like</div>
-                <div onClick={dislikeQuiz} className={`${classes.buttonMargin}`}>Dislike</div>
-                <div onClick={takeLater} className={`${classes.buttonMargin}`}>Saved Later</div>
+                {   likedStatus===1?
+                    <div onClick={()=>{changeLikedStatusOnQuiz(2)}} className={`${classes.buttonMargin} ${classes.colorBlue}`}>Like</div>:
+                    <div onClick={()=>{changeLikedStatusOnQuiz(1)}} className={`${classes.buttonMargin}`}>Like</div>
+                }
+                {
+                    likedStatus===0?
+                    <div onClick={()=>{changeLikedStatusOnQuiz(2)}} className={`${classes.buttonMargin} ${(likedStatus===0 && classes.colorBlue)}`}>Dislike</div>
+                    :<div onClick={()=>{changeLikedStatusOnQuiz(0)}} className={`${classes.buttonMargin} ${(likedStatus===0 && classes.colorBlue)}`}>Dislike</div>
+                }
+                {
+                    saveStatus?
+                    <div  onClick={removeTakeLater} className={`${classes.buttonMargin} ${classes.colorBlue}`}>Saved Later</div>
+                    :<div onClick={takeLater} className={`${classes.buttonMargin}`}>Saved Later</div>
+                }
             </div>
             {   
                 admin && <div>
