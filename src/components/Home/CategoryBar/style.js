@@ -2,13 +2,12 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
     categoryBarContainer: {
         display: "flex",
-        justifyContent: "center",
-        width: "85vw",
         marginTop: "1%",
         border: "solid",
         borderWidth: "0px 0px 1px 0px",
         // flexWrap: "wrap"
-        paddingTop: "1%"
+        paddingTop: "1%",
+        overflowX: "auto"
     },
 
     categoryBox: {
@@ -19,7 +18,10 @@ export const useStyles = createUseStyles({
         cursor: "pointer",
         borderRadius:'5px',
         borderWidth:'thin',
-        padding:"5px"
+        padding:"5px",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
     },
 
     modal:{

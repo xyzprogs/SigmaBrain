@@ -5,6 +5,9 @@ export const useStyles = createUseStyles({
         position: "fixed",
         right: 20,
         top: "25%",
+    },
+
+    sidebarContainer:{
         minHeight: "50vh",
         border: "solid",
     },
@@ -14,6 +17,10 @@ export const useStyles = createUseStyles({
         borderRadius:'25px',
         borderWidth:'thin',
         lineHeight:"200%"
+    },
+
+    openBtn:{
+        cursor:"pointer",
     }
 
     

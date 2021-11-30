@@ -4,9 +4,10 @@ import { QUIZ_CATEGORY_NAME, QUIZ_CATEGORY_DICT } from "../../../constant/quiz-c
 import { useState, useEffect } from 'react'
 import { Modal, Box, Typography, Autocomplete, TextField, Button } from '@mui/material'
 import { useHistory } from 'react-router-dom'
-const CategoryBar = () =>{
+
+const CategoryBar = ({bar}) =>{
     const classes  = useStyles()
-    const [categoryBar, setCategoryBar] = useState([QUIZ_CATEGORY.ALL, QUIZ_CATEGORY.Computer_Science, QUIZ_CATEGORY.Computer_Network, QUIZ_CATEGORY.Machine_Learning, QUIZ_CATEGORY.Calculus])
+    const [categoryBar, setCategoryBar] = useState([QUIZ_CATEGORY.ALL])
     const [categoryList, setCategoryList] = useState([])
     const [category, setCategory] = useState()
     const [open, setOpen] = useState(false)
@@ -32,12 +33,20 @@ const CategoryBar = () =>{
     }
 
     useEffect(()=>{
+        const loadBar = ()=>{
+            let newCategoryBar = []
+            for(var i = 0; i < bar.length; i++){
+                newCategoryBar.push(bar[i]["categoryId"])
+            }
+            setCategoryBar(newCategoryBar)
+        }
         let categorylist = []
         for(var key in QUIZ_CATEGORY_DICT){
             categorylist.push({label: key, value: QUIZ_CATEGORY_DICT[key]})
         }
         setCategoryList(categorylist)
-    },[])
+        loadBar()
+    },[bar])
     return(
         <div className={classes.categoryBarContainer}>
             {
