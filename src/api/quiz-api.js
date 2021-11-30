@@ -41,6 +41,9 @@ export const getMoreQuizByCategoryById = (payload) => api.post('/getMoreQuizByCa
 export const getMoreSearchResult = (search, row) => api.get(`/searchMore/getMoreSearchResult?search=${search}&row=${row}`)
 export const createQuizHistory = (payload, headers) => api.post(`/history/create`, payload, {headers: headers}) 
 export const getQuizHistory = (payload, headers) => api.post(`/history/get`, payload, {headers: headers}) 
+export const adminBlockQuiz = (payload, headers) =>api.post('/admin/publishquiz', payload, {headers: headers})
+export const obtainUserQuizAdmin = (quizId, headers) => api.get(`/admin/userquiz/${quizId}`, {headers: headers})
+export const removeUserQuizAdmin = (quizId, headers) => api.delete(`/admin/userquiz/${quizId}`, {headers: headers})
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -78,7 +81,10 @@ const quizApis = {
     getQuizHistory,
     getQuizWithUser,
     getUserQuizAuthenticated,
-    publishQuiz
+    publishQuiz,
+    adminBlockQuiz,
+    obtainUserQuizAdmin,
+    removeUserQuizAdmin
 }
 
 export default quizApis

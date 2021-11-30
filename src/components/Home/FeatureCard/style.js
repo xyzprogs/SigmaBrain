@@ -17,6 +17,9 @@ export const useStyles = createUseStyles({
 
     description:{
         gridArea: "description",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
     },
 
     img:{
@@ -50,7 +53,10 @@ export const useStyles = createUseStyles({
         textAlign:"Left",
         marginLeft:"30%",
         fontFamily: "fantasy",
-        fontSize:50
+        fontSize:50,
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
     },
 
     quizDescription:{

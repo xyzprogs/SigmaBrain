@@ -81,5 +81,13 @@ export const useStyles = createUseStyles({
 
     btn:{
         cursor: "pointer"
+    },
+
+    colorRed: {
+        color: "red"
+    },
+
+    colorGreen: {
+        color: "green"
     }
 })

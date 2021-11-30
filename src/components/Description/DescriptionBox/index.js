@@ -16,6 +16,7 @@ const DescriptionBox = (props)=>{
     const [image, setImage] = useState("")
     const [userImage, setUserImage] = useState("")
     const [showModal, setShowModal] = useState(false);
+    const [admin, setAdmin] = useState(false);
     const {auth} = useContext(AuthContext)
     const history = useHistory()
     useEffect(()=>{
@@ -25,8 +26,6 @@ const DescriptionBox = (props)=>{
                 return
             }
             setQuiz(response.data[0])
-            // let response2 = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
-            // setImage(response2.data)
             loadQuizThumbnail(response.data[0][BODY.QUIZID])
             loadUserImage(response.data[0][BODY.USERID])
         }
@@ -40,8 +39,37 @@ const DescriptionBox = (props)=>{
             let response = await userApis.getProfileImage(userId)
             setUserImage(response.data)
         }
+
+        const loadQuizAdmin = async ()=> {
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let response = await quizApis.obtainUserQuizAdmin(quizId, headers)
+            if(response.data.length <= 0){
+                return
+            }
+            setQuiz(response.data[0])
+            loadQuizThumbnail(response.data[0][BODY.QUIZID])
+            loadUserImage(response.data[0][BODY.USERID])
+        }
+
+        const checkAdmin = async ()=>{
+            if(auth.user!=null && auth.user!==undefined){
+                let uid = auth.user.uid
+                let response = await userApis.getUserInfo(uid)
+                console.log(response.data[0][BODY.ISADMIN])
+                if(response.data.length>0 && response.data[0][BODY.ISADMIN]===1){
+                    setAdmin(true)
+                    if(quiz===undefined){
+                        loadQuizAdmin()
+                    }
+                }
+            }
+        }   
         loadQuiz()
-    }, [props.quizId])
+        checkAdmin()
+    }, [quizId, auth.user])
 
     const likeQuiz = async ()=>{
         if(!auth.loggedIn){
@@ -124,6 +152,51 @@ const DescriptionBox = (props)=>{
         userApis.subscribe(payload, headers)
     }
 
+    const adminBlockQuiz = async ()=>{
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let payload = {
+                [BODY.QUIZID]: quiz[BODY.QUIZID],
+                [BODY.ISPUBLISHED]: 2
+            }
+            await quizApis.adminBlockQuiz(payload, headers)
+            let newQuiz = {...quiz}
+            newQuiz[BODY.ISPUBLISHED] = 2
+            setQuiz(newQuiz)
+        }
+    }
+
+    const adminUnblockQuiz = async ()=>{
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let payload = {
+                [BODY.QUIZID]: quiz[BODY.QUIZID],
+                [BODY.ISPUBLISHED]: 1
+            }
+            await quizApis.adminBlockQuiz(payload, headers)
+            let newQuiz = {...quiz}
+            newQuiz[BODY.ISPUBLISHED] = 1
+            setQuiz(newQuiz)
+        }
+    }
+
+    const adminRemoveQuiz = async ()=>{
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            await quizApis.removeUserQuizAdmin(quizId, headers)
+            console.log("admin remove quiz")
+        }
+    }
+
     if(quiz === undefined){
         return(
             <div>loading</div>
@@ -170,6 +243,15 @@ const DescriptionBox = (props)=>{
                 <div onClick={dislikeQuiz} className={`${classes.buttonMargin}`}>Dislike</div>
                 <div onClick={takeLater} className={`${classes.buttonMargin}`}>Saved Later</div>
             </div>
+            {   
+                admin && <div>
+                    <div>Administraive Operation</div>
+                    <div className={classes.buttonBar}>
+                        {quiz[BODY.ISPUBLISHED]==2?<div onClick={adminUnblockQuiz} className={`${classes.buttonMargin} ${classes.colorGreen}`}>Unblock</div>:<div onClick={adminBlockQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Block</div>}
+                        <div onClick={adminRemoveQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Remove</div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
     )
