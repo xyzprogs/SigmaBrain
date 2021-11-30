@@ -24,7 +24,8 @@ const QuizCreation = () => {
     const [category, setCategory] = useState()
     const [categoryList, setCategoryList] = useState([])
     const [questions, setQuestions] = useState([])  
-    const [open, setOpen] = useState(false)  
+    const [open, setOpen] = useState(false)
+    const [errorMsg, setErrorMsg] = useState({});
     // const [categoryText, setCategoryText] = useState("")
 
     const handleOpen = ()=>{
@@ -106,6 +107,39 @@ const QuizCreation = () => {
             [BODY.ISPUBLISHED]: 0,
             [BODY.QUESTIONS]: questions
         }
+        let error = {};
+        let flag = false;
+        if(quiz[BODY.QUIZNAME] === undefined){
+            error.QuizTitleError = "Please add a quiz title"
+            flag = true;
+        }else if (quiz[BODY.QUIZNAME].length === 0){
+            error.QuizTitleError = "Quiz title cannot be empty"
+            flag = true;
+        }else if (quiz[BODY.QUIZNAME].length > 50){
+            error.QuizTitleError = "Quiz title cannot be more than 50 characters"
+            flag = true;
+        }
+
+        if (timeLimit < 5.0 || timeLimit > 60.0){
+            error.TimeLimitError = "Time of quiz must be anywhere in between 5 minutes to 60 minutes"
+            flag = true;
+        }
+
+        if(quiz[BODY.QUIZDESCRIPTION] === undefined){
+            error.QuizDescriptionError = "Please add a quiz description"
+            flag = true;
+        }else if (quiz[BODY.QUIZDESCRIPTION].length === 0){
+            error.QuizDescriptionError = "Quiz description cannot be empty"
+            flag = true;
+        }else if (quiz[BODY.QUIZDESCRIPTION].length > 50){
+            error.QuizDescriptionError = "Quiz title cannot be more than 200 characters"
+            flag = true;
+        }
+
+        setErrorMsg(error);
+        if(flag){
+            return
+        }
 
         const token = await auth.user.getIdToken()
         let headers = {
@@ -143,6 +177,9 @@ const QuizCreation = () => {
             <div className={classes.quizName}>
                 <div className={classes.subTitle}>Quiz Name</div>
                 <input className={classes.quizNameField} onKeyUp={onChangeName}/>
+                {errorMsg?.QuizTitleError && (
+                    <p className={classes.errorMsg}>{errorMsg.QuizTitleError}</p>
+                )}
             </div>
 
             <div className={classes.cover}>
@@ -158,6 +195,9 @@ const QuizCreation = () => {
             <div className={classes.introduction}>
                 <div className={classes.subTitle}>Introduction</div>
                 <textarea onKeyUp={onChangeIntroduction} className={classes.introductionBox}/>
+                {errorMsg?.QuizDescriptionError && (
+                    <p className={classes.errorMsg}>{errorMsg.QuizDescriptionError}</p>
+                )}
             </div>
 
             <div className={classes.timeLimit}>
@@ -166,6 +206,9 @@ const QuizCreation = () => {
                     <input onKeyUp={onChangeTimeLimit}/>
                     <div className={classes.unit}>min</div>
                 </div>
+                {errorMsg?.TimeLimitError && (
+                    <p className={classes.errorMsg}>{errorMsg.TimeLimitError}</p>
+                )}
             </div>
 
             <div className={classes.quizCategory}>
