@@ -2,6 +2,8 @@
 const OWNERID = "ownerId"
 const CATEGORYLIST = "categoryList"
 const ISADMIN = "isAdmin"
+const LIKEDSTATUS = "likedStatus"
+
 //User Body
 const USERID = "userId"
 const DISPLAYNAME = "displayName"
@@ -108,6 +110,7 @@ const BODY_CONSTANT = {
     ROW,
     CATEGORYLIST,
     ISADMIN,
+    LIKEDSTATUS,
     
     //User
     USERID,

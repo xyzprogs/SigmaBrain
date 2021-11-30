@@ -19,6 +19,7 @@ const LikeQuizPage = ()=>{
                     [HEADER.TOKEN] : token
                 }
                 let response = await quizApis.getLikedQuiz(headers)
+                console.log("loading",response.data)
                 updateLikedQuizzes(response)
             }
         }

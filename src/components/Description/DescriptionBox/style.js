@@ -89,5 +89,9 @@ export const useStyles = createUseStyles({
 
     colorGreen: {
         color: "green"
+    },
+
+    colorBlue: {
+        color: "blue"
     }
 })

@@ -33,7 +33,7 @@ export const getQuizNameSearchResult = (search) => api.get(`/search/${search}`)
 export const getQuizSearchResult = (search) => api.get(`/searchQuiz/${search}`)
 export const likedQuiz = (payload, headers) => api.post('/likedquiz', payload, {headers: headers})
 export const takeLaterQuiz = (payload, headers) => api.post('/takelater', payload, {headers: headers})
-export const dislikeQuiz = (quizId, headers) => api.delete(`/likedquiz/${quizId}`, {headers: headers})
+// export const dislikeQuiz = (quizId, headers) => api.delete(`/likedquiz/${quizId}`, {headers: headers})
 export const getLikedQuiz = (headers, row) => api.get(`/main/likedquiz?row=${row}`, {headers: headers})
 export const getTakeLaterQuiz = (headers,row) => api.get(`/main/takelater?row=${row}`, {headers: headers})
 export const getSubscriptionQuiz = (headers,row) => api.get(`/main/subscriptionquiz?row=${row}`, {headers: headers})
@@ -44,6 +44,9 @@ export const getQuizHistory = (payload, headers) => api.post(`/history/get`, pay
 export const adminBlockQuiz = (payload, headers) =>api.post('/admin/publishquiz', payload, {headers: headers})
 export const obtainUserQuizAdmin = (quizId, headers) => api.get(`/admin/userquiz/${quizId}`, {headers: headers})
 export const removeUserQuizAdmin = (quizId, headers) => api.delete(`/admin/userquiz/${quizId}`, {headers: headers})
+export const getLikedStatusOnQuiz = (quizId, headers) => api.get(`/quiz/likedStatus/${quizId}`, {headers: headers})
+export const getTakeLaterStatus = (quizId, headers) => api.get(`/quiz/takelaterStatus/${quizId}`, {headers: headers})
+export const removeTakeLaterQuiz = (quizId, headers) => api.delete(`/takelater/${quizId}`, {headers: headers})
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -71,7 +74,6 @@ const quizApis = {
     getQuizSearchResult,
     likedQuiz,
     takeLaterQuiz,
-    dislikeQuiz,
     getLikedQuiz,
     getTakeLaterQuiz,
     getSubscriptionQuiz,
@@ -84,7 +86,10 @@ const quizApis = {
     publishQuiz,
     adminBlockQuiz,
     obtainUserQuizAdmin,
-    removeUserQuizAdmin
+    removeUserQuizAdmin,
+    getLikedStatusOnQuiz,
+    getTakeLaterStatus,
+    removeTakeLaterQuiz
 }
 
 export default quizApis
