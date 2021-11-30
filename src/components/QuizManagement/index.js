@@ -206,10 +206,14 @@ const QuizManagement = () => {
                                 <tr key={i}>
                                     <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
                                     <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td>
-                                    {quiz[BODY.ISPUBLISHED]===1?<td className={classes.colorGreen}>published</td>:<td className={classes.colorYellow}>unpublished</td>}
+                                    {quiz[BODY.ISPUBLISHED]===0&&<td className={classes.colorYellow}>unpublished</td>}
+                                    {quiz[BODY.ISPUBLISHED]===1&&<td className={classes.colorGreen}>published</td>}
+                                    {quiz[BODY.ISPUBLISHED]===2&&<td className={classes.colorRed}>blocked</td>}
                                     <td>{quiz[BODY.CREATIONTIME]}</td>
                                     <td>{quiz[BODY.TAKECOUNTS]}</td>
-                                    {quiz[BODY.ISPUBLISHED]===0?<td><Button onClick={()=>{publishQuiz(i)}}>Publish</Button></td>:<td><Button onClick={()=>{unpublishQuiz(i)}}>Unpublish</Button></td>}
+                                    {quiz[BODY.ISPUBLISHED]===0&&<td><Button onClick={()=>{publishQuiz(i)}}>Publish</Button></td>}
+                                    {quiz[BODY.ISPUBLISHED]===1&&<td><Button onClick={()=>{unpublishQuiz(i)}}>Unpublish</Button></td>}
+                                    {quiz[BODY.ISPUBLISHED]===2&&<td className={classes.colorRed}>blocked</td>}
                                     <td><Button onClick={() => { removeQuiz(i) }} >&#10005;</Button></td>
                                 </tr>
                             )

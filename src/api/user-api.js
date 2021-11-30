@@ -45,7 +45,7 @@ const userApis = {
     updateUserDisplayNamem,
     getMoreSubscriptionsById,
     createPreferenceCateory,
-    obtainUserCategoryPreference
+    obtainUserCategoryPreference,
 }
 
 export default userApis
