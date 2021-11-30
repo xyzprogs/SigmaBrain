@@ -11,7 +11,7 @@ const FeatureCard = (props) =>{
     }
 
     if(props.quiz===undefined){
-        return <div>loading</div>
+        return <div>No Quiz Found</div>
     }
     return(
         <div className={classes.featureCardContainer}>
