@@ -13,12 +13,14 @@ const QuestionCreationModal = (props)=>{
     const [correct, setCorrect] = useState([])
     const [questionName, setQuestionName] = useState("")
     const classes = userStyles()
+    const [errorMsg, setErrorMsg] = useState({});
 
     const clearModal = ()=>{
         setNumOfChoices(0)
         setChoices([])
         setCorrect([])
         setQuestionName("")
+        setErrorMsg({});
     }
     
     const handleClose = ()=>{
@@ -27,9 +29,16 @@ const QuestionCreationModal = (props)=>{
     }
 
     const addChoice = ()=>{
-        setNumOfChoices(numOfChoices+1)
-        setChoices([...choices, ""])
-        setCorrect([...correct, false])
+        if (numOfChoices < 6){
+            setNumOfChoices(numOfChoices+1)
+            setChoices([...choices, ""])
+            setCorrect([...correct, false])
+        }else {
+            let error = {};
+            error.NumberOfChoiceError = "Can't create more than 6 questions";
+            setErrorMsg(error);
+        }
+        
     }
 
     const editChoice = (event, i) => {
@@ -61,6 +70,33 @@ const QuestionCreationModal = (props)=>{
             [BODY.QUESTION]: questionName,
             [BODY.CHOICES]: buildChoiceList(choices, correct)
         }
+        let error = {};
+        let flag = false;
+        if (question[BODY.NUMBEROFCHOICE] === 0){
+            error.AnswerError = "Question must have atleast one answer choice";
+            flag = true;
+        }
+        if(question[BODY.QUESTION].length === 0){
+            error.QuestionError = "Question cannot be empty";
+            flag = true;
+        } 
+        
+        if(question[BODY.CHOICES].length !== 0){
+            let temp = false;
+            for (var i = 0; i < question[BODY.CHOICES].length; i++){
+                if(question[BODY.CHOICES][i][BODY.ISRIGHTCHOICE]){
+                    temp = true;
+                    break;
+                }
+            }
+            flag = temp ? false : true;
+            error.CorrectError = "Answer choices must have atleast one correct choice"
+        }
+        setErrorMsg(error);
+        if (flag){
+            return
+        }
+
         props.addQuestion(question)
         props.handleClose()
         clearModal()
@@ -96,8 +132,11 @@ const QuestionCreationModal = (props)=>{
                     variant={'body2'}>
                         <div>
                             <div className={classes.subSection}>
-                                <div className={classes.subTitle}>Quiz Name</div>
+                                <div className={classes.subTitle}>Question</div>
                                 <input onKeyUp={onChangeQuestionName} className={classes.questionNameField}/>
+                                {errorMsg?.QuestionError && (
+                                    <p className={classes.errorMsg}>{errorMsg.QuestionError}</p>
+                                )}
                             </div>
                             <div className={classes.subSection}>
                                 <div className={classes.toCenter}>
@@ -118,6 +157,15 @@ const QuestionCreationModal = (props)=>{
                                     }
                                 </div>
                                 <Button onClick={addChoice}>Add Choice</Button>
+                                {errorMsg?.AnswerError && (
+                                    <p className={classes.errorMsg}>{errorMsg.AnswerError}</p>
+                                )}
+                                {errorMsg?.CorrectError && (
+                                    <p className={classes.errorMsg}>{errorMsg.CorrectError}</p>
+                                )}
+                                {errorMsg?.NumberOfChoiceError && (
+                                    <p className={classes.errorMsg}>{errorMsg.NumberOfChoiceError}</p>
+                                )}
                             </div>
                             <Button onClick={handleClose}>
                                 Close
