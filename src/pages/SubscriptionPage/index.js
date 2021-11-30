@@ -19,8 +19,6 @@ const SubscriptionPage = ()=>{
                     [HEADER.TOKEN] : token
                 }
                 let response = await quizApis.getSubscriptionQuiz(headers)
-                // setQuizzes(response.data)
-                // console.log(response.data)
                 updateSubscription(response)      
             }
         }

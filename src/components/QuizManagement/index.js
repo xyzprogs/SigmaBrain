@@ -10,7 +10,7 @@ import HEADER from '../../constant/header'
 const QuizManagement = () => {
     const classes = useStyles()
     let history = useHistory()
-    let [quizzes, setQuizzes] = useState([])
+    const [quizzes, setQuizzes] = useState([])
     const [selectedQuizzes, setSelectedQuizzes] = useState([])
     const [checkedState, setCheckedState] = useState([]);
     const [end, setEnd] = useState(false)
@@ -18,19 +18,18 @@ const QuizManagement = () => {
 
     useEffect(() => {
         const loadUserQuizzes = async () => {
-            // let id =  auth.getCurrentUserUid()
-            let id = localStorage.getItem("uid")
-            if(id!==undefined && id!=null){
-                let response = await quizApis.getUserQuiz(id)
-                updateQuizzes(response)
+            if(auth.user != null){
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await quizApis.getUserQuizAuthenticated(headers)
+                updateQuizzes(response)      
             }            
         }
 
         loadUserQuizzes()
-        return () => {
-            setQuizzes([])
-        }
-    }, [])
+    }, [auth.user])
 
     const updateQuizzes = (response)=>{
         let sub_arr = response.data
@@ -50,12 +49,15 @@ const QuizManagement = () => {
     }
 
     const loadMore = async()=>{
-        let id = localStorage.getItem("uid")
-        if(id!==undefined && id!=null){
+        if(auth.user != null){
+            const token = await auth.user.getIdToken()
             let row = quizzes.length
-            let response = await quizApis.getUserQuiz(id, row)
-            updateQuizzes(response)
-        }     
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let response = await quizApis.getUserQuizAuthenticated(headers, row)
+            updateQuizzes(response)      
+        }    
     }
 
     const redirectQuizCreation = () => {
@@ -124,7 +126,7 @@ const QuizManagement = () => {
         const loadUserQuizzes = async () => {
             // let id =  auth.getCurrentUserUid()
             let id = localStorage.getItem("uid")
-            let response = await quizApis.getUserQuiz(id)
+            let response = await quizApis.getUserQuizAuthenticated(id)
             setQuizzes(response.data)
             //set false for the checkboxes
             setCheckedState(new Array(response.data.length).fill(false))
@@ -138,6 +140,42 @@ const QuizManagement = () => {
 
     }
 
+    const publishQuiz = async (i)=>{
+        if(auth.user != null){
+            const quiz = quizzes[i]
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let payload = {
+                [BODY.QUIZID]: quiz[BODY.QUIZID],
+                [BODY.ISPUBLISHED]: 1
+            }
+           await quizApis.publishQuiz(payload, headers)
+           let newQuizzes = [...quizzes]
+           newQuizzes[i][BODY.ISPUBLISHED] = 1
+           setQuizzes(newQuizzes)
+        }    
+    }
+
+    const unpublishQuiz = async (i)=>{
+        if(auth.user != null){
+            const quiz = quizzes[i]
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let payload = {
+                [BODY.QUIZID]: quiz[BODY.QUIZID],
+                [BODY.ISPUBLISHED]: 0
+            }
+           await quizApis.publishQuiz(payload, headers)
+           let newQuizzes = [...quizzes]
+           newQuizzes[i][BODY.ISPUBLISHED] = 0
+           setQuizzes(newQuizzes)
+        }    
+    }
+
     return (
         <div>
             <div className={classes.quizContainer}>
@@ -149,41 +187,40 @@ const QuizManagement = () => {
                 <div><Button onClick={redirectQuizCreation}>Create quiz</Button>
                     <Button onClick={handleDeleteMultipleQuizzes}>delete</Button></div>
             </div>
-            <table cellSpacing="0" rule="all" border="1" id="quizzes">
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th className={classes.cell}>All</th>
-                        <th className={classes.cell}>Statue</th>
-                        <th className={classes.cell}>Date</th>
-                        <th className={classes.cell}>View</th>
-                        <th className={classes.cell}>&nbsp;</th>
-                    </tr>
-                </thead>
+            <div>
+                <table cellSpacing="0" rule="all" border="1" id="quizzes">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th className={classes.cell}>All</th>
+                            <th className={classes.cell}>Statue</th>
+                            <th className={classes.cell}>Date</th>
+                            <th className={classes.cell}>View</th>
+                            <th className={classes.cell}>&nbsp;</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {quizzes.map((quiz, i) => {
-                        return (
-                            <tr key={i}>
-                                <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
-                                <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td>
-                                <td className={classes.colorGreen}>published</td>
-                                <td>{quiz[BODY.CREATIONTIME]}</td>
-                                <td>{quiz[BODY.TAKECOUNTS]}</td>
-                                <td><Button onClick={() => { removeQuiz(i) }} >&#10005;</Button></td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
+                    <tbody>
+                        {quizzes.map((quiz, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
+                                    <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td>
+                                    {quiz[BODY.ISPUBLISHED]===1?<td className={classes.colorGreen}>published</td>:<td className={classes.colorYellow}>unpublished</td>}
+                                    <td>{quiz[BODY.CREATIONTIME]}</td>
+                                    <td>{quiz[BODY.TAKECOUNTS]}</td>
+                                    {quiz[BODY.ISPUBLISHED]===0?<td><Button onClick={()=>{publishQuiz(i)}}>Publish</Button></td>:<td><Button onClick={()=>{unpublishQuiz(i)}}>Unpublish</Button></td>}
+                                    <td><Button onClick={() => { removeQuiz(i) }} >&#10005;</Button></td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
                     {
                         end?<div>No More</div>
                         :<Button onClick={loadMore}>More</Button>
                     }
-            </table>
-            {/* <div className={classes.quizContainer}>
-                <Button className={classes.back}>Back</Button>
-            </div> */}
-
+            </div>
         </div>
     )
 }

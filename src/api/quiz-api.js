@@ -4,7 +4,8 @@ const api = axios.create({
     baseURL: `${config.base_url}/quiz`,
 })
 
-
+export const publishQuiz = (payload, headers)=>api.post('/publish/quiz', payload, {headers: headers})
+export const getUserQuizAuthenticated = (headers, row)=>api.get(`/authenticated/quiz?row=${row}`, {headers: headers})
 export const getMostPopularQuiz = () => api.get('/popular/topquiz') 
 export const getQuizThumbnail = (quizId) => api.get('/thumbnail/' + quizId) 
 export const getCategoryQuiz = (category) => api.get(`/category/${category}`)
@@ -75,7 +76,9 @@ const quizApis = {
     getMoreSearchResult,
     createQuizHistory,
     getQuizHistory,
-    getQuizWithUser
+    getQuizWithUser,
+    getUserQuizAuthenticated,
+    publishQuiz
 }
 
 export default quizApis
