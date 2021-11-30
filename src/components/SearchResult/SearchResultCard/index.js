@@ -20,7 +20,6 @@ const SearchResultCard = ({result})=>{
 
         const loadImage = async ()=>{
             try {
-                console.log(result[BODY.QUIZID])
                 let response = await quizApis.getQuizThumbnail(result[BODY.QUIZID])
                 setImage(response.data)
             } catch (error) {

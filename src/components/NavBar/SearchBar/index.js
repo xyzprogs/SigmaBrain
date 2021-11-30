@@ -20,6 +20,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
         console.log("choose", searches[i])
         searchAndRedirect(searches[i])
         setSearches([])
+        setUserSearch("")
     }
 
     const redirectToSearchResult = async ()=>{

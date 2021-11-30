@@ -95,7 +95,8 @@ const MainBoard = () => {
 
     return (
         <div className={classes.mainContainer}>
-            <CategoryBar/>
+            <CategoryBar
+            bar={bar}/>
             <FeatureCard
                 quiz={quiz}
                 image={image}/>
