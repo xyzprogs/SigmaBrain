@@ -5,5 +5,6 @@ export const useStyles = createUseStyles({
         margin: "0 auto",
         width: "80vw",
         height: "50vh"
+        
     }
 })

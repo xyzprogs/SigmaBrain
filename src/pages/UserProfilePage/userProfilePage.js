@@ -19,7 +19,7 @@ const UserProfilePage = () => {
         <div>
             <div className={classes.pageContainer}>
                 <UserBanner userId={userId} self={self}/>
-                <ProfileBar userId={userId} self={self} setTag={setTag}/>
+                <ProfileBar userId={userId} self={self} setTag={setTag} tag={tag}/>
                 <ProfileSectionWrapper
                 tag={tag}
                 userId={userId}

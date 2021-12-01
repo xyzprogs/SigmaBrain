@@ -7,12 +7,16 @@ export const useStyles = createUseStyles({
         gridTemplateColumns: "90% 10%",
         gridTemplateRows: "40px",
         paddingRight: "50px",
-        marginLeft: "25%",
+        marginLeft: "25%"
         
     },
 
     searchBar:{
-        width: "100%"
+        width: "100%",
+        borderRadius: '15px',
+        paddingLeft: '12px',
+        outline: 'none'
+        
     },
 
     searchResult:{
