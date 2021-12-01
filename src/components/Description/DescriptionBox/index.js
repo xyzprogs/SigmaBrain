@@ -19,6 +19,8 @@ const DescriptionBox = (props)=>{
     const [admin, setAdmin] = useState(false);
     const [likedStatus, setLikedStatus] = useState(2)
     const [saveStatus, setSaveStatus] = useState(false)
+    const [subscribeStatus, setSubscribeStatus] = useState(false)
+    const [self, setSelf] = useState(false)
     const {auth} = useContext(AuthContext)
     const history = useHistory()
     useEffect(()=>{
@@ -30,6 +32,7 @@ const DescriptionBox = (props)=>{
             setQuiz(response.data[0])
             loadQuizThumbnail(response.data[0][BODY.QUIZID])
             loadUserImage(response.data[0][BODY.USERID])
+            getSubscribeStatus(response.data[0][BODY.USERID])
         }
 
         const loadQuizThumbnail = async(quizId)=>{
@@ -77,7 +80,6 @@ const DescriptionBox = (props)=>{
                     [HEADER.TOKEN] : token
                 }
                 let response = await quizApis.getLikedStatusOnQuiz(quizId, headers)
-                console.log(response.data)
                 if(response.data.length>0){
                     setLikedStatus(response.data[0][BODY.LIKEDSTATUS])
                 }
@@ -96,6 +98,28 @@ const DescriptionBox = (props)=>{
                 }
                 else{
                     setSaveStatus(false)
+                }
+            }
+        }
+
+        const getSubscribeStatus = async (uid)=>{
+            console.log("check")
+            if(auth.user!=null && auth.user!==undefined){
+                if(auth.user.uid === uid){
+                    setSelf(true)
+                    return
+                }
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await userApis.checkSubscribeStatus(uid, headers)
+                console.log(response)
+                if(response.data.length>0){
+                    setSubscribeStatus(true)
+                }
+                else{
+                    setSubscribeStatus(false)
                 }
             }
         }
@@ -182,6 +206,7 @@ const DescriptionBox = (props)=>{
     }
 
     const onSubscribe = async () => {
+        console.log("subscribe")
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN]: token
@@ -189,7 +214,22 @@ const DescriptionBox = (props)=>{
         let payload = {
             [BODY.SUBSCRIBETO]: quiz[BODY.USERID]
         }
-        userApis.subscribe(payload, headers)
+        await userApis.subscribe(payload, headers)
+        setSubscribeStatus(true)
+    }
+
+    const unsubscribe = async()=>{
+        if(auth.user!=null && auth.user!==undefined && quiz!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.SUBSCRIBETO]: quiz[BODY.USERID] 
+            }
+            await userApis.unsubscribe(payload, headers)
+            setSubscribeStatus(false)
+        }
     }
 
     const adminBlockQuiz = async ()=>{
@@ -262,7 +302,8 @@ const DescriptionBox = (props)=>{
                         </div>
                     </div>
 
-                    <div onClick={onSubscribe} className={`${classes.btn}`}>Subscribe</div>
+                    {!self && !subscribeStatus && <div onClick={onSubscribe} className={`${classes.btn} ${classes.colorGreen}`}>Subscribe</div>}
+                    {!self && subscribeStatus && <div  onClick={unsubscribe} className={`${classes.btn} ${classes.colorRed}`}>Unsubscribe</div>}
     
         <div>
             </div>

@@ -94,5 +94,14 @@ export const useStyles = createUseStyles({
     EmailText:{
         fontSize:"20px",
         textAlign:"left"
+    },
+    colorRed:{
+        color: "red"
+    },
+    colorGreen:{
+        color: "green"
+    },
+    btn:{
+        cursor: "pointer"
     }
 })
