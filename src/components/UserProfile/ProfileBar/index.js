@@ -16,6 +16,7 @@ const ProfileBar = (props) => {
     const [self, setSelf] = useState(false)
     const [userInfo, setUserInfo] = useState({})
     const {userId} = useParams()
+    const [subscribeStatus, setSubscribeStatus] = useState(false)
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -49,9 +50,24 @@ const ProfileBar = (props) => {
             [HEADER.TOKEN]: token
         }
         let payload = {
-            [BODY.SUBSCRIBETO]: props.userId
+            [BODY.SUBSCRIBETO]: userId
         }
-        userApis.subscribe(payload, headers)
+        await userApis.subscribe(payload, headers)
+        setSubscribeStatus(true)
+    }
+
+    const unsubscribe = async()=>{
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.SUBSCRIBETO]: userId
+            }
+            await userApis.unsubscribe(payload, headers)
+            setSubscribeStatus(false)
+        }
     }
 
     //temp solution for build 5
@@ -83,7 +99,7 @@ const ProfileBar = (props) => {
         }
     }, [props.userId, auth, userId])
 
-    if (!self) {
+
         return (
             <div>
                 <div className={classes.userInfoGrid}>
@@ -123,67 +139,13 @@ const ProfileBar = (props) => {
                     </div>
 
                     <div className={classes.tableCell3}>
-                        <Button onClick={onSubscribe}>Subscribe</Button>
+                        {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
+                        {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
                     </div>
 
                 </div>
             </div>
         )
-    }
-
-    return (
-        <div>
-            <div className={classes.userInfoGrid2}>
-                <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell} ${classes.pointerCursor}`}>
-                    {
-                        profile
-                            ?
-                            <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
-                                <img alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image} />
-                                <div className={classes.changeText}>Change</div>
-                            </div>
-                            :
-                            <div className={classes.imgSize}>
-                                <img alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image} />
-                            </div>
-                    }
-                </div>
-
-                <div className={classes.ChannelNameText}> {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
-
-
-            </div>
-            <div className={classes.barContainer}>
-
-                <div className={classes.tableCell2} onClick={() => { props.setTag(0) }}>
-                    Home
-                </div>
-
-                <div className={classes.tableCell2} onClick={() => { props.setTag(1) }} >
-                    Quizzes
-                </div>
-
-                <div className={classes.tableCell2} onClick={() => { props.setTag(2) }}>
-                    About
-                </div>
-
-                <div className={classes.tableCell2} onClick={() => { props.setTag(3) }}>
-                    Followers
-                </div>
-
-                <div className={classes.tableCell2} onClick={() => { props.setTag(4) }}>
-                    Forum
-                </div>
-
-                <div className={classes.tableCell2} onClick={() => { props.setTag(5) }}>
-                    Leaderboard
-                </div>
-
-                <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag} />
-            </div>
-        </div>
-    )
 }
 
 export default ProfileBar

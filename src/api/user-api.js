@@ -24,6 +24,7 @@ export const updateUserDisplayNamem = (payload, headers) => api.put('/updateUser
 export const getMoreSubscriptionsById = (payload, headers) => api.post('/getMoreSubscriptionsById', payload, {headers: headers})
 export const createPreferenceCateory = (payload, headers) => api.post('/createPreferenceCateory', payload, {headers: headers})
 export const obtainUserCategoryPreference = (headers) => api.get('/obtainUserCategoryPreference', {headers: headers})
+export const checkSubscribeStatus = (subscribeTo, headers) => api.get(`/checkSubscribeStatus?subscribeTo=${subscribeTo}`, {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -46,6 +47,7 @@ const userApis = {
     getMoreSubscriptionsById,
     createPreferenceCateory,
     obtainUserCategoryPreference,
+    checkSubscribeStatus
 }
 
 export default userApis
