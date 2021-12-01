@@ -17,6 +17,7 @@ const ProfileBar = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const {userId} = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
+    console.log(props);
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -109,32 +110,32 @@ const ProfileBar = (props) => {
                         </div>
                     </div>
 
-                    <div className={classes.ChannelNameText}>Channel Name: {(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                    <div className={classes.ChannelNameText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
                     <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
                 </div>
                 <div className={classes.barContainer}>
 
-                    <div className={classes.tableCell2} onClick={() => { props.setTag(0) }}>
+                    <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(0) }}>
                         Home
                     </div>
 
-                    <div className={classes.tableCell2} onClick={() => { props.setTag(1) }}>
+                    <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(1) }}>
                         Quizzes
                     </div>
 
-                    <div className={classes.tableCell2} onClick={() => { props.setTag(2) }}>
+                    <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(2) }}>
                         About
                     </div>
 
-                    <div className={classes.tableCell2} onClick={() => { props.setTag(3) }}>
+                    <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(3) }}>
                         Followers
                     </div>
 
-                    <div className={classes.tableCell2} onClick={() => { props.setTag(4) }}>
+                    <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(4) }}>
                         Forum
                     </div>
 
-                    <div className={classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
                         Leaderboard
                     </div>
 

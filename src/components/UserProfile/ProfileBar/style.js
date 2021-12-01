@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
     barContainer: {
         border: "solid",
-        borderWidth: "0px 0px 1px 0px",
+        borderWidth: "0px 0px 5px 0px",
         height: "5vh",
         width: "100%",
         display: "flex",     
@@ -38,6 +38,7 @@ export const useStyles = createUseStyles({
         position: "relative",
         textAlign: "center",
         gridRow:'1 / 3',
+        marginLeft: '30%'
     },
 
     changeText: {
@@ -58,7 +59,21 @@ export const useStyles = createUseStyles({
         marginRight: "10px",
         marginLeft: "50px",
         cursor: "pointer",
-        fontSize:"30px"
+        fontSize:"30px",
+    },
+
+    selectedCell:{
+        marginTop: "auto",
+        paddingRight: "10px",
+        marginRight: "10px",
+        marginLeft: "50px",
+        cursor: "pointer",
+        fontSize:"30px",
+        // border: "solid",
+        // borderWidth: "0px 0px 2px 0px",
+        color: "blue",
+        // borderColor: "blue",
+        // textAlign: "center"
     },
 
     tableCell3:{
@@ -89,7 +104,8 @@ export const useStyles = createUseStyles({
     ChannelNameText:{
         fontSize:"50px",
         textAlign:"Left",
-        fontWeight:900
+        fontWeight:900,
+        paddingLeft: "15%"
     },
     EmailText:{
         fontSize:"20px",
