@@ -13,6 +13,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
     const [choices, setChoices] = useState([])
     const [correct, setCorrect] = useState([])
     const [questionName, setQuestionName] = useState("")
+    const [errorMsg, setErrorMsg] = useState({});
     const classes = useStyles()
 
     useEffect(()=>{
@@ -26,6 +27,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
             }
             setChoices(newChoices)
             setCorrect(newCorrect)
+            setNumOfChoices(anschoices.length);
         }
 
     },[anschoices, question])
@@ -34,6 +36,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
         setChoices([])
         setCorrect([])
         setQuestionName("")
+        setErrorMsg({});
     }
 
     const clsoeModal = ()=>{
@@ -42,9 +45,15 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
     }
 
     const addChoice = ()=>{
-        setNumOfChoices(numOfChoices+1)
-        setChoices([...choices, ""])
-        setCorrect([...correct, false])
+        if (numOfChoices < 6){
+            setNumOfChoices(numOfChoices+1)
+            setChoices([...choices, ""])
+            setCorrect([...correct, false])
+        }else {
+            let error = {};
+            error.NumberOfChoiceError = "Can't create more than 6 questions";
+            setErrorMsg(error);
+        }
     }
 
     const editChoice = (event, i) => {
@@ -70,6 +79,29 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
             [BODY.QUIZID]: quizId,
             [BODY.QUESTIONID]: question[BODY.QUESTIONID]
         }
+        
+        let error = {};
+        let flag = false;
+        if(payload[BODY.CHOICES].length === 0){
+            error.AnswerError = "Question must have atleast one answer choice";
+            flag = true;
+        }
+        if(payload[BODY.CHOICES].length !== 0){
+            let temp = false;
+            for (var j = 0; j < payload[BODY.CHOICES].length; j++){
+                if(payload[BODY.CHOICES][j][BODY.ISRIGHTCHOICE]){
+                    temp = true;
+                    break;
+                }
+            }
+            flag = temp ? false : true;
+            error.CorrectError = "Answer choices must have atleast one correct choice"
+        }
+        setErrorMsg(error);
+        if (flag){
+            return
+        }
+
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN] : token
@@ -84,6 +116,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
         newChoices.splice(i, 1)
         correct.splice(i, 1)
         setChoices(newChoices)
+        setNumOfChoices(numOfChoices - 1);
     }
 
     const onChecked = (event, i)=>{
@@ -132,9 +165,17 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
                                             })
                                         }
                                     </tbody>
-
                                 </table>
                                 <Button onClick={addChoice}>Add Choice</Button>
+                                {errorMsg?.AnswerError && (
+                                    <p className={classes.errorMsg}>{errorMsg.AnswerError}</p>
+                                )}
+                                {errorMsg?.CorrectError && (
+                                    <p className={classes.errorMsg}>{errorMsg.CorrectError}</p>
+                                )}
+                                {errorMsg?.NumberOfChoiceError && (
+                                    <p className={classes.errorMsg}>{errorMsg.NumberOfChoiceError}</p>
+                                )}
                             </div>
                             <Button onClick={clsoeModal}>
                                 Close
