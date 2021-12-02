@@ -27,10 +27,6 @@ const QuizDisplayBoard = (props) => {
 
 
         loadCategoryQuiz()
-        return ()=>{
-            setQuizzes()
-            setRankQuiz()
-        }
     }, [props.category])
 
     const moveToStartingPage =(i)=>{
