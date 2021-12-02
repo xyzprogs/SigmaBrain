@@ -105,7 +105,8 @@ const QuizCreation = () => {
             [BODY.QUIZCATEGORY]: category,
             [BODY.QUIZDESCRIPTION]: introduction,
             [BODY.ISPUBLISHED]: 0,
-            [BODY.QUESTIONS]: questions
+            [BODY.QUESTIONS]: questions,
+            [BODY.TIMELIMIT]: timeLimit
         }
         let error = {};
         let flag = false;
