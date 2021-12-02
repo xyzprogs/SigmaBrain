@@ -9,9 +9,14 @@ export const useStyles = createUseStyles({
     postContainer: {
         minHeight: "50vh",
         border: "solid",
-        width: "70%",
+        width: "100%",
         margin: "auto",
         overflowY: "auto",
         height: "70vh"
+    },
+
+    forumContainer:{
+        display: "grid",
+        gridTemplateColumns: "70% 30%",
     }
 })

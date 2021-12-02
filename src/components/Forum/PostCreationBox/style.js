@@ -8,23 +8,27 @@ export const useStyles = createUseStyles({
 
     gray_box:{
         height:'100%',
-        backgroundColor:'#cfcfcf',
+        backgroundColor:'#F6F6F6',
         fontSize:'30px',
-        width:"70%",
-        marginLeft: '15%',
+        width:"100%",
         marginRight: '15%',
     },
 
     inputTitleBox:{
         height: "10%",
-        width: "80%"
+        width: "80%",
+        borderRadius:10,
     },
 
     postBox: {
         height: "30vh",
         width: "80%",
         resize: "none",
-        marginTop: "2.5%"
+        marginTop: "2.5%",
+        borderRadius:10,
+    },
+    titleText:{
+        fontSize:"20px"
     }
 
 })

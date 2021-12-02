@@ -98,7 +98,7 @@ export const useStyles = createUseStyles({
     userInfoGrid2:{
         display:'grid',
         width:'40%',
-        gridTemplateColumns: '20% auto',
+        gridTemplateColumns: '30% auto',
 
     },
     ChannelNameText:{
