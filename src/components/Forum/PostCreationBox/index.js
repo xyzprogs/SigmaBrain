@@ -46,7 +46,7 @@ const PostCreationBox = ({loadPosts})=>{
 
     return(
         <div className={ classes.gray_box }>
-            <div>Post Creation Box</div>
+            <div className={classes.titleText}>Post Creation Box</div>
             <div><input value={title} onChange={onChangeTitle} className={ classes.inputTitleBox }/></div>
             <div><textarea value={post} onChange={onChangePost} className={ classes.postBox }/></div>
             <div><Button onClick={createPost}>Create</Button></div>
