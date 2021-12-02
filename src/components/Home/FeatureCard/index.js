@@ -11,7 +11,6 @@ const FeatureCard = (props) =>{
         let quizId = props.quiz[BODY.QUIZID]
         history.push(`/quizDescription/${quizId}`)
     }
-
     const doAnimation = (i)=>{
         setAnimation(true)
         setDot(i)

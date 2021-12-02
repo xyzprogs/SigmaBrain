@@ -21,8 +21,10 @@ const QuizResult = (props) =>{
 
     let correct = 0;
     for (let i = 0; i < answerChoices.length; i++){
-        if (parseInt(answerChoices[i]) === correctChoices[i]){
-            correct++;
+        for(let j = 0; j < correctChoices[i].length; j++){
+            if(answerChoices[i][0] === correctChoices[i][j]){
+                correct++;
+            }
         }
     }
 
@@ -88,7 +90,13 @@ const QuizResult = (props) =>{
                 </Card>
             );
         }
-        let correct = answerChoices[0] === correctChoices[index];
+        let correct = false;
+        for(let x = 0; x < correctChoices[index].length; x++){
+            if(answerChoices[0] === correctChoices[index][x]){
+                correct = true;
+                break;
+            }
+        }
         return (
             <Card key={index} className={correct ? classes.resultCorrectCardContainer : classes.resultWrongtCardContainer}>
                 <Card.Header>

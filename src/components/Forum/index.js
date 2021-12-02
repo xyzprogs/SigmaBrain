@@ -59,7 +59,8 @@ const ForumSection = () => {
         <div className={classes.homeContainer}>
             <div>
                 <Category/>
-                <div className={classes.postContainer}>
+                <div className={classes.forumContainer}>
+                    <div className={classes.postContainer}>
                     {posts.map((p,i)=>{
                         return <div key={i} onClick={()=>{redirectToForumPostPage(p[BODY.FORUMPOSTID])}}>
                             <ForumCard post={p}/>
@@ -71,6 +72,7 @@ const ForumSection = () => {
                     }
                 </div>
                 <PostCreationBox loadPosts={loadPosts}/>
+                </div>
             </div>
         </div>
     </div>

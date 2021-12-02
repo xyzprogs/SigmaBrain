@@ -4,7 +4,10 @@ export const userStyles = createUseStyles({
 
     container:{
        Height: "20vh",
-       display: "flex"
+       display: "flex",
+       border: "solid",
+       borderRadius: "10px",
+       margin: "5px"
     },  
     img:{
         height:"20vh",

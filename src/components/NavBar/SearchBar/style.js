@@ -7,12 +7,16 @@ export const useStyles = createUseStyles({
         gridTemplateColumns: "90% 10%",
         gridTemplateRows: "40px",
         paddingRight: "50px",
-        marginLeft: "25%",
+        marginLeft: "25%"
         
     },
 
     searchBar:{
-        width: "100%"
+        width: "100%",
+        borderRadius: '0px',
+        paddingLeft: '12px',
+        outline: 'none'
+        
     },
 
     searchResult:{
@@ -44,10 +48,11 @@ export const useStyles = createUseStyles({
 
     },
     buttonBar:{
-        borderRadius: "15px",
+        borderRadius: "0px",
         backgroundColor:"#B1D2D4",
         color:'black',
         marginLeft: "-50px",
+        fontWeight: "bold"
 
     }
 

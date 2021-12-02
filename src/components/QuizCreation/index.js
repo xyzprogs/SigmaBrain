@@ -87,12 +87,17 @@ const QuizCreation = () => {
             [BODY.QUIZCATEGORY]: category,
             [BODY.QUIZDESCRIPTION]: introduction,
             [BODY.ISPUBLISHED]: 0,
-            [BODY.QUESTIONS]: questions
+            [BODY.QUESTIONS]: questions,
+            [BODY.TIMELIMIT]: timeLimit
         }
-        console.log(quiz)
-        return
         let error = {};
         let flag = false;
+
+        if(quiz[BODY.QUIZCATEGORY] === undefined){
+            quiz[BODY.QUIZCATEGORY] = 0;
+        }
+        console.log(quiz);
+
         if(quiz[BODY.QUIZNAME] === undefined){
             error.QuizTitleError = "Please add a quiz title"
             flag = true;
@@ -115,8 +120,12 @@ const QuizCreation = () => {
         }else if (quiz[BODY.QUIZDESCRIPTION].length === 0){
             error.QuizDescriptionError = "Quiz description cannot be empty"
             flag = true;
-        }else if (quiz[BODY.QUIZDESCRIPTION].length > 50){
-            error.QuizDescriptionError = "Quiz title cannot be more than 200 characters"
+        }else if (quiz[BODY.QUIZDESCRIPTION].length > 200){
+            error.QuizDescriptionError = "Quiz description cannot be more than 200 characters"
+            flag = true;
+        }
+        if(quiz[BODY.QUESTIONS].length === 0){
+            error.QuizQuestionError = "A quiz must have atleast one question";
             flag = true;
         }
 
@@ -242,6 +251,9 @@ const QuizCreation = () => {
                         </div>)
                     }
                 </div>
+                {errorMsg?.QuizQuestionError && (
+                    <p className={classes.errorMsg}>{errorMsg.QuizQuestionError}</p>
+                )}
             </div>
             <div>
                 <div className={`${classes.toRight} ${classes.btn}`} onClick={onSave}>

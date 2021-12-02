@@ -13,6 +13,7 @@ export const getQuiz = (quizId) => api.get(`/${quizId}`)
 export const getQuizWithUser = (quizId) => api.get(`/quizWithUser/${quizId}`)
 export const getQuestion = (quizId) => api.get(`/${quizId}/quizQuestion`)
 export const getQuestionChoice = (questionId) => api.get(`/quizQuestionChoice/${questionId}`)
+export const getQuestionChoiceByQuizId = (quizId) => api.get(`/getQuestionChoicesByQuizId/${quizId}`)
 export const createQuiz = (quiz, headers) => api.post("/", quiz, {headers: headers})
 export const setQuizThumbnail = (quizId, formData, headers) => api.post(`/quizThumbnail/${quizId}`, formData, {headers: headers})
 export const getUserQuiz = (userId,row) => api.get(`/user/${userId}?row=${row}`)
@@ -55,6 +56,7 @@ const quizApis = {
     getQuiz,
     getQuestion,
     getQuestionChoice,
+    getQuestionChoiceByQuizId,
     getUserQuiz,
     createQuiz,
     createQuizGrade,
