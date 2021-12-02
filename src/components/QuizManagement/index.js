@@ -198,17 +198,18 @@ const QuizManagement = () => {
                         <tr>
                             <th>&nbsp;</th>
                             <th className={classes.cell}>All</th>
-                            <th className={classes.cell}>Statue</th>
+                            <th className={classes.cell}>Status</th>
                             <th className={classes.cell}>Date</th>
-                            <th className={classes.cell}>View</th>
+                            <th className={classes.cell}>View Number</th>
                             <th className={classes.cell}>&nbsp;</th>
+                            <th className={classes.cell}>Delete Quiz</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {quizzes.map((quiz, i) => {
                             return (
-                                <tr key={i}>
+                                <tr key={i} className={classes.rowContainer}>
                                     <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
                                     {/* <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td> */}
                                     <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}> <ManagementCard quiz={quiz}/> </td>

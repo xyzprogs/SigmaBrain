@@ -74,6 +74,13 @@ export const useStyles = createUseStyles({
 
     buttonContainer:{
         marginLeft: '850px'
+    },
+
+    rowContainer: {
+        border: "solid",
+        marginLeft: "5px",
+        marginRight: "5px",
+        marginBottom: "5px"
     }
 
 })

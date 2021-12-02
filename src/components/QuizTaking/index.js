@@ -28,24 +28,39 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
             }
             let answerArray = [];
             let correctArray = [];
-            for (let i = 0; i < response.data.length; i++) {
-                let answer = await quizApis.getQuestionChoice(response.data[i].questionId);
-                if (answer.data.length !== 0) {
-                    answerArray.push(answer.data);
-                    for (let j = 0; j < answer.data.length; j++) {
-                        if (answer.data[j].is_right_choice === 1) {
-                            correctArray.push(j);
-                        }
-                    }
-                }
+
+            let answerChoices = await quizApis.getQuestionChoiceByQuizId(quizId);
+            if (answerChoices.data.length <= 0) {
+                return
             }
+
+            let answerArrayBuilder = [];
+            let correctArrayBuilder = [];
+
+            for(let i = 0; i < response.data.length; i++){
+                let index = 0;
+                for(let j = 0; j < answerChoices.data.length; j++){
+                    if (answerChoices.data[j].questionId === response.data[i].questionId){
+                        answerArrayBuilder.push(answerChoices.data[j])
+                        if(answerChoices.data[j].is_right_choice){
+                            correctArrayBuilder.push(index);
+                        }
+                        index++;
+                    }
+
+                }
+                answerArray.push(answerArrayBuilder);
+                correctArray.push(correctArrayBuilder);
+                answerArrayBuilder = [];
+                correctArrayBuilder = [];
+            }
+
             setQuestions(response.data);
             setAnswers(answerArray);
             setCorrectChoices(correctArray);
             setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
         }
         if (!auth.loggedIn) {
-            console.log(auth.loggedIn);
             setShowModal(true);
         }
 
