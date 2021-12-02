@@ -8,11 +8,13 @@ export const useStyles = createUseStyles({
         gridTemplateAreas:`
         "description img"
         `,
-        width: "65vw",
+        width: "70vw",
         // height:"10vw",
         border: "solid",
         marginLeft: "2.5%",
-        //marginTop: "2.5%"
+        borderWidth: "2px",
+        marginTop: "2.5%",
+        borderRadius: "20px"
     },
 
     description:{
@@ -27,8 +29,8 @@ export const useStyles = createUseStyles({
     },
 
     imgSize:{
-        width:"100%",
-        height: "100%"
+        width:"90%",
+        height: "90%"
     },
 
     titleName:{
@@ -78,5 +80,26 @@ export const useStyles = createUseStyles({
         height:30,
         borderRadius:50,
         padding:4
-    }
+    },
+
+    dotContainer:{
+        display: 'flex',
+        marginLeft: "35%",
+        marginTop: "1.5%"
+    },
+
+    dot: {
+        height: "10px",
+        width: "10px",
+        backgroundColor: "white",
+        borderRadius: "50%",
+        display: "inline-block",
+        border: "solid",
+        marginLeft: "15px",
+        borderWidth: "1px"
+      },
+
+      dotted:{
+          backgroundColor: "black"
+      }
 })

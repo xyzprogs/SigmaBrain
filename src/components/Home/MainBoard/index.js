@@ -10,11 +10,14 @@ import CatgeorySideBar from '../CategorySideBar';
 import AuthContext from '../../../context/auth-context';
 import HEADER from '../../../constant/header';
 import QUIZ_CATEGORY from '../../../constant/quiz-category';
+import default_thumbnail from '../../../images/default_quiz_thumbnail.png';
 const MainBoard = () => {
     const classes = useStyles()
     const {auth} = useContext(AuthContext)
     const [quiz, setQuiz] = useState()
+    const [quizzes, setQuizzes] = useState([])
     const [image, setImage] = useState("")
+    const [images, setImages] = useState(Array(3).fill(null))
     const [bar, setBar] = useState([])
     const refs = [
         useRef(null),
@@ -35,15 +38,26 @@ const MainBoard = () => {
             try{
                 let response = await quizApis.getMostPopularQuiz()
                 let data = response.data
+                setQuizzes(data)
+                let img_array = Array(data.length).fill(null)
                 if(data.length <= 0){
                     return
                 }
                 setQuiz(data[0])
-                response = await quizApis.getQuizThumbnail(data[0][BODY.QUIZID])
-                setImage(response.data)
+                try{
+                    response = await quizApis.getQuizThumbnail(data[0][BODY.QUIZID])
+                    setImage(response.data)
+                    img_array[0] = response.data
+                    setImages(img_array)
+                }catch{
+                    setImage(default_thumbnail)
+                    img_array[0] = default_thumbnail
+                    setImages(img_array)
+                }
             }catch(e){
                 console.log(e)
             }
+
         }
 
         const loadPreferences = async()=>{
@@ -99,13 +113,34 @@ const MainBoard = () => {
         }
     }
 
+    const changeFeatureQuiz = async (i)=>{
+        setQuiz(quizzes[i])
+        if(images[i]==null){
+            let newImages = [...images]
+            try{
+                let response = await quizApis.getQuizThumbnail(quizzes[i][BODY.QUIZID])
+                newImages[i] = response.data
+            }catch{
+                newImages[i] = default_thumbnail
+            }
+            setImages(newImages)
+            setImage(newImages[i])
+        }
+        else{
+            setImage(images[i])
+        }
+    }
+
     return (
         <div className={classes.mainContainer}>
             <CategoryBar
             bar={bar}/>
             <FeatureCard
+                total={quizzes.length}
                 quiz={quiz}
-                image={image}/>
+                quizzes={quizzes}
+                image={image}
+                changeFeatureQuiz={changeFeatureQuiz}/>
             {bar.map((c,i)=>{
                 return (
                 <div key={i} ref={refs[i]}>

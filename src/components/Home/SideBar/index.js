@@ -127,7 +127,7 @@ const SideBar = () => {
                     Subscriptions:
                     <div>
                         {subscriptions.map((sub, i)=>{
-                            return <div onClick={()=>{redirectToProfile(sub[BODY.SUBSCRIBETO])}}><UserCard key={i}
+                            return <div key={i} onClick={()=>{redirectToProfile(sub[BODY.SUBSCRIBETO])}}><UserCard
                                         subscribeTo={sub[BODY.SUBSCRIBETO]}/></div>
                         })}
 
