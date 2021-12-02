@@ -13,7 +13,8 @@ const QuizTakingPage = () => {
     const { auth } = useContext(AuthContext)
     const { quizId } = useParams();
 
-    const [quizTime, setQuizTime] = useState(0)
+    const [quizTime, setQuizTime] = useState(0);
+    const [time, setTime] = useState(0);
     const [flag, setFlag] = useState(false);
     const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
@@ -23,7 +24,8 @@ const QuizTakingPage = () => {
         const getQuiz = async () => {
             let quiz = await quizApis.getQuiz(quizId)
             let timeLimit = quiz.data[0].timeLimit * 60 * 1000
-            setQuizTime(timeLimit)
+            setQuizTime(timeLimit);
+            setTime(timeLimit);
         }
         getQuiz()
     }, [])
@@ -41,6 +43,8 @@ const QuizTakingPage = () => {
             }
             await quizApis.createQuizGrade(payload, headers);
         }
+
+        setQuizTime(time);
     }
 
     const changeFlag = () => {

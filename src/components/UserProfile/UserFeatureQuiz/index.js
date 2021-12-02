@@ -12,14 +12,15 @@ const UserFeatureQuiz = (props) => {
     const [quizFound, setQuizFound] = useState(false)
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState("")
-
     useEffect(()=>{
         const loadTopFeatureQuiz = async ()=>{
             let response = await quizApis.getUserTopFeatureQuiz(props.userId)
             if(response.data.length>0){
                 setQuiz(response.data[0])
                 let img_response = await quizApis.getQuizThumbnail(response.data[0][BODY.QUIZID])
-                setImage(img_response.data)
+                if (img_response.data.length > 0){
+                    setImage(img_response.data);
+                }
                 setQuizFound(true)
             }
         }
@@ -29,7 +30,7 @@ const UserFeatureQuiz = (props) => {
             setQuizzes(response.data)
         }
         loadTopFeatureQuiz()
-        loadQuizzes()    
+        loadQuizzes()
     },[props.userId])
     
 
@@ -44,7 +45,7 @@ const UserFeatureQuiz = (props) => {
         setQuizFound(true)
     }
     if(props.self){
-        if(!quizFound){
+        if(quiz === null){
             return(
                 <div className={classes.quizContainer}>
                     <div className={classes.toCenter}>
@@ -60,27 +61,27 @@ const UserFeatureQuiz = (props) => {
                     />
                 </div>
             )
-        }
-    
-        return(
-            <div className={classes.quizContainer}>
-                <FeatureCard
-                    quiz={quiz}
-                    image={image}
-                />
-                <div className={classes.toCenter}>
-                    <Button onClick={handleOpen}>Change Feature Quiz</Button>
-                </div>
-                <QuizListModal
-                        open={open}
-                        setOpen={setOpen}
-                        userId={props.userId}
-                        quizzes={quizzes}
-                        onChangeQuiz={onChangeQuiz}
-                        updateImage={setImage}
+        }else{
+            return(
+                <div className={classes.quizContainer}>
+                    <FeatureCard
+                        quiz={quiz}
+                        image={image}
                     />
-            </div>
-        )
+                    <div className={classes.toCenter}>
+                        <Button onClick={handleOpen}>Change Feature Quiz</Button>
+                    </div>
+                    <QuizListModal
+                            open={open}
+                            setOpen={setOpen}
+                            userId={props.userId}
+                            quizzes={quizzes}
+                            onChangeQuiz={onChangeQuiz}
+                            updateImage={setImage}
+                        />
+                </div>
+            )
+        }
     }
     else{
         if(!quizFound){

@@ -9,13 +9,11 @@ const FeatureCard = (props) =>{
         let quizId = props.quiz[BODY.QUIZID]
         history.push(`/quizDescription/${quizId}`)
     }
-
     if(props.quiz===undefined){
         return <div>No Quiz Found</div>
     }
     return(
         <div className={classes.featureCardContainer}>
-            
             <div className={classes.description}>
                 {/* <div className={classes.popularTitle} >Most Popular Quiz!!!!</div> */}
                 <div className={classes.quizBox}>
