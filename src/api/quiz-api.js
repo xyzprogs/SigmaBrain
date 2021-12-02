@@ -47,6 +47,7 @@ export const removeUserQuizAdmin = (quizId, headers) => api.delete(`/admin/userq
 export const getLikedStatusOnQuiz = (quizId, headers) => api.get(`/quiz/likedStatus/${quizId}`, {headers: headers})
 export const getTakeLaterStatus = (quizId, headers) => api.get(`/quiz/takelaterStatus/${quizId}`, {headers: headers})
 export const removeTakeLaterQuiz = (quizId, headers) => api.delete(`/takelater/${quizId}`, {headers: headers})
+export const getQuizCommentByCommentId = (quizCommentId) => api.get(`/quizCommenyById/${quizCommentId}`)
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -89,7 +90,8 @@ const quizApis = {
     removeUserQuizAdmin,
     getLikedStatusOnQuiz,
     getTakeLaterStatus,
-    removeTakeLaterQuiz
+    removeTakeLaterQuiz,
+    getQuizCommentByCommentId
 }
 
 export default quizApis

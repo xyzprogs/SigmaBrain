@@ -18,6 +18,7 @@ export const useStyles = createUseStyles({
         position: "absolute",
         right: "100px",
     },
+
     main:{
         // gridArea: "main",
         // gridColumnStart: "1",

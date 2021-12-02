@@ -9,21 +9,13 @@ import BODY from '../../../constant/body';
 import CatgeorySideBar from '../CategorySideBar';
 import AuthContext from '../../../context/auth-context';
 import HEADER from '../../../constant/header';
+import QUIZ_CATEGORY from '../../../constant/quiz-category';
 const MainBoard = () => {
     const classes = useStyles()
     const {auth} = useContext(AuthContext)
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
-    const [bar, setBar] = useState([
-        
-        // QUIZ_CATEGORY.ALL,
-        // QUIZ_CATEGORY.Computer_Science,
-        // QUIZ_CATEGORY.Computer_Network,
-        // QUIZ_CATEGORY.Computer_Vision,
-        // QUIZ_CATEGORY.Machine_Learning,
-        // QUIZ_CATEGORY.Data_Structure,
-        // QUIZ_CATEGORY.Data_Mining
-    ])
+    const [bar, setBar] = useState([])
     const refs = [
         useRef(null),
         useRef(null),
@@ -69,9 +61,23 @@ const MainBoard = () => {
             }
         }
 
+        const loadDefaultCategoryForNotLoggedIn = ()=>{
+            if(auth.user===undefined||auth.user==null){
+                let defaultCategory = [
+                    {'categoryId':QUIZ_CATEGORY.ALL},
+                    {'categoryId':QUIZ_CATEGORY.Computer_Science},
+                    {'categoryId':QUIZ_CATEGORY.Computer_Network},
+                    {'categoryId':QUIZ_CATEGORY.Computer_Vision},
+                    {'categoryId':QUIZ_CATEGORY.Machine_Learning}
+                ]
+                console.log(defaultCategory)
+                setBar(defaultCategory)
+            }
+        }
+
         loadPreferences()
         loadPopularQuiz()
-
+        loadDefaultCategoryForNotLoggedIn()
         return ()=>{
             setQuiz()
             setImage()
@@ -108,10 +114,11 @@ const MainBoard = () => {
                 )
             })}
 
-            <CatgeorySideBar
+         <CatgeorySideBar
             loadPreferences={loadPreferences}
             bar={bar}
             refs={refs}/>
+           
         </div>
     )
 }

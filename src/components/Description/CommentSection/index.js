@@ -6,11 +6,14 @@ import HEADER from '../../../constant/header'
 import quizApis from '../../../api/quiz-api'
 import BODY from '../../../constant/body'
 import CommentBox from '../../CommentBox'
+import NoUserModal from '../../NoUserModal'
+import MYSQL_CONSTANT from '../../../constant/mysql'
 const CommentSection = (props)=>{
     const {auth} = useContext(AuthContext)
     const classes = useStyles()
     const [comment, setComment] = useState("")
     const [comments, setComments] = useState([])
+    const [showModal, setShowModal] = useState(false);
     const [end, setEnd] = useState(false)
     const onChangeComment =(event)=>{
         setComment(event.target.value)
@@ -42,6 +45,10 @@ const CommentSection = (props)=>{
     }
 
     const submitComment = async ()=>{
+        if(!auth.loggedIn){
+            setShowModal(true);
+            return
+        }
         if(comment!==""){
             console.log("submit comment", props.quizId)
             const token = await auth.user.getIdToken()
@@ -52,15 +59,23 @@ const CommentSection = (props)=>{
                 [BODY.QUIZCOMMENT]: comment,
                 [BODY.QUIZID]: props.quizId
             }
-            await quizApis.postQuizComment(payload, headers)
+            let response = await quizApis.postQuizComment(payload, headers)
+            if(comments.length <= 10){
+                let newComment = await quizApis.getQuizCommentByCommentId(response.data[MYSQL_CONSTANT.INSERTID])
+                updateComments(newComment)
+            }
+            else{
+                setEnd(false)
+            }
             setComment("")
-            loadComments()
+            
         }
     }
 
     useEffect(()=>{
         let loadComments = async ()=>{
             let response = await quizApis.getQuizComments(props.quizId)
+            console.log(response.data)
             updateComments(response)
         }
         loadComments()
@@ -68,6 +83,9 @@ const CommentSection = (props)=>{
 
     return(
         <div className={classes.container}>
+        <div>
+            <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
+        </div>
             <div>
                 <div>
                     <textarea onChange={onChangeComment} value={comment} className={classes.commentTextBox}/>
