@@ -17,7 +17,7 @@ const QuizManagementPage = () => {
         history.push('/')
     }
     return (
-        <div> 
+        <div className={classes.background}> 
             <div className={classes.pageContainer}>
                 <QuizManagement/>
             </div>

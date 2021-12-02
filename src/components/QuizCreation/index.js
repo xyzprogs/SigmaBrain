@@ -25,6 +25,7 @@ const QuizCreation = () => {
     const [categoryList, setCategoryList] = useState([])
     const [questions, setQuestions] = useState([])  
     const [open, setOpen] = useState(false)
+    const [edit, setEdit] = useState(-1)
     const [errorMsg, setErrorMsg] = useState({});
     // const [categoryText, setCategoryText] = useState("")
 
@@ -69,36 +70,17 @@ const QuizCreation = () => {
         setQuestions(newQuestions)
     }
 
+    const updateQuestion = (question, index)=>{
+        let newQuestions = [...questions]
+        newQuestions[index] = question
+        setQuestions(newQuestions)
+    }
+
     const removeQuestion = (i)=>{
         let newQuestions = [...questions]
         newQuestions.splice(i, 1)
         setQuestions(newQuestions)
     }
-    // const onChangeCategory = (event)=>{
-    //     console.log(event.target.value)
-    //     setCategoryText(event.target.value)
-    //     let newMatch = []
-    //     for(var i = 0; i < QUIZ_CATEGORY_NAME.length; i++){
-    //         if(event.target.value.toLowerCase() == QUIZ_CATEGORY_NAME[i].toLowerCase()){
-    //             setCategory([QUIZ_CATEGORY_NAME[i]], i)
-    //             console.log("setCategory",QUIZ_CATEGORY_NAME[i])
-    //             break
-    //         }
-    //         if(QUIZ_CATEGORY_NAME[i].toLowerCase().startsWith(event.target.value.toLowerCase()) 
-    //             && event.target.value != ""){
-    //             console.log(QUIZ_CATEGORY_NAME[i])
-    //             newMatch.push([QUIZ_CATEGORY_NAME[i], i])
-    //         }
-    //     }
-    //     setAuto(newMatch)
-    // }
-
-    // const clickAutoComplete = (event, category) =>{
-    //     console.log("click auto complete", category[0])
-
-    //     setCategoryText(category[0])
-    // }
-
     const onSave = async ()=>{
         const quiz = {
             [BODY.QUIZNAME]: name,
@@ -107,6 +89,8 @@ const QuizCreation = () => {
             [BODY.ISPUBLISHED]: 0,
             [BODY.QUESTIONS]: questions
         }
+        console.log(quiz)
+        return
         let error = {};
         let flag = false;
         if(quiz[BODY.QUIZNAME] === undefined){
@@ -158,6 +142,10 @@ const QuizCreation = () => {
     // const createQuiz = ()=>{
     //     console.log("creating", questions)
     // }
+    const editQuestion = (index)=>{
+        setEdit(index)
+        setOpen(true)
+    }
 
     useEffect(()=>{
         let categorylist = []
@@ -171,7 +159,12 @@ const QuizCreation = () => {
         <div className={classes.creationCardContainer}>
             <input type="file" name="image" id="image" alt="quiz thumbnail" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
             <div className={classes.title}>
-                <div>Quiz Creator</div>
+                <div className={classes.titleText}>Quiz Creator</div>
+                <div className={classes.btn}>
+                    <div className={classes.btnText}>
+                        Save
+                    </div>
+                </div>
             </div>
 
             <div className={classes.quizName}>
@@ -184,12 +177,21 @@ const QuizCreation = () => {
 
             <div className={classes.cover}>
                 <div className={classes.subTitle}>Cover</div>
-                <div className={`${classes.btn} ${classes.toCenter}`} onClick={clickUpload}>
-                    <div className={classes.btnText}>upload</div>
-                </div>
-                <div className={classes.imgContainer}>
-                    <img  className={classes.imgSize} src={image} alt="quiz thumbnail"/>
-                </div>
+                {
+                    image?
+                    <div>
+                        <div className={`${classes.btn} ${classes.toCenter}`} onClick={clickUpload}>
+                            <div className={classes.btnText}>change</div>
+                        </div>
+                        <div className={classes.imgContainer}>
+                            <img  className={classes.imgSize} src={image} alt="quiz thumbnail"/>
+                        </div>
+                    </div>
+                    :
+                    <div className={classes.plusContainer} onClick={clickUpload}>
+                        <div className={classes.plus}>+</div>
+                    </div>
+                } 
             </div>
 
             <div className={classes.introduction}>
@@ -203,7 +205,7 @@ const QuizCreation = () => {
             <div className={classes.timeLimit}>
                 <div className={classes.subTitle}>Time Limit</div>
                 <div className={classes.flexBox}>
-                    <input onKeyUp={onChangeTimeLimit}/>
+                    <input onKeyUp={onChangeTimeLimit} className={classes.timeBox}/>
                     <div className={classes.unit}>min</div>
                 </div>
                 {errorMsg?.TimeLimitError && (
@@ -213,46 +215,32 @@ const QuizCreation = () => {
 
             <div className={classes.quizCategory}>
                 <div className={classes.subTitle}>Quiz Category</div>
-                {/* <div>
-                    <input onKeyUp={onChangeCategory} defaultValue={categoryText}/>
-                    {auto.map((category, i) => <div onClick={(event)=>{clickAutoComplete(event, category)}}>{category[0]}</div>)}
-                </div> */}
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={categoryList}
-                        sx={{ width: 300 }}
-                        onChange={onAutoChange}
-                        renderInput={(params) => <TextField {...params} label="Movie" />}
-                    />
+                    <div className={classes.autoContainer}>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={categoryList}
+                            sx={{ width: 300 }}
+                            onChange={onAutoChange}
+                            renderInput={(params) => <TextField {...params} label="Movie" />}
+                        />
+                    </div>
             </div>
 
             <div className={`${classes.questionContainer}`}>
                 <div className={classes.subTitle}>Questions</div>
-                <div className={classes.btn}>
-                    {/* <div className={`${classes.btnText}`}>Add</div> */}
-                    <Button onClick={handleOpen}>Add</Button>
+                <div className={`${classes.btn} ${classes.toCenter}`}>
+                    <div className={classes.btnText} onClick={handleOpen}>Add</div>
                 </div>
                 <div>
-                    <table className={classes.toCenter}>
-                        <thead>
-                            <tr>
-                                <th >&nbsp;</th>
-                                <th>Number</th>
-                                <th>Question</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {questions.map((question,i)=>
-                                <tr key={i} className={classes.checkboxPadding}>
-                                    <td><input type="checkbox" />&nbsp;</td>
-                                    <td>#{i+1}</td>
-                                    <td>{question['question']}</td>
-                                    <td className={classes.delete} onClick={()=>{removeQuestion(i)}}>&#10005;</td>
-                                </tr>)
-                            }
-                        </tbody>
-                    </table>
+                    {questions.map((question,i)=>
+                        <div key={i} className={classes.checkboxPadding}>
+                            <div className={`${classes.questionMargin} ${classes.questionText}`}>#{i+1}</div>
+                            <div className={`${classes.questionMargin} ${classes.questionText}`}>{question['question']}</div>
+                            <div onClick={()=>{editQuestion(i)}} className={`${classes.questionMargin} ${classes.questionText} ${classes.editBtn}`}>edit</div>
+                            <div className={`${classes.delete} ${classes.questionMargin}`} onClick={()=>{removeQuestion(i)}}>&#10005;</div>
+                        </div>)
+                    }
                 </div>
             </div>
             <div>
@@ -261,8 +249,11 @@ const QuizCreation = () => {
                 </div>
             </div>
             <QuestionCreationModal
+            edit={edit}
+            setEdit={setEdit}
             questions={questions}
             addQuestion={addQuestion}
+            updateQuestion={updateQuestion}
             handleClose={handleClose}
             handleOpen={handleOpen}
             open={open}/>

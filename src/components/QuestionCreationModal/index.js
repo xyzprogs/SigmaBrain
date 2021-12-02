@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Typography  from '@mui/material/Typography'
 import QUESTION_TYPE from '../../constant/question-type'
 import BODY from '../../constant/body'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { userStyles } from './style'
 
 const QuestionCreationModal = (props)=>{
@@ -14,6 +14,28 @@ const QuestionCreationModal = (props)=>{
     const [questionName, setQuestionName] = useState("")
     const classes = userStyles()
     const [errorMsg, setErrorMsg] = useState({});
+    const [editMode, setEditMode] = useState(false)
+
+    useEffect(()=>{
+        if(props.edit !== -1){
+            setEditMode(true)
+            console.log(props.questions[props.edit])
+            let editQuestion = props.questions[props.edit]
+            let choicels = editQuestion[BODY.CHOICES]
+            let questionCorrects = []
+            let questionChoices = []
+            for(let i = 0; i < choicels.length; i++){
+                questionCorrects.push(choicels[i][BODY.ISRIGHTCHOICE])
+                questionChoices.push(choicels[i][BODY.CHOICE])
+            }
+            setChoices(questionChoices)
+            setCorrect(questionCorrects)
+            setNumOfChoices(choicels.length)
+            setQuestionName(editQuestion['question'])
+            
+            console.log("use effect from question creation modal", props.edit)
+        }
+    },[props.edit])
 
     const clearModal = ()=>{
         setNumOfChoices(0)
@@ -26,6 +48,7 @@ const QuestionCreationModal = (props)=>{
     const handleClose = ()=>{
         clearModal()
         props.handleClose()
+        props.setEdit(-1)
     }
 
     const addChoice = ()=>{
@@ -98,8 +121,13 @@ const QuestionCreationModal = (props)=>{
         if (flag){
             return
         }
-
-        props.addQuestion(question)
+        
+        if(props.edit!==-1){
+           props.updateQuestion(question, props.edit)
+        }
+        else{
+            props.addQuestion(question)
+        }
         props.handleClose()
         clearModal()
     }
@@ -114,7 +142,11 @@ const QuestionCreationModal = (props)=>{
     }
 
     const onChecked = (event, i)=>{
-        correct[i] = event.currentTarget.checked
+        // console.log(event.currentTarget.checked)
+        // correct[i] = event.currentTarget.checked
+        let newCorrect = [...correct]
+        newCorrect[i] = event.currentTarget.checked
+        setCorrect(newCorrect)
     }
 
     return(
@@ -137,13 +169,15 @@ const QuestionCreationModal = (props)=>{
                         <div>
                             <div className={classes.subSection}>
                                 <div className={classes.subTitle}>Question</div>
-                                <input onKeyUp={onChangeQuestionName} className={classes.questionNameField}/>
+                                <input value={questionName} onChange={onChangeQuestionName} className={classes.questionNameField}/>
                                 {errorMsg?.QuestionError && (
                                     <p className={classes.errorMsg}>{errorMsg.QuestionError}</p>
                                 )}
                             </div>
                             <div className={classes.subSection}>
                                 <div className={classes.toCenter}>
+                                    <table>
+                                    <tbody>
                                     <tr>
                                         <th >&nbsp;</th>
                                         <th>Number</th>
@@ -152,13 +186,15 @@ const QuestionCreationModal = (props)=>{
                                     {
                                         choices.map((x, i)=>{
                                             return <tr key={i}> 
-                                                <td><input type="checkbox" onChange={(event)=>{onChecked(event, i)}}/>&nbsp;</td>
+                                                <td><input type="checkbox" onChange={(event)=>{onChecked(event, i)}} checked={correct[i]}/>&nbsp;</td>
                                                 <td>#{i+1}</td>
                                                 <td><input type="text" value={x} onChange={(event)=>{editChoice(event, i)}}/></td>
                                                 <td className={classes.delete} onClick={()=>{onDelete(i)}}>&#10005;</td>
                                             </tr>
                                         })
                                     }
+                                    </tbody>
+                                    </table>
                                 </div>
                                 <Button onClick={addChoice}>Add Choice</Button>
                                 {errorMsg?.AnswerError && (

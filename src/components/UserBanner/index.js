@@ -11,16 +11,7 @@ const UserBanner = (props) => {
     const imgRef = useRef()
     const {auth} = useContext(AuthContext)
     const [image, setImage] = useState("")
-    // const [background, setBackground] = useState(false)
-
-    // const onEnterBackground = ()=>{
-    //     console.log("enter background")
-    // }
-
-    // const onLeaveBackground = ()=>{
-    //     console.log("leave background")
-    // }
-    
+    const [edit, setEdit] = useState(true)
     const clickUpload = ()=>{
         imgRef.current.click()
     }
@@ -53,7 +44,9 @@ const UserBanner = (props) => {
             }
 
         }
-
+        if(props.edit!==undefined){
+            setEdit(props.edit)
+        }
         loadImage()
     }, [props.userId])
 
@@ -70,7 +63,7 @@ const UserBanner = (props) => {
                 <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
                 <img className={classes.imgSize} src={image} alt="background"/>
             </div>
-            <Button className={classes.uploadBtn} onClick={clickUpload}>Change Background Image</Button>
+            {edit && <Button className={classes.uploadBtn} onClick={clickUpload}>Change Background Image</Button>}
         </div>
 
     )
