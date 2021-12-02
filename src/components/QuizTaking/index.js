@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import AuthContext from '../../context/auth-context';
 import { useStyles } from "./style"
-import HEADER from '../../constant/header';
 import QuestionCard from './QuestionCard';
 import QuizSideBar from './QuizSideBar';
 import QuizResult from './QuizResult';
@@ -10,34 +9,31 @@ import NoUserModal from '../NoUserModal';
 // The following array is hard coded and will be replaced with
 // data queried from the database.
 
-const QuizTaking = () => {
+const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctChoices, setCorrectChoices, changeFlag }) => {
     // const classes = userStyles()
     const classes = useStyles();
     const { auth } = useContext(AuthContext)
     const [index, setIndex] = useState(0);
-    const [flag, setFlag] = useState(false);
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
-    const [answerChoices, setAnswerChoices] = useState([[]]);
-    const [correctChoices, setCorrectChoices] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    
+
     const quizId = window.location.pathname.split("/")[2];
 
     useEffect(() => {
-        const loadQuestions = async () =>{
+        const loadQuestions = async () => {
             let response = await quizApis.getQuestion(quizId);
-            if(response.data.length <= 0){
+            if (response.data.length <= 0) {
                 return
             }
             let answerArray = [];
             let correctArray = [];
-            for (let i = 0; i < response.data.length; i++){
+            for (let i = 0; i < response.data.length; i++) {
                 let answer = await quizApis.getQuestionChoice(response.data[i].questionId);
-                if (answer.data.length !== 0){
+                if (answer.data.length !== 0) {
                     answerArray.push(answer.data);
-                    for (let j = 0; j < answer.data.length; j++){
-                        if (answer.data[j].is_right_choice === 1){
+                    for (let j = 0; j < answer.data.length; j++) {
+                        if (answer.data[j].is_right_choice === 1) {
                             correctArray.push(j);
                         }
                     }
@@ -48,12 +44,12 @@ const QuizTaking = () => {
             setCorrectChoices(correctArray);
             setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
         }
-        if (!auth.loggedIn){
+        if (!auth.loggedIn) {
             console.log(auth.loggedIn);
             setShowModal(true);
         }
 
-        if(questions.length === 0){
+        if (questions.length === 0) {
             loadQuestions();
         }
 
@@ -61,9 +57,9 @@ const QuizTaking = () => {
 
     const changeIndex = (type, num) => {
         let temp;
-        if (type === 0){
+        if (type === 0) {
             temp = index + num;
-        }else{
+        } else {
             temp = num;
         }
         setIndex(temp);
@@ -75,35 +71,10 @@ const QuizTaking = () => {
         setIndex(0);
     }
 
-    const saveResults = async (correct) => {
-        const payload = {
-            "quizId" : quizId,
-            "quizGrade" : (correct/answerChoices.length).toFixed(2)
-        }
 
-        if(auth.user !== null){
-            const token = await auth.user.getIdToken()
-            let headers = {
-                [HEADER.TOKEN] : token
-            }
-            await quizApis.createQuizGrade(payload, headers);
-        }
-    }
-
-    const changeFlag = () => {
-        setFlag(true);
-        let correct = 0;
-        for (let i = 0; i < answerChoices.length; i++){
-            if (parseInt(answerChoices[i]) === correctChoices[i]){
-                correct++;
-            }
-        }
-        saveResults(correct);
-    }
-    
-    const changeAnswerChoice = (choice) =>{
+    const changeAnswerChoice = (choice) => {
         let temp = [];
-        for (let i = 0; i < answerChoices.length; i++){
+        for (let i = 0; i < answerChoices.length; i++) {
             temp.push(answerChoices[i]);
         }
         let firstComma = choice.indexOf(",");
@@ -114,8 +85,8 @@ const QuizTaking = () => {
     }
 
     const renderCheck = () => {
-        if(flag){
-            return(
+        if (flag) {
+            return (
                 <div>
                     <div className={classes.quizContainer}>
                         <QuizResult quizId={quizId} answerChoices={answerChoices} correctChoices={correctChoices} questions={questions}
@@ -124,17 +95,17 @@ const QuizTaking = () => {
                     </div>
                 </div>
             );
-        }else{
+        } else {
             return (
                 <div>
                     <div className={classes.sidebar}>
                         <QuizSideBar index={index} num={questions.length} changeIndex={changeIndex} />
                     </div>
                     <div className={classes.quizContainer}>
-                        <QuestionCard 
+                        <QuestionCard
                             questions={questions[index]} answers={answers[index]} index={index} answerChoices={answerChoices} correctChoices={correctChoices}
-                            changeIndex={changeIndex} 
-                            changeFlag={changeFlag} 
+                            changeIndex={changeIndex}
+                            changeFlag={changeFlag}
                             changeAnswerChoice={changeAnswerChoice}
                         />
                     </div>
@@ -143,7 +114,7 @@ const QuizTaking = () => {
         }
     }
 
-    return(
+    return (
         <div>
             <NoUserModal show={showModal} continue={false} handleClose={() => setShowModal(false)}></NoUserModal>
             {renderCheck()}
