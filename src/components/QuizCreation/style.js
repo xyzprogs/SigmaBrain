@@ -43,7 +43,12 @@ export const userStyles = createUseStyles({
         borderColor: "coral",
         justifyContent: "space-between",
         paddingTop: '5%',
-        paddingBottom: "1%"
+        paddingBottom: "1%",
+    },
+
+    titleText:{
+        fontFamily: "serif",
+        fontSize: "30px"
     },
 
     quizName: {
@@ -64,7 +69,8 @@ export const userStyles = createUseStyles({
     subTitle:{
         textAlign: "left",
         paddingLeft: "1%",
-        fontSize: "20px"
+        fontSize: "20px",
+        fontWeight: "lighter"
         // fontFamily: "Serif"
     },
 
@@ -91,9 +97,12 @@ export const userStyles = createUseStyles({
     },
 
     introductionBox: {
-        width: "30vw",
+        width: "90%",
         height: "20vh",
-        resize: "none" 
+        resize: "none",
+        borderRadius: "20px",
+        borderColor: "gray",
+        backgroundColor: "whitesmoke"
     },
 
     imgTag:{
@@ -107,19 +116,47 @@ export const userStyles = createUseStyles({
     
     btn:{
         border: "solid",
-        height: "40px",
-        width: "70px",
-        borderRadius: "10px",
+        height: "35px",
+        width: "80px",
+        borderRadius: "20px",
+        cursor: "pointer",
+        borderColor: "gray",
+        borderWidth: "1px"
+        
     },
 
     btnText: {
         textAlign: "center",
         margin: "auto",
-        paddingTop: "5px"
+        paddingTop: "5%",
+        color: "gray"
     },
 
     quizNameField: {
-        width: "40vw"
+        width: "40vw",
+        borderRadius: "20px",
+        height: "40px",
+        backgroundColor: "whitesmoke",
+        textAlign: "center"
+    },
+
+    plusContainer:{
+        border: "solid",
+        height: "150px",
+        width: "200px",
+        margin: "auto",
+        borderRadius: "20px",
+        cursor: "pointer",
+        marginTop: "2.5%",
+        borderColor: "gray"
+    },
+
+    plus: {
+        textAlign: "center",
+        margin: "auto",
+        paddingTop: "25%",
+        color: "gray",
+        fontSize: "30px"
     },
 
     imgContainer:{
@@ -129,7 +166,8 @@ export const userStyles = createUseStyles({
     },
 
     toCenter: {
-        margin: "auto"
+        margin: "auto",
+        marginBottom: "2%"
     },
 
     flexBox: {
@@ -139,12 +177,22 @@ export const userStyles = createUseStyles({
     },
 
     unit: {
-        marginLeft: "0.5%"
+        marginLeft: "0.5%",
+        fontWeight: "lighter"
+    },
+
+    timeBox: {
+        width: "20%",
+        resize: "none",
+        borderRadius: "20px",
+        borderColor: "gray",
+        backgroundColor: "whitesmoke",
+        textAlign: "center"
     },
 
     quizCategory: {
         border: "solid",
-        width: "50vw",
+        width: "100%",
         borderWidth: "0px 0px 1px 0px",
         height: "15vh"
     },
@@ -157,12 +205,22 @@ export const userStyles = createUseStyles({
     },
 
     checkboxPadding:{
-        margin: "auto"
+        margin: "auto",
+        display: "flex"
+    },
+
+    questionMargin: {
+        marginLeft: "12%"
+    },
+
+    questionText:{
+        fontWeight: "lighter"
     },
 
     delete: {
         paddingLeft: "1%",
-        cursor: "default"
+        cursor: "pointer",
+        color: "red"
     },
 
     errorMsg: {
@@ -171,4 +229,23 @@ export const userStyles = createUseStyles({
         color: 'red',
         textAlign: 'center'
     },
+
+    autoContainer:{
+        marginLeft: "25%"
+    },
+
+    tableContainer:{
+        borderCollapse: "separate",
+        borderSpacing: "50px 0"
+    },
+
+    editBtn:{
+        cursor: "pointer",
+        border: "solid",
+        borderColor: "gray",
+        borderRadius: "10px",
+        borderWidth: "1px",
+        width: "5%",
+        color: "green"
+    }
 })

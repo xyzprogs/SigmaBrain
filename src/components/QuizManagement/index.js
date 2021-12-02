@@ -6,7 +6,8 @@ import AuthContext from '../../context/auth-context'
 import quizApis from '../../api/quiz-api'
 import BODY from '../../constant/body'
 import HEADER from '../../constant/header'
-
+import UserBanner from '../UserBanner'
+import ManagementCard from './ManagementCard'
 const QuizManagement = () => {
     const classes = useStyles()
     let history = useHistory()
@@ -15,6 +16,7 @@ const QuizManagement = () => {
     const [checkedState, setCheckedState] = useState([]);
     const [end, setEnd] = useState(false)
     const { auth } = useContext(AuthContext)
+    const [userId, setUserId] = useState("")
 
     useEffect(() => {
         const loadUserQuizzes = async () => {
@@ -24,7 +26,8 @@ const QuizManagement = () => {
                     [HEADER.TOKEN] : token
                 }
                 let response = await quizApis.getUserQuizAuthenticated(headers)
-                updateQuizzes(response)      
+                updateQuizzes(response)
+                setUserId(auth.user.uid)      
             }            
         }
 
@@ -178,17 +181,19 @@ const QuizManagement = () => {
 
     return (
         <div>
-            <div className={classes.quizContainer}>
-                <div className={classes.quizimg}>Quiz Management</div>
-                {/* <Button className={classes.back}>Back</Button> */}
+            <div className={classes.profileContainer}>
+                <UserBanner userId={userId}/>
             </div>
-            <div className={classes.quizContainer}>
-                <div className={classes.quizimg}>Filter</div>
-                <div><Button onClick={redirectQuizCreation}>Create quiz</Button>
-                    <Button onClick={handleDeleteMultipleQuizzes}>delete</Button></div>
+            <div className={classes.titleBar}>
+                <div className={classes.title}>Quiz Management</div>
             </div>
-            <div>
-                <table cellSpacing="0" rule="all" border="1" id="quizzes">
+            <div className={classes.consoleContainer}>
+            <div className={classes.consoleBarContainer}>
+                {/* <div className={classes.quizimg}>Filter</div> */}
+                <div className={classes.buttonContainer}><Button onClick={redirectQuizCreation}>Create Quiz</Button>
+                    <Button className={classes.colorRed} onClick={handleDeleteMultipleQuizzes}>Delete Quiz</Button></div>
+            </div>
+                <table id="quizzes">
                     <thead>
                         <tr>
                             <th>&nbsp;</th>
@@ -205,7 +210,8 @@ const QuizManagement = () => {
                             return (
                                 <tr key={i}>
                                     <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
-                                    <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td>
+                                    {/* <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td> */}
+                                    <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}> <ManagementCard quiz={quiz}/> </td>
                                     {quiz[BODY.ISPUBLISHED]===0&&<td className={classes.colorYellow}>unpublished</td>}
                                     {quiz[BODY.ISPUBLISHED]===1&&<td className={classes.colorGreen}>published</td>}
                                     {quiz[BODY.ISPUBLISHED]===2&&<td className={classes.colorRed}>blocked</td>}
