@@ -2,27 +2,46 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
     container: {
-        backgroundColor: "white",
+        backgroundColor: "whitesmoke",
         maxWidth: "80vw",   
         margin: "auto",
         marginTop: "20px"
     },
     commentTextBox: {
         minHeight: "20vh",
-        minWidth: "80vw",
+        minWidth: "60vw",
         resize: "none"
     },
 
     userComments: {
         paddingTop: "20px",
         marginTop: "20px",
-        border: "solid",
-        borderWidth: "1px 0px 0px 0px",
         minHeight: "50vh",
         
     },
 
     commentTitle:{
-        marginRight: "100%"
+        marginRight: "80%",
+        fontSize: "30px",
+        fontWeight: "lighter"
     },
+
+    commentInputContainer:{
+        width: "80%",
+        margin: "auto"
+    },
+
+    commentBtn:{
+        paddingLeft: "80%"
+    },
+
+    line:{
+        border: "solid",
+        borderWidth: "0px 0px 2px 0px",
+        marginTop: "2.5%",
+        width: "77%",
+        margin: "auto",
+        borderColor: "gray"
+    },
+
 })

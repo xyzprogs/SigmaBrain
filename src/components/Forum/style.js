@@ -2,8 +2,8 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
 
     homeContainer: {
-
-        marginTop: "50px"
+        marginTop: "50px",
+        height: "80vh"
     },
 
     postContainer: {
@@ -12,11 +12,13 @@ export const useStyles = createUseStyles({
         width: "100%",
         margin: "auto",
         overflowY: "auto",
-        height: "70vh"
+        height: "70vh",
+        borderWidth: "2px",
+        borderRadius: "20px"
     },
 
     forumContainer:{
         display: "grid",
         gridTemplateColumns: "70% 30%",
-    }
+    },
 })

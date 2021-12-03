@@ -19,26 +19,31 @@ export const useStyles = createUseStyles({
     },
     imgSize:{
         width:"100%",
-        height: "50vh"
+        height: "25vh"
     },
     cardSize:{
         width: "50%",
         height: "50%",
         margin: "auto",
+        // border: "solid",
+        // borderWidth: "1px",
+        // borderRadius: "10px",
     },
     cardContainer:{
-        maxWidth: "80%",
+        maxWidth: "60%",
         maxHeight: "30%",
         backgroundColor: "white",
-        margin: "auto"
+        margin: "auto",
+        borderRadius: "20px"
     },
     title: {
         marginRight: "100%",
         whiteSpace: "nowrap",
     },
     subtitle: {
-        marginRight: "100%",
         whiteSpace: "nowrap",
+        marginRight: "20%",
+        fontSize: "10px"
     },
     
     liked:{
@@ -47,12 +52,18 @@ export const useStyles = createUseStyles({
 
     buttonBar:{
         display: "flex",
-        marginTop: "5%"
+        marginLeft: "55%",
+        marginTop: "5%",
+        paddingBottom: "1%"
     },
 
     buttonMargin:{
         marginRight: "2.5%",
-        cursor: "pointer"
+        cursor: "pointer",
+        border: "solid",
+        borderWidth: "1px",
+        borderRadius: "20px",
+        width: "100px"
     },
 
     userImageSize:{
@@ -71,12 +82,27 @@ export const useStyles = createUseStyles({
 
     userDisplayName:{
         display: "inline-block",
-        marginRight: "80%"
+        marginTop: "10%",
+        marginLeft: "5%",
+        marginBottom: "5%"
+    },
+
+    subscribeBtn:{
+        marginLeft: "5%",
+        border: "solid",
+        width: "100%",
+        borderWidth: "1px",
+        height: "25px",
+        marginTop: "5%"
     },
 
     userBox:{
-        border: "solid",
-        width: "30%"
+        // border: "solid",
+        width: "100%",
+        marginLeft: "40%",
+        display: "flex",
+        paddingTop: "1%",
+        paddingBottom: "2%"
     },
 
     btn:{
@@ -93,5 +119,23 @@ export const useStyles = createUseStyles({
 
     colorBlue: {
         color: "blue"
+    },
+
+    quizName: {
+        fontWeight: "bold",
+        textAlign: "left",
+        marginLeft: "27%",
+        fontSize: "30px"
+    },
+
+    quizDescription: {
+        textAlign: "left",
+        marginLeft: "27%",
+        fontWeight: "lighter",
+    },
+
+    nameBtnContainer:{
+        height: "10%",
+        width: "15%"
     }
 })

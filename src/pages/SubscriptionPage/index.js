@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../context/auth-context';
 import quizApis from '../../api/quiz-api';
 import HEADER from '../../constant/header';
-import QuizCard from '../../components/QuizCard';
 import { Button } from '@mui/material';
+import QuizListCard from '../../components/QuizListCard';
 const SubscriptionPage = ()=>{
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])
@@ -59,9 +59,9 @@ const SubscriptionPage = ()=>{
             <div className={classes.pageContainer}>
                 <div>
                     Subscription List
-                    <div className={classes.displayBoardContainer}>
+                    <div>
                         {quizzes.map((quiz, i) => {
-                                    return <QuizCard key={i} quiz={quiz} redirect={true}/>
+                                    return <QuizListCard key={i} quiz={quiz}/>
                         })}
                     </div>
                     {
