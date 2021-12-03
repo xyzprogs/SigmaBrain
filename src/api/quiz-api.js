@@ -10,6 +10,7 @@ export const getMostPopularQuiz = () => api.get('/popular/topquiz')
 export const getQuizThumbnail = (quizId) => api.get('/thumbnail/' + quizId) 
 export const getCategoryQuiz = (category) => api.get(`/category/${category}`)
 export const getQuiz = (quizId) => api.get(`/${quizId}`)
+export const getQuizByQuizId = (quizId) => api.get(`/quiz/${quizId}`)
 export const getQuizWithUser = (quizId) => api.get(`/quizWithUser/${quizId}`)
 export const getQuestion = (quizId) => api.get(`/${quizId}/quizQuestion`)
 export const getQuestionChoice = (questionId) => api.get(`/quizQuestionChoice/${questionId}`)
@@ -54,6 +55,7 @@ const quizApis = {
     getQuizThumbnail,
     getCategoryQuiz,
     getQuiz,
+    getQuizByQuizId,
     getQuestion,
     getQuestionChoice,
     getQuestionChoiceByQuizId,

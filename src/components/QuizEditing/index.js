@@ -13,13 +13,14 @@ const QuizEditing = () => {
     }
     useEffect(()=>{
         const loadQuiz = async () => {
-            let response = await quizApis.getQuiz(quizId)
+            let response = await quizApis.getQuizByQuizId(quizId)
             if(response.data.length>0){
                 setQuiz(response.data[0])
             }
         }
         loadQuiz()
     },[quizId])
+
     if(quiz===undefined || quiz==null){
         return <div>loading</div>
     }
