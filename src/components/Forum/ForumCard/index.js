@@ -2,24 +2,50 @@ import React from 'react';
 import { useStyles } from './style';
 import BODY from '../../../constant/body';
 import profile_image from '../../../images/Default_profile.png';
-
+import {useEffect, useState} from 'react'
+import userApi from '../../../api/user-api'
 const ForumCard = ({post}) => {
     const classes = useStyles()
-
+    const [image, setImage] = useState("")
+    const [name, setName] = useState("")
     function CreateDate(date){
         const array=date.split("T");
         return array[0];
     }
+
+    useEffect(()=>{
+        const loadProfile = async()=>{
+            try{
+                let response = await userApi.getProfileImage(post[BODY.USERID])
+                setImage(response.data)
+            }catch{
+                setImage(profile_image)
+            }
+        }
+
+        const loadUserName = async()=>{
+            try{
+                let response = await userApi.getUserDisplayName(post[BODY.USERID])
+                setName(response.data[0][BODY.DISPLAYNAME])
+            }catch{
+                setName("fail to load")
+            }
+
+        }
+        loadProfile()
+        loadUserName()
+    },[])
+
     return(
         <div className={classes.container}>
         <div className={classes.Block_Background}>
             <div className={classes.infoGrid}>
                 <div className={classes.imageStyle}>
-                    <img src={profile_image}/>
+                    <img className={classes.imgSize} src={image}/>
                 </div>
                 <div>
                     <div className={classes.UserName}>
-                        UserName
+                        {name}
                     </div>
                     <div className={classes.DateText}>
                         {CreateDate(post[BODY.CREATIONTIME])}

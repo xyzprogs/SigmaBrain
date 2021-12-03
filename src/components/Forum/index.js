@@ -58,7 +58,6 @@ const ForumSection = () => {
     <div>
         <div className={classes.homeContainer}>
             <div>
-                <Category/>
                 <div className={classes.forumContainer}>
                     <div className={classes.postContainer}>
                     {posts.map((p,i)=>{

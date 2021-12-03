@@ -46,17 +46,23 @@ export const useStyles = createUseStyles({
         fontWeight:"bold"
     },
     DateText:{
-        fontSize:5
+        fontSize:10
     },
     imageStyle:{
         boxSizing:3,
-        borderRadius:"50%"
+        borderRadius:"50%",
+        width: "50px",
+        height: "50px",
     },
     titleText:{
         fontSize:30,
         textAlign:"left",
         fontWeight:"bold"
+    },
+    imgSize:{
+        height: "100%",
+        width: "100%",
+        borderRadius: "20px"
     }
-
 
 })

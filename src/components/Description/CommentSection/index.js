@@ -86,17 +86,19 @@ const CommentSection = (props)=>{
         <div>
             <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
         </div>
-            <div>
+            <div className={classes.commentInputContainer}>
+                <div className={classes.commentTitle}>Comment</div>
                 <div>
                     <textarea onChange={onChangeComment} value={comment} className={classes.commentTextBox}/>
                 </div>
-                <div>
+                <div className={classes.commentBtn}>
                     <Button onClick={submitComment}>Comment</Button>
                 </div>
             </div>
+            
+            <div className={classes.line}/>
 
             <div className={classes.userComments}>
-                <div className={classes.commentTitle}>Comment</div>
                 {comments.map((c, i)=>{
                     return <CommentBox comment={c}/>
                 })}

@@ -8,6 +8,7 @@ import quizApis from '../../api/quiz-api'
 import AuthContext from '../../context/auth-context'
 import LOCAL_CONSTANT from '../../constant/local-storage'
 import BODY from '../../constant/body'
+import QuizListCard from '../../components/QuizListCard'
 const HistoryPage = ()=>{
     const classes = useStyles()
     const {auth} = useContext(AuthContext)
@@ -65,10 +66,13 @@ const HistoryPage = ()=>{
             <div>
                 <SideBar className={classes.sidebar}/>
             </div>
-            <div className={classes.searchResults}>
+            <div className={classes.pageContainer}>
                 <div className={classes.title}>Reults</div>
-                <HistoryResult 
-                    results={histories}/>
+                <div>
+                    {histories.map((quiz, i) => {
+                                return <QuizListCard key={i} quiz={quiz}/>
+                    })}
+                </div>
             </div>
             <div>
                 {   

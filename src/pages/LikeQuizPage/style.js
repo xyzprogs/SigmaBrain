@@ -13,5 +13,9 @@ export const useStyles = createUseStyles({
         marginLeft: "2.5%",
         marginTop: "2.5%"
     },
+    pageContainer: {
+        marginTop: "50px",
+        margin: "20%"
+    },
 })
 

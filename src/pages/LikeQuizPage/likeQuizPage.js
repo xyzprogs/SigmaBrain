@@ -5,6 +5,7 @@ import AuthContext from '../../context/auth-context';
 import quizApis from '../../api/quiz-api';
 import HEADER from '../../constant/header';
 import QuizCard from '../../components/QuizCard';
+import QuizListCard from '../../components/QuizListCard';
 import { Button } from '@mui/material';
 const LikeQuizPage = ()=>{
     const classes = useStyles()
@@ -57,11 +58,11 @@ const LikeQuizPage = ()=>{
             <div>
                 <SideBar className={classes.sidebar}/>
             </div>
-            <div className={classes.quizListContainer}>
+            <div className={classes.pageContainer}>
                 MyQuizList
-                <div className={classes.displayBoardContainer}>
+                <div>
                     {quizzes.map((quiz, i) => {
-                                return <QuizCard key={i} quiz={quiz} redirect={true}/>
+                                return <QuizListCard key={i} quiz={quiz} redirect={true}/>
                     })}
                 </div>
                 {
