@@ -34,13 +34,13 @@ const QuizDisplayBoard = (props) => {
     }
 
     if (quizzes==null || quizzes===undefined ||  quizzes.length === 0) {
-        return <div className={classes.displayBoardContainer}>
+        return <div className={classes.noQuizContainer}>
                 <div className={classes.headerContainer}>
                     <div className={classes.title}>
                         {QUIZ_CATEGORY_NAME[props.category]}
                     </div>
-                    <div>No Quizzes In this Category</div>
                 </div>
+                <div>No Quizzes In this Category</div>
         </div>
     }
     else {

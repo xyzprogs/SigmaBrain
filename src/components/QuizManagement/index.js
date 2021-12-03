@@ -221,7 +221,7 @@ const QuizManagement = () => {
                                     {quiz[BODY.ISPUBLISHED]===0&&<td><Button onClick={()=>{publishQuiz(i)}}>Publish</Button></td>}
                                     {quiz[BODY.ISPUBLISHED]===1&&<td><Button onClick={()=>{unpublishQuiz(i)}}>Unpublish</Button></td>}
                                     {quiz[BODY.ISPUBLISHED]===2&&<td className={classes.colorRed}>blocked</td>}
-                                    <td><Button onClick={() => { removeQuiz(i) }} >&#10005;</Button></td>
+                                    <td><div className={`${classes.btn} ${classes.colorRed}`} onClick={() => { removeQuiz(i) }} >&#10005;</div></td>
                                 </tr>
                             )
                         })}

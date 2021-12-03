@@ -140,7 +140,8 @@ const MainBoard = () => {
                 quiz={quiz}
                 quizzes={quizzes}
                 image={image}
-                changeFeatureQuiz={changeFeatureQuiz}/>
+                changeFeatureQuiz={changeFeatureQuiz}
+                rotate={true}/>
             {bar.map((c,i)=>{
                 return (
                 <div key={i} ref={refs[i]}>

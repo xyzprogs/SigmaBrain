@@ -23,11 +23,13 @@ const FeatureCard = (props) =>{
     }
 
     useEffect(()=>{
-        const timerId =  setInterval(rotateFeatureQuiz, 5000)
-
-        return function cleanup(){
-            clearInterval(timerId)
+        if(props.rotate){
+            const timerId =  setInterval(rotateFeatureQuiz, 5000)
+            return function cleanup(){
+                clearInterval(timerId)
+            }
         }
+
     },[dot, props.quizzes])
 
     if(props.quiz===undefined){
@@ -48,13 +50,15 @@ const FeatureCard = (props) =>{
                     <img className={classes.imgSize} src={props.image} alt="feature card thumbnial"/>
                 </div>
             </div>
-            <div className={classes.dotContainer}>
-                {
-                    [...Array(props.total)].map((e, i)=>{
-                        return <div className={`${classes.dot} ${i===dot && classes.dotted}`} onClick={()=>{doAnimation(i)}}/>
-                    })
-                }
-            </div>
+            {
+                props.rotate && <div className={classes.dotContainer}>
+                    {
+                        [...Array(props.total)].map((e, i)=>{
+                            return <div className={`${classes.dot} ${i===dot && classes.dotted}`} onClick={()=>{doAnimation(i)}}/>
+                        })
+                    }
+                </div>
+            }
         </div>
     )
 

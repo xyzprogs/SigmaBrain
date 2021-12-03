@@ -5,6 +5,7 @@ import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
 import { useStyles } from './style'
 import AuthContext from '../../../context/auth-context'
+import {Button} from '@mui/material'
 const About = ({ self }) => {
     //sets the character limit in the about me page
     const CHARACTER_LIMIT = 500
@@ -57,13 +58,13 @@ const About = ({ self }) => {
             <div>
                 <div className={classes.aboutText}>About Me!</div>
                 {isEditing ?
-                    <input defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
+                    <input className={classes.editContainer} defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
                     :
                     <div className={classes.aboutContainer}>{about}</div>
                 }
 
-                <button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</button>
-                <button onClick={() => handleSubmit()}>submit</button>
+                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</Button>
+                <Button onClick={() => handleSubmit()}>submit</Button>
             </div>
             :
             <div>

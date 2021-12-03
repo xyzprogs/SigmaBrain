@@ -20,7 +20,10 @@ export const useStyles = createUseStyles({
         paddingLeft:"17px",
         textAlign:"left",
         lineHeight:"200%",
-        cursor: "pointer"
+        cursor: "pointer",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },
 
     subscriptionTop: {
@@ -38,5 +41,10 @@ export const useStyles = createUseStyles({
 
     settingBar:{
         height: "30vh"
+    },
+
+    title:{
+        fontWeight: "bold",
+        paddingLeft: "2%"
     }
 })
