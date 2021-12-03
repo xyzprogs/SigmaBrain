@@ -124,7 +124,7 @@ const SideBar = () => {
                 </div>
 
                 <div className={`${classes.subscriptionTop} ${classes.sideBarSelection}`}>
-                    Subscriptions:
+                    <div className={classes.title}>SUBSCRIPTIONS:</div>
                     <div>
                         {subscriptions.map((sub, i)=>{
                             return <div key={i} onClick={()=>{redirectToProfile(sub[BODY.SUBSCRIBETO])}}><UserCard

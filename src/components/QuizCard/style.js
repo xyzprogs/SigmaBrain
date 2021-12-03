@@ -3,11 +3,13 @@ import { createUseStyles } from "react-jss";
 export const userStyles = createUseStyles({
 
     container:{
-       Height: "20vh",
-       display: "flex",
-       border: "solid",
-       borderRadius: "10px",
-       margin: "5px"
+    //    display: "flex",
+    //    border: "solid",
+    //    borderRadius: "10px",
+    //    margin: "5px"
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },  
     img:{
         height:"20vh",
@@ -27,7 +29,7 @@ export const userStyles = createUseStyles({
     },
     titleText:{
         textAlign:"left",
-        fontSize:30,
+        fontSize:16,
         fontWeight:"bold",
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",

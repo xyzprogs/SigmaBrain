@@ -105,13 +105,22 @@ const ProfileBar = (props) => {
             <div>
                 <div className={classes.userInfoGrid}>
                     <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
-                        <div className={classes.imgSize}>
-                            <img alt="user profile" className={classes.imgSize} src={image} />
-                        </div>
+                        {
+                            (profile&&self)
+                            ?
+                            <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
+                                <img  alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image}/>
+                                <div className={classes.changeText}>Change</div>
+                            </div>
+                            :
+                            <div className={classes.imgSize}>
+                                <img  alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image}/>
+                            </div>      
+                        }
                     </div>
 
                     <div className={classes.ChannelNameText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                    <div>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
+                    <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
                 </div>
                 <div className={classes.barContainer}>
 
@@ -145,6 +154,7 @@ const ProfileBar = (props) => {
                     </div>
 
                 </div>
+                <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
             </div>
         )
 }

@@ -35,6 +35,10 @@ export const useStyles = createUseStyles({
         height:"30%"
     },
 
+    btn:{
+        cursor: "pointer"
+    },
+
     managementContainer: {
         marginLeft: "10%"
     },
@@ -80,7 +84,9 @@ export const useStyles = createUseStyles({
         border: "solid",
         marginLeft: "5px",
         marginRight: "5px",
-        marginBottom: "5px"
+        marginBottom: "5px",
+        borderWidth: "0px 0px 1px 0px",
+        borderColor: "gray",
     }
 
 })

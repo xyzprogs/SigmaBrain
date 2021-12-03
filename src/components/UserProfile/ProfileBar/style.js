@@ -4,10 +4,11 @@ import { createUseStyles } from 'react-jss'
 export const useStyles = createUseStyles({
     barContainer: {
         border: "solid",
-        borderWidth: "0px 0px 5px 0px",
+        borderWidth: "0px 0px 1px 0px",
         height: "5vh",
         width: "100%",
-        display: "flex",     
+        display: "flex",    
+        paddingBottom: "5%" 
     },
     imgTag:{
         display: "none"
@@ -46,7 +47,8 @@ export const useStyles = createUseStyles({
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        fontSize: "10px"
+        fontSize: "10px",
+        cursor: "pointer"
     },
 
     tableCell:{
@@ -102,14 +104,16 @@ export const useStyles = createUseStyles({
 
     },
     ChannelNameText:{
-        fontSize:"50px",
+        fontSize:"25px",
         textAlign:"Left",
-        fontWeight:900,
-        paddingLeft: "15%"
+        fontWeight:"bold",
+        paddingLeft: "30%",
+        marginTop: "5%"
     },
     EmailText:{
-        fontSize:"20px",
-        textAlign:"left"
+        fontSize:"15px",
+        textAlign:"left",
+        marginLeft: "30%"
     },
     colorRed:{
         color: "red"

@@ -10,13 +10,19 @@ export const useStyles = createUseStyles({
     sidebarContainer:{
         minHeight: "50vh",
         border: "solid",
+        borderWidth: "1px",
+        borderRadius: "20px",
+        width: "10vw"
     },
 
     item: {
         cursor: "pointer",
         borderRadius:'25px',
         borderWidth:'thin',
-        lineHeight:"200%"
+        lineHeight:"200%",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+        overflow: "hidden",
     },
 
     openBtn:{

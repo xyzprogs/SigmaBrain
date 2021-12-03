@@ -12,7 +12,7 @@ export const useStyles = createUseStyles({
 
     rankContainer: {
         gridArea: "ranking",
-        marginRight:"10px"
+        marginRight:"100%"
     },
 
     RankingsText:{
@@ -20,7 +20,10 @@ export const useStyles = createUseStyles({
         fontWeight:"bold"
     },
     headerContainer: {
-        gridArea: "header"
+        gridArea: "header",
+        border: "solid",
+        borderWidth: "0px 0px 1px 0px",
+        marginLeft: "1%"
     },
 
     title: {
@@ -32,14 +35,20 @@ export const useStyles = createUseStyles({
 
     displayBoardContainer: {
         display: "grid",
-        gridTemplateColumns: "80% 10%",
+        gridTemplateColumns: "60% 40%",
         gridTemplateRows: "auto",
         gridTemplateAreas:`
         "header ."
         "quiz ranking"
         `,
         width: "85vw",
-        marginTop: "4%"
+        marginTop: "4%",
+        columnGap: "5%",
+
+    },
+
+    noQuizContainer:{
+        width: "60%"
     },
 
     card:{

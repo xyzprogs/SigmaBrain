@@ -24,19 +24,23 @@ const QuizRankCard = ({quiz, rank}) => {
     if(rank<=3){
         return(
             <div className={classes.container}>
-                <div className={classes.text}>
-                    {rank}.{quiz[BODY.QUIZNAME]}
+                <div>
+                    {rank}.
                 </div>
                 <div className={classes.imgContainer}>
                     <img className={classes.imgSize} src={image}/>
+                </div>
+                <div className={classes.topQuizName}>
+                   {quiz[BODY.QUIZNAME]}
                 </div>
             </div>
         )
     }
     return(
         <div className={classes.container}>
+            {rank}. 
             <div className={classes.text}>
-                {rank}.{quiz[BODY.QUIZNAME]}
+                {quiz[BODY.QUIZNAME]}
             </div>
         </div>
     )

@@ -48,7 +48,7 @@ export const useStyles = createUseStyles({
 
     },
     buttonBar:{
-        borderRadius: "0px",
+        borderRadius: "15px",
         backgroundColor:"#B1D2D4",
         color:'black',
         marginLeft: "-50px",
