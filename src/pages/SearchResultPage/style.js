@@ -5,17 +5,23 @@ export const useStyles = createUseStyles({
         marginTop: "50px"
     },
     
-    sidebar:{
+    pageContainer: {
+        marginTop: "50px",
+        margin: "20%"
+    },
 
-    }, 
-
-    searchResults: {
-        marginLeft: "30%",
+    endLine: {
+        border: "solid",
+        borderWidth: "1px 0px 0px 0px",
+        borderColor: "gray",
+        marginTop: "5%"
     },
 
     title:{
-        marginRight: "100%",
-        paddingTop: "5%"
+        fontWeight: "bold",
+        fontSize: "15px",
+        paddingTop: "5%",
+        textAlign: "left"
     }
 
 })

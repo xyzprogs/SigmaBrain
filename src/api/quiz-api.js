@@ -50,6 +50,7 @@ export const getLikedStatusOnQuiz = (quizId, headers) => api.get(`/quiz/likedSta
 export const getTakeLaterStatus = (quizId, headers) => api.get(`/quiz/takelaterStatus/${quizId}`, {headers: headers})
 export const removeTakeLaterQuiz = (quizId, headers) => api.delete(`/takelater/${quizId}`, {headers: headers})
 export const getQuizCommentByCommentId = (quizCommentId) => api.get(`/quizCommenyById/${quizCommentId}`)
+export const getSingleUserQuizAuthenticated = (quizId, headers) => api.get(`/authenticated/quiz/${quizId}`, {headers: headers})
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -95,7 +96,8 @@ const quizApis = {
     getLikedStatusOnQuiz,
     getTakeLaterStatus,
     removeTakeLaterQuiz,
-    getQuizCommentByCommentId
+    getQuizCommentByCommentId,
+    getSingleUserQuizAuthenticated
 }
 
 export default quizApis

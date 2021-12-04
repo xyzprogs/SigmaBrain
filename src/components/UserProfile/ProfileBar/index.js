@@ -9,6 +9,7 @@ import userApis from '../../../api/user-api'
 import ExperienceBar from '../../ExperienceBar'
 import Button from '@mui/material/Button'
 import default_banner from '../../../images/profile_image.png'
+import NoUserModal from '../../NoUserModal'
 const ProfileBar = (props) => {
     const classes = useStyles()
     const imgRef = useRef()
@@ -19,8 +20,9 @@ const ProfileBar = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const { userId } = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
+
     const [expBarPercentage, setExpBarPercentage] = useState(0)
-    
+    const [showModal, setShowModal] = useState(false);
     const calculateProgress =(userLevel, expNeeded)=>{
         //calculates the percentage on the experience bar
 
@@ -30,6 +32,7 @@ const ProfileBar = (props) => {
         let percentage = Math.floor((1 - expNeeded/requiredExp) * 100);
         setExpBarPercentage(percentage);
     }
+
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -58,15 +61,20 @@ const ProfileBar = (props) => {
     }
 
     const onSubscribe = async () => {
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN]: token
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.SUBSCRIBETO]: userId
+            }
+            await userApis.subscribe(payload, headers)
+            setSubscribeStatus(true)
         }
-        let payload = {
-            [BODY.SUBSCRIBETO]: userId
+        else{
+            setShowModal(true)
         }
-        await userApis.subscribe(payload, headers)
-        setSubscribeStatus(true)
     }
 
     const unsubscribe = async () => {
@@ -91,7 +99,7 @@ const ProfileBar = (props) => {
     useEffect(() => {
         const loadImage = async () => {
             try {
-                let response = await userApis.getProfileImage(props.userId)
+                let response = await userApis.getProfileImage(userId)
                 setImage(response.data)
             } catch (e) {
                 setImage(default_banner)
@@ -103,16 +111,17 @@ const ProfileBar = (props) => {
                 setUserInfo(response.data[0])
                 calculateProgress(response.data[0].userLevel, response.data[0].expForLevelUp)
                 console.log(response.data[0])
+
             })
 
 
         }
         loadImage()
-        if (localStorage.getItem('uid') === props.userId) {
+        if (localStorage.getItem('uid') === userId) {
             setSelf(true)
         }
-        //calculates the percentage on the progress bar
-    }, [props.userId, auth, userId])
+    }, [auth, userId])
+
 
     const testAPI = async() =>{
         const token = await auth.user.getIdToken()
@@ -126,12 +135,17 @@ const ProfileBar = (props) => {
             [BODY.EXPGAINED]:1500,
         }
 
+
         await userApis.updateUserLevel(payload, headers)
     }
 
     return (
         <div>
+            <div>
+                    <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
+             </div>
             <div className={classes.userInfoAndEXPContainer}>
+
                 <div className={classes.userInfoGrid}>
                     <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         {
@@ -148,8 +162,13 @@ const ProfileBar = (props) => {
                         }
                     </div>
 
-                    <div className={classes.ChannelNameText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.displayName}</div>
-                    <div className={classes.EmailText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.email}</div>
+
+                    <div className={classes.ChannelNameText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
+                    <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
+                    <div className={classes.subscribeBtn}>
+                        {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
+                        {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
+                    </div>
                 </div>
                         
                 <div className= {classes.experienceBarContainer}>
@@ -176,17 +195,14 @@ const ProfileBar = (props) => {
                     Followers
                 </div>
 
+
                 <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(4) }}>
                     Forum
                 </div>
 
-                <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
-                    Leaderboard
-                </div>
-
-                <div className={classes.tableCell3}>
-                    {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
-                    {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
+                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                        Leaderboard
+                    </div>
                 </div>
 
             </div>

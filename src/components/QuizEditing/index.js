@@ -1,25 +1,36 @@
 import { useStyles } from './style'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import SectionWrapper from './SectionWrapper'
 import quizApis from '../../api/quiz-api'
+import AuthContext from '../../context/auth-context'
+import HEADER from '../../constant/header'
 const QuizEditing = () => {
     const classes = useStyles()
     const [tag, setTag] = useState(0)
     const [quiz, setQuiz] = useState()
     const { quizId } = useParams()
+    const {auth} = useContext(AuthContext)
     const changeTag = (newTag) => {
         setTag(newTag)
     }
     useEffect(()=>{
         const loadQuiz = async () => {
-            let response = await quizApis.getQuizByQuizId(quizId)
-            if(response.data.length>0){
-                setQuiz(response.data[0])
+            console.log("loading quiz for editing")
+            if(auth.user != null){
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await quizApis.getSingleUserQuizAuthenticated(quizId, headers)
+                console.log(response.data)
+                if(response.data.length>0){
+                    setQuiz(response.data[0])
+                }
             }
         }
         loadQuiz()
-    },[quizId])
+    },[quizId, auth.user])
 
     if(quiz===undefined || quiz==null){
         return <div>loading</div>

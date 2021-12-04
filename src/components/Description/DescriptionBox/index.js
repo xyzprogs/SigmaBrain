@@ -211,16 +211,18 @@ const DescriptionBox = (props)=>{
     }
 
     const onSubscribe = async () => {
-        console.log("subscribe")
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN]: token
+        if(auth.user!=null && auth.user!==undefined){
+            console.log("subscribe")
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.SUBSCRIBETO]: quiz[BODY.USERID]
+            }
+            await userApis.subscribe(payload, headers)
+            setSubscribeStatus(true)
         }
-        let payload = {
-            [BODY.SUBSCRIBETO]: quiz[BODY.USERID]
-        }
-        await userApis.subscribe(payload, headers)
-        setSubscribeStatus(true)
     }
 
     const unsubscribe = async()=>{

@@ -25,9 +25,6 @@ export const useStyles = createUseStyles({
         width: "50%",
         height: "50%",
         margin: "auto",
-        // border: "solid",
-        // borderWidth: "1px",
-        // borderRadius: "10px",
     },
     cardContainer:{
         maxWidth: "60%",

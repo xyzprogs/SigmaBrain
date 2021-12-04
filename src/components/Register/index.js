@@ -10,8 +10,6 @@ import AUTH_ERROR from '../../constant/firebase-error-code';
 import { useHistory } from "react-router-dom";
 import AuthContext from '../../context/auth-context'
 import ERRORCODE from '../../constant/firebase-error-code';
-
-
 import User_image from '../../images/user.png'
 import validateRegistration from './validateRegistration';
 const Register = () => {
@@ -173,7 +171,7 @@ const Register = () => {
                         </span>
                         <span className={classes.forgotPassword}>
                             <Link to="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
-                                forgot password?
+                                Forgot Password?
                             </Link>
                         </span>
                     </div>

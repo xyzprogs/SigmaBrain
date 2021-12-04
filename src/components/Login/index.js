@@ -112,13 +112,13 @@ const Login = () => {
                 </div>
                 {
                     <div className={classes.loginOptions}>
-                        <div className={classes.checkboxContainer}>
+                        {/* <div className={classes.checkboxContainer}>
                             <input type="checkbox" />
                             <span>Stay Logged In</span>
-                        </div>
+                        </div> */}
                         <span className={classes.forgotPassword}>
                             <Link to="/forgetPassword" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
-                                forgot password?
+                                Forgot Password?
                             </Link>
                         </span>
                     </div>

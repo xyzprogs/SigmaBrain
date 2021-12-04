@@ -33,6 +33,9 @@ const ForumPostBox = ()=>{
             }
             setComments(newarr)
         }
+        else{
+            setEnd(true)
+        }
     }
     const onSendComment = async ()=>{
         if(comment===""){
@@ -89,24 +92,28 @@ const ForumPostBox = ()=>{
     }
 
     return(
-        <div>
+        <div className={classes.forumContainer}>
+            <div>
             <div className={classes.titleBox}>{post[BODY.POSTTITLE]}</div>
             <div className={classes.commentsContainer}> 
-                <div>{post[BODY.POSTDESCRIPTION]}</div>
-                    {comments.map(comment=>{
-                        return <PostCommentBox
-                        comment={comment}/>
-                    })}
-                    {
-                        end?<div>No more</div>
-                        :<Button onClick={loadMore}>More</Button>
-                    }
+                <div className={classes.postContainer}>{post[BODY.POSTDESCRIPTION]}</div>
+            </div>
             </div>
             <div>
-                <textarea value={comment} onChange={onChangeComment} className={classes.commentInputBox}/>
+                <textarea value={comment} onChange={onChangeComment} className={classes.commentInputBox} placeholder={"Enter Comment"}/>
                 <div>
                     <Button onClick={onSendComment}>Send</Button>
                 </div>
+            </div>
+            <div className={classes.commentsContainer2}>
+                {comments.map(comment=>{
+                        return <PostCommentBox
+                        comment={comment}/>
+                })}
+                {
+                    end?<div>No more</div>
+                    :<Button  onClick={loadMore}>More</Button>
+                }
             </div>
         </div>
     )

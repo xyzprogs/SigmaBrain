@@ -5,6 +5,7 @@ import SearchResult from '../../components/SearchResult'
 import { useEffect, useState } from 'react'
 import SearchContext from '../../context/search-context'
 import { Button } from '@mui/material'
+import QuizListCard from '../../components/QuizListCard'
 const SearchResultPage = () => {
     const classes = useStyles()
     const [results, setResults] = useState([])
@@ -13,20 +14,23 @@ const SearchResultPage = () => {
         setResults(searchResult)
     },[searchResult])
     return (
-        <div className={classes.homeContainer}> 
+        <div> 
             <div>
                 <SideBar className={classes.sidebar}/>
             </div>
-            <div className={classes.searchResults}>
-                <div className={classes.title}>Reults</div>
-                <SearchResult 
-                results={results}/>
-            </div>
-            <div>
-                {   
-                    end?<div>No More</div>:
-                    <Button onClick={getMoreSearchResult}>More</Button>
-                }
+            <div className={classes.pageContainer}>
+                <div>
+                    <div className={classes.title}>Search Results</div>
+                    <div>
+                        {searchResult.map((quiz, i) => {
+                                    return <QuizListCard key={i} quiz={quiz}/>
+                        })}
+                    </div>
+                    {
+                        end?<div className={classes.endLine}>No More</div>
+                        :<Button onClick={getMoreSearchResult}>More</Button>
+                    }
+                </div>
             </div>
         </div>
     )
