@@ -4,22 +4,18 @@ import { useStyles } from './style'
 
 const ExperienceBar = (props) => {
     const { bgcolor, completed } = props;
-    const [bigCompleted, setBigCompleted] = useState(0);
 
-    useEffect(() => {
-        setInterval(() => setBigCompleted(Math.floor(Math.random() * 100) + 1), 2000);
-    }, []);
+    //Styles used for the filler
     const filler = {
-        width: `${bigCompleted}%`,
+        width: `${completed}%`,
         backgroundColor: bgcolor,
     }
     const classes = useStyles()
-
-
+    
     return (
         <div className={classes.containerStyles}>
             <div className={classes.fillerStyles} style={filler}>
-                <span className={classes.labelStyles}>{`${bigCompleted}%`}</span>
+                <span className={classes.labelStyles}>{`${completed}%`}</span>
             </div>
         </div>
     )

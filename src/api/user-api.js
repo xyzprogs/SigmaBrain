@@ -21,6 +21,7 @@ export const getUserDisplayName = (userId)=>api.get(`/displayname/${userId}`)
 export const getFollowers = (headers, row)=>api.get(`/followers?row=${row}`, {headers: headers})
 /*TODO: REQUIRE AUTHENTICATION*/export const updateUserExperience = (payload) => api.put('/updateUserExperience', payload)
 export const updateUserDisplayNamem = (payload, headers) => api.put('/updateUserDisplayName', payload, {headers: headers})
+export const updateUserLevel = (payload, headers) => api.put('/updateUserLevel', payload, {headers: headers})
 export const getMoreSubscriptionsById = (payload, headers) => api.post('/getMoreSubscriptionsById', payload, {headers: headers})
 export const createPreferenceCateory = (payload, headers) => api.post('/createPreferenceCateory', payload, {headers: headers})
 export const obtainUserCategoryPreference = (headers) => api.get('/obtainUserCategoryPreference', {headers: headers})
@@ -44,6 +45,7 @@ const userApis = {
     getFollowers,
     updateUserExperience,
     updateUserDisplayNamem,
+    updateUserLevel,
     getMoreSubscriptionsById,
     createPreferenceCateory,
     obtainUserCategoryPreference,

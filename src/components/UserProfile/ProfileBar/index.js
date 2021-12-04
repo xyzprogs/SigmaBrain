@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import { useRef, useContext, useState, useEffect } from 'react'
 import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
+import LEVEL_CUTOFF from '../../../constant/levelPointsCutoff'
 import AuthContext from '../../../context/auth-context'
 import userApis from '../../../api/user-api'
 import ExperienceBar from '../../ExperienceBar'
@@ -18,7 +19,17 @@ const ProfileBar = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const { userId } = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
+    const [expBarPercentage, setExpBarPercentage] = useState(0)
     
+    const calculateProgress =(userLevel, expNeeded)=>{
+        //calculates the percentage on the experience bar
+
+        //gets the experience cap for the current level
+        const requiredExp = LEVEL_CUTOFF.LEVELS[userLevel].experience
+        
+        let percentage = Math.floor((1 - expNeeded/requiredExp) * 100);
+        setExpBarPercentage(percentage);
+    }
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -90,7 +101,8 @@ const ProfileBar = (props) => {
             //Loads the user information 
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
-                console.log(response.data)
+                calculateProgress(response.data[0].userLevel, response.data[0].expForLevelUp)
+                console.log(response.data[0])
             })
 
 
@@ -99,8 +111,23 @@ const ProfileBar = (props) => {
         if (localStorage.getItem('uid') === props.userId) {
             setSelf(true)
         }
+        //calculates the percentage on the progress bar
     }, [props.userId, auth, userId])
 
+    const testAPI = async() =>{
+        const token = await auth.user.getIdToken()
+        let headers = {
+            [HEADER.TOKEN]: token
+        }
+        let payload = {
+            [BODY.SUBSCRIBETO]: userId,
+            [BODY.USERLEVEL]:6,
+            [BODY.EXPNEEDED]:1232,
+            [BODY.EXPGAINED]:1500,
+        }
+
+        await userApis.updateUserLevel(payload, headers)
+    }
 
     return (
         <div>
@@ -126,7 +153,9 @@ const ProfileBar = (props) => {
                 </div>
                         
                 <div className= {classes.experienceBarContainer}>
-                    <ExperienceBar bgcolor = {'red'} completed = {75}/>
+                    <ExperienceBar bgcolor = {'red'} completed = {expBarPercentage}/>
+                    <div onClick={()=>testAPI()}>level {`${userInfo.userLevel}`}</div>
+                    <div>Still need {`${userInfo.expForLevelUp}`} EXP to level up</div>
                 </div>
             </div>
             <div className={classes.barContainer}>

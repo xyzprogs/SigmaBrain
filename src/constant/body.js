@@ -18,6 +18,9 @@ const USERDESCRIPTION = "userDescription"
 const TOPFEATUREQUIZ = "topFeatureQuiz"
 const USERPROFILE = "userProfile"
 const USERPROFILE_IMAGE_TYPE = "imageType"
+const USERLEVEL = "userLevel"
+const EXPNEEDED = "expForLevelUp"
+const EXPGAINED = "expGained"
 
 //Quiz Body
 const QUIZID = "quizId"
@@ -126,6 +129,9 @@ const BODY_CONSTANT = {
     TOPFEATUREQUIZ,
     USERPROFILE,
     USERPROFILE_IMAGE_TYPE,
+    USERLEVEL,
+    EXPNEEDED,
+    EXPGAINED,
 
     //BODY
     QUIZID,
