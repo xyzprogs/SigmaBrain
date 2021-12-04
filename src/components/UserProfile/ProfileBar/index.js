@@ -15,7 +15,7 @@ const ProfileBar = (props) => {
     const [profile, setProfile] = useState(false)
     const [self, setSelf] = useState(false)
     const [userInfo, setUserInfo] = useState({})
-    const {userId} = useParams()
+    const { userId } = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
     console.log(props);
     const clickUpload = () => {
@@ -57,8 +57,8 @@ const ProfileBar = (props) => {
         setSubscribeStatus(true)
     }
 
-    const unsubscribe = async()=>{
-        if(auth.user!=null && auth.user!==undefined){
+    const unsubscribe = async () => {
+        if (auth.user != null && auth.user !== undefined) {
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN]: token
@@ -101,62 +101,68 @@ const ProfileBar = (props) => {
     }, [props.userId, auth, userId])
 
 
-        return (
-            <div>
+    return (
+        <div>
+            <div className={classes.userInfoAndEXPContainer}>
                 <div className={classes.userInfoGrid}>
                     <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         {
-                            (profile&&self)
-                            ?
-                            <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
-                                <img  alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image}/>
-                                <div className={classes.changeText}>Change</div>
-                            </div>
-                            :
-                            <div className={classes.imgSize}>
-                                <img  alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image}/>
-                            </div>      
+                            (profile && self)
+                                ?
+                                <div onClick={clickUpload} onMouseLeave={onLeaveProfile} className={classes.imgSize}>
+                                    <img alt="user profile" className={`${classes.imgSize} ${classes.imgOpacity}`} src={image} />
+                                    <div className={classes.changeText}>Change</div>
+                                </div>
+                                :
+                                <div className={classes.imgSize}>
+                                    <img alt="user profile" onMouseEnter={onEnterProfile} className={classes.imgSize} src={image} />
+                                </div>
                         }
                     </div>
 
-                    <div className={classes.ChannelNameText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                    <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
+                    <div className={classes.ChannelNameText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.displayName}</div>
+                    <div className={classes.EmailText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.email}</div>
                 </div>
-                <div className={classes.barContainer}>
-
-                    <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(0) }}>
-                        Home
-                    </div>
-
-                    <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(1) }}>
-                        Quizzes
-                    </div>
-
-                    <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(2) }}>
-                        About
-                    </div>
-
-                    <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(3) }}>
-                        Followers
-                    </div>
-
-                    <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(4) }}>
-                        Forum
-                    </div>
-
-                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
-                        Leaderboard
-                    </div>
-
-                    <div className={classes.tableCell3}>
-                        {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
-                        {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
-                    </div>
-
+                        
+                <div className= {classes.experienceBarContainer}>
+                    Hello
                 </div>
-                <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
             </div>
-        )
+            <div className={classes.barContainer}>
+
+                <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(0) }}>
+                    Home
+                </div>
+
+                <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(1) }}>
+                    Quizzes
+                </div>
+
+                <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(2) }}>
+                    About
+                </div>
+
+                <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(3) }}>
+                    Followers
+                </div>
+
+                <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(4) }}>
+                    Forum
+                </div>
+
+                <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                    Leaderboard
+                </div>
+
+                <div className={classes.tableCell3}>
+                    {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
+                    {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
+                </div>
+
+            </div>
+            <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag} />
+        </div>
+    )
 }
 
 export default ProfileBar
