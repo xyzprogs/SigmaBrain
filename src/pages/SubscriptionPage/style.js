@@ -10,4 +10,18 @@ export const useStyles = createUseStyles({
         marginLeft: "2.5%",
         marginTop: "2.5%"
     },
+
+    endLine: {
+        border: "solid",
+        borderWidth: "1px 0px 0px 0px",
+        borderColor: "gray",
+        marginTop: "5%"
+    },
+
+    title:{
+        fontWeight: "bold",
+        fontSize: "15px",
+        paddingTop: "5%",
+        textAlign: "left"
+    }
 })

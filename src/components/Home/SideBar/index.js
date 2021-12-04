@@ -51,6 +51,9 @@ const SideBar = () => {
             }
             setSubscriptions(new_sub)
         }
+        else{
+            setEnd(true)
+        }
     }
     const redirectToHome = ()=>{
         console.log("redtriect home")

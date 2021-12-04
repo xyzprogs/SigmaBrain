@@ -5,8 +5,8 @@ import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
 import AuthContext from '../../../context/auth-context'
 import userApis from '../../../api/user-api'
-import Button from '@mui/material/Button'
 import default_banner from '../../../images/profile_image.png'
+import NoUserModal from '../../NoUserModal'
 const ProfileBar = (props) => {
     const classes = useStyles()
     const imgRef = useRef()
@@ -17,7 +17,7 @@ const ProfileBar = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const {userId} = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
-    console.log(props);
+    const [showModal, setShowModal] = useState(false);
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -46,15 +46,20 @@ const ProfileBar = (props) => {
     }
 
     const onSubscribe = async () => {
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN]: token
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.SUBSCRIBETO]: userId
+            }
+            await userApis.subscribe(payload, headers)
+            setSubscribeStatus(true)
         }
-        let payload = {
-            [BODY.SUBSCRIBETO]: userId
+        else{
+            setShowModal(true)
         }
-        await userApis.subscribe(payload, headers)
-        setSubscribeStatus(true)
     }
 
     const unsubscribe = async()=>{
@@ -79,7 +84,7 @@ const ProfileBar = (props) => {
     useEffect(() => {
         const loadImage = async () => {
             try {
-                let response = await userApis.getProfileImage(props.userId)
+                let response = await userApis.getProfileImage(userId)
                 setImage(response.data)
             } catch (e) {
                 setImage(default_banner)
@@ -89,20 +94,22 @@ const ProfileBar = (props) => {
             //Loads the user information 
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
-                console.log(response.data)
             })
 
 
         }
         loadImage()
-        if (localStorage.getItem('uid') === props.userId) {
+        if (localStorage.getItem('uid') === userId) {
             setSelf(true)
         }
-    }, [props.userId, auth, userId])
+    }, [auth, userId])
 
 
         return (
             <div>
+                <div>
+                    <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
+                </div>
                 <div className={classes.userInfoGrid}>
                     <div className={`${classes.circle} ${classes.imgContainer} ${classes.tableCell}`}>
                         {
@@ -121,6 +128,10 @@ const ProfileBar = (props) => {
 
                     <div className={classes.ChannelNameText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
                     <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
+                    <div className={classes.subscribeBtn}>
+                        {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
+                        {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
+                    </div>
                 </div>
                 <div className={classes.barContainer}>
 
@@ -147,12 +158,6 @@ const ProfileBar = (props) => {
                     <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
                         Leaderboard
                     </div>
-
-                    <div className={classes.tableCell3}>
-                        {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
-                        {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
-                    </div>
-
                 </div>
                 <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag}/>
             </div>

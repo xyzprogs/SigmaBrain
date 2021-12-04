@@ -1,4 +1,3 @@
-
 import userApis from "../../../api/user-api"
 import { useState, useEffect, useContext } from "react"
 import HEADER from "../../../constant/header"
@@ -6,6 +5,7 @@ import AuthContext from "../../../context/auth-context"
 import BODY from "../../../constant/body"
 import { useStyles } from './style'
 import { Button } from "@mui/material"
+import FollowerCard from "../../FollowerCard"
 const FollowerList = ()=>{
     const [followers, setFollowers] = useState([])
     const {auth} = useContext(AuthContext)
@@ -21,6 +21,7 @@ const FollowerList = ()=>{
                 let response = await userApis.getFollowers(headers)
                 // setFollowers(response.data)
                 updateFollower(response)
+                console.log(response.data)
             }
         }
         loadFollower()
@@ -54,9 +55,8 @@ const FollowerList = ()=>{
 
     return(
         <div className={classes.container}>
-            <div className={classes.title}>Followers</div>
             {followers.map(f=>{
-                return <div className={classes.followerContainer}>{f[BODY.USERID]}</div>
+                return <FollowerCard follower={f}/>
             })}
 
             {

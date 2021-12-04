@@ -44,6 +44,9 @@ const HistoryPage = ()=>{
             }
             setHistories(new_histories)
         }
+        else{
+            setEnd(true)
+        }
     }
     
     const getMore = async ()=>{
@@ -62,25 +65,25 @@ const HistoryPage = ()=>{
     }
 
     return(
-        <div className={classes.homeContainer}> 
+    <div> 
+        <div>
+            <SideBar className={classes.sidebar}/>
+        </div>
+        <div className={classes.pageContainer}>
             <div>
-                <SideBar className={classes.sidebar}/>
-            </div>
-            <div className={classes.pageContainer}>
-                <div className={classes.title}>Reults</div>
+                <div className={classes.title}>History</div>
                 <div>
                     {histories.map((quiz, i) => {
                                 return <QuizListCard key={i} quiz={quiz}/>
                     })}
                 </div>
-            </div>
-            <div>
-                {   
-                    end?<div>No More</div>:
-                    <Button onClick={getMore}>More</Button>
+                {
+                    end?<div className={classes.endLine}>No More</div>
+                    :<Button onClick={getMore}>More</Button>
                 }
             </div>
         </div>
+    </div>
     )
 }
 

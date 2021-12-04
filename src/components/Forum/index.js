@@ -42,6 +42,9 @@ const ForumSection = () => {
             }
             setPosts(new_posts)
         }
+        else{
+            setEnd(true)
+        }
     }
 
     const loadMore = async ()=>{
@@ -66,7 +69,7 @@ const ForumSection = () => {
                         </div>
                     })}
                     {
-                        end?<div>No More</div>
+                        end?<div>That's the end</div>
                         :<Button onClick={loadMore}>More</Button>
                     }
                 </div>

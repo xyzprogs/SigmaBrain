@@ -36,6 +36,9 @@ const CommentSection = (props)=>{
             }
             setComments(newarr)
         }
+        else{
+            setEnd(true)
+        }
     }
 
     let loadMore = async ()=>{
@@ -103,7 +106,7 @@ const CommentSection = (props)=>{
                     return <CommentBox comment={c}/>
                 })}
                 {
-                    end?<div>No More</div>
+                    end?<div>That's the end</div>
                     :<Button onClick={loadMore}>More</Button>
                 }
             </div>

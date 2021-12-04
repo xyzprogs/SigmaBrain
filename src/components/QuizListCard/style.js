@@ -10,8 +10,12 @@ export const useStyles = createUseStyles({
         marginTop: "5%",
         paddingBottom: "2.5%",
         border: "solid",
-        borderWidth: "0px 0px 1px 0px",
-        borderColor: "gray"
+        borderWidth: "1px 0px 0px 0px",
+        borderColor: "gray",
+        cursor: "pointer",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },
 
     quizName:{
