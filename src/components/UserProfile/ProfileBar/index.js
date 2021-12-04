@@ -23,13 +23,13 @@ const ProfileBar = (props) => {
 
     const [expBarPercentage, setExpBarPercentage] = useState(0)
     const [showModal, setShowModal] = useState(false);
-    const calculateProgress =(userLevel, expNeeded)=>{
+    const calculateProgress = (userLevel, expNeeded) => {
         //calculates the percentage on the experience bar
 
         //gets the experience cap for the current level
         const requiredExp = LEVEL_CUTOFF.LEVELS[userLevel].experience
-        
-        let percentage = Math.floor((1 - expNeeded/requiredExp) * 100);
+
+        let percentage = Math.floor((1 - expNeeded / requiredExp) * 100);
         setExpBarPercentage(percentage);
     }
 
@@ -61,7 +61,7 @@ const ProfileBar = (props) => {
     }
 
     const onSubscribe = async () => {
-        if(auth.user!=null && auth.user!==undefined){
+        if (auth.user != null && auth.user !== undefined) {
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN]: token
@@ -72,7 +72,7 @@ const ProfileBar = (props) => {
             await userApis.subscribe(payload, headers)
             setSubscribeStatus(true)
         }
-        else{
+        else {
             setShowModal(true)
         }
     }
@@ -123,27 +123,25 @@ const ProfileBar = (props) => {
     }, [auth, userId])
 
 
-    const testAPI = async() =>{
+    const testAPI = async () => {
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN]: token
         }
         let payload = {
             [BODY.SUBSCRIBETO]: userId,
-            [BODY.USERLEVEL]:6,
-            [BODY.EXPNEEDED]:1232,
-            [BODY.EXPGAINED]:1500,
+            [BODY.USERLEVEL]: 6,
+            [BODY.EXPNEEDED]: 1232,
+            [BODY.EXPGAINED]: 1500,
         }
-
-
         await userApis.updateUserLevel(payload, headers)
     }
 
     return (
         <div>
             <div>
-                    <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
-             </div>
+                <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
+            </div>
             <div className={classes.userInfoAndEXPContainer}>
 
                 <div className={classes.userInfoGrid}>
@@ -163,17 +161,17 @@ const ProfileBar = (props) => {
                     </div>
 
 
-                    <div className={classes.ChannelNameText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.displayName}</div>
-                    <div className={classes.EmailText}>{(userInfo==null||userInfo===undefined)?"loading":userInfo.email}</div>
+                    <div className={classes.ChannelNameText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.displayName}</div>
+                    <div className={classes.EmailText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.email}</div>
                     <div className={classes.subscribeBtn}>
                         {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
                         {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}
                     </div>
                 </div>
-                        
-                <div className= {classes.experienceBarContainer}>
-                    <ExperienceBar bgcolor = {'red'} completed = {expBarPercentage}/>
-                    <div onClick={()=>testAPI()}>level {`${userInfo.userLevel}`}</div>
+
+                <div className={classes.experienceBarContainer}>
+                    <ExperienceBar bgcolor={'red'} completed={expBarPercentage} />
+                    <div onClick={() => testAPI()}>level {`${userInfo.userLevel}`}</div>
                     <div>Still need {`${userInfo.expForLevelUp}`} EXP to level up</div>
                 </div>
             </div>
@@ -200,11 +198,9 @@ const ProfileBar = (props) => {
                     Forum
                 </div>
 
-                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
-                        Leaderboard
-                    </div>
+                <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                    Leaderboard
                 </div>
-
             </div>
             <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag} />
         </div>
