@@ -8,7 +8,7 @@ import { useStyles } from './style'
 import quizApis from '../../api/quiz-api'
 import HEADER from '../../constant/header'
 
-const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, auth})=>{
+const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, auth, updateQuestionName, questionIndex})=>{
     const [numOfChoices, setNumOfChoices] = useState(0)
     const [choices, setChoices] = useState([])
     const [correct, setCorrect] = useState([])
@@ -77,7 +77,8 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
         let payload = {
             [BODY.CHOICES]: updateChoices,
             [BODY.QUIZID]: quizId,
-            [BODY.QUESTIONID]: question[BODY.QUESTIONID]
+            [BODY.QUESTIONID]: question[BODY.QUESTIONID],
+            [BODY.QUESTION]: questionName
         }
         
         let error = {};
@@ -107,6 +108,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
             [HEADER.TOKEN] : token
         }
         quizApis.updateQuestionChoice(payload, headers)
+        updateQuestionName(questionIndex, questionName)
         clearModal()
         handleClose()
     }

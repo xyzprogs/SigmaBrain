@@ -60,10 +60,12 @@ const QuizSection = ({quiz})=>{
         }
 
         await quizApis.updateQuiz(payload, headers)
-        const data = new FormData()
-        data.append(BODY.QUIZID, quizId)
-        data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
-        await quizApis.setQuizThumbnail(quizId, data, headers)
+        if(imageAsFile !== undefined){
+            const data = new FormData()
+            data.append(BODY.QUIZID, quizId)
+            data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
+            await quizApis.setQuizThumbnail(quizId, data, headers)
+        }
         history.push('/quizManagement')
     }
     useEffect(()=>{
