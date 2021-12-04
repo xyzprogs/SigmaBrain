@@ -73,7 +73,7 @@ export const useStyles = createUseStyles({
         fontSize:"30px",
         // border: "solid",
         // borderWidth: "0px 0px 2px 0px",
-        color: "gray",
+        color: "#34739C",
         // borderColor: "blue",
         // textAlign: "center"
     },
