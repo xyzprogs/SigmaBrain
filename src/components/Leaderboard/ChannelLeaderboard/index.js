@@ -23,9 +23,9 @@ const ChannelLeaderboard = ({ channelName }) => {
         <div className={classes.channelLeaderboardForm}>
             <div className={classes.gridContainer}>
                 <div className={classes.rankCardContainer} >
-                    <div>  </div>
-                    <div> User </div>
-                    <div> Score </div>
+                    <div className={classes.textStyle}>  </div>
+                    <div className={classes.textStyle}> User </div>
+                    <div className={classes.textStyle}> Score </div>
                 </div>
                 <div className={classes.textToLeft}>
                     {localLeaderboard.map((user, index) =>
