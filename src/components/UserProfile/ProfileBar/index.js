@@ -5,6 +5,7 @@ import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
 import AuthContext from '../../../context/auth-context'
 import userApis from '../../../api/user-api'
+import ExperienceBar from '../../ExperienceBar'
 import Button from '@mui/material/Button'
 import default_banner from '../../../images/profile_image.png'
 const ProfileBar = (props) => {
@@ -17,7 +18,7 @@ const ProfileBar = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const { userId } = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
-    console.log(props);
+    
     const clickUpload = () => {
         imgRef.current.click()
     }
@@ -125,7 +126,7 @@ const ProfileBar = (props) => {
                 </div>
                         
                 <div className= {classes.experienceBarContainer}>
-                    Hello
+                    <ExperienceBar bgcolor = {'red'} completed = {75}/>
                 </div>
             </div>
             <div className={classes.barContainer}>
