@@ -15,6 +15,7 @@ const QuestionSection = ({quiz})=>{
     const [open, setOpen] = useState(false)
     const [choices, setChoices] = useState([])
     const [question, setQuestion] = useState()
+    const [questionIndex, setQuestionIndex] = useState(-1)
     const handleClose = () => {
         setOpen(false)
     }
@@ -38,6 +39,13 @@ const QuestionSection = ({quiz})=>{
         setOpen(true)
         setChoices(response.data)
         setQuestion(questions[i])
+        setQuestionIndex(i)
+    }
+
+    const updateQuestionName = (i, newName) => {
+        let newQuestions = [...questions]
+        newQuestions[i][BODY.QUESTION] = newName
+        setQuestions(newQuestions)
     }
 
     return(
@@ -63,6 +71,8 @@ const QuestionSection = ({quiz})=>{
                 question={question}
                 quizId={quiz[BODY.QUIZID]}
                 auth={auth}
+                updateQuestionName={updateQuestionName}
+                questionIndex={questionIndex}
                 />
         </div>
     )
