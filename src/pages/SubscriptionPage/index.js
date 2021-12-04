@@ -37,6 +37,9 @@ const SubscriptionPage = ()=>{
             }
             setQuizzes(newarr)
         }
+        else{
+            setEnd(true)
+        }
     }
 
     const loadMore = async ()=>{
@@ -58,14 +61,14 @@ const SubscriptionPage = ()=>{
             </div>
             <div className={classes.pageContainer}>
                 <div>
-                    Subscription List
+                    <div className={classes.title}>Subscription List</div>
                     <div>
                         {quizzes.map((quiz, i) => {
                                     return <QuizListCard key={i} quiz={quiz}/>
                         })}
                     </div>
                     {
-                        end?<div>No More</div>
+                        end?<div className={classes.endLine}>No More</div>
                         :<Button onClick={loadMore}>More</Button>
                     }
                 </div>

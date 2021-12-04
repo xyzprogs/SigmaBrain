@@ -39,6 +39,9 @@ const LikeQuizPage = ()=>{
             }
             setQuizzes(newarr)
         }
+        else{
+            setEnd(true)
+        }
     }
 
     const loadMore = async ()=>{
@@ -55,22 +58,24 @@ const LikeQuizPage = ()=>{
 
     return(
         <div> 
+        <div>
+            <SideBar className={classes.sidebar}/>
+        </div>
+        <div className={classes.pageContainer}>
             <div>
-                <SideBar className={classes.sidebar}/>
-            </div>
-            <div className={classes.pageContainer}>
-                MyQuizList
+                <div className={classes.title}>Take Later</div>
                 <div>
                     {quizzes.map((quiz, i) => {
-                                return <QuizListCard key={i} quiz={quiz} redirect={true}/>
+                                return <QuizListCard key={i} quiz={quiz}/>
                     })}
                 </div>
                 {
-                    end?<div>No More</div>
+                    end?<div className={classes.endLine}>No More</div>
                     :<Button onClick={loadMore}>More</Button>
                 }
             </div>
         </div>
+    </div>
     )
 
 }

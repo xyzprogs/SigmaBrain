@@ -33,6 +33,9 @@ const ForumPostBox = ()=>{
             }
             setComments(newarr)
         }
+        else{
+            setEnd(true)
+        }
     }
     const onSendComment = async ()=>{
         if(comment===""){

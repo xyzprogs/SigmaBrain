@@ -107,13 +107,13 @@ export const useStyles = createUseStyles({
         fontSize:"25px",
         textAlign:"Left",
         fontWeight:"bold",
-        paddingLeft: "30%",
+        paddingLeft: "50%",
         marginTop: "5%"
     },
     EmailText:{
         fontSize:"15px",
         textAlign:"left",
-        marginLeft: "30%"
+        marginLeft: "50%"
     },
     colorRed:{
         color: "red"
@@ -123,5 +123,9 @@ export const useStyles = createUseStyles({
     },
     btn:{
         cursor: "pointer"
+    },
+
+    subscribeBtn:{
+        marginLeft: "45%"
     }
 })

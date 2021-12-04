@@ -27,15 +27,14 @@ export const useStyles = createUseStyles({
     },
     loginForm: {
         width: '100%',
-        height: 'auto',
-        maxWidth: '400px',
-        minHeight: '400px',
+        height: '100%',
         padding: '30px',
         borderRadius: '14px',
         ...flexCenter,
         flexDirection: 'column',
         background: '#ffffff',
-        marginTop: "50px"
+        marginTop: "50px",
+        overflowY: "auto"
     },
     formGroup: {
         width: '100%',
