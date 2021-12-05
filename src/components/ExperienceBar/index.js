@@ -15,7 +15,12 @@ const ExperienceBar = (props) => {
     return (
         <div className={classes.containerStyles}>
             <div className={classes.fillerStyles} style={filler}>
-                <span className={classes.labelStyles}>{`${completed}%`}</span>
+            <span className={classes.labelStyles}
+                    role="progressbar"
+                    aria-valuenow={`${completed}`}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                >{`${completed}%`}</span>
             </div>
         </div>
     )
