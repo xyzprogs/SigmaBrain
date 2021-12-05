@@ -18,6 +18,8 @@ export const useStyles = createUseStyles({
     labelStyles:{
         padding: 5,
         color: 'white',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        whiteSpace: 'nowrap',
+        overflow:'hidden'
     }
 })
