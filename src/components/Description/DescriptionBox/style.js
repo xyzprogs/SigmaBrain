@@ -26,12 +26,20 @@ export const useStyles = createUseStyles({
         height: "50%",
         margin: "auto",
     },
+    // cardContainer:{
+    //     maxWidth: "60%",
+    //     maxHeight: "30%",
+    //     backgroundColor: "white",
+    //     margin: "auto",
+    //     borderRadius: "20px"
+    // },
     cardContainer:{
-        maxWidth: "60%",
-        maxHeight: "30%",
+        width: "90%",
+        maxHeight: "100%",
         backgroundColor: "white",
         margin: "auto",
-        borderRadius: "20px"
+        borderRadius: "20px",
+        marginLeft: "10%"
     },
     title: {
         marginRight: "100%",
@@ -134,5 +142,30 @@ export const useStyles = createUseStyles({
     nameBtnContainer:{
         height: "10%",
         width: "15%"
+    },
+
+    bigContainer:{
+        display: "grid",
+        gridTemplateColumns: "60% 40%",
+        gridTemplateAreas:`
+        "quiz recommend"
+        `,
+        width: "100%"
+    },
+
+    relevantBoard:{
+        height: "60vh",
+        marginLeft: "2.5%"
+    },
+
+    relevantText:{
+        textAlign: "left",
+        fontWeight: "bolder",
+        fontSize: "24px"
+    },
+    
+    relevantQuizContainer:{
+        overflowY: "auto",
+        height: "100%",
     }
 })

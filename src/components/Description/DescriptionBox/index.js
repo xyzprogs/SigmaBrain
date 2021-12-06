@@ -3,13 +3,13 @@ import { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import quizApis from '../../../api/quiz-api'
 import BODY from '../../../constant/body'
-import Card from "react-bootstrap/Card"
 import Button from "@mui/material/Button"
 import AuthContext from '../../../context/auth-context'
 import HEADER from '../../../constant/header'
 import NoUserModal from '../../NoUserModal'
 import userApis from '../../../api/user-api'
 import default_thumbnial from '../../../images/default_quiz_thumbnail.png'
+import RecommendListCard from '../../RecommendListCard'
 const DescriptionBox = (props)=>{
     const classes = useStyles()
     const {quizId} = useParams()
@@ -22,9 +22,24 @@ const DescriptionBox = (props)=>{
     const [saveStatus, setSaveStatus] = useState(false)
     const [subscribeStatus, setSubscribeStatus] = useState(false)
     const [self, setSelf] = useState(false)
+    const [relevant, setRelevant] = useState([])
     const {auth} = useContext(AuthContext)
     const history = useHistory()
     useEffect(()=>{
+
+        const loadRelevantQuiz = async(quizName)=>{
+            if(auth.user!=null && auth.user!==undefined){
+                let uid = auth.user.uid
+                let body = {
+                    [BODY.USERID]: uid,
+                    [BODY.QUIZNAME]: quizName
+                }
+                let response = await quizApis.getRelevantQuiz(body)
+                console.log(response.data)
+                setRelevant(response.data)
+            }
+        }
+
         const loadQuiz = async () => {
             let response = await quizApis.getQuizWithUser(props.quizId)
             if(response.data.length <= 0){
@@ -34,6 +49,7 @@ const DescriptionBox = (props)=>{
             loadQuizThumbnail(response.data[0][BODY.QUIZID])
             loadUserImage(response.data[0][BODY.USERID])
             getSubscribeStatus(response.data[0][BODY.USERID])
+            loadRelevantQuiz(response.data[0][BODY.QUIZNAME])
         }
 
         const loadQuizThumbnail = async(quizId)=>{
@@ -297,61 +313,71 @@ const DescriptionBox = (props)=>{
         <div>
             <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
         </div>
-        <div className={classes.cardContainer}>
-            <div className={classes.userBox}>    
-                    <div onClick={()=>{redirectToProfile(quiz[BODY.USERID])}} className={`${classes.circle}`}>
-                        <div className={classes.userImageSize}>
-                                <img alt="user profile" className={classes.userImageSize} src={userImage} />
-                        </div>
-                    </div>
-
-                    <div className={classes.nameBtnContainer}>
-                        <div className={classes.userDisplayName}>
-                            {quiz[BODY.DISPLAYNAME]}
+        <div className={classes.bigContainer}>
+            <div className={classes.cardContainer}>
+                <div className={classes.userBox}>    
+                        <div onClick={()=>{redirectToProfile(quiz[BODY.USERID])}} className={`${classes.circle}`}>
+                            <div className={classes.userImageSize}>
+                                    <img alt="user profile" className={classes.userImageSize} src={userImage} />
+                            </div>
                         </div>
 
-                        {!self && !subscribeStatus && <div onClick={onSubscribe} className={`${classes.subscribeBtn} ${classes.btn} ${classes.colorGreen}`}>Subscribe</div>}
-                        {!self && subscribeStatus && <div  onClick={unsubscribe} className={`${classes.subscribeBtn} ${classes.btn} ${classes.colorRed}`}>Unsubscribe</div>}
-                    </div>
-            </div>
-        
-            <div className={classes.cardSize}>
-                <img className={classes.imgSize} variant="top" src={image} />
-            </div>
-            <div className={classes.quizName}>{quiz[BODY.QUIZNAME]}</div>
-            <div className={classes.informationBox}>
-                <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
-            </div>
-            <div className={classes.quizDescription}>
-                {quiz[BODY.QUIZDESCRIPTION]}
-            </div>
-            <Button onClick={startQuiz}>Start Quiz</Button>
+                        <div className={classes.nameBtnContainer}>
+                            <div className={classes.userDisplayName}>
+                                {quiz[BODY.DISPLAYNAME]}
+                            </div>
 
-            <div className={classes.buttonBar}>
-                    {   likedStatus===1?
-                        <div onClick={()=>{changeLikedStatusOnQuiz(2)}} className={`${classes.buttonMargin} ${classes.colorBlue}`}>Like</div>:
-                        <div onClick={()=>{changeLikedStatusOnQuiz(1)}} className={`${classes.buttonMargin}`}>Like</div>
-                    }
-                    {
-                        likedStatus===0?
-                        <div onClick={()=>{changeLikedStatusOnQuiz(2)}} className={`${classes.buttonMargin} ${(likedStatus===0 && classes.colorBlue)}`}>Dislike</div>
-                        :<div onClick={()=>{changeLikedStatusOnQuiz(0)}} className={`${classes.buttonMargin} ${(likedStatus===0 && classes.colorBlue)}`}>Dislike</div>
-                    }
-                    {
-                        saveStatus?
-                        <div  onClick={removeTakeLater} className={`${classes.buttonMargin} ${classes.colorBlue}`}>Saved Later</div>
-                        :<div onClick={takeLater} className={`${classes.buttonMargin}`}>Saved Later</div>
-                    }
-            </div>
-            {   
-                admin && <div>
-                    <div>Administraive Operation</div>
-                    <div className={classes.buttonBar}>
-                        {quiz[BODY.ISPUBLISHED]==2?<div onClick={adminUnblockQuiz} className={`${classes.buttonMargin} ${classes.colorGreen}`}>Unblock</div>:<div onClick={adminBlockQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Block</div>}
-                        <div onClick={adminRemoveQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Remove</div>
-                    </div>
+                            {!self && !subscribeStatus && <div onClick={onSubscribe} className={`${classes.subscribeBtn} ${classes.btn} ${classes.colorGreen}`}>Subscribe</div>}
+                            {!self && subscribeStatus && <div  onClick={unsubscribe} className={`${classes.subscribeBtn} ${classes.btn} ${classes.colorRed}`}>Unsubscribe</div>}
+                        </div>
                 </div>
-            }
+            
+                <div className={classes.cardSize}>
+                    <img className={classes.imgSize} variant="top" src={image} />
+                </div>
+                <div className={classes.quizName}>{quiz[BODY.QUIZNAME]}</div>
+                <div className={classes.informationBox}>
+                    <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
+                </div>
+                <div className={classes.quizDescription}>
+                    {quiz[BODY.QUIZDESCRIPTION]}
+                </div>
+                <Button onClick={startQuiz}>Start Quiz</Button>
+
+                <div className={classes.buttonBar}>
+                        {   likedStatus===1?
+                            <div onClick={()=>{changeLikedStatusOnQuiz(2)}} className={`${classes.buttonMargin} ${classes.colorBlue}`}>Like</div>:
+                            <div onClick={()=>{changeLikedStatusOnQuiz(1)}} className={`${classes.buttonMargin}`}>Like</div>
+                        }
+                        {
+                            likedStatus===0?
+                            <div onClick={()=>{changeLikedStatusOnQuiz(2)}} className={`${classes.buttonMargin} ${(likedStatus===0 && classes.colorBlue)}`}>Dislike</div>
+                            :<div onClick={()=>{changeLikedStatusOnQuiz(0)}} className={`${classes.buttonMargin} ${(likedStatus===0 && classes.colorBlue)}`}>Dislike</div>
+                        }
+                        {
+                            saveStatus?
+                            <div  onClick={removeTakeLater} className={`${classes.buttonMargin} ${classes.colorBlue}`}>Saved Later</div>
+                            :<div onClick={takeLater} className={`${classes.buttonMargin}`}>Saved Later</div>
+                        }
+                </div>
+                {   
+                    admin && <div>
+                        <div>Administraive Operation</div>
+                        <div className={classes.buttonBar}>
+                            {quiz[BODY.ISPUBLISHED]==2?<div onClick={adminUnblockQuiz} className={`${classes.buttonMargin} ${classes.colorGreen}`}>Unblock</div>:<div onClick={adminBlockQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Block</div>}
+                            <div onClick={adminRemoveQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Remove</div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div className={classes.relevantBoard}>
+                <div className={classes.relevantText}>More Relevant Quiz</div>
+                <div className={classes.relevantQuizContainer}>
+                    {relevant.map((quiz, i)=>{
+                        return <RecommendListCard key={i} quiz={quiz}/>
+                    })}
+                </div>
+            </div>
         </div>
     </div>
     )
