@@ -32,7 +32,7 @@ export const useStyles = createUseStyles({
         borderWidth:"0.5px",
         resize: "none",
         borderRadius:10,
-        
+        marginTop: "2.5%"
     },
     forumContainer:{
         width:"80vw",
@@ -55,12 +55,56 @@ export const useStyles = createUseStyles({
     commentsContainer2: {
         //border: "solid",
         //borderWidth:"0.5px",
-        height: "40vh",
+        height: "70vh",
         width: "50vw",
         margin: "auto",
-        marginBottom: "1%",
+        marginBottom: "5%",
         overflowY: "auto",
-        borderRadius:10
+        borderRadius:10,
     },
 
+    ownerBox:{
+        display: "flex",
+        marginLeft: "19%"
+    },
+
+    imgSize:{
+        height: "50px",
+        width: "50px",
+        borderRadius: "20px"
+    },
+
+    ownerName:{
+        marginLeft: "2%",
+        fontSize: "24px"
+    },
+
+    line:{
+        border: "solid",
+        borderWidth: "0px 0px 1px 0px",
+        marginTop: "2.5%",
+        width: "80%",
+        margin: "auto",
+        borderColor: "black"
+    },
+
+    btn:{
+        border: "solid",
+        height: "35px",
+        width: "80px",
+        borderRadius: "20px",
+        cursor: "pointer",
+        borderColor: "gray",
+        borderWidth: "1px",
+        marginLeft: "18%",
+        marginBottom: "2.5%"
+        
+    },
+
+    btnText: {
+        textAlign: "center",
+        margin: "auto",
+        paddingTop: "5%",
+        color: "gray"
+    },
 })

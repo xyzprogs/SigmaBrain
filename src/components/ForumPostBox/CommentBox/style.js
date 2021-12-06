@@ -25,7 +25,9 @@ export const useStyles = createUseStyles({
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
         overflow: "hidden",
-        width: "80%"
+        width: "80%",
+        textAlign: "left",
+        fontWeight: "bolder"
     },
     imgSize:{
         width:"30px",

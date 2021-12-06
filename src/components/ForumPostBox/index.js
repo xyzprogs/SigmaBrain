@@ -1,12 +1,14 @@
 import BODY from "../../constant/body"
 import { useEffect, useState, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import forumnApi from "../../api/forumn-api"
 import PostCommentBox from "./CommentBox"
 import { useStyles } from './style'
 import { Button } from "@mui/material"
 import AuthContext from "../../context/auth-context"
 import HEADER from "../../constant/header"
+import userApi from '../../api/user-api'
+import default_profile from '../../images/Default_profile.png'
 const ForumPostBox = ()=>{
 
     const [post, setPost] = useState()
@@ -16,7 +18,8 @@ const ForumPostBox = ()=>{
     const { forumPostId } = useParams()
     const classes = useStyles()
     const { auth } = useContext(AuthContext)
-
+    const [ownerProfileImage, setOwnerProfileImage] = useState("")
+    const history = useHistory()
     const onChangeComment = (event)=>{
         setComment(event.target.value)
     }
@@ -65,6 +68,12 @@ const ForumPostBox = ()=>{
             let response = await forumnApi.getForumPostById(forumPostId)
             setPost(response.data[0])
             console.log(response.data)
+            let image = await userApi.getProfileImage(response.data[0][BODY.USERID])
+            if(response.data==null || response.data==""){
+                setOwnerProfileImage(default_profile)
+                return
+            }
+            setOwnerProfileImage(image.data)
         }
 
         const loadComments = async ()=>{
@@ -83,6 +92,12 @@ const ForumPostBox = ()=>{
         updateComments(response)
     }
 
+    const backToProfile = ()=>{
+        if(post !== undefined){
+            history.push(`/profile/${post[BODY.OWNERID]}`)
+        }
+    }
+
     if(post===undefined || post==null){
         return(
             <div>
@@ -94,11 +109,19 @@ const ForumPostBox = ()=>{
     return(
         <div className={classes.forumContainer}>
             <div>
+            <div className={classes.btn}>
+                <div className={classes.btnText} onClick={backToProfile}>Back</div>
+            </div>
+            <div className={classes.ownerBox}>
+                <img src={ownerProfileImage} className={classes.imgSize}/>
+                <div className={classes.ownerName}>{post[BODY.DISPLAYNAME]}</div>
+            </div>
             <div className={classes.titleBox}>{post[BODY.POSTTITLE]}</div>
             <div className={classes.commentsContainer}> 
                 <div className={classes.postContainer}>{post[BODY.POSTDESCRIPTION]}</div>
             </div>
             </div>
+            <div className={classes.line}/>
             <div>
                 <textarea value={comment} onChange={onChangeComment} className={classes.commentInputBox} placeholder={"Enter Comment"}/>
                 <div>
@@ -106,8 +129,8 @@ const ForumPostBox = ()=>{
                 </div>
             </div>
             <div className={classes.commentsContainer2}>
-                {comments.map(comment=>{
-                        return <PostCommentBox
+                {comments.map((comment, i)=>{
+                        return <PostCommentBox key={i}
                         comment={comment}/>
                 })}
                 {
