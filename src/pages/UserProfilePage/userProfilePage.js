@@ -14,6 +14,13 @@ const UserProfilePage = () => {
         if(localStorage.getItem('uid') === userId){
             setSelf(true)
         }
+        else{
+            setSelf(false)
+        }
+
+        if(localStorage.getItem('profileTag') != null){
+            setTag(parseInt(localStorage.getItem('profileTag')))
+        }
     }, [userId])
     return(
         <div>

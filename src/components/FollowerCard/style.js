@@ -27,7 +27,7 @@ export const useStyles = createUseStyles({
         height: "50px",
     },
 
-    subscribeBtn:{
+    btn:{
         cursor: "pointer"
     },
 

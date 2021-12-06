@@ -36,7 +36,8 @@ export const useStyles = createUseStyles({
     },
 
     btn:{
-        cursor: "pointer"
+        cursor: "pointer",
+        fontSize: "20px"
     },
 
     managementContainer: {
@@ -63,21 +64,27 @@ export const useStyles = createUseStyles({
     consoleContainer:{
         backgroundColor: "white",
         width: "100%",
-        height: "100%"
+        height: "100%",
     },
 
     consoleBarContainer:{
-        border: "solid",
-        height: "5vh",
-        borderWidth: "0px 0px 1px 0px",
-        display: "grid",
-        gridTemplateAreas:`
-        "filter button"
-        `,
+        // border: "solid",
+        // height: "5vh",
+        // borderWidth: "0px 0px 1px 0px",
+        // display: "grid",
+        // gridTemplateAreas:`
+        // "filter button"
+        // `,
+        position: "fixed",
+        left: "30%",
+        // borderWidth: "2px 2px 2px 0px",
+        // border: "solid",
+        //  zIndex: "-1",
     },
 
     buttonContainer:{
-        marginLeft: '850px'
+        marginLeft: '850px',
+        marginTop: "0%"
     },
 
     rowContainer: {
@@ -87,6 +94,17 @@ export const useStyles = createUseStyles({
         marginBottom: "5px",
         borderWidth: "0px 0px 1px 0px",
         borderColor: "gray",
+    },
+    image_setting:{
+        width:'50px'
+    },
+
+    iconBox:{
+        cursor: 'pointer',
+        marginBottom: "50%",
+        '&:hover':{
+            backgroundColor: "white"
+        }
     }
 
 })

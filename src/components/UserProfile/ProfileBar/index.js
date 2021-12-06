@@ -5,7 +5,7 @@ import BODY from '../../../constant/body'
 import HEADER from '../../../constant/header'
 import AuthContext from '../../../context/auth-context'
 import userApis from '../../../api/user-api'
-import default_banner from '../../../images/profile_image.png'
+import default_profile from '../../../images/Default_profile.png'
 import NoUserModal from '../../NoUserModal'
 const ProfileBar = (props) => {
     const classes = useStyles()
@@ -85,24 +85,51 @@ const ProfileBar = (props) => {
         const loadImage = async () => {
             try {
                 let response = await userApis.getProfileImage(userId)
+                if(response.data==null || response.data==""){
+                    setImage(default_profile)
+                    return
+                }
                 setImage(response.data)
             } catch (e) {
-                setImage(default_banner)
+                setImage(default_profile)
             }
-
-
             //Loads the user information 
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
             })
-
-
         }
+
+        const getSubscribeStatus = async ()=>{
+            if(auth.user!=null && auth.user!==undefined){
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await userApis.checkSubscribeStatus(userId, headers)
+                if(response.data.length>0){
+                    setSubscribeStatus(true)
+                }
+                else{
+                    setSubscribeStatus(false)
+                }
+            }
+        }
+
+        getSubscribeStatus()
         loadImage()
-        if (localStorage.getItem('uid') === userId) {
-            setSelf(true)
+        // if (localStorage.getItem('uid') === userId) {
+        //     setSelf(true)
+        // }
+        console.log(props.self)
+        if(props.self!==undefined){
+            setSelf(props.self)
         }
-    }, [auth, userId])
+    }, [auth, userId, props.self])
+
+    const changeTag = (tag)=>{
+        localStorage.setItem('profileTag', tag)
+        props.setTag(tag)
+    }
 
 
         return (
@@ -135,27 +162,27 @@ const ProfileBar = (props) => {
                 </div>
                 <div className={classes.barContainer}>
 
-                    <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(0) }}>
+                    <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(0) }}>
                         Home
                     </div>
 
-                    <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(1) }}>
+                    <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(1) }}>
                         Quizzes
                     </div>
 
-                    <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(2) }}>
+                    <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(2) }}>
                         About
                     </div>
 
-                    <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(3) }}>
+                    <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(3) }}>
                         Followers
                     </div>
 
-                    <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(4) }}>
+                    <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(4) }}>
                         Forum
                     </div>
 
-                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { props.setTag(5) }}>
+                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(5) }}>
                         Leaderboard
                     </div>
                 </div>

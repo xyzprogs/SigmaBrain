@@ -3,8 +3,7 @@ import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import AuthContext from '../../../context/auth-context';
 import profile_image from '../../../images/Default_profile.png';
-
-
+import LOCAL_CONSTANT from '../../../constant/local-storage';
 const UserControl = ({setLogin}) => {
     const classes = useStyles()
     const { auth } = useContext(AuthContext)
@@ -13,6 +12,7 @@ const UserControl = ({setLogin}) => {
 
     const redirectProfile = ()=>{
         history.push(`/profile/${localStorage.getItem('uid')}`)
+        localStorage.setItem(LOCAL_CONSTANT.PROFILE_TAG, 0)
     }
 
     const redirectQuizManagement = ()=>{
@@ -21,6 +21,10 @@ const UserControl = ({setLogin}) => {
 
     const redirectQuizCreation = ()=>{
         history.push('/quizCreation')
+    }
+
+    const redirectSetting = ()=>{
+        history.push('/setting')
     }
 
     return (
@@ -33,6 +37,7 @@ const UserControl = ({setLogin}) => {
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectProfile}>Profile</div></li>
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectQuizCreation}>Create Quiz</div></li>
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectQuizManagement}>Quiz Management</div></li>
+                    <li><div className={`${classes.dropItem} dropdown-item`} onClick={redirectSetting}>Setting</div></li>
                     <li><div className={`${classes.dropItem} dropdown-item`} onClick={()=>auth.signOut()}>Sign Out</div></li>
                 </ul>
             </div>

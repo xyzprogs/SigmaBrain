@@ -46,8 +46,14 @@ const MainBoard = () => {
                 setQuiz(data[0])
                 try{
                     response = await quizApis.getQuizThumbnail(data[0][BODY.QUIZID])
-                    setImage(response.data)
-                    img_array[0] = response.data
+                    if(response.data==null || response.data==""){
+                        setImage(default_thumbnail)
+                        img_array[0] = default_thumbnail
+                    }
+                    else{
+                        setImage(response.data)
+                        img_array[0] = response.data
+                    }
                     setImages(img_array)
                 }catch{
                     setImage(default_thumbnail)

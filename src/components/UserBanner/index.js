@@ -12,6 +12,7 @@ const UserBanner = (props) => {
     const {auth} = useContext(AuthContext)
     const [image, setImage] = useState("")
     const [edit, setEdit] = useState(true)
+     
     const clickUpload = ()=>{
         imgRef.current.click()
     }
@@ -38,17 +39,22 @@ const UserBanner = (props) => {
         const loadImage = async()=>{
             try{
                 let response = await userApis.getBackgroundImage(props.userId)
+                if(response.data==null || response.data==""){
+                    setImage(default_banner)
+                    return
+                }
                 setImage(response.data)
             }catch(e){
                 setImage(default_banner)
             }
 
         }
-        if(props.edit!==undefined){
-            setEdit(props.edit)
+        
+        if(props.self!==undefined){
+            setEdit(!props.self)
         }
         loadImage()
-    }, [props.userId])
+    }, [props.userId, props.self])
 
     if(!props.self){
         return(
