@@ -6,7 +6,7 @@ const LEVELS = [
     },
     {
         level: 1,
-        experience: 0,
+        experience: 100,
     },
     {
         level: 2,
