@@ -28,6 +28,13 @@ const SearchInput = ({searchInput,setSearchInput}) => {
         setSearches([])
     }
 
+    const onEnterKey =  (event)=> {
+        if(event.keyCode === 13){
+            searchAndRedirect(userSearch)
+            setSearches([])
+        }
+    }
+
 
     return (
         <div className = {classes.searchBarContainer}>
@@ -39,6 +46,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
                 name="s"
                 className = {classes.searchBar}
                 onChange = {onSearch}
+                onKeyUp = {onEnterKey}
             />
 
             <button className={classes.buttonBar} onClick={redirectToSearchResult}>Search</button>

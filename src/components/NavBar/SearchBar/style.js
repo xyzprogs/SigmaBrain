@@ -22,13 +22,14 @@ export const useStyles = createUseStyles({
     searchResult:{
         position: "absolute",
         marginTop: "3%",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        boxShadow: "1px 1px 10px gray",
+        width: "40%"
     },
 
     resultBox: {
         cursor: "pointer",
         border: "solid",
-        width: "50vw",
         background: "white",
         borderStyle: "none none none none",
         display: "flex"
@@ -45,7 +46,11 @@ export const useStyles = createUseStyles({
         width: "100%",
         borderRadius:"10px 0px 0px 10px",
         outline:'none',
-
+        paddingLeft: "2.5%",
+        paddingTop: "2.5%",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },
     buttonBar:{
         borderRadius: "15px",
