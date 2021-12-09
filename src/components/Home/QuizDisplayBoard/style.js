@@ -23,7 +23,8 @@ export const useStyles = createUseStyles({
         gridArea: "header",
         border: "solid",
         borderWidth: "0px 0px 1px 0px",
-        marginLeft: "1%"
+        marginLeft: "1%",
+        display: "flex"
     },
 
     title: {
@@ -55,5 +56,31 @@ export const useStyles = createUseStyles({
         cursor: "pointer",
         //fontSize:10
     },
+
+    btn:{
+        marginLeft: "auto"
+    },
+
+    btnDesign:{
+        border: "solid",
+        height: "20px",
+        width: "50px",
+        cursor: "pointer",
+        borderColor: "gray",
+        borderWidth: "1px",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        },
+        marginRight: "2.5%",
+        marginTop: "2%"
+    },
+
+    btnText:{
+        textAlign: "center",
+        margin: "auto",
+        paddingTop: "5%",
+        color: "gray",
+        fontSize: "12px"
+    }
     
 })

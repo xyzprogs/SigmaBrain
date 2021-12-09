@@ -125,7 +125,12 @@ const MainBoard = () => {
             let newImages = [...images]
             try{
                 let response = await quizApis.getQuizThumbnail(quizzes[i][BODY.QUIZID])
-                newImages[i] = response.data
+                if(response.data==null || response.data==""){
+                    newImages[i] = default_thumbnail
+                }
+                else{
+                    newImages[i] = response.data
+                }
             }catch{
                 newImages[i] = default_thumbnail
             }

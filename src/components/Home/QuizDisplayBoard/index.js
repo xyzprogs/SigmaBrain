@@ -33,6 +33,18 @@ const QuizDisplayBoard = (props) => {
         history.push(`/quizDescription/${rankQuiz[i][BODY_CONSTANT.QUIZID]}`)
     }
 
+    const roateCategoryList = async ()=>{
+        if (props.category !== undefined) {
+            const category = props.category
+            const response = await quizApis.getCategoryQuiz(category)
+            setQuizzes(response.data)
+        }
+    }
+
+    const redirectToCategoryPage = ()=>{
+        history.push(`/category/${props.category}`)
+    }
+
     if (quizzes==null || quizzes===undefined ||  quizzes.length === 0) {
         return <div className={classes.noQuizContainer}>
                 <div className={classes.headerContainer}>
@@ -49,6 +61,16 @@ const QuizDisplayBoard = (props) => {
                 <div className={classes.headerContainer}>
                     <div className={classes.title}>
                         {QUIZ_CATEGORY_NAME[props.category]}
+                    </div>
+                    <div className={`${classes.btn} ${classes.btnDesign}`} onClick={roateCategoryList}>
+                        <div className={classes.btnText}>
+                            Rotate
+                        </div>
+                    </div>
+                    <div className={`${classes.btnDesign}`} onClick={redirectToCategoryPage}>
+                        <div className={classes.btnText}>
+                            More
+                        </div>
                     </div>
                 </div>
                 <div className={classes.quizContainer}>

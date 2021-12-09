@@ -10,6 +10,10 @@ const QuizRankCard = ({quiz, rank}) => {
         const loadImage = async ()=>{
             try{
                 let response = await quizApis.getQuizThumbnail(quiz[BODY.QUIZID])
+                if(response.data==null || response.data==""){
+                    setImage(default_thumbnail)
+                    return
+                }
                 setImage(response.data)
             }catch(e){
                 setImage(default_thumbnail)
