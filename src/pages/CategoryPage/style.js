@@ -1,9 +1,6 @@
 import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
-    pageContainer:{
-        marginTop: "3.5%"
-    },
 
     quizContainer: {
         display: "flex",
@@ -16,11 +13,17 @@ export const useStyles = createUseStyles({
         marginLeft: "15vw",
     },
 
+    pageContainer: {
+        marginTop: "50px",
+        margin: "20%"
+    },
+
+
     title: {
-        paddingTop: "2.5%",
-        borderStyle: "none none solid none",
-        // width: "80vw",
-        marginLeft: "15vw"
+        fontWeight: "bold",
+        fontSize: "15px",
+        paddingTop: "5%",
+        textAlign: "left"
     },
 
     boardContainer:{
