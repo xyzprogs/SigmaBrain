@@ -3,10 +3,11 @@ export const useStyles = createUseStyles({
 
     sideBarContainer: {
         borderWidth: "0px 1px 0px 0px",
-        height: "100vh",
+        height: "100%",
         width: "15vw",
         // marginTop: "50px",
         position: "fixed",
+        backgroundColor:"white"
     },
 
     sideBarSelect: {
@@ -22,6 +23,6 @@ export const useStyles = createUseStyles({
     buttonDefault: {
         color: "white",
         borderStyle: "solid",
-        borderRadius: "20px"
-    }
+        borderRadius: "10px",
+    },
 })

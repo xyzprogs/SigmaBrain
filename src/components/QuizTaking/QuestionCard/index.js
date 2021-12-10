@@ -37,7 +37,7 @@ const QuestionCard = (props) => {
         if (index === parseInt(answerChoices[props.index][0])){
             return(
                 <div key={choice.choiceId}>
-                    <Button variant="warning btn-lg" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
+                    <Button variant="success btn-lg" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />
@@ -46,7 +46,7 @@ const QuestionCard = (props) => {
         }else{
             return (
                 <div key={choice.choiceId}>
-                    <Button variant="primary btn-lg" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
+                    <Button variant="success btn-lg" className={classes.buttonMargin} onClick={answerHandler} value={[index, choice.choice]}>
                         {choice.choice}
                     </Button>
                     <br />
@@ -60,15 +60,15 @@ const QuestionCard = (props) => {
             return
         }
         if ((index + 1) === answerChoices.length){
-            return(<Button variant="danger" className={classes.buttonMargin} name='submit' onClick={props.changeFlag}>Submit</Button>)
+            return(<Button variant="contained" className={classes.nextButton} name='submit' onClick={props.changeFlag}>Submit</Button>)
         }else{
-            return(<Button variant="info" className={classes.buttonMargin} name='next' onClick={changeQuestionHandler}>Next Question</Button>)
+            return(<Button variant="contained" className={classes.nextButton} name='next' onClick={changeQuestionHandler}>Next Question</Button>)
         }  
     }
 
     const prevButtonRender = () =>{
         if (index !== 0){
-            return(<Button variant="info" className={classes.buttonMargin} name='prev' onClick={changeQuestionHandler}>Previous Question</Button>)
+            return(<Button variant="contained" className={classes.previousButton} name='prev' onClick={changeQuestionHandler}>Previous Question</Button>)
         }
     }
 

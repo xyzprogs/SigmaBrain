@@ -211,8 +211,10 @@ const QuizResult = (props) => {
                     <Card.Text>
                         You still need {expNeededToLevelUp} EXP to get to the next level
                     </Card.Text>
-                    <Button onClick={restartQuiz}>Retake Quiz</Button>
-                    <Button onClick={() => history.push('/')}>Return Home</Button>
+                    <div className={classes.buttonContainer}>
+                        <div className={classes.optionButton}onClick={restartQuiz}>Retake Quiz</div>
+                        <div className={classes.optionButton} onClick={() => history.push('/')}>Return Home</div>
+                    </div>
                 </Card.Body>
             </Card>
 

@@ -13,7 +13,7 @@ export const useStyles = createUseStyles({
     commentContainer: {
         // marginLeft: "10%"
         marginRight: "auto",
-        width:"36vw",
+        width:"45vw",
         textAlign:"left",
         overflowWrap:"break-word",
     },

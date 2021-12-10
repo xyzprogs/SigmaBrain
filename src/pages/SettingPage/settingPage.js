@@ -92,49 +92,52 @@ const SettingPage = ()=>{
 
 
     return(
-        <div>
-            <div>
-                <SideBar className={classes.sidebar}/>
+        <div className={classes.container}>
+            <div className={classes.TitleText}>
+            Setting Page
             </div>
-                <div className={classes.container}>
-                Setting Page
-                <div>
-                    <div>Current Displayname: {user===undefined?"loading":user[BODY.DISPLAYNAME]}</div>
-                    <div>
-                        <div className={classes.nameField}>Change to: </div>
-                        <input onChange={onChangeDisplayName} value={displayName} className={classes.inputField}/>
-                    </div>
-                    <div onClick={submitChangeDisplayName} className={classes.btn}>Change Displayname</div>
+            <div className={classes.subTitle}>
+                Name Changing
+            </div>
+            <div className={classes.Nametext}>
+                <div className={classes.lowContainer}>Current Displayname: {user===undefined?"loading":user[BODY.DISPLAYNAME]}</div>
+                <div className={classes.lowContainer}>
+                    <div className={classes.nameField}>Change to: </div>
+                    <input onChange={onChangeDisplayName} value={displayName} className={classes.inputField}/>
                 </div>
-                ----------------------------------------------------------------------
-                <div className={classes.changePasswordContainer}>
-                    {
-                        sucessMessages.map((sucess, i)=>{
-                            return <div key={i} className="alert alert-success" role="alert">
-                                {sucess}
-                            </div>
-                        })
-                    }
-                    {
-                        errorMessages.map((error, i)=>{
-                            return <div key={i} className="alert alert-danger" role="alert">
-                                {error}
-                            </div>
-                        })
-                    }
-                    <div>
-                        <div className={classes.nameField}>Original Password: </div>
-                        <input value={originalPassword} onChange={(e)=>{setOriginalPassword(e.target.value)}} className={classes.inputField}/>
-                    </div>
-                    <div>
-                        <div className={classes.nameField}>New Password: </div>
-                        <input value={password} onChange={(e)=>{setPassword(e.target.value)}} className={classes.inputField}/>
-                    </div>
-                    <div>
-                        <div className={classes.nameField}>Confirm Password: </div>
-                        <input value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} className={classes.inputField}/></div>
-                        <div onClick={changePassword} className={classes.btn}>Update Password</div>
+                <div onClick={submitChangeDisplayName} className={classes.btn}>Change Displayname</div>
+            </div>
+            -------------------------------------------------------------------------------------------------------------------------------------------
+            <div className={classes.subTitle}>
+                Password Changing
+            </div>
+            <div className={classes.changePasswordContainer}>
+                {
+                    sucessMessages.map((sucess, i)=>{
+                        return <div key={i} className="alert alert-success" role="alert">
+                            {sucess}
+                        </div>
+                    })
+                }
+                {
+                    errorMessages.map((error, i)=>{
+                        return <div key={i} className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    })
+                }
+                <div className={classes.lowContainer}>
+                    <div className={classes.nameField}>Original Password: </div>
+                    <input value={originalPassword} onChange={(e)=>{setOriginalPassword(e.target.value)}} className={classes.inputField}/>
                 </div>
+                <div className={classes.lowContainer}>
+                    <div className={classes.nameField}>New Password: </div>
+                    <input value={password} onChange={(e)=>{setPassword(e.target.value)}} className={classes.inputField}/>
+                </div>
+                <div className={classes.lowContainer}>
+                    <div className={classes.nameField}>Confirm Password: </div>
+                    <input value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}} className={classes.inputField}/></div>
+                    <div onClick={changePassword} className={classes.btn}>Update Password</div>
             </div>
         </div>
 

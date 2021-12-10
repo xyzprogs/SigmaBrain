@@ -21,7 +21,7 @@ const QuizSideBar = (props) => {
     const buttonRender = (questionNum) => {
         return(
             <div className={classes.sideBarSelect} key={questionNum}>
-                <Button className={classes.buttonDefault}variant={index === questionNum ? "success" : "primary"} onClick={changeQuestions} value={questionNum}>
+                <Button className={classes.buttonDefault}variant={index === questionNum ? "success" : "light text-dark btn-outline-success"} onClick={changeQuestions} value={questionNum}>
                     Question {questionNum + 1}
                 </Button>
             </div>
