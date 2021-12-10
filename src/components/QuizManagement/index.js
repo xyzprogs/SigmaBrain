@@ -55,6 +55,10 @@ const QuizManagement = () => {
         }
     }
 
+    const convertDate = (mysqlDate) =>{
+        return mysqlDate.slice(0,10)
+    }
+
     const loadMore = async () => {
         if (auth.user != null) {
             const token = await auth.user.getIdToken()
@@ -212,12 +216,12 @@ const QuizManagement = () => {
                 <table id="quizzes">
                     <thead>
                         <tr>
-                            <th>&nbsp;</th>
-                            <th className={classes.cell}>All</th>
-                            <th className={classes.cell}>Status</th>
-                            <th className={classes.cell}>Date</th>
-                            <th className={classes.cell}>View Number</th>
-                            <th className={classes.cell}>&nbsp;</th>
+                            <th className={classes.quizSelector}>&nbsp;</th>
+                            <th className={classes.quizAll}>Quizzes</th>
+                            <th className={classes.quizStatusHeading}>Status</th>
+                            <th className={classes.quizDateHeading}>Date</th>
+                            <th className={classes.quizView}>View Number</th>
+                            <th className={classes.quizPublishBtn}>&nbsp;</th>
                             <th className={classes.cell}>Delete Quiz</th>
                         </tr>
                     </thead>
@@ -232,7 +236,7 @@ const QuizManagement = () => {
                                     {quiz[BODY.ISPUBLISHED] === 0 && <td className={classes.colorYellow}>unpublished</td>}
                                     {quiz[BODY.ISPUBLISHED] === 1 && <td className={classes.colorGreen}>published</td>}
                                     {quiz[BODY.ISPUBLISHED] === 2 && <td className={classes.colorRed}>blocked</td>}
-                                    <td>{quiz[BODY.CREATIONTIME]}</td>
+                                    <td>{convertDate(quiz[BODY.CREATIONTIME])}</td>
                                     <td>{quiz[BODY.TAKECOUNTS]}</td>
                                     {quiz[BODY.ISPUBLISHED] === 0 && <td><Button onClick={() => { publishQuiz(i) }}>Publish</Button></td>}
                                     {quiz[BODY.ISPUBLISHED] === 1 && <td><Button onClick={() => { unpublishQuiz(i) }}>Unpublish</Button></td>}
