@@ -228,6 +228,7 @@ const QuizManagement = () => {
             <div className={classes.titleBar}>
                 <div className={classes.title}>Quiz Management</div>
             </div>
+
             <div className={classes.consoleBarContainer}>
                 <div></div>
                 <div className={classes.buttonContainer}>

@@ -107,6 +107,9 @@ const LIKEDQUIZID = "likedQuizId"
 const HISTORYTIME = "historyTime"
 
 const ROW = "row"
+
+const CHANNELOWNER = "channelOwner"
+
 const BODY_CONSTANT = {
     //Common
     OWNERID,
@@ -212,7 +215,9 @@ const BODY_CONSTANT = {
 
     LIKEDQUIZID,
 
-    HISTORYTIME
+    HISTORYTIME,
+
+    CHANNELOWNER
 }
 
 export default BODY_CONSTANT

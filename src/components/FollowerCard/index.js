@@ -92,11 +92,11 @@ const FollowerCard = ({follower})=>{
 
     return(
         <div className={`${classes.userContainer} ${classes.btn}`}>
-            <div onClick={()=>{redirectProfile([follower[BODY.USERID]])}}>
+            <div>
                 <img className={classes.imgSize} src={image}/>
             </div>
             <div>
-                <div className={classes.userName}>
+                <div className={classes.userName} onClick={()=>{redirectProfile([follower[BODY.USERID]])}}>
                     {name}
                 </div>
             </div>

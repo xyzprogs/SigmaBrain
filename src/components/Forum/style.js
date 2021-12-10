@@ -8,13 +8,14 @@ export const useStyles = createUseStyles({
 
     postContainer: {
         minHeight: "50vh",
-        border: "solid",
+        // border: "solid",
         width: "100%",
         margin: "auto",
         overflowY: "auto",
-        height: "70vh",
+        // height: "70vh",
         borderWidth: "2px",
-        borderRadius: "20px"
+        borderRadius: "20px",
+        marginBottom: "5%"
     },
 
     forumContainer:{

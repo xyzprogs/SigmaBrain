@@ -35,7 +35,8 @@ const ProfileSectionWrapper = ({tag, userId, self})=>{
 
     if(tag===3){
         return(<div>
-            <FollowerList/>
+            <FollowerList
+            self={self}/>
         </div>)
     }
 
