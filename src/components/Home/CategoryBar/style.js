@@ -32,11 +32,26 @@ export const useStyles = createUseStyles({
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: 200,
         backgroundColor: 'white',
         border: '2px solid #000',
         boxShadow: 24,
         minHeight: "50vh",
-        minWidth: "50vw"
+        minWidth: "50vw", 
+        marginRight:"200px",
+        paddingLeft:"10%",
+
     },
+    searchType:{
+        backgroundColor:"#34739C",
+        color:"white",
+        borderRadius:20,
+        width:"200px",
+        height:"30px",
+        textAlign:"center",
+        fontSize:"20px",
+        fontWeight:"bold",
+        marginLeft:"10%",
+        marginTop:"10px"
+    }
 })

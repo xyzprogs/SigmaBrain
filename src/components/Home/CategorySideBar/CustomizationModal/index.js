@@ -70,11 +70,14 @@ const CustomizationModal = ({open, setOpen, bar, loadPreferences})=>{
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
             >
+                
                 <Box className={classes.modal}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         Search for other categories
                     </Typography>
-                    <Autocomplete
+                    <div className={classes.AddContainer}>
+                        <div>
+                        <Autocomplete
                         disablePortal
                         id="combo-box-demo"
                         options={categoryList}
@@ -82,17 +85,19 @@ const CustomizationModal = ({open, setOpen, bar, loadPreferences})=>{
                         sx={{ width: 300 }}
                         onChange={onAutoChange}
                         renderInput={(params) => <TextField {...params} label="Category" />}
-                    />
-                    <Button onClick={addToList}>Add To List</Button>
+                        />
+                        </div>
+                        <div className={classes.addToList}onClick={addToList}>Add To List</div>
+                    </div>
                     {preferences.map((v, i)=>{
                         return (
                             <div className={classes.container}>
-                                <div> {QUIZ_CATEGORY_NAME[v]} </div>
+                                <div className={classes.text}> {QUIZ_CATEGORY_NAME[v]} </div>
                                 <div onClick={()=>{removeFromList(i)}} className={classes.deleteBtn}>delete</div>
                             </div>
                         )
                     })}
-                    <Button onClick={updatePreferences}>Update Preferences List</Button>
+                    <div className={classes.Update} onClick={updatePreferences}>Update Preferences List</div>
                 </Box>
             </Modal>
         </div>

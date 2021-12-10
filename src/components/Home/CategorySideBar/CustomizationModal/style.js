@@ -15,12 +15,54 @@ export const useStyles = createUseStyles({
     },
 
     container: {
-        display: "flex"
+        display: "grid",
+        gridTemplateColumns: "70% 30%",
     },
 
     deleteBtn: {
         cursor: "pointer",
-        paddingLeft: "10px",
-        color: "red"
+        backgroundColor: "red",
+        width:"80px",
+        color:"white",
+        textAlign:"center",
+        right:"0px",
+        borderRadius:20,
+        fontWeight:"bold",
+        marginTop:"5px"
+    },
+    addToList:{
+        marginTop:"10px",
+        backgroundColor:"#34739C",
+        borderRadius:20,
+        color:"white",
+        width:"140px",
+        textAlign:"center",
+        fontSize:"20px",
+        fontWeight:"bold",
+        marginLeft:"6%",
+        height:"35px",
+        paddingTop:"3px"
+        
+    },
+    Update:{
+        backgroundColor:"#34739C",
+        borderRadius:20,
+        color:"white",
+        width:"80%",
+        marginLeft:"10%",
+        textAlign:"center",
+        fontSize:"30px",
+        fontWeight:"bold",
+        marginTop:"5px",
+        marginBottom:"5px"
+    },
+    text:{
+        fontWeight:"bold",
+        marginLeft:"10%"
+    },
+    AddContainer:{
+        display: "grid",
+        gridTemplateColumns: "60% 40%",
+        marginLeft:"10px"
     }
 })
