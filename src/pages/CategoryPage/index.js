@@ -1,5 +1,5 @@
 import { useStyles } from './style'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import quizApis from '../../api/quiz-api'
 import QuizCard from '../../components/QuizCard'
@@ -14,6 +14,7 @@ const CategoryPage = () => {
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])
     const [end, setEnd] = useState(false)
+    const history = useHistory()
     useEffect(()=>{
         const loadCategoryQuiz = async ()=>{
             const response = await quizApis.getCategoryQuiz(categoryId)
@@ -51,27 +52,12 @@ const CategoryPage = () => {
             updateQuizzes(response)
         }        
     }
+    
+    const redirectToGlobalBoard = ()=>{
+        history.push(`/global/${categoryId}`)
+    }
 
     return(
-        // <div className={classes.pageContainer}>
-        //     <div>
-        //         <SideBar className={classes.sidebar}/>
-        //     </div>
-        //     <div className={classes.boardContainer}>
-        //             <div>
-        //                 <div className={classes.title}>Category: {QUIZ_CATEGORY_NAME[categoryId]}</div>
-        //             </div>
-        //             <div className={classes.quizContainer}>
-        //                 {quizzes.map((quiz, i) => {
-        //                     return <QuizCard key={i} quiz={quiz} redirect={true}/>
-        //                 })}
-        //             </div>
-        //             {
-        //                 end?<div>no more</div>:
-        //                 <Button onClick={getMore}>More</Button>
-        //             }
-        //     </div>
-        // </div>
         <div> 
             <div>
                 <SideBar className={classes.sidebar}/>
@@ -79,6 +65,7 @@ const CategoryPage = () => {
             <div className={classes.pageContainer}>
                 <div>
                     <div className={classes.title}>Category: {QUIZ_CATEGORY_NAME[categoryId]}</div>
+                    <div className={classes.toLeft}><Button onClick={redirectToGlobalBoard}>Check Global Ranking</Button></div>
                     <div>
                         {quizzes.map((quiz, i) => {
                                     return <QuizListCard key={i} quiz={quiz}/>

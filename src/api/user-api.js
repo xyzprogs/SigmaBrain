@@ -27,6 +27,8 @@ export const createPreferenceCateory = (payload, headers) => api.post('/createPr
 export const obtainUserCategoryPreference = (headers) => api.get('/obtainUserCategoryPreference', {headers: headers})
 export const checkSubscribeStatus = (subscribeTo, headers) => api.get(`/checkSubscribeStatus?subscribeTo=${subscribeTo}`, {headers: headers})
 export const updateChannelLeaderboard = (payload, headers) => api.post('/leaderboard/updateScore', payload, {headers: headers})
+export const getGlobalLeaderboard = (category, row) => api.get(`/leaderboard/global/${category}?row=${row}`)
+export const updateGlobalLeaderboard = (payload, headers) => api.post("/leaderboard/global/update", payload, {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -51,7 +53,9 @@ const userApis = {
     createPreferenceCateory,
     obtainUserCategoryPreference,
     checkSubscribeStatus,
-    updateChannelLeaderboard
+    updateChannelLeaderboard,
+    getGlobalLeaderboard,
+    updateGlobalLeaderboard
 }
 
 export default userApis

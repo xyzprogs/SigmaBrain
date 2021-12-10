@@ -2,8 +2,6 @@ import { createUseStyles } from 'react-jss'
 
 export const useStyles = createUseStyles({
     quizListContainer: {
-        // border: "solid",
-        // marginTop: "1%",
         marginTop: "5%",
         margin: "20%"
     },

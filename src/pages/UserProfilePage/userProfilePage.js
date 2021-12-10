@@ -34,7 +34,6 @@ const UserProfilePage = () => {
                 />
             </div>
         </div>
-
     )
 }
 

@@ -52,6 +52,7 @@ export const removeTakeLaterQuiz = (quizId, headers) => api.delete(`/takelater/$
 export const getQuizCommentByCommentId = (quizCommentId) => api.get(`/quizCommenyById/${quizCommentId}`)
 export const getSingleUserQuizAuthenticated = (quizId, headers) => api.get(`/authenticated/quiz/${quizId}`, {headers: headers})
 export const getRelevantQuiz = ({userId, quizName, row}) => api.get(`/quizRecommendation/relevant?userId=${userId}&quizName=${quizName}&row=${row}`)
+export const checkQuiz = (payload, headers) => api.post('/checkQuiz', payload,{headers: headers})
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -99,7 +100,8 @@ const quizApis = {
     removeTakeLaterQuiz,
     getQuizCommentByCommentId,
     getSingleUserQuizAuthenticated,
-    getRelevantQuiz
+    getRelevantQuiz,
+    checkQuiz
 }
 
 export default quizApis
