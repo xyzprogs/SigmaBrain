@@ -40,4 +40,15 @@ export const useStyles = createUseStyles({
         textAlign:'left',
         marginBottom:'10px'
     },
+    table: {
+        borderCollapse: "collapse",
+        borderSpacing: "100px 0",
+      },
+      
+    td: {
+    padding: "10px 0"
+    },
+    container:{
+        paddingBottom: "2.5%"
+    }
 })

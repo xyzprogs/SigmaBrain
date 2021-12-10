@@ -25,18 +25,21 @@ const ForumSection = () => {
             console.log("load posts")
             let response = await forumApi.getForumPost(userId)
             //setPosts(response.data)
-            updatePosts(response)
+            updatePosts(response, true)
         }
         loadPosts()
     }, [userId])
 
-    const updatePosts = (response)=>{
+    const updatePosts = (response, firstLoad)=>{
         let sub_arr = response.data
         if(response.data.length>0){
             if(response.data.length !== 10){
                 setEnd(true)
             }
-            let new_posts = [...posts]
+            let new_posts = []
+            if(!firstLoad){
+                new_posts = [...posts]
+            }
             for(var i = 0; i < sub_arr.length; i++){
                 new_posts.push(sub_arr[i])
             }

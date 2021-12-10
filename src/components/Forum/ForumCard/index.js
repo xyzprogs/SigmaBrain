@@ -34,7 +34,7 @@ const ForumCard = ({post}) => {
         }
         loadProfile()
         loadUserName()
-    },[])
+    },[post])
 
     return(
         <div className={classes.container}>

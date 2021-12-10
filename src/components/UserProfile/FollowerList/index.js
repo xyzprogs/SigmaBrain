@@ -6,7 +6,7 @@ import BODY from "../../../constant/body"
 import { useStyles } from './style'
 import { Button } from "@mui/material"
 import FollowerCard from "../../FollowerCard"
-const FollowerList = ()=>{
+const FollowerList = ({self})=>{
     const [followers, setFollowers] = useState([])
     const {auth} = useContext(AuthContext)
     const classes = useStyles()

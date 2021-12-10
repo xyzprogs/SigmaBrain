@@ -198,10 +198,7 @@ const QuizManagement = () => {
             </div>
             <div className={classes.consoleContainer}>
                 <div className={classes.consoleBarContainer}>
-                    {/* <div className={classes.quizimg}>Filter</div> */}
                     <div className={classes.buttonContainer}>
-                        {/* <div className={`${classes.colorGreen} ${classes.btn}`} onClick={redirectQuizCreation}>Create Quiz</div>
-                        <div className={`${classes.colorRed} ${classes.btn}`} onClick={handleDeleteMultipleQuizzes}>Delete Quiz</div> */}
                         <div className={classes.iconBox} title="create" onClick={redirectQuizCreation}>
                             <img className={classes.image_setting} src={create_icon}/>
                         </div>
