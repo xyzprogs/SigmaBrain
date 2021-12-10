@@ -68,23 +68,26 @@ export const useStyles = createUseStyles({
     },
 
     consoleBarContainer:{
+        display:'grid',
+        gridTemplateColumns: "80% 20%",
         // border: "solid",
-        // height: "5vh",
+        height: "9vh",
         // borderWidth: "0px 0px 1px 0px",
         // display: "grid",
         // gridTemplateAreas:`
         // "filter button"
         // `,
-        position: "fixed",
-        left: "30%",
+        //position: "fixed",
+        //left: "30%",
         // borderWidth: "2px 2px 2px 0px",
         // border: "solid",
         //  zIndex: "-1",
     },
 
     buttonContainer:{
-        marginLeft: '850px',
-        marginTop: "0%"
+        //marginLeft: '850px',
+        display:'grid',
+        gridTemplateColumns:"50% 50%"
     },
 
     rowContainer: {
@@ -101,7 +104,8 @@ export const useStyles = createUseStyles({
 
     iconBox:{
         cursor: 'pointer',
-        marginBottom: "50%",
+        marginTop:'5%',
+        //marginBottom: "50%",
         '&:hover':{
             backgroundColor: "white"
         }

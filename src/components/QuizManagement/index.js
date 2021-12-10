@@ -22,49 +22,49 @@ const QuizManagement = () => {
 
     useEffect(() => {
         const loadUserQuizzes = async () => {
-            if(auth.user != null){
+            if (auth.user != null) {
                 const token = await auth.user.getIdToken()
                 let headers = {
-                    [HEADER.TOKEN] : token
+                    [HEADER.TOKEN]: token
                 }
                 let response = await quizApis.getUserQuizAuthenticated(headers)
                 updateQuizzes(response)
-                setUserId(auth.user.uid)      
-            }            
+                setUserId(auth.user.uid)
+            }
         }
 
         loadUserQuizzes()
     }, [auth.user])
 
-    const updateQuizzes = (response)=>{
+    const updateQuizzes = (response) => {
         let sub_arr = response.data
-        if(response.data.length>0){
-            if(response.data.length !== 10){
+        if (response.data.length > 0) {
+            if (response.data.length !== 10) {
                 setEnd(true)
             }
             let newarr = [...quizzes]
             let newcheckarr = [...checkedState]
-            for(var i = 0; i < sub_arr.length; i++){
+            for (var i = 0; i < sub_arr.length; i++) {
                 newarr.push(sub_arr[i])
                 newcheckarr.push(false)
             }
             setQuizzes(newarr)
             setCheckedState(newcheckarr)
-        }else{
+        } else {
             setEnd(true)
         }
     }
 
-    const loadMore = async()=>{
-        if(auth.user != null){
+    const loadMore = async () => {
+        if (auth.user != null) {
             const token = await auth.user.getIdToken()
             let row = quizzes.length
             let headers = {
-                [HEADER.TOKEN] : token
+                [HEADER.TOKEN]: token
             }
             let response = await quizApis.getUserQuizAuthenticated(headers, row)
-            updateQuizzes(response)      
-        }    
+            updateQuizzes(response)
+        }
     }
 
     const redirectQuizCreation = () => {
@@ -132,10 +132,10 @@ const QuizManagement = () => {
         //reloads the page
         const loadUserQuizzes = async () => {
             // let id =  auth.getCurrentUserUid()
-            if(auth.user!==undefined && auth.user!=null){
+            if (auth.user !== undefined && auth.user != null) {
                 const token = await auth.user.getIdToken()
                 let headers = {
-                    [HEADER.TOKEN] : token
+                    [HEADER.TOKEN]: token
                 }
                 let response = await quizApis.getUserQuizAuthenticated(headers)
                 setQuizzes(response.data)
@@ -152,64 +152,63 @@ const QuizManagement = () => {
 
     }
 
-    const publishQuiz = async (i)=>{
-        if(auth.user != null){
+    const publishQuiz = async (i) => {
+        if (auth.user != null) {
             const quiz = quizzes[i]
             const token = await auth.user.getIdToken()
             let headers = {
-                [HEADER.TOKEN] : token
+                [HEADER.TOKEN]: token
             }
             let payload = {
                 [BODY.QUIZID]: quiz[BODY.QUIZID],
                 [BODY.ISPUBLISHED]: 1
             }
-           await quizApis.publishQuiz(payload, headers)
-           let newQuizzes = [...quizzes]
-           newQuizzes[i][BODY.ISPUBLISHED] = 1
-           setQuizzes(newQuizzes)
-        }    
+            await quizApis.publishQuiz(payload, headers)
+            let newQuizzes = [...quizzes]
+            newQuizzes[i][BODY.ISPUBLISHED] = 1
+            setQuizzes(newQuizzes)
+        }
     }
 
-    const unpublishQuiz = async (i)=>{
-        if(auth.user != null){
+    const unpublishQuiz = async (i) => {
+        if (auth.user != null) {
             const quiz = quizzes[i]
             const token = await auth.user.getIdToken()
             let headers = {
-                [HEADER.TOKEN] : token
+                [HEADER.TOKEN]: token
             }
             let payload = {
                 [BODY.QUIZID]: quiz[BODY.QUIZID],
                 [BODY.ISPUBLISHED]: 0
             }
-           await quizApis.publishQuiz(payload, headers)
-           let newQuizzes = [...quizzes]
-           newQuizzes[i][BODY.ISPUBLISHED] = 0
-           setQuizzes(newQuizzes)
-        }    
+            await quizApis.publishQuiz(payload, headers)
+            let newQuizzes = [...quizzes]
+            newQuizzes[i][BODY.ISPUBLISHED] = 0
+            setQuizzes(newQuizzes)
+        }
     }
 
     return (
         <div>
             <div className={classes.profileContainer}>
-                <UserBanner userId={userId}/>
+                <UserBanner userId={userId} />
             </div>
             <div className={classes.titleBar}>
                 <div className={classes.title}>Quiz Management</div>
             </div>
-            <div className={classes.consoleContainer}>
-                <div className={classes.consoleBarContainer}>
-                    {/* <div className={classes.quizimg}>Filter</div> */}
-                    <div className={classes.buttonContainer}>
-                        {/* <div className={`${classes.colorGreen} ${classes.btn}`} onClick={redirectQuizCreation}>Create Quiz</div>
-                        <div className={`${classes.colorRed} ${classes.btn}`} onClick={handleDeleteMultipleQuizzes}>Delete Quiz</div> */}
-                        <div className={classes.iconBox} title="create" onClick={redirectQuizCreation}>
-                            <img className={classes.image_setting} src={create_icon}/>
-                        </div>
-                        <div className={classes.iconBox} title="remove"  onClick={handleDeleteMultipleQuizzes}>
-                            <img className={classes.image_setting} src={delete_icon}/>
-                        </div>
+            <div className={classes.consoleBarContainer}>
+                <div></div>
+                <div className={classes.buttonContainer}>
+                    <div className={classes.iconBox} title="create" onClick={redirectQuizCreation}>
+                        <img className={classes.image_setting} src={create_icon} />
+                    </div>
+                    <div className={classes.iconBox} title="remove" onClick={handleDeleteMultipleQuizzes}>
+                        <img className={classes.image_setting} src={delete_icon} />
                     </div>
                 </div>
+
+            </div>
+            <div className={classes.consoleContainer}>
                 <table id="quizzes">
                     <thead>
                         <tr>
@@ -229,25 +228,25 @@ const QuizManagement = () => {
                                 <tr key={i} className={classes.rowContainer}>
                                     <td><input onChange={(e) => setSelected(e.target.checked, i)} type="checkbox" checked={!!checkedState[i]} /></td>
                                     {/* <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}>{quiz[BODY.QUIZNAME]}</td> */}
-                                    <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}> <ManagementCard quiz={quiz}/> </td>
-                                    {quiz[BODY.ISPUBLISHED]===0&&<td className={classes.colorYellow}>unpublished</td>}
-                                    {quiz[BODY.ISPUBLISHED]===1&&<td className={classes.colorGreen}>published</td>}
-                                    {quiz[BODY.ISPUBLISHED]===2&&<td className={classes.colorRed}>blocked</td>}
+                                    <td onClick={() => { redirectQuizEditing(quiz[BODY.QUIZID]) }}> <ManagementCard quiz={quiz} /> </td>
+                                    {quiz[BODY.ISPUBLISHED] === 0 && <td className={classes.colorYellow}>unpublished</td>}
+                                    {quiz[BODY.ISPUBLISHED] === 1 && <td className={classes.colorGreen}>published</td>}
+                                    {quiz[BODY.ISPUBLISHED] === 2 && <td className={classes.colorRed}>blocked</td>}
                                     <td>{quiz[BODY.CREATIONTIME]}</td>
                                     <td>{quiz[BODY.TAKECOUNTS]}</td>
-                                    {quiz[BODY.ISPUBLISHED]===0&&<td><Button onClick={()=>{publishQuiz(i)}}>Publish</Button></td>}
-                                    {quiz[BODY.ISPUBLISHED]===1&&<td><Button onClick={()=>{unpublishQuiz(i)}}>Unpublish</Button></td>}
-                                    {quiz[BODY.ISPUBLISHED]===2&&<td className={classes.colorRed}>blocked</td>}
+                                    {quiz[BODY.ISPUBLISHED] === 0 && <td><Button onClick={() => { publishQuiz(i) }}>Publish</Button></td>}
+                                    {quiz[BODY.ISPUBLISHED] === 1 && <td><Button onClick={() => { unpublishQuiz(i) }}>Unpublish</Button></td>}
+                                    {quiz[BODY.ISPUBLISHED] === 2 && <td className={classes.colorRed}>blocked</td>}
                                     <td><div className={`${classes.btn} ${classes.colorRed}`} onClick={() => { removeQuiz(i) }} >&#10005;</div></td>
                                 </tr>
                             )
                         })}
                     </tbody>
                 </table>
-                    {
-                        end?<div>No More</div>
-                        :<Button onClick={loadMore}>More</Button>
-                    }
+                {
+                    end ? <div>No More</div>
+                        : <Button onClick={loadMore}>More</Button>
+                }
             </div>
         </div>
     )
