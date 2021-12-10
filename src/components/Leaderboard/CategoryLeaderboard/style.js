@@ -39,5 +39,6 @@ export const useStyles = createUseStyles({
         width:'100%',
         textAlign:'left',
         marginBottom:'10px',
+        backgroundColor:"#34739C"
     },
 })

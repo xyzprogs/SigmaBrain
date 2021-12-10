@@ -21,12 +21,19 @@ export const useStyles = createUseStyles({
      },
 
      btn:{
-         cursor: "pointer"
+         cursor: "pointer",
+         backgroundColor:"#9DCADB",
+         color:"white",
+         borderRadius:20,
+         width:"25%",
+         textAlign:"center"
      },
 
      changePasswordContainer:{
          width: "50vw",
-         margin: "auto"
+         margin: "auto",
+         textAlign:"left",
+        marginLeft:"20%"
      },
      
      modal:{
@@ -41,4 +48,25 @@ export const useStyles = createUseStyles({
         minHeight: "50vh",
         minWidth: "50vw"
     },
+    TitleText:{
+        fontSize:"30px",
+        textAlign:"left",
+        marginLeft:"10%",
+        marginBottom:"2%",
+        fontWeight:"bold"
+    },
+    Nametext:{
+        textAlign:"left",
+        marginLeft:"20%"
+    },
+    subTitle:{
+        fontSize:"25px",
+        textAlign:"left",
+        marginLeft:"15%",
+        fontFamily:"Monospace",
+        fontWeight:"bold"
+    },
+    lowContainer:{
+        marginBottom:"1%"
+    }
 })

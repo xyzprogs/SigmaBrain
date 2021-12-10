@@ -196,7 +196,7 @@ const QuestionCreationModal = (props)=>{
                                     </tbody>
                                     </table>
                                 </div>
-                                <Button onClick={addChoice}>Add Choice</Button>
+                                <div className={classes.buttonstyle} onClick={addChoice}>Add Choice</div>
                                 {errorMsg?.AnswerError && (
                                     <p className={classes.errorMsg}>{errorMsg.AnswerError}</p>
                                 )}
@@ -207,12 +207,14 @@ const QuestionCreationModal = (props)=>{
                                     <p className={classes.errorMsg}>{errorMsg.NumberOfChoiceError}</p>
                                 )}
                             </div>
-                            <Button onClick={handleClose}>
+                            <div className={classes.buttonPosition}>
+                            <Button  nClick={handleClose}>
                                 Close
                             </Button>
                             <Button onClick={onSave}>
                                 Save
                             </Button>
+                            </div>
                         </div>
                     </Typography>
                 </Box>
