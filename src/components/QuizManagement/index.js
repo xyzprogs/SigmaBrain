@@ -10,12 +10,14 @@ import UserBanner from '../UserBanner'
 import ManagementCard from './ManagementCard'
 import create_icon from '../../images/create.png'
 import delete_icon from '../../images/delete.png'
+import DeleteConfirmation from './DeleteQuizModal'
 const QuizManagement = () => {
     const classes = useStyles()
     let history = useHistory()
     const [quizzes, setQuizzes] = useState([])
     const [selectedQuizzes, setSelectedQuizzes] = useState([])
     const [checkedState, setCheckedState] = useState([]);
+    const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
     const [end, setEnd] = useState(false)
     const { auth } = useContext(AuthContext)
     const [userId, setUserId] = useState("")
@@ -55,8 +57,8 @@ const QuizManagement = () => {
         }
     }
 
-    const convertDate = (mysqlDate) =>{
-        return mysqlDate.slice(0,10)
+    const convertDate = (mysqlDate) => {
+        return mysqlDate.slice(0, 10)
     }
 
     const loadMore = async () => {
@@ -120,6 +122,11 @@ const QuizManagement = () => {
         setQuizzes(newQuizzes)
     }
 
+    // Hide the modal
+    const hideConfirmationModal = () => {
+        setDisplayConfirmationModal(false);
+    };
+
     const handleDeleteMultipleQuizzes = async () => {
         //temp solution, should write api to delete multiple quizzes
         const token = await auth.user.getIdToken()
@@ -150,6 +157,7 @@ const QuizManagement = () => {
 
         loadUserQuizzes()
         setSelectedQuizzes([])
+        hideConfirmationModal()
         return () => {
             setQuizzes([])
         }
@@ -192,6 +200,15 @@ const QuizManagement = () => {
         }
     }
 
+    //Modals
+    const handleDeleteMultiQuizzesModal =()=>{
+        if(selectedQuizzes.length > 0)
+            setDisplayConfirmationModal(true)
+        else{
+            console.log("no quizzes are selected")
+        }
+    }
+
     return (
         <div>
             <div className={classes.profileContainer}>
@@ -206,7 +223,7 @@ const QuizManagement = () => {
                     <div className={classes.iconBox} title="create" onClick={redirectQuizCreation}>
                         <img className={classes.image_setting} src={create_icon} />
                     </div>
-                    <div className={classes.iconBox} title="remove" onClick={handleDeleteMultipleQuizzes}>
+                    <div className={classes.iconBox} title="remove" onClick={handleDeleteMultiQuizzesModal}>
                         <img className={classes.image_setting} src={delete_icon} />
                     </div>
                 </div>
@@ -252,6 +269,7 @@ const QuizManagement = () => {
                         : <Button onClick={loadMore}>More</Button>
                 }
             </div>
+            <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={handleDeleteMultipleQuizzes} hideModal={hideConfirmationModal} />
         </div>
     )
 }
