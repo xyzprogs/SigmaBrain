@@ -1,3 +1,4 @@
+import { color } from '@mui/system'
 import { createUseStyles } from 'react-jss'
 
 const flexCenter = { display: 'flex', alignItems: 'center' }
@@ -38,6 +39,13 @@ export const useStyles = createUseStyles({
         gridTemplateColumns:'20% 50% 30%',
         width:'100%',
         textAlign:'left',
-        marginBottom:'10px'
+        marginBottom:'10px',
+        backgroundColor:"#34739C"
     },
+    textStyle:{
+        backgroundColor:"#34739C",
+        color:"white",
+        fontsize:"30px",
+        fontWeight:"bold"
+    }
 })

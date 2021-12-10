@@ -18,6 +18,7 @@ export const userStyles = createUseStyles({
         border: "solid",
         width: "50vw",
         borderWidth: "0px 0px 1px 0px",
+        
     },
 
     subTitle:{
@@ -28,7 +29,13 @@ export const userStyles = createUseStyles({
     },
 
     questionNameField: {
-        width: "40vw"
+        width: "80%",
+        height:"5vh",
+        marginLeft:"10px",
+        marginBottom:"10px",
+        fontSize:20
+
+
     },
 
     delete: {
@@ -42,4 +49,20 @@ export const userStyles = createUseStyles({
         color: 'red',
         textAlign: 'left'
     },
+    buttonPosition:{
+        display:"flex",
+        justifyContent:"right"
+    },
+    buttonstyle:{
+        backgroundColor:"#9DCADB",
+        color:"white",
+        width:"90px",
+        height:"25px",
+        fontWeight:"bold",
+        textAlign:"center",
+        marginLeft:10,
+        borderRadius:20,
+        marginTop:10,
+        marginBottom:10
+    }
 })
