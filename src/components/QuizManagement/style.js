@@ -64,7 +64,10 @@ export const useStyles = createUseStyles({
     
     btn: {
         cursor: "pointer",
-        fontSize: "20px"
+        fontSize: "20px",
+        '&:hover': {
+            backgroundColor: "whitesmoke"
+        }
     },
 
     managementContainer: {
@@ -83,15 +86,15 @@ export const useStyles = createUseStyles({
     titleBar: {
         paddingRight: "100%",
         whiteSpace: "nowrap",
-        backgroundColor: "white",
         width: "100%",
         height: "8vh",
+        ...backgroundColor
     },
 
     consoleContainer: {
-        backgroundColor: "white",
         width: "100%",
         height: "100%",
+        ...backgroundColor
     },
 
     consoleBarContainer: {
@@ -135,7 +138,7 @@ export const useStyles = createUseStyles({
         marginTop: '5%',
         //marginBottom: "50%",
         '&:hover': {
-            backgroundColor: "white"
+            backgroundColor: "whitesmoke"
         }
     }
 
