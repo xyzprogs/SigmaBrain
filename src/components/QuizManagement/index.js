@@ -18,6 +18,8 @@ const QuizManagement = () => {
     const [selectedQuizzes, setSelectedQuizzes] = useState([])
     const [checkedState, setCheckedState] = useState([]);
     const [displayConfirmationModal, setDisplayConfirmationModal] = useState(false);
+    const [displaySingleConfirmationModal, setDisplaySingleConfirmationModal] = useState(false);
+    const [i, setI] = useState(-99)
     const [end, setEnd] = useState(false)
     const { auth } = useContext(AuthContext)
     const [userId, setUserId] = useState("")
@@ -120,11 +122,15 @@ const QuizManagement = () => {
             newQuizzes.splice(i, 1)
         }
         setQuizzes(newQuizzes)
+        hideConfirmationModal()
     }
 
     // Hide the modal
     const hideConfirmationModal = () => {
-        setDisplayConfirmationModal(false);
+        displayConfirmationModal ?
+            setDisplayConfirmationModal(false) :
+            setDisplaySingleConfirmationModal(false)
+            ;
     };
 
     const handleDeleteMultipleQuizzes = async () => {
@@ -201,12 +207,17 @@ const QuizManagement = () => {
     }
 
     //Modals
-    const handleDeleteMultiQuizzesModal =()=>{
-        if(selectedQuizzes.length > 0)
+    const handleDeleteMultiQuizzesModal = () => {
+        if (selectedQuizzes.length > 0)
             setDisplayConfirmationModal(true)
-        else{
+        else {
             console.log("no quizzes are selected")
         }
+    }
+
+    const handleDeleteSingleQuizModal = (i) => {
+        setI(i);
+        setDisplaySingleConfirmationModal(true)
     }
 
     return (
@@ -258,7 +269,7 @@ const QuizManagement = () => {
                                     {quiz[BODY.ISPUBLISHED] === 0 && <td><Button onClick={() => { publishQuiz(i) }}>Publish</Button></td>}
                                     {quiz[BODY.ISPUBLISHED] === 1 && <td><Button onClick={() => { unpublishQuiz(i) }}>Unpublish</Button></td>}
                                     {quiz[BODY.ISPUBLISHED] === 2 && <td className={classes.colorRed}>blocked</td>}
-                                    <td><div className={`${classes.btn} ${classes.colorRed}`} onClick={() => { removeQuiz(i) }} >&#10005;</div></td>
+                                    <td><div className={`${classes.btn} ${classes.colorRed}`} onClick={() => { handleDeleteSingleQuizModal(i) }} >&#10005;</div></td>
                                 </tr>
                             )
                         })}
@@ -270,6 +281,7 @@ const QuizManagement = () => {
                 }
             </div>
             <DeleteConfirmation showModal={displayConfirmationModal} confirmModal={handleDeleteMultipleQuizzes} hideModal={hideConfirmationModal} />
+            <DeleteConfirmation showModal={displaySingleConfirmationModal} confirmModal={removeQuiz} hideModal={hideConfirmationModal} i={i} />
         </div>
     )
 }
