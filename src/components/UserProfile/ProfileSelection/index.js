@@ -6,7 +6,7 @@ import About from "../About";
 import FollowerList from "../FollowerList";
 import ChannelLeaderboard from "../../Leaderboard/ChannelLeaderboard";
 const ProfileSectionWrapper = ({tag, userId, self})=>{
-
+    
     if(tag===0){
         return(
             <div>
@@ -17,6 +17,7 @@ const ProfileSectionWrapper = ({tag, userId, self})=>{
     }
 
     if(tag===1){
+        console.log(tag)
         return(
             <div>
                 <UserQuizDisplay/>

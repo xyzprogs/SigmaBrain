@@ -39,6 +39,9 @@ const FollowerList = ()=>{
             }
             setFollowers(newarr)
         }
+        else{
+            setEnd(true)
+        }
     }
 
     const loadMore = async ()=>{
@@ -60,7 +63,7 @@ const FollowerList = ()=>{
             })}
 
             {
-                end?<div>No More</div>
+                end?<div>That's the end</div>
                 :<Button onClick={loadMore}>More</Button>
             }
         </div>

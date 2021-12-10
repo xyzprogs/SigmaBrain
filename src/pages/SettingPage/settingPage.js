@@ -6,6 +6,7 @@ import userApis from '../../api/user-api'
 import BODY from '../../constant/body'
 import HEADER from '../../constant/header'
 import ERRORCODE from '../../constant/firebase-error-code'
+import { SideBar } from '../../components/Home'
 const SettingPage = ()=>{
     const classes = useStyles()
     const {auth, passwordError} = useContext(AuthContext)
@@ -139,6 +140,7 @@ const SettingPage = ()=>{
                     <div onClick={changePassword} className={classes.btn}>Update Password</div>
             </div>
         </div>
+
     )
 }
 

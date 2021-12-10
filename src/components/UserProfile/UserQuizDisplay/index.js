@@ -12,7 +12,6 @@ const UserQuizDisplay = (props) => {
         const loadUserQuizzes = async () => {
             let response = await quizApis.getUserQuiz(userId)
             setQuizzes(response.data)
-            console.log("load quizzes", response.data)
         }
         loadUserQuizzes()
     }, [userId])

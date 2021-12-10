@@ -63,7 +63,7 @@ const LikeQuizPage = ()=>{
         </div>
         <div className={classes.pageContainer}>
             <div>
-                <div className={classes.title}>Take Later</div>
+                <div className={classes.title}>Liked Quizzes</div>
                 <div>
                     {quizzes.map((quiz, i) => {
                                 return <QuizListCard key={i} quiz={quiz}/>

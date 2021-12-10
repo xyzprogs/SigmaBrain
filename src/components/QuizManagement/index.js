@@ -8,6 +8,8 @@ import BODY from '../../constant/body'
 import HEADER from '../../constant/header'
 import UserBanner from '../UserBanner'
 import ManagementCard from './ManagementCard'
+import create_icon from '../../images/create.png'
+import delete_icon from '../../images/delete.png'
 const QuizManagement = () => {
     const classes = useStyles()
     let history = useHistory()
@@ -48,6 +50,8 @@ const QuizManagement = () => {
             }
             setQuizzes(newarr)
             setCheckedState(newcheckarr)
+        }else{
+            setEnd(true)
         }
     }
 
@@ -128,11 +132,16 @@ const QuizManagement = () => {
         //reloads the page
         const loadUserQuizzes = async () => {
             // let id =  auth.getCurrentUserUid()
-            let id = localStorage.getItem("uid")
-            let response = await quizApis.getUserQuizAuthenticated(id)
-            setQuizzes(response.data)
-            //set false for the checkboxes
-            setCheckedState(new Array(response.data.length).fill(false))
+            if(auth.user!==undefined && auth.user!=null){
+                const token = await auth.user.getIdToken()
+                let headers = {
+                    [HEADER.TOKEN] : token
+                }
+                let response = await quizApis.getUserQuizAuthenticated(headers)
+                setQuizzes(response.data)
+                //set false for the checkboxes
+                setCheckedState(new Array(response.data.length).fill(false))
+            }
         }
 
         loadUserQuizzes()
@@ -188,11 +197,19 @@ const QuizManagement = () => {
                 <div className={classes.title}>Quiz Management</div>
             </div>
             <div className={classes.consoleContainer}>
-            <div className={classes.consoleBarContainer}>
-                {/* <div className={classes.quizimg}>Filter</div> */}
-                <div className={classes.buttonContainer}><Button onClick={redirectQuizCreation}>Create Quiz</Button>
-                    <Button className={classes.colorRed} onClick={handleDeleteMultipleQuizzes}>Delete Quiz</Button></div>
-            </div>
+                <div className={classes.consoleBarContainer}>
+                    {/* <div className={classes.quizimg}>Filter</div> */}
+                    <div className={classes.buttonContainer}>
+                        {/* <div className={`${classes.colorGreen} ${classes.btn}`} onClick={redirectQuizCreation}>Create Quiz</div>
+                        <div className={`${classes.colorRed} ${classes.btn}`} onClick={handleDeleteMultipleQuizzes}>Delete Quiz</div> */}
+                        <div className={classes.iconBox} title="create" onClick={redirectQuizCreation}>
+                            <img className={classes.image_setting} src={create_icon}/>
+                        </div>
+                        <div className={classes.iconBox} title="remove"  onClick={handleDeleteMultipleQuizzes}>
+                            <img className={classes.image_setting} src={delete_icon}/>
+                        </div>
+                    </div>
+                </div>
                 <table id="quizzes">
                     <thead>
                         <tr>

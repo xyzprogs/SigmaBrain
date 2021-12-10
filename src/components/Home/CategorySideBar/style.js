@@ -23,6 +23,9 @@ export const useStyles = createUseStyles({
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
         overflow: "hidden",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },
 
     openBtn:{

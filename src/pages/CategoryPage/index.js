@@ -8,6 +8,7 @@ import { Button } from '@mui/material'
 import LOCAL_CONSTANT from '../../constant/local-storage'
 import SideBar from '../../components/Home/SideBar'
 import BODY from '../../constant/body'
+import QuizListCard from '../../components/QuizListCard'
 const CategoryPage = () => {
     const {categoryId} = useParams()
     const classes = useStyles()
@@ -33,6 +34,9 @@ const CategoryPage = () => {
             }
             setQuizzes(new_quizzes)
         }
+        else{
+            setEnd(true)
+        }
     }
 
     const getMore = async ()=>{
@@ -49,23 +53,42 @@ const CategoryPage = () => {
     }
 
     return(
-        <div className={classes.pageContainer}>
+        // <div className={classes.pageContainer}>
+        //     <div>
+        //         <SideBar className={classes.sidebar}/>
+        //     </div>
+        //     <div className={classes.boardContainer}>
+        //             <div>
+        //                 <div className={classes.title}>Category: {QUIZ_CATEGORY_NAME[categoryId]}</div>
+        //             </div>
+        //             <div className={classes.quizContainer}>
+        //                 {quizzes.map((quiz, i) => {
+        //                     return <QuizCard key={i} quiz={quiz} redirect={true}/>
+        //                 })}
+        //             </div>
+        //             {
+        //                 end?<div>no more</div>:
+        //                 <Button onClick={getMore}>More</Button>
+        //             }
+        //     </div>
+        // </div>
+        <div> 
             <div>
                 <SideBar className={classes.sidebar}/>
             </div>
-            <div className={classes.boardContainer}>
+            <div className={classes.pageContainer}>
+                <div>
+                    <div className={classes.title}>Category: {QUIZ_CATEGORY_NAME[categoryId]}</div>
                     <div>
-                        <div className={classes.title}>{QUIZ_CATEGORY_NAME[categoryId]}</div>
-                    </div>
-                    <div className={classes.quizContainer}>
                         {quizzes.map((quiz, i) => {
-                            return <QuizCard key={i} quiz={quiz} redirect={true}/>
+                                    return <QuizListCard key={i} quiz={quiz}/>
                         })}
                     </div>
                     {
-                        end?<div>no more</div>:
-                        <Button onClick={getMore}>More</Button>
+                        end?<div className={classes.endLine}>No More</div>
+                        :<Button onClick={getMore}>More</Button>
                     }
+                </div>
             </div>
         </div>
     )

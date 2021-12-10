@@ -90,7 +90,14 @@ export const useStyles = createUseStyles({
     defaultCursor:{
         cursor: "default"
     },
+    userInfoAndEXPContainer:{
+        display:'grid',
+        width:'100%',
+        gridTemplateColumns: 'auto auto',
+    },
+    experienceBarContainer:{
 
+    },
     userInfoGrid:{
         display:'grid',
         width:'20%',

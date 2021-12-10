@@ -21,7 +21,7 @@ const SideBar = () => {
     const [end, setEnd] = useState(false)
     const history = useHistory()
     useEffect(()=>{
-        const loadSubscriptions = async (userId)=>{
+        const loadSubscriptions = async ()=>{
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN] : token
@@ -39,7 +39,7 @@ const SideBar = () => {
     const updateSubscription = (response) => {
         let sub_arr = response.data
         if(response.data.length>0){
-            if(response.data.length == 11){
+            if(response.data.length === 11){
                 sub_arr.pop()
             }
             else{

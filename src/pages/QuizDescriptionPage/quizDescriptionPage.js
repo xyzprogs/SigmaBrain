@@ -7,11 +7,13 @@ const QuizDescriptionPage = (props)=>{
 
     return(
     <div className={classes.pageContainer}>
-        <div className={classes.descriptionBox}>
-            <DescriptionBox quizId={props.match.params.quizId}/>
+        <div>
+            <div className={classes.descriptionBox}>
+                <DescriptionBox quizId={props.match.params.quizId}/>
+            </div>
+            <div className={classes.line}/>
+            <CommentSection quizId={props.match.params.quizId}/>
         </div>
-        <div className={classes.line}/>
-        <CommentSection quizId={props.match.params.quizId}/>
     </div>
     )
 }
