@@ -81,7 +81,7 @@ const CategoryBar = ({bar}) =>{
                         onChange={onAutoChange}
                         renderInput={(params) => <TextField {...params} label="Category" />}
                     />
-                    <Button onClick={onSearch}>Search</Button>
+                    <div className={classes.searchType} onClick={onSearch}>Search</div>
                 </Box>
             </Modal>
         </div>
