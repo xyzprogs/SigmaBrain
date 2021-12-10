@@ -5,7 +5,7 @@ const api = axios.create({
 })
 export const createUser = (payload, config) => api.post('/create', payload, config) 
 export const getMainLeaderboard = () => api.get('/leaderboard')
-export const getChannelLeaderboard = (ownerId) => api.get(`/leaderboard/${ownerId}`)
+export const getChannelLeaderboard = (ownerId, row) => api.get(`/leaderboard/${ownerId}?row=${row}`)
 export const setProfilePageImage = (formdata, config) => api.post('/profile/setUserProfileImage', formdata, config)
 export const setBackgroundImage = (formdata, config) => api.post('/profile/setUserBackgroundImage', formdata, config)
 export const setUserDescription = (payload, config) => api.post('/profile/setUserDescription', payload, config)
@@ -26,6 +26,7 @@ export const getMoreSubscriptionsById = (payload, headers) => api.post('/getMore
 export const createPreferenceCateory = (payload, headers) => api.post('/createPreferenceCateory', payload, {headers: headers})
 export const obtainUserCategoryPreference = (headers) => api.get('/obtainUserCategoryPreference', {headers: headers})
 export const checkSubscribeStatus = (subscribeTo, headers) => api.get(`/checkSubscribeStatus?subscribeTo=${subscribeTo}`, {headers: headers})
+export const updateChannelLeaderboard = (payload, headers) => api.post('/leaderboard/updateScore', payload, {headers: headers})
 const userApis = {
     createUser,
     getMainLeaderboard,
@@ -49,7 +50,8 @@ const userApis = {
     getMoreSubscriptionsById,
     createPreferenceCateory,
     obtainUserCategoryPreference,
-    checkSubscribeStatus
+    checkSubscribeStatus,
+    updateChannelLeaderboard
 }
 
 export default userApis

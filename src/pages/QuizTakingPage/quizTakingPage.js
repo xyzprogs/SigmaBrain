@@ -6,7 +6,8 @@ import QuizTaking from '../../components/QuizTaking'
 import Countdown from 'react-countdown';
 import HEADER from '../../constant/header';
 import AuthContext from '../../context/auth-context';
-
+import BODY from '../../constant/body';
+import userApis from '../../api/user-api';
 
 const QuizTakingPage = () => {
     const classes = useStyles();
@@ -18,7 +19,7 @@ const QuizTakingPage = () => {
     const [flag, setFlag] = useState(false);
     const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
-
+    const [creator, setCreator] = useState()
 
     useEffect(() => {
         const getQuiz = async () => {
@@ -26,6 +27,7 @@ const QuizTakingPage = () => {
             let timeLimit = quiz.data[0].timeLimit * 60 * 1000
             setQuizTime(timeLimit);
             setTime(timeLimit);
+            setCreator(quiz.data[0][BODY.USERID])
         }
         getQuiz()
     }, [])
@@ -45,13 +47,32 @@ const QuizTakingPage = () => {
         }
 
         setQuizTime(time);
+        updateChannelLeaderboardScore(correct);
+    }
+
+    const updateChannelLeaderboardScore = async (result)=>{
+        if (auth.user !== null) {
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
+            }
+            let payload = {
+                [BODY.CHANNELOWNER]: creator,
+                [BODY.SCORE]: result
+
+            }
+            userApis.updateChannelLeaderboard(payload, headers)
+            console.log("update leaderboard", payload)
+        }
     }
 
     const changeFlag = () => {
         setFlag(true);
         let correct = 0;
         for (let i = 0; i < answerChoices.length; i++) {
-            if (parseInt(answerChoices[i]) === correctChoices[i]) {
+            console.log(parseInt(answerChoices[i]))
+            console.log(correctChoices[i])
+            if (parseInt(answerChoices[i]) === correctChoices[i][0]) {
                 correct++;
             }
         }

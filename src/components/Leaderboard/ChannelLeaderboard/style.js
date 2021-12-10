@@ -42,10 +42,15 @@ export const useStyles = createUseStyles({
         marginBottom:'10px',
         backgroundColor:"#34739C"
     },
-    textStyle:{
-        backgroundColor:"#34739C",
-        color:"white",
-        fontsize:"30px",
-        fontWeight:"bold"
+    table: {
+        borderCollapse: "collapse",
+        borderSpacing: "100px 0",
+      },
+      
+    td: {
+    padding: "10px 0"
+    },
+    container:{
+        paddingBottom: "2.5%"
     }
 })

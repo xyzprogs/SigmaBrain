@@ -197,11 +197,12 @@ const ProfileBar = (props) => {
                     </div>
                 </div>
 
-                <div className={classes.experienceBarContainer}>
+                {self &&  <div className={classes.experienceBarContainer}>
                     <ExperienceBar bgcolor={'red'} completed={expBarPercentage} />
                     <div onClick={() => testAPI()}>level {`${userInfo.userLevel}`}</div>
                     <div>Still need {`${userInfo.expForLevelUp}`} EXP to level up</div>
                 </div>
+                }
             </div>
             <div className={classes.barContainer}>
                     <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(0) }}>
@@ -216,9 +217,10 @@ const ProfileBar = (props) => {
                         About
                     </div>
 
-                    <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(3) }}>
+                    {props.self && <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(3) }}>
                         Followers
                     </div>
+                    }
 
                     <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(4) }}>
                         Forum
