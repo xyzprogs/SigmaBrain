@@ -16,7 +16,7 @@ import { Route, Switch } from 'react-router-dom';
 import { AuthContextProvider } from './context/auth-context'
 import 'bootstrap' 
 import NavBar from './components/NavBar';
-import ChannelLeaderboardPage from './pages/ChannelLeaderboardPage';
+import CategoryLeaderboardPage from './pages/CategoryLeaderboardPage';
 import { SearchContextProvider } from './context/search-context';
 import SubscriptionPage from './pages/SubscriptionPage';
 import TakeLaterPage from './pages/TakeLaterPage';
@@ -51,6 +51,7 @@ function App() {
             <Route path='/likequizzes' component={LikeQuizPage}/>
             {/* <Route path='/community'/> */}
             {/* <Route path='/leaderboard/:leaderboardId' component = {ChannelLeaderboardPage}/> */}
+            <Route path='/global/:userId' component={CategoryLeaderboardPage}/> {/*userId means categoryId in this case */}
             <Route path='/category/:categoryId' component = {CategoryPage}/>
             <Route path='/setting' component={SettingPage}/>
             <Route path='/history' component={HistoryPage}/>

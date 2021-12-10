@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useStyles } from './style'
 import userApis from '../../../api/user-api'
-import RankCard from '../../RankCardTemp'
 import { useParams } from 'react-router-dom'
 import LeaderboardCard from '../LeaderboardCard'
 import {Button} from '@mui/material'
-const ChannelLeaderboard = ({ channelName }) => {
+const ChannelLeaderboard = ({ global }) => {
     const classes = useStyles()
     const { userId } = useParams()
     const [localLeaderboard, setLocalLeaderboard] = useState([])
@@ -15,8 +14,18 @@ const ChannelLeaderboard = ({ channelName }) => {
             await userApis.getChannelLeaderboard(ownerId).then((response) => {
                 // setLocalLeaderboard(response.data)
                 updateChannelLeaderboard(response)
-                console.log(response.data)
             })
+        }
+
+        const getGlobalLeaderboard = async (category) => {
+            await userApis.getGlobalLeaderboard(category).then((response) => {
+                // setLocalLeaderboard(response.data)
+                updateChannelLeaderboard(response)
+            })
+        }
+        if(global){
+            getGlobalLeaderboard(userId)
+            return
         }
         getLeaderboard(userId);
     }, [userId])
@@ -40,7 +49,13 @@ const ChannelLeaderboard = ({ channelName }) => {
 
     const getMore = async()=>{
         let row = localLeaderboard.length
-        let response = await userApis.getChannelLeaderboard(userId, row)
+        let response = null
+        if(global){
+            response = await userApis.getGlobalLeaderboard(userId, row)
+        }
+        else{
+            response = await userApis.getChannelLeaderboard(userId, row)
+        }
         updateChannelLeaderboard(response)
     }
 
@@ -51,7 +66,7 @@ const ChannelLeaderboard = ({ channelName }) => {
                     <tr>
                         <th className={classes.cell}>Rank</th>
                         <th className={classes.cell}>&nbsp;</th>
-                        <th className={classes.cell}>Name</th>
+                        <th className={`${classes.cell} ${classes.name}`}>Name</th>
                         <th className={classes.cell}>Level</th>
                         <th className={classes.cell}>Score Point</th>
                     </tr>

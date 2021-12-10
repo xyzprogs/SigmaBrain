@@ -2,7 +2,7 @@ import React from 'react';
 import { userStyles} from "./style";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-
+import BODY from '../../../constant/body';
 
 const QuestionCard = (props) => {
     const classes = userStyles();
@@ -30,7 +30,7 @@ const QuestionCard = (props) => {
     }
 
     const answerHandler = (event) => {
-        props.changeAnswerChoice(event.target.value);
+        props.changeAnswerChoice(event.target.value, questions[BODY.QUESTIONID]);
     }
 
     const buttonRender = (choice, index) => {

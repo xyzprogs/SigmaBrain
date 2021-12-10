@@ -104,7 +104,7 @@ const QuizResult = (props) => {
             setExpNeededToLevelUp(newExpNeeded)
         }
         //updates the database 
-        updateLevelAndExpNeeded(userLevel, expNeeded, expGained)
+        //updateLevelAndExpNeeded(userLevel, expNeeded, expGained)
     }
 
     useEffect(() => {
@@ -121,19 +121,19 @@ const QuizResult = (props) => {
             setUserInfo(response.data[0])
             //calculates and displays the initial user level and exp information
             calculateProgress(response.data[0].userLevel, response.data[0].expForLevelUp)
-            let pointsGained = calculateQuizPoints()
+            let pointsGained = 0
             processExp(response.data[0].userLevel, response.data[0].expForLevelUp, pointsGained)
 
             setPrevExperience(response.data[0].experience);
 
-            const payload = {
-                "userId": id,
-                "experience": response.data[0].experience + correct
-            }
-            let response2 = await userApis.updateUserExperience(payload);
-            if (response2.data.length <= 0) {
-                return
-            }
+            // const payload = {
+            //     "userId": id,
+            //     "experience": response.data[0].experience + correct
+            // }
+            // let response2 = await userApis.updateUserExperience(payload);
+            // if (response2.data.length <= 0) {
+            //     return
+            // }
             //setShowModal(true);
             setExperience(response.data[0].experience + correct);
         }

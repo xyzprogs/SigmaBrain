@@ -58,7 +58,7 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
             setQuestions(response.data);
             setAnswers(answerArray);
             setCorrectChoices(correctArray);
-            setAnswerChoices(new Array(response.data.length).fill(new Array(2).fill(-1)));
+            setAnswerChoices(new Array(response.data.length).fill(new Array(3).fill(-1)));
         }
         if (!auth.loggedIn) {
             setShowModal(true);
@@ -87,7 +87,7 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
     }
 
 
-    const changeAnswerChoice = (choice) => {
+    const changeAnswerChoice = (choice, questionId) => {
         let temp = [];
         for (let i = 0; i < answerChoices.length; i++) {
             temp.push(answerChoices[i]);
@@ -96,6 +96,7 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
         temp[index] = [].fill(-1);
         temp[index][0] = parseInt(choice.substring(0, firstComma));
         temp[index][1] = choice.substring(firstComma + 1);
+        temp[index][2] = questionId
         setAnswerChoices(temp);
     }
 

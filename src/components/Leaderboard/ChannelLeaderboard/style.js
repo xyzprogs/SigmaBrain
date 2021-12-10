@@ -52,5 +52,9 @@ export const useStyles = createUseStyles({
     },
     container:{
         paddingBottom: "2.5%"
+    },
+
+    name:{
+        width: "20vw"
     }
 })

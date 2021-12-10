@@ -20,7 +20,7 @@ const QuizTakingPage = () => {
     const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
     const [creator, setCreator] = useState()
-
+    const [pick, setPick] = useState([])
     useEffect(() => {
         const getQuiz = async () => {
             let quiz = await quizApis.getQuiz(quizId)
@@ -62,21 +62,39 @@ const QuizTakingPage = () => {
 
             }
             userApis.updateChannelLeaderboard(payload, headers)
-            console.log("update leaderboard", payload)
         }
     }
 
-    const changeFlag = () => {
-        setFlag(true);
-        let correct = 0;
-        for (let i = 0; i < answerChoices.length; i++) {
-            console.log(parseInt(answerChoices[i]))
-            console.log(correctChoices[i])
-            if (parseInt(answerChoices[i]) === correctChoices[i][0]) {
-                correct++;
+    const changeFlag = async () => {
+        if (auth.user !== null) {
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN]: token
             }
+            let payload = {
+                ["answers"]: answerChoices,
+                [BODY.QUIZID]: quizId
+            }
+            await quizApis.checkQuiz(payload, headers)
+            setFlag(true);
         }
-        saveResults(correct);
+        // setFlag(true);
+        // console.log(answerChoices)
+        // console.log(correctChoices)
+        // await quizApis.checkQuiz()
+        // let correct = 0;
+        // for (let i = 0; i < answerChoices.length; i++) {
+        //     console.log(parseInt(answerChoices[i]))
+        //     console.log(correctChoices[i])
+        //     if (parseInt(answerChoices[i]) === correctChoices[i][0]) {
+        //         correct++;
+        //     }
+        // }
+        // saveResults(correct);
+    }
+
+    const sendAnswer = ()=>{
+        
     }
 
     return (

@@ -26,6 +26,10 @@ export const useStyles = createUseStyles({
         textAlign: "left"
     },
 
+    toLeft:{
+        textAlign: "left"
+    },
+
     boardContainer:{
         // display: "absolute",
         // marginTop: "7%"
