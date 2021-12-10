@@ -5,8 +5,8 @@ export const userStyles = createUseStyles({
 
     congratualtionCardContainer: {
         textAlign: 'center',
-        color: 'white',
-        backgroundColor: '#5bc0de',
+        color: 'black',
+        backgroundColor: '#ffffff',
         marginBlock: '20px'
     },
 
@@ -44,5 +44,17 @@ export const userStyles = createUseStyles({
     buttonMargin: {
         margin: '5px',
        
+    },
+    buttonContainer:{
+        display: "grid",
+        gridTemplateColumns: "50% 50%",
+    },
+    optionButton:{
+        backgroundColor:"#417CA2",
+        width:"150px",
+        height:"30px",
+        color:"white",
+        borderRadius:10,
+        textAlign:"center",
     }
 })
