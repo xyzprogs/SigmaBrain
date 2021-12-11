@@ -113,8 +113,6 @@ const ProfileBar = (props) => {
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
                 calculateProgress(response.data[0].userLevel, response.data[0].expForLevelUp)
-                console.log(response.data[0])
-
             })
         }
 
@@ -139,7 +137,6 @@ const ProfileBar = (props) => {
         // if (localStorage.getItem('uid') === userId) {
         //     setSelf(true)
         // }
-        console.log(props.self)
         if(props.self!==undefined){
             setSelf(props.self)
         }
@@ -151,19 +148,19 @@ const ProfileBar = (props) => {
     }
 
 
-    const testAPI = async () => {
-        const token = await auth.user.getIdToken()
-        let headers = {
-            [HEADER.TOKEN]: token
-        }
-        let payload = {
-            [BODY.SUBSCRIBETO]: userId,
-            [BODY.USERLEVEL]: 6,
-            [BODY.EXPNEEDED]: 1232,
-            [BODY.EXPGAINED]: 1500,
-        }
-        await userApis.updateUserLevel(payload, headers)
-    }
+    // const testAPI = async () => {
+    //     const token = await auth.user.getIdToken()
+    //     let headers = {
+    //         [HEADER.TOKEN]: token
+    //     }
+    //     let payload = {
+    //         [BODY.SUBSCRIBETO]: userId,
+    //         [BODY.USERLEVEL]: 6,
+    //         [BODY.EXPNEEDED]: 1232,
+    //         [BODY.EXPGAINED]: 1500,
+    //     }
+    //     await userApis.updateUserLevel(payload, headers)
+    // }
 
     return (
         <div>
@@ -199,7 +196,7 @@ const ProfileBar = (props) => {
 
                 {self &&  <div className={classes.experienceBarContainer}>
                     <ExperienceBar bgcolor={'red'} completed={expBarPercentage} />
-                    <div onClick={() => testAPI()}>level {`${userInfo.userLevel}`}</div>
+                    {/* <div onClick={() => testAPI()}>level {`${userInfo.userLevel}`}</div> */}
                     <div>Still need {`${userInfo.expForLevelUp}`} EXP to level up</div>
                 </div>
                 }

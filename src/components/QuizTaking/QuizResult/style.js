@@ -2,6 +2,10 @@ import { createUseStyles } from "react-jss";
 
 export const userStyles = createUseStyles({
     
+    questionCardcontainer:{
+        overflowY: "auto",
+        height: "55vh",
+    },
 
     congratualtionCardContainer: {
         textAlign: 'center',
@@ -56,5 +60,6 @@ export const userStyles = createUseStyles({
         color:"white",
         borderRadius:10,
         textAlign:"center",
+        cursor: "pointer"
     }
 })
