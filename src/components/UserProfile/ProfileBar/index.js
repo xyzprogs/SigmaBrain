@@ -109,9 +109,13 @@ const ProfileBar = (props) => {
             } catch (e) {
                 setImage(default_profile)
             }
+        }
+
+        const loadUserInformation = async ()=> {
             //Loads the user information 
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
+                console.log(response.data)
                 calculateProgress(response.data[0].userLevel, response.data[0].expForLevelUp)
             })
         }
@@ -132,8 +136,10 @@ const ProfileBar = (props) => {
             }
         }
 
+        loadUserInformation()
         getSubscribeStatus()
         loadImage()
+
         // if (localStorage.getItem('uid') === userId) {
         //     setSelf(true)
         // }

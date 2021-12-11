@@ -114,14 +114,14 @@ export const useStyles = createUseStyles({
         fontSize:"18px",
         textAlign:"Left",
         fontWeight:"bold",
-        paddingLeft: "25%",
+        paddingLeft: "35%",
         marginTop: "5%",
         whiteSpace: "nowrap",
     },
     EmailText:{
         fontSize:"15px",
         textAlign:"left",
-        marginLeft: "25%"
+        marginLeft: "35%"
     },
     colorRed:{
         color: "red"
