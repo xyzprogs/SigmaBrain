@@ -74,7 +74,7 @@ const ChannelLeaderboard = ({ global }) => {
 
                 <tbody>
                     {localLeaderboard.map((user, i) => {
-                        return <LeaderboardCard user={user} rank={i+1}/>
+                        return <LeaderboardCard key = {i} user={user} rank={i+1}/>
                     })}
                 </tbody>
             </table>
