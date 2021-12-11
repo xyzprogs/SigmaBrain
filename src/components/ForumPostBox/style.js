@@ -55,11 +55,11 @@ export const useStyles = createUseStyles({
     commentsContainer2: {
         //border: "solid",
         //borderWidth:"0.5px",
-        height: "70vh",
+        // height: "70vh",
         width: "50vw",
         margin: "auto",
         marginBottom: "5%",
-        overflowY: "auto",
+        // overflowY: "auto",
         borderRadius:10,
     },
 

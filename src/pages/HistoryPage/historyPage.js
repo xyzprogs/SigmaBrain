@@ -1,19 +1,20 @@
 import { useStyles } from './style'
 import { SideBar } from '../../components/Home'
 import { useState, useEffect, useContext } from 'react'
-import HistoryResult from '../../components/HistoryResult'
 import { Button } from '@mui/material'
 import HEADER from '../../constant/header'
 import quizApis from '../../api/quiz-api'
 import AuthContext from '../../context/auth-context'
-import LOCAL_CONSTANT from '../../constant/local-storage'
 import BODY from '../../constant/body'
 import QuizListCard from '../../components/QuizListCard'
+import {useHistory} from 'react-router-dom'
 const HistoryPage = ()=>{
     const classes = useStyles()
     const {auth} = useContext(AuthContext)
     const [end, setEnd] = useState(false)
     const [histories, setHistories] = useState([])
+    const [login, setLogin] = useState(true)
+    const history = useHistory()
     useEffect(()=>{
         const loadHistories = async()=>{
             const token = await auth.user.getIdToken()
@@ -27,6 +28,7 @@ const HistoryPage = ()=>{
         if(auth.user!=null && auth.user!==undefined){
             loadHistories()
         }
+        setLogin(auth.loggedIn)
     },[auth.user])
 
     const updateHistories = (response) => {
@@ -62,6 +64,10 @@ const HistoryPage = ()=>{
             const response = await quizApis.getQuizHistory(payload, headers)
             updateHistories(response)
         }
+    }
+
+    if(!login){
+        history.push('/')
     }
 
     return(

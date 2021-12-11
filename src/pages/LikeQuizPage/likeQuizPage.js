@@ -4,14 +4,16 @@ import { useContext, useEffect, useState } from 'react'
 import AuthContext from '../../context/auth-context';
 import quizApis from '../../api/quiz-api';
 import HEADER from '../../constant/header';
-import QuizCard from '../../components/QuizCard';
 import QuizListCard from '../../components/QuizListCard';
 import { Button } from '@mui/material';
+import {useHistory} from 'react-router-dom'
 const LikeQuizPage = ()=>{
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])
     const [end, setEnd] = useState(false)
     const {auth} = useContext(AuthContext)
+    const [login, setLogin] = useState(true)
+    const history = useHistory()
     useEffect(()=>{
         const loadLikedQuiz = async ()=>{
             if(auth.user != null){
@@ -20,10 +22,10 @@ const LikeQuizPage = ()=>{
                     [HEADER.TOKEN] : token
                 }
                 let response = await quizApis.getLikedQuiz(headers)
-                console.log("loading",response.data)
                 updateLikedQuizzes(response)
             }
         }
+        setLogin(auth.loggedIn)
         loadLikedQuiz()
     }, [auth.user])
 
@@ -54,6 +56,11 @@ const LikeQuizPage = ()=>{
             let response = await quizApis.getLikedQuiz(headers, row)
             updateLikedQuizzes(response)
         }
+    }
+
+
+    if(!login){
+        history.push('/')
     }
 
     return(

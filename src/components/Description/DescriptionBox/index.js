@@ -16,6 +16,7 @@ const DescriptionBox = (props)=>{
     const {quizId} = useParams()
     const [quiz, setQuiz] = useState()
     const [image, setImage] = useState("")
+    const [ownerName, setOwnerName] = useState("")
     const [userImage, setUserImage] = useState("")
     const [showModal, setShowModal] = useState(false);
     const [admin, setAdmin] = useState(false);
@@ -32,16 +33,13 @@ const DescriptionBox = (props)=>{
     const adminBlockMsg = "Are you going to block this quiz using admin privilege?"
     useEffect(()=>{
 
-        const loadRelevantQuiz = async(quizName)=>{
-            if(auth.user!=null && auth.user!==undefined){
-                let uid = auth.user.uid
-                let body = {
-                    [BODY.USERID]: uid,
-                    [BODY.QUIZNAME]: quizName
-                }
-                let response = await quizApis.getRelevantQuiz(body)
-                setRelevant(response.data)
+        const loadRelevantQuiz = async(quizName, quizOwner)=>{
+            let body = {
+                [BODY.USERID]: quizOwner,
+                [BODY.QUIZNAME]: quizName
             }
+            let response = await quizApis.getRelevantQuiz(body)
+            setRelevant(response.data)
         }
 
         const loadQuiz = async () => {
@@ -50,10 +48,11 @@ const DescriptionBox = (props)=>{
                 return
             }
             setQuiz(response.data[0])
+            setOwnerName(response.data[0][BODY.DISPLAYNAME])
             loadQuizThumbnail(response.data[0][BODY.QUIZID])
             loadUserImage(response.data[0][BODY.USERID])
             getSubscribeStatus(response.data[0][BODY.USERID])
-            loadRelevantQuiz(response.data[0][BODY.QUIZNAME])
+            loadRelevantQuiz(response.data[0][BODY.QUIZNAME], response.data[0][BODY.USERID])
         }
 
         const loadQuizThumbnail = async(quizId)=>{
@@ -88,7 +87,6 @@ const DescriptionBox = (props)=>{
             if(auth.user!=null && auth.user!==undefined){
                 let uid = auth.user.uid
                 let response = await userApis.getUserInfo(uid)
-                console.log(response.data[0][BODY.ISADMIN])
                 if(response.data.length>0 && response.data[0][BODY.ISADMIN]===1){
                     setAdmin(true)
                     if(quiz===undefined){
@@ -128,7 +126,6 @@ const DescriptionBox = (props)=>{
         }
 
         const getSubscribeStatus = async (uid)=>{
-            console.log("check")
             if(auth.user!=null && auth.user!==undefined){
                 if(auth.user.uid === uid){
                     setSelf(true)
@@ -139,7 +136,6 @@ const DescriptionBox = (props)=>{
                     [HEADER.TOKEN] : token
                 }
                 let response = await userApis.checkSubscribeStatus(uid, headers)
-                console.log(response)
                 if(response.data.length>0){
                     setSubscribeStatus(true)
                 }
@@ -148,7 +144,7 @@ const DescriptionBox = (props)=>{
                 }
             }
         }
-
+        
         loadQuiz()
         checkAdmin()
         getLikedStatus()
@@ -171,7 +167,6 @@ const DescriptionBox = (props)=>{
         }
         setLikedStatus(likeStatus)
         await quizApis.likedQuiz(payload, headers)
-        console.log(`change quiz${quizId} to ${likeStatus}`)
     }
 
     const takeLater = async ()=>{
@@ -188,7 +183,6 @@ const DescriptionBox = (props)=>{
         }
         await quizApis.takeLaterQuiz(payload, headers)
         setSaveStatus(true)
-        console.log(`user ${localStorage.getItem(BODY.UID)} puts quiz ${quizId} into take later`)
     }
 
     const removeTakeLater = async ()=>{
@@ -202,7 +196,6 @@ const DescriptionBox = (props)=>{
         }
         await quizApis.removeTakeLaterQuiz(quizId, headers)
         setSaveStatus(false)
-        console.log(`user ${localStorage.getItem(BODY.UID)} removes quiz ${quizId} into take later`)
     }
 
     const startQuiz = async () => {
@@ -213,7 +206,6 @@ const DescriptionBox = (props)=>{
         history.push(`/quizTaking/${props.quizId}`);
         var date = new Date()
         var dateString = date.getUTCFullYear() +"/"+ (date.getUTCMonth()+1) +"/"+ date.getUTCDate() + " " + date.getUTCHours() + ":" + date.getUTCMinutes() + ":" + date.getUTCSeconds()
-        console.log("add to history", props.quizId, dateString)
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN] : token
@@ -223,7 +215,6 @@ const DescriptionBox = (props)=>{
             [BODY.HISTORYTIME]: dateString
         }
         await quizApis.createQuizHistory(payload, headers)
-        console.log("create new quiz history")
     }
     
     const redirectToProfile = (userId)=>{
@@ -232,7 +223,6 @@ const DescriptionBox = (props)=>{
 
     const onSubscribe = async () => {
         if(auth.user!=null && auth.user!==undefined){
-            console.log("subscribe")
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN]: token
@@ -302,7 +292,6 @@ const DescriptionBox = (props)=>{
             }
             await quizApis.removeUserQuizAdmin(quizId, headers)
             history.push('/')
-            console.log("admin remove quiz")
         }
     }
 
@@ -332,7 +321,7 @@ const DescriptionBox = (props)=>{
 
                         <div className={classes.nameBtnContainer}>
                             <div className={classes.userDisplayName}>
-                                {quiz[BODY.DISPLAYNAME]}
+                                {ownerName}
                             </div>
 
                             {!self && !subscribeStatus && <div onClick={onSubscribe} className={`${classes.subscribeBtn} ${classes.btn} ${classes.colorGreen}`}>Subscribe</div>}

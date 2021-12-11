@@ -26,6 +26,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
     const redirectToSearchResult = async ()=>{
         searchAndRedirect(userSearch)
         setSearches([])
+        setUserSearch("")
     }
 
     const onEnterKey =  (event)=> {

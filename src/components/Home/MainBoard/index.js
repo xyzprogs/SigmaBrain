@@ -9,7 +9,7 @@ import BODY from '../../../constant/body';
 import CatgeorySideBar from '../CategorySideBar';
 import AuthContext from '../../../context/auth-context';
 import HEADER from '../../../constant/header';
-import QUIZ_CATEGORY from '../../../constant/quiz-category';
+import QUIZ_CATEGORY, { QUIZ_CATEGORY_DICT, QUIZ_CATEGORY_NAME } from '../../../constant/quiz-category';
 import default_thumbnail from '../../../images/default_quiz_thumbnail.png';
 const MainBoard = () => {
     const classes = useStyles()
@@ -82,15 +82,16 @@ const MainBoard = () => {
         }
 
         const loadDefaultCategoryForNotLoggedIn = ()=>{
+            let TEMP_QUIZ_CATEGORY = [...QUIZ_CATEGORY_NAME]
+            TEMP_QUIZ_CATEGORY.splice(0, 1) //REMOVE THE FIRST ONE
+            TEMP_QUIZ_CATEGORY.sort(() => 0.5 - Math.random())
             if(auth.user===undefined||auth.user==null){
                 let defaultCategory = [
                     {'categoryId':QUIZ_CATEGORY.ALL},
-                    {'categoryId':QUIZ_CATEGORY.Computer_Science},
-                    {'categoryId':QUIZ_CATEGORY.Computer_Network},
-                    {'categoryId':QUIZ_CATEGORY.Computer_Vision},
-                    {'categoryId':QUIZ_CATEGORY.Machine_Learning}
                 ]
-                console.log(defaultCategory)
+                for(var i = 0; i < 5; i++){
+                    defaultCategory.push({'categoryId':QUIZ_CATEGORY_DICT[TEMP_QUIZ_CATEGORY[i]]})
+                }
                 setBar(defaultCategory)
             }
         }

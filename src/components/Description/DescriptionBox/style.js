@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss"
 import { makeStyles } from '@material-ui/core/styles'
+import { width } from "@mui/system";
 
 export const useMuiStyles = makeStyles((theme) => ({
     liked: {
@@ -68,7 +69,10 @@ export const useStyles = createUseStyles({
         border: "solid",
         borderWidth: "1px",
         borderRadius: "20px",
-        width: "100px"
+        width: "100px",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },
 
     userImageSize:{
@@ -154,8 +158,9 @@ export const useStyles = createUseStyles({
     },
 
     relevantBoard:{
-        height: "60vh",
-        marginLeft: "2.5%"
+        height: "75vh",
+        marginLeft: "2.5%",
+        width: "65%"
     },
 
     relevantText:{

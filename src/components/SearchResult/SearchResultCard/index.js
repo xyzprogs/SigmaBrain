@@ -29,8 +29,14 @@ const SearchResultCard = ({result})=>{
         loadName()
         loadImage()
     },[result])
+
+    const redirectToQuizPage = ()=>{
+        console.log("redirect to quiz page")
+        // history.push(`/quizDescription/${result[BODY.QUIZID]}
+    }
+
     return(
-        <div className={classes.searchResultContainer} onClick={()=>history.push(`/quizDescription/${result[BODY.QUIZID]}`)}>
+        <div className={classes.searchResultContainer} onClick={redirectToQuizPage}>
             <div className={classes.imgContainer}>
                 <img className={classes.imgSize} src={image} alt=""/>
             </div>

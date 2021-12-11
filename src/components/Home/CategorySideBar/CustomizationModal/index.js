@@ -91,7 +91,7 @@ const CustomizationModal = ({open, setOpen, bar, loadPreferences})=>{
                     </div>
                     {preferences.map((v, i)=>{
                         return (
-                            <div className={classes.container}>
+                            <div key={i} className={classes.container}>
                                 <div className={classes.text}> {QUIZ_CATEGORY_NAME[v]} </div>
                                 <div onClick={()=>{removeFromList(i)}} className={classes.deleteBtn}>delete</div>
                             </div>

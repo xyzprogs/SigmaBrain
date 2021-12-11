@@ -208,7 +208,7 @@ const QuestionCreationModal = (props)=>{
                                 )}
                             </div>
                             <div className={classes.buttonPosition}>
-                            <Button  nClick={handleClose}>
+                            <Button  onClick={handleClose}>
                                 Close
                             </Button>
                             <Button onClick={onSave}>

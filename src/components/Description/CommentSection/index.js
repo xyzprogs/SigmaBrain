@@ -53,7 +53,6 @@ const CommentSection = (props)=>{
             return
         }
         if(comment!==""){
-            console.log("submit comment", props.quizId)
             const token = await auth.user.getIdToken()
             let headers = {
                 [HEADER.TOKEN] : token
@@ -78,7 +77,6 @@ const CommentSection = (props)=>{
     useEffect(()=>{
         let loadComments = async ()=>{
             let response = await quizApis.getQuizComments(props.quizId)
-            console.log(response.data)
             updateComments(response)
         }
         loadComments()
