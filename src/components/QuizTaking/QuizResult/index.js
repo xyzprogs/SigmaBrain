@@ -182,7 +182,7 @@ const QuizResult = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.container}>
             <Modal show={showModal} onHide={handleClose} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                     <Modal.Title>Congratulations</Modal.Title>
@@ -217,8 +217,9 @@ const QuizResult = (props) => {
                     </div>
                 </Card.Body>
             </Card>
-
-            {questions.map((content, index) => renderCards(index, content.question, answerChoices[index]))}
+            <div className={classes.questionCardcontainer}>
+                {questions.map((content, index) => renderCards(index, content.question, answerChoices[index]))} 
+            </div>  
         </div>
     );
 }

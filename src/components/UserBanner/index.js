@@ -51,7 +51,7 @@ const UserBanner = (props) => {
         }
         
         if(props.self!==undefined){
-            setEdit(!props.self)
+            setEdit(props.self)
         }
         loadImage()
     }, [props.userId, props.self])

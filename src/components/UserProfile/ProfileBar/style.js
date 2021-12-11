@@ -111,16 +111,17 @@ export const useStyles = createUseStyles({
 
     },
     ChannelNameText:{
-        fontSize:"25px",
+        fontSize:"18px",
         textAlign:"Left",
         fontWeight:"bold",
-        paddingLeft: "50%",
-        marginTop: "5%"
+        paddingLeft: "25%",
+        marginTop: "5%",
+        whiteSpace: "nowrap",
     },
     EmailText:{
         fontSize:"15px",
         textAlign:"left",
-        marginLeft: "50%"
+        marginLeft: "25%"
     },
     colorRed:{
         color: "red"

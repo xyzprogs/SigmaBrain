@@ -35,7 +35,6 @@ const DescriptionBox = (props)=>{
                     [BODY.QUIZNAME]: quizName
                 }
                 let response = await quizApis.getRelevantQuiz(body)
-                console.log(response.data)
                 setRelevant(response.data)
             }
         }
@@ -296,6 +295,7 @@ const DescriptionBox = (props)=>{
                 [HEADER.TOKEN] : token
             }
             await quizApis.removeUserQuizAdmin(quizId, headers)
+            history.push('/')
             console.log("admin remove quiz")
         }
     }
@@ -337,7 +337,7 @@ const DescriptionBox = (props)=>{
                 </div>
                 <div className={classes.quizName}>{quiz[BODY.QUIZNAME]}</div>
                 <div className={classes.informationBox}>
-                    <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
+                    <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} view counts . {quiz[BODY.CREATIONTIME]}</div>
                 </div>
                 <div className={classes.quizDescription}>
                     {quiz[BODY.QUIZDESCRIPTION]}
@@ -362,8 +362,8 @@ const DescriptionBox = (props)=>{
                 </div>
                 {   
                     admin && <div>
-                        <div>Administraive Operation</div>
                         <div className={classes.buttonBar}>
+                            <div className={classes.adminText}>Administraive Operation: </div>
                             {quiz[BODY.ISPUBLISHED]==2?<div onClick={adminUnblockQuiz} className={`${classes.buttonMargin} ${classes.colorGreen}`}>Unblock</div>:<div onClick={adminBlockQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Block</div>}
                             <div onClick={adminRemoveQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Remove</div>
                         </div>

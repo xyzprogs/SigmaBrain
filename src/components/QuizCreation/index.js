@@ -140,11 +140,13 @@ const QuizCreation = () => {
         }
         
         let response = await quizApis.createQuizWithQuestions(quiz, headers)
-        let quizId = response.data.insertId
-        const data = new FormData()
-        data.append(BODY.QUIZID, quizId)
-        data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
-        await quizApis.setQuizThumbnail(quizId, data, headers)
+        if(imageAsFile!==undefined && imageAsFile!=null){
+            let quizId = response.data.insertId
+            const data = new FormData()
+            data.append(BODY.QUIZID, quizId)
+            data.append(BODY.QUIZTHUMBNAIL, imageAsFile)
+            await quizApis.setQuizThumbnail(quizId, data, headers)
+        }
         history.push(`/quizManagement`);
     }
 

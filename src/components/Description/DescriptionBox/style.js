@@ -57,7 +57,7 @@ export const useStyles = createUseStyles({
 
     buttonBar:{
         display: "flex",
-        marginLeft: "55%",
+        marginLeft: "30%",
         marginTop: "5%",
         paddingBottom: "1%"
     },
@@ -167,5 +167,10 @@ export const useStyles = createUseStyles({
     relevantQuizContainer:{
         overflowY: "auto",
         height: "100%",
+    },
+
+    adminText:{
+        marginRight: "2%",
+        fontWeight: "bold"
     }
 })

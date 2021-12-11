@@ -42,7 +42,7 @@ export const userStyles = createUseStyles({
     },
     dateText:{
         textAlign:"left",
-        fontSize:5
+        fontSize:10
     },
     informationContainer:{
         display: "grid",
@@ -50,7 +50,7 @@ export const userStyles = createUseStyles({
     },
     viewNumberContainer:{
         textAlign:"right",
-        fontSize:5
+        fontSize:10
     },
     viewNumberImage:{
         width:"10%"
