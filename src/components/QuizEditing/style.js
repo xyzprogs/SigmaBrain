@@ -9,8 +9,16 @@ export const useStyles = createUseStyles({
         border: "solid",
         width: "80vw",
         borderWidth: "0px 0px 1px 0px",
-        paddingBottom: "5%",
-        paddingTop: '5%',
+        paddingTop: '8%',
+        fontWeight: "bold",
+        fontSize: "30px"
+    },
+
+    subsection2: {
+        border: "solid",
+        width: "80vw",
+        borderWidth: "0px 0px 1px 0px",
+        paddingTop: '2.5%',
     },
 
     flex:{
@@ -22,10 +30,14 @@ export const useStyles = createUseStyles({
     },
 
     selection:{
-        cursor: "pointer"
+        cursor: "pointer",
+        fontSize: "20px",
+        '&:hover':{
+            backgroundColor: "whitesmoke"
+        }
     },
 
-    wrapperContainer:{
-
+    selectColor:{
+        color: "gray"
     }
 })

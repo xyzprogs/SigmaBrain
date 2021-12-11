@@ -1,27 +1,29 @@
 import { useStyles } from './style'
 import { useParams, useHistory } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import quizApis from '../../api/quiz-api'
-import QuizCard from '../../components/QuizCard'
 import { QUIZ_CATEGORY_NAME } from '../../constant/quiz-category'
 import { Button } from '@mui/material'
-import LOCAL_CONSTANT from '../../constant/local-storage'
 import SideBar from '../../components/Home/SideBar'
 import BODY from '../../constant/body'
 import QuizListCard from '../../components/QuizListCard'
+import AuthContext from '../../context/auth-context'
 const CategoryPage = () => {
     const {categoryId} = useParams()
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])
     const [end, setEnd] = useState(false)
     const history = useHistory()
+    const {auth} = useContext(AuthContext)
+    const [login, setLogin] = useState(true)
     useEffect(()=>{
         const loadCategoryQuiz = async ()=>{
             const response = await quizApis.getCategoryQuiz(categoryId)
             updateQuizzes(response)
         }
         loadCategoryQuiz()
-    },[categoryId])
+        setLogin(auth.loggedIn)
+    },[categoryId, auth.loggedIn])
 
     const updateQuizzes = (response) => {
         let sub_arr = response.data
@@ -59,9 +61,10 @@ const CategoryPage = () => {
 
     return(
         <div> 
-            <div>
+            {login && <div>
                 <SideBar className={classes.sidebar}/>
             </div>
+            }
             <div className={classes.pageContainer}>
                 <div>
                     <div className={classes.title}>Category: {QUIZ_CATEGORY_NAME[categoryId]}</div>

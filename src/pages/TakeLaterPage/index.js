@@ -6,11 +6,14 @@ import quizApis from "../../api/quiz-api"
 import HEADER from '../../constant/header';
 import { Button } from '@mui/material';
 import QuizListCard from '../../components/QuizListCard';
+import {useHistory} from 'react-router-dom'
 const TakeLaterPage = ()=>{
     const classes = useStyles()
     const {auth} = useContext(AuthContext)
     const [quizzes, setQuizzes] = useState([])
     const [end, setEnd] = useState(false)
+    const [login, setLogin] = useState(true)
+    const history = useHistory()
     useEffect(()=>{
         const loadTakeLaterQuiz = async ()=>{
             if(auth.user != null){
@@ -22,7 +25,7 @@ const TakeLaterPage = ()=>{
                 updateTakeLater(response)
             }
         }
-
+        setLogin(auth.loggedIn)
         loadTakeLaterQuiz()
     },[auth.user])
 
@@ -55,6 +58,9 @@ const TakeLaterPage = ()=>{
         }
     }
 
+    if(!login){
+        history.push('/')
+    }
 
     return(
     <div> 

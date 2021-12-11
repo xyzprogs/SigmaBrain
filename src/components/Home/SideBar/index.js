@@ -56,12 +56,10 @@ const SideBar = () => {
         }
     }
     const redirectToHome = ()=>{
-        console.log("redtriect home")
         history.push('/')
     }
 
     const redirectToSubscription = ()=>{
-        console.log("redirect subscription")
         history.push('/subscription')
     }
 

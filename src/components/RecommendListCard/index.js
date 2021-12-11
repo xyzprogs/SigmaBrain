@@ -30,10 +30,14 @@ const RecommendListCard = ({quiz})=>{
         }
     }
     return(
-        <div onClick={redirectToOtherQuiz} className={`card ${classes.cardSize}`}>
-            <img className="card-img-left"  src={image} alt="Card image cap"/>
+        <div onClick={redirectToOtherQuiz} className={`card flex-row  ${classes.cardSize}`}>
+            <img className={`card-img-left ${classes.imgSzie}`}  src={image} alt="Card image cap"/>
             <div className="card-body">
-                <p className={`card-text ${classes.cardText}`}>{quiz[BODY.QUIZNAME]}</p>
+                <div className={` ${classes.cardText}`}>{quiz[BODY.QUIZNAME]}</div>
+                <div className={classes.quizInfo}>
+                    <div className={`card-text`}>{quiz[BODY.DISPLAYNAME]}</div>
+                    <div className={`card-text`}>{quiz[BODY.TAKECOUNTS]} take counts</div>
+                </div>
             </div>
         </div>
     )

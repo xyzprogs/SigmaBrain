@@ -5,6 +5,7 @@ import SectionWrapper from './SectionWrapper'
 import quizApis from '../../api/quiz-api'
 import AuthContext from '../../context/auth-context'
 import HEADER from '../../constant/header'
+import BODY from '../../constant/body'
 const QuizEditing = () => {
     const classes = useStyles()
     const [tag, setTag] = useState(0)
@@ -38,12 +39,12 @@ const QuizEditing = () => {
     return(
         <div className={classes.container}>
             <div className={classes.subsection}>
-                Quiz Title
+                {quiz[BODY.QUIZNAME]}
             </div>
 
-            <div className={`${classes.subsection} ${classes.flex}`}>
-                <div onClick={()=>{changeTag(0)}} className={`${classes.selection}`}>Quiz Information</div>
-                <div onClick={()=>{changeTag(1)}} className={`${classes.marginLeft} ${classes.selection}`}>Quiz Question</div>
+            <div className={`${classes.subsection2} ${classes.flex}`}>
+                <div onClick={()=>{changeTag(0)}} className={`${classes.selection} ${tag==0 && classes.selectColor}`}>Quiz Information</div>
+                <div onClick={()=>{changeTag(1)}} className={`${classes.marginLeft} ${classes.selection} ${tag==1 && classes.selectColor}`}>Quiz Question</div>
             </div>
             <div className={classes.container}>
                 <SectionWrapper

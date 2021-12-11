@@ -16,7 +16,7 @@ export const useStyles = createUseStyles({
     line:{
         border: "solid",
         borderWidth: "0px 0px 2px 0px",
-        marginTop: "2.5%",
+        marginTop: "4.5%",
         width: "60%",
         margin: "auto",
         borderColor: "gray"

@@ -6,11 +6,14 @@ import quizApis from '../../api/quiz-api';
 import HEADER from '../../constant/header';
 import { Button } from '@mui/material';
 import QuizListCard from '../../components/QuizListCard';
+import {useHistory} from 'react-router-dom'
 const SubscriptionPage = ()=>{
     const classes = useStyles()
     const [quizzes, setQuizzes] = useState([])
     const {auth} = useContext(AuthContext)
     const [end, setEnd] = useState(false)
+    const [login, setLogin] = useState(true)
+    const history = useHistory()
     useEffect(()=>{
         const loadSubscriptionQuiz = async ()=>{
             if(auth.user != null){
@@ -22,6 +25,7 @@ const SubscriptionPage = ()=>{
                 updateSubscription(response)      
             }
         }
+        setLogin(auth.loggedIn)
         loadSubscriptionQuiz()
     },[auth.user])
 
@@ -52,6 +56,10 @@ const SubscriptionPage = ()=>{
             let response = await quizApis.getSubscriptionQuiz(headers, row)
             updateSubscription(response)
         }
+    }
+
+    if(!login){
+        history.push('/')
     }
 
     return(

@@ -3,9 +3,11 @@ import BODY from '../../constant/body'
 import {useState, useEffect} from 'react'
 import quizApis from '../../api/quiz-api'
 import default_thumbnail from '../../images/default_banner.png'
+import {useHistory} from 'react-router-dom'
 const QuizListCard = ({quiz}) => {
     const classes = useStyles()
     const [image, setImage] = useState("")
+    const history = useHistory()
     useEffect(()=>{
         const loadQuizThumbnail = async ()=>{
             try{
@@ -21,8 +23,13 @@ const QuizListCard = ({quiz}) => {
         }
         loadQuizThumbnail()
     })
+
+    const redirectToQuizPage = ()=>{
+        history.push(`/quizDescription/${quiz[BODY.QUIZID]}`)
+    }
+
     return(
-        <div className={classes.container}>
+        <div className={classes.container} onClick={redirectToQuizPage}>
             <div>
                 <img className={classes.imgSize} src={image}/>
             </div>
