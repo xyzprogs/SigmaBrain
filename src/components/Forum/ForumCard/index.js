@@ -4,10 +4,11 @@ import BODY from '../../../constant/body';
 import profile_image from '../../../images/Default_profile.png';
 import {useEffect, useState} from 'react'
 import userApi from '../../../api/user-api'
-const ForumCard = ({post}) => {
+const ForumCard = ({post, isTop10}) => {
     const classes = useStyles()
     const [image, setImage] = useState("")
     const [name, setName] = useState("")
+    //const [isTop10, setIsTop10] = useState(false)
     function CreateDate(date){
         const array=date.split("T");
         return array[0];
@@ -47,6 +48,11 @@ const ForumCard = ({post}) => {
                     <div className={classes.UserName}>
                         {name}
                     </div>
+                    {isTop10(post) && 
+                        <div className={classes.top10Container}>
+                            <div className={classes.top10}>Top 10</div>
+                        </div>
+                    }
                     <div className={classes.DateText}>
                         {CreateDate(post[BODY.CREATIONTIME])}
                     </div>

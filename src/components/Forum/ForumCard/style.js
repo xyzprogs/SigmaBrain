@@ -63,6 +63,14 @@ export const useStyles = createUseStyles({
         height: "100%",
         width: "100%",
         borderRadius: "20px"
+    },
+    top10:{
+        borderRadius: '25px',
+        background: '#FFDF4F',
+        textAlign:'center'
+    },
+    top10Container:{
+        width:"35%"
     }
 
 })

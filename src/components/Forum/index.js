@@ -5,12 +5,15 @@ import PostCreationBox from './PostCreationBox'
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import forumApi from "../../api/forumn-api"
+import userApis from '../../api/user-api'
 import BODY from '../../constant/body'
 import LOCAL_CONSTANT from '../../constant/local-storage'
 import { Button } from "@mui/material"
 const ForumSection = () => {
     const classes = useStyles()
     const [posts, setPosts] = useState([])
+    const [channelLeaderboard, setChannelLeaderboard] = useState([])
+    //const [isTop10, setIsTop10] = useState(false)
     const [end, setEnd] = useState(false)
     const { userId } = useParams()
     const history = useHistory()
@@ -27,7 +30,14 @@ const ForumSection = () => {
             //setPosts(response.data)
             updatePosts(response, true)
         }
+        const getLeaderboard = async () => {
+            await userApis.getChannelLeaderboard(userId).then((response) => {
+                setChannelLeaderboard(response.data)
+                //console.log(response.data)
+            })
+        }
         loadPosts()
+        getLeaderboard()
     }, [userId])
 
     const updatePosts = (response, firstLoad)=>{
@@ -60,6 +70,16 @@ const ForumSection = () => {
         history.push(`/forumPost/${quizId}`)
     }
 
+    const checkIsTop10 = (post) =>{
+         //checks if the user is a top 10 user
+         for(let i = 0; i<channelLeaderboard.length; i++){
+            if(post[BODY.USERID] === channelLeaderboard[i][BODY.USERID]){
+                return true
+            }
+        }
+        return false
+    }
+
     return (
     <div>
         <div className={classes.homeContainer}>
@@ -68,7 +88,7 @@ const ForumSection = () => {
                     <div className={classes.postContainer}>
                     {posts.map((p,i)=>{
                         return <div key={i} onClick={()=>{redirectToForumPostPage(p[BODY.FORUMPOSTID])}}>
-                            <ForumCard post={p}/>
+                            <ForumCard post={p} isTop10={checkIsTop10}/>
                         </div>
                     })}
                     {
