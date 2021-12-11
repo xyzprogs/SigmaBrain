@@ -54,7 +54,7 @@ const FeatureCard = (props) =>{
                 props.rotate && <div className={classes.dotContainer}>
                     {
                         [...Array(props.total)].map((e, i)=>{
-                            return <div className={`${classes.dot} ${i===dot && classes.dotted}`} onClick={()=>{doAnimation(i)}}/>
+                            return <div key={i} className={`${classes.dot} ${i===dot && classes.dotted}`} onClick={()=>{doAnimation(i)}}/>
                         })
                     }
                 </div>
