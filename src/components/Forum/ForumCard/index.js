@@ -48,9 +48,11 @@ const ForumCard = ({post, isTop10}) => {
                     <div className={classes.UserName}>
                         {name}
                     </div>
-                    {isTop10(post) && <div className={classes.UserName}>
-                        Top 10
-                    </div>}
+                    {isTop10(post) && 
+                        <div className={classes.top10Container}>
+                            <div className={classes.top10}>Top 10</div>
+                        </div>
+                    }
                     <div className={classes.DateText}>
                         {CreateDate(post[BODY.CREATIONTIME])}
                     </div>
