@@ -49,24 +49,32 @@ export const useStyles = createUseStyles({
     },
 
     quizBox: {
-        paddingTop: "10%"
+        paddingTop: "5%",
+        paddingRight: "60%",    
+        paddingBottom: "2%"
     },
 
     quizName: {
         textAlign:"Left",
         marginLeft:"30%",
         fontFamily: "fantasy",
-        fontSize:50,
+        fontSize:30,
         textOverflow: "ellipsis",
         whiteSpace: "nowrap",
         overflow: "hidden",
+        width: "300px"
     },
 
     quizDescription:{
-        textAlign:"Left",
+        textAlign:"left",
         marginLeft:"30%",
-        fontSize:20,
-        fontFamily: "serif"
+        fontSize:16,
+        fontFamily: "serif",
+        width: "200px",
+        height: "50px",
+        textOverflow: "ellipsis",
+        whiteSpace: "pre-wrap",
+        overflow: "hidden",
     },
     clickButton:{
         backgroundColor:"#9BAFD8",
@@ -80,7 +88,8 @@ export const useStyles = createUseStyles({
         width:90,
         height:30,
         borderRadius:50,
-        padding:4
+        padding:4,
+        cursor: "pointer"
     },
 
     dotContainer:{

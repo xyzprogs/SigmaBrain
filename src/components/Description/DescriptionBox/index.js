@@ -10,6 +10,7 @@ import NoUserModal from '../../NoUserModal'
 import userApis from '../../../api/user-api'
 import default_thumbnial from '../../../images/default_quiz_thumbnail.png'
 import RecommendListCard from '../../RecommendListCard'
+import AdminModal from '../../AdminModal'
 const DescriptionBox = (props)=>{
     const classes = useStyles()
     const {quizId} = useParams()
@@ -25,6 +26,10 @@ const DescriptionBox = (props)=>{
     const [relevant, setRelevant] = useState([])
     const {auth} = useContext(AuthContext)
     const history = useHistory()
+    const [remove, setRemove] = useState(false)
+    const [block, setBlock] = useState(false)
+    const adminRemoveMsg = "Are you going to remove this quiz using admin privilege?"
+    const adminBlockMsg = "Are you going to block this quiz using admin privilege?"
     useEffect(()=>{
 
         const loadRelevantQuiz = async(quizName)=>{
@@ -268,6 +273,7 @@ const DescriptionBox = (props)=>{
             let newQuiz = {...quiz}
             newQuiz[BODY.ISPUBLISHED] = 2
             setQuiz(newQuiz)
+            setBlock(false)
         }
     }
 
@@ -313,6 +319,8 @@ const DescriptionBox = (props)=>{
         <div>
             <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
         </div>
+        <AdminModal showModal={remove} setModal={setRemove} remove={remove} confirm={adminRemoveQuiz} msg={adminRemoveMsg}/>
+        <AdminModal showModal={block} setModal={setBlock} block={block} confirm={adminBlockQuiz} msg={adminBlockMsg}/>
         <div className={classes.bigContainer}>
             <div className={classes.cardContainer}>
                 <div className={classes.userBox}>    
@@ -364,8 +372,8 @@ const DescriptionBox = (props)=>{
                     admin && <div>
                         <div className={classes.buttonBar}>
                             <div className={classes.adminText}>Administraive Operation: </div>
-                            {quiz[BODY.ISPUBLISHED]==2?<div onClick={adminUnblockQuiz} className={`${classes.buttonMargin} ${classes.colorGreen}`}>Unblock</div>:<div onClick={adminBlockQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Block</div>}
-                            <div onClick={adminRemoveQuiz} className={`${classes.buttonMargin} ${classes.colorRed}`}>Remove</div>
+                            {quiz[BODY.ISPUBLISHED]==2?<div onClick={adminUnblockQuiz} className={`${classes.buttonMargin} ${classes.colorGreen}`}>Unblock</div>:<div onClick={()=>{setBlock(true)}} className={`${classes.buttonMargin} ${classes.colorRed}`}>Block</div>}
+                            <div onClick={()=>{setRemove(true)}} className={`${classes.buttonMargin} ${classes.colorRed}`}>Remove</div>
                         </div>
                     </div>
                 }

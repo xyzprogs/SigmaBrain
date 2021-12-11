@@ -36,14 +36,13 @@ const FollowerCard = ({follower})=>{
         }
 
         const getSubscribeStatus = async ()=>{
-            console.log("check")
             if(auth.user!=null && auth.user!==undefined){
                 const token = await auth.user.getIdToken()
                 let headers = {
                     [HEADER.TOKEN] : token
                 }
                 let response = await userApis.checkSubscribeStatus(follower[BODY.USERID], headers)
-                console.log(response)
+
                 if(response.data.length>0){
                     setSubscribeStatus(true)
                 }

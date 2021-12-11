@@ -21,7 +21,6 @@ const FollowerList = ({self})=>{
                 let response = await userApis.getFollowers(headers)
                 // setFollowers(response.data)
                 updateFollower(response)
-                console.log(response.data)
             }
         }
         loadFollower()
@@ -58,8 +57,8 @@ const FollowerList = ({self})=>{
 
     return(
         <div className={classes.container}>
-            {followers.map(f=>{
-                return <FollowerCard follower={f}/>
+            {followers.map((f, i)=>{
+                return <FollowerCard key={i}  follower={f}/>
             })}
 
             {
