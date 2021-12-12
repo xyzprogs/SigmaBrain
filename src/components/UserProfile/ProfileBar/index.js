@@ -101,7 +101,7 @@ const ProfileBar = (props) => {
         const loadImage = async () => {
             try {
                 let response = await userApis.getProfileImage(userId)
-                if(response.data==null || response.data==""){
+                if (response.data == null || response.data == "") {
                     setImage(default_profile)
                     return
                 }
@@ -111,7 +111,7 @@ const ProfileBar = (props) => {
             }
         }
 
-        const loadUserInformation = async ()=> {
+        const loadUserInformation = async () => {
             //Loads the user information 
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
@@ -120,17 +120,17 @@ const ProfileBar = (props) => {
             })
         }
 
-        const getSubscribeStatus = async ()=>{
-            if(auth.user!=null && auth.user!==undefined){
+        const getSubscribeStatus = async () => {
+            if (auth.user != null && auth.user !== undefined) {
                 const token = await auth.user.getIdToken()
                 let headers = {
-                    [HEADER.TOKEN] : token
+                    [HEADER.TOKEN]: token
                 }
                 let response = await userApis.checkSubscribeStatus(userId, headers)
-                if(response.data.length>0){
+                if (response.data.length > 0) {
                     setSubscribeStatus(true)
                 }
-                else{
+                else {
                     setSubscribeStatus(false)
                 }
             }
@@ -143,12 +143,12 @@ const ProfileBar = (props) => {
         // if (localStorage.getItem('uid') === userId) {
         //     setSelf(true)
         // }
-        if(props.self!==undefined){
+        if (props.self !== undefined) {
             setSelf(props.self)
         }
     }, [auth, userId, props.self])
 
-    const changeTag = (tag)=>{
+    const changeTag = (tag) => {
         localStorage.setItem('profileTag', tag)
         props.setTag(tag)
     }
@@ -200,38 +200,40 @@ const ProfileBar = (props) => {
                     </div>
                 </div>
 
-                {self &&  <div className={classes.experienceBarContainer}>
+                {self && <div className={classes.experienceBarContainer}>
                     <ExperienceBar bgcolor={'red'} completed={expBarPercentage} />
-                    {/* <div onClick={() => testAPI()}>level {`${userInfo.userLevel}`}</div> */}
-                    <div>Still need {`${userInfo.expForLevelUp}`} EXP to level up</div>
+                    <div className={classes.textToLeft}>
+                        <div className={classes.levelDetail}>Level {`${userInfo.userLevel}`}</div>
+                        <div>Still need <span className={classes.expText}>{`${userInfo.expForLevelUp}`} </span>EXP to level up</div>
+                    </div>
                 </div>
                 }
             </div>
             <div className={classes.barContainer}>
-                    <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(0) }}>
-                        Home
-                    </div>
+                <div className={props.tag === 0 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(0) }}>
+                    Home
+                </div>
 
-                    <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(1) }}>
-                        Quizzes
-                    </div>
+                <div className={props.tag === 1 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(1) }}>
+                    Quizzes
+                </div>
 
-                    <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(2) }}>
-                        About
-                    </div>
+                <div className={props.tag === 2 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(2) }}>
+                    About
+                </div>
 
-                    {props.self && <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(3) }}>
-                        Followers
-                    </div>
-                    }
+                {props.self && <div className={props.tag === 3 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(3) }}>
+                    Followers
+                </div>
+                }
 
-                    <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(4) }}>
-                        Forum
-                    </div>
+                <div className={props.tag === 4 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(4) }}>
+                    Forum
+                </div>
 
-                    <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(5) }}>
-                        Leaderboard
-                    </div>
+                <div className={props.tag === 5 ? classes.selectedCell : classes.tableCell2} onClick={() => { changeTag(5) }}>
+                    Leaderboard
+                </div>
             </div>
             <input type="file" name="image" id="image" ref={imgRef} onChange={onImageUpload} className={classes.imgTag} />
         </div>

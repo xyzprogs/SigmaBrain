@@ -135,5 +135,16 @@ export const useStyles = createUseStyles({
 
     subscribeBtn:{
         marginLeft: "45%"
+    },
+    textToLeft:{
+        textAlign:'left'
+    },
+    levelDetail:{
+        fontSize:'22px',
+        fontWeight:'bold'
+    },
+    expText:{
+        color:'red',
+        fontWeight:'bold'
     }
 })
