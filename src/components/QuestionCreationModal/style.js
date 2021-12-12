@@ -14,6 +14,12 @@ export const userStyles = createUseStyles({
         minHeight: "50vh",
         minWidth: "50vw"
     },
+    boldSpan:{
+        fontWeight:'bold'
+    },
+    instructions:{
+        paddingBottom:'20px'
+    },
     inputField: {
         padding: '2px',
         borderWidth: '1px',

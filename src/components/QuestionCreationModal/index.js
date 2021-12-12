@@ -176,7 +176,7 @@ const QuestionCreationModal = (props) => {
                             <div className={classes.divider}></div>
 
                             <div className={classes.subSection}>
-                                <div>Please select <span> ONE </span> correct answer by clicking on the checkbox</div>
+                                <div className={classes.instructions}>Please select <span className={classes.boldSpan}> ONE </span> correct answer by clicking on the checkbox</div>
                                 <div className={classes.toCenter}>
                                     <table>
                                         <tbody>
