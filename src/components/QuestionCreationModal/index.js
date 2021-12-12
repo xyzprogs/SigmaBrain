@@ -133,7 +133,9 @@ const QuestionCreationModal = (props) => {
         setErrorMsg({});
         let newChoices = [...choices]
         newChoices.splice(i, 1)
+        console.log(correct)
         correct.splice(i, 1)
+        console.log(correct)
         setChoices(newChoices)
         setNumOfChoices(numOfChoices - 1);
     }
@@ -141,7 +143,7 @@ const QuestionCreationModal = (props) => {
     const onChecked = (event, i) => {
         // console.log(event.currentTarget.checked)
         // correct[i] = event.currentTarget.checked
-        let newCorrect = [...correct]
+        let newCorrect = new Array(correct.length).fill(false)
         newCorrect[i] = event.currentTarget.checked
         setCorrect(newCorrect)
     }
@@ -174,6 +176,7 @@ const QuestionCreationModal = (props) => {
                             <div className={classes.divider}></div>
 
                             <div className={classes.subSection}>
+                                <div>Please select <span> ONE </span> correct answer by clicking on the checkbox</div>
                                 <div className={classes.toCenter}>
                                     <table>
                                         <tbody>
@@ -188,7 +191,7 @@ const QuestionCreationModal = (props) => {
                                                     return <tr key={i}>
                                                         <td><input type="checkbox" onChange={(event) => { onChecked(event, i) }} checked={correct[i]} />&nbsp;</td>
                                                         <td>#{i + 1}</td>
-                                                        <td><input type="text" value={x} onChange={(event) => { editChoice(event, i) }} /></td>
+                                                        <td><input type="text" value={x} onChange={(event) => { editChoice(event, i)}} className={classes.inputField} /></td>
                                                         <td className={classes.delete} onClick={() => { onDelete(i) }}>&#10005;</td>
                                                     </tr>
                                                 })
