@@ -263,8 +263,8 @@ const QuizCreation = () => {
 
             <div className={`${classes.questionContainer}`}>
                 <div className={classes.subTitle}>Questions</div>
-                <div className={`${classes.btn} ${classes.toCenter}`}>
-                    <div className={classes.btnText} onClick={handleOpen}>Add</div>
+                <div className={`${classes.btn} ${classes.toCenter}`} onClick={handleOpen}>
+                    <div className={classes.btnText}>Add</div>
                 </div>
                 <div>
                     {questions.map((question, i) =>

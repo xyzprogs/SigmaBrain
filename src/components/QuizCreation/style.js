@@ -152,7 +152,6 @@ export const userStyles = createUseStyles({
         textAlign: "center",
         fontWeight:'bold',
         margin: "auto",
-        paddingTop: "5%",
         color: "#006400"
     },
 
