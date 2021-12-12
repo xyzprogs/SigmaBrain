@@ -1,5 +1,8 @@
 import { createUseStyles } from "react-jss";
-
+const titlePadding = '20px'
+const borderColors = '#000000'
+const borderPattern = ""
+const borderPixels = 2
 export const userStyles = createUseStyles({
     creationCardContainer: {
         width: '50vw',
@@ -10,7 +13,14 @@ export const userStyles = createUseStyles({
         backgroundColor:"white",
         // overflowY: "auto"
     },
-
+    divider:{
+        height:'1px',
+        backgroundImage:"linear-gradient(to right, transparent, rgb(48,49,51), transparent)"
+    },
+    paddingTopAndBottom: {
+        paddingBottom: "5%",
+        paddingTop: '5%',
+    },
     creationCardTitleSize: {
         fontSize: '30px'
     },
@@ -37,10 +47,10 @@ export const userStyles = createUseStyles({
 
     title: {
         display: "flex",
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        borderColor: "coral",
+        borderWidth: "0px 0px 4px 0px",
+        borderColor: "black",
         justifyContent: "space-between",
         paddingTop: '5%',
         paddingBottom: "1%",
@@ -48,48 +58,61 @@ export const userStyles = createUseStyles({
 
     titleText:{
         fontFamily: "serif",
-        fontSize: "30px"
+        fontSize: "30px",
+        paddingLeft: titlePadding
     },
 
     quizName: {
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        paddingBottom: "5%",
-        paddingTop: '5%',
+        
+        paddingTop: '20px',
+        paddingBottom: '30px',
+        borderColor: borderColors,
     },
 
     cover:{
-        border: "solid",
+        
         width: "50vw",
         height: "40vh",
-        borderWidth: "0px 0px 1px 0px",
+        
+        paddingTop: '20px',
+        borderColor: borderColors,
     },
 
     subTitle:{
         textAlign: "left",
         paddingLeft: "1%",
         fontSize: "20px",
-        fontWeight: "lighter"
+        fontWeight: "lighter",
+        paddingLeft: titlePadding,
+        paddingBottom: '20px'
         // fontFamily: "Serif"
     },
 
     introduction: {
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        height: "30vh"
+        
+        borderColor: borderColors,
+        height: "35vh",
+        paddingTop: '20px',
+        paddingBottom:'20px'
     },
 
     timeLimit: {
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        height: "15vh"
+        
+        height: "18vh",
+        borderColor: borderColors,
+        paddingTop: '20px',
     },
 
     toRight: {
-        float: 'right'
+        float: 'right',
+        paddingTop:'20px',
+        paddingBottom: '30px'
     },
 
     toLeft: {
@@ -115,21 +138,22 @@ export const userStyles = createUseStyles({
     },
     
     btn:{
+        cursor: "pointer",
+        borderColor: "#7FFFD4",
+        borderWidth: "2px",
+        paddingRight: titlePadding
+    },
+
+    btnText: {
         border: "solid",
         height: "35px",
         width: "80px",
         borderRadius: "20px",
-        cursor: "pointer",
-        borderColor: "gray",
-        borderWidth: "1px"
-        
-    },
-
-    btnText: {
         textAlign: "center",
+        fontWeight:'bold',
         margin: "auto",
         paddingTop: "5%",
-        color: "gray"
+        color: "#006400"
     },
 
     quizNameField: {
@@ -191,17 +215,21 @@ export const userStyles = createUseStyles({
     },
 
     quizCategory: {
-        border: "solid",
+        
         width: "100%",
-        borderWidth: "0px 0px 1px 0px",
-        height: "15vh"
+        
+        borderColor: borderColors,
+        height: "23vh",
+        paddingTop: '20px',
     },
 
     questionContainer:{
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        minHeight: "20vh"
+        
+        borderColor: borderColors,
+        minHeight: "23vh",
+        paddingTop: '20px',
     },
 
     checkboxPadding:{
@@ -241,7 +269,7 @@ export const userStyles = createUseStyles({
 
     editBtn:{
         cursor: "pointer",
-        border: "solid",
+        
         borderColor: "gray",
         borderRadius: "10px",
         borderWidth: "1px",

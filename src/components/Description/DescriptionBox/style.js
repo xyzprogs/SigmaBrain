@@ -48,8 +48,13 @@ export const useStyles = createUseStyles({
     },
     subtitle: {
         whiteSpace: "nowrap",
-        marginRight: "20%",
-        fontSize: "10px"
+        //marginRight: "20%",
+        fontSize: "18px",
+        paddingBottom:'20px'
+    },
+    informationBox:{
+        paddingLeft:'25%',
+        textAlign:'left'
     },
     
     liked:{
@@ -133,8 +138,8 @@ export const useStyles = createUseStyles({
 
     quizName: {
         fontWeight: "bold",
-        textAlign: "left",
-        marginLeft: "27%",
+        //textAlign: "left",
+        //marginLeft: "27%",
         fontSize: "30px"
     },
 
@@ -178,5 +183,8 @@ export const useStyles = createUseStyles({
     adminText:{
         marginRight: "2%",
         fontWeight: "bold"
+    },
+    subtitleLikes:{
+
     }
 })
