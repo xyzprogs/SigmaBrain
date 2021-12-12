@@ -33,6 +33,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
         if(event.keyCode === 13){
             searchAndRedirect(userSearch)
             setSearches([])
+            setUserSearch("")
         }
     }
 
