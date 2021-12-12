@@ -26,18 +26,24 @@ function SearchContextProvider(props){
     const searchAndRedirect = async (keyword)=>{
         let response = await quizApis.getQuizSearchResult(keyword)
         localStorage.setItem(LOCAL_CONSTANT.SEARCH_KEYWORD, keyword)
-        // updateSearches(response)
-        setSearchResult(response.data)
+        updateSearches(response, true)
+        // setSearchResult(response.data)
         history.push(`/searchResult`)
     }
 
-    const updateSearches = (response) => {
+    const updateSearches = (response, newsearch) => {
         if(response.data.length===0)return
         let sub_arr = response.data
         if(sub_arr.length<5){
             setEnd(true)
         }
-        let new_searches = [...searchResult]
+        else{
+            setEnd(false)
+        }
+        let new_searches = []
+        if(!newsearch){
+            new_searches = [...searchResult]
+        }
         for(var i = 0; i < sub_arr.length; i++){
             new_searches.push(sub_arr[i])
         }
