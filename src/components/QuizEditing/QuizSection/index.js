@@ -41,8 +41,10 @@ const QuizSection = ({ quiz }) => {
             setTimeLimit(event.target.value)
     }
     const checkIfTimeNull =()=>{
-        if(timeLimit === '')
+        if(timeLimit === '' || timeLimit<5)
             setTimeLimit(5)
+        else if(timeLimit>60)
+            setTimeLimit(60)
     }
     const onAutoChange = (event, value) => {
         if (value != null) {
