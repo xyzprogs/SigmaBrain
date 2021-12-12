@@ -59,6 +59,8 @@ const DescriptionBox = (props)=>{
             loadRelevantQuiz(response.data[0][BODY.QUIZNAME], response.data[0][BODY.USERID])
         }
 
+        
+
         const loadQuizThumbnail = async(quizId)=>{
             try{
                 let response2 = await quizApis.getQuizThumbnail(quizId)
@@ -351,6 +353,7 @@ const DescriptionBox = (props)=>{
                 <div className={classes.quizName}>{quiz[BODY.QUIZNAME]}</div>
                 <div className={classes.informationBox}>
                     <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} view counts . {quiz[BODY.CREATIONTIME]}</div>
+                    <div className={classes.subtitleLikes}>{quiz[BODY.LIKES]} likes {quiz[BODY.DISLIKES]} dislikes</div>
                 </div>
                 <div className={classes.quizDescription}>
                     {quiz[BODY.QUIZDESCRIPTION]}
