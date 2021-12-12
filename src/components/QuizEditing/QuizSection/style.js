@@ -1,12 +1,15 @@
-import { createUseStyles } from 'react-jss'
-
+import { createUseStyles } from "react-jss";
+const titlePadding = '20px'
+const borderColors = '#000000'
 export const useStyles = createUseStyles({
-    container:{
-        // width: '100%',
-        // height: '100%',
+    centerContainer:{
+        alignItems:'center',
+        paddingLeft:'20%',
+        paddingRight:'20%',
+        
     },
     creationCardContainer: {
-        width: '100%',
+        width: '50vw',
         height: '100%',
         // display:' flex',
         // flexWrap: 'wrap',
@@ -14,7 +17,14 @@ export const useStyles = createUseStyles({
         backgroundColor:"white",
         // overflowY: "auto"
     },
-
+    divider:{
+        height:'1px',
+        backgroundImage:"linear-gradient(to right, transparent, rgb(48,49,51), transparent)"
+    },
+    paddingTopAndBottom: {
+        paddingBottom: "5%",
+        paddingTop: '5%',
+    },
     creationCardTitleSize: {
         fontSize: '30px'
     },
@@ -41,58 +51,72 @@ export const useStyles = createUseStyles({
 
     title: {
         display: "flex",
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        borderColor: "coral",
+        borderWidth: "0px 0px 4px 0px",
+        borderColor: "black",
         justifyContent: "space-between",
         paddingTop: '5%',
         paddingBottom: "1%",
-        margin: "auto"
+    },
+
+    titleText:{
+        fontFamily: "serif",
+        fontSize: "30px",
+        paddingLeft: titlePadding
     },
 
     quizName: {
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        paddingBottom: "5%",
-        paddingTop: '5%',
-        margin: "auto"
+        
+        paddingTop: '20px',
+        paddingBottom: '30px',
+        borderColor: borderColors,
     },
 
     cover:{
-        border: "solid",
+        
         width: "50vw",
-        height: "40vh",
-        borderWidth: "0px 0px 1px 0px",
-        margin: "auto"
+        height: "50vh",
+        
+        paddingTop: '20px',
+        borderColor: borderColors,
     },
 
     subTitle:{
         textAlign: "left",
         paddingLeft: "1%",
-        fontSize: "20px"
+        fontSize: "20px",
+        fontWeight: "lighter",
+        paddingLeft: titlePadding,
+        paddingBottom: '20px'
         // fontFamily: "Serif"
     },
 
     introduction: {
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        height: "30vh",
-        margin: "auto"
+        
+        borderColor: borderColors,
+        height: "35vh",
+        paddingTop: '20px',
+        paddingBottom:'20px'
     },
 
     timeLimit: {
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        height: "15vh",
-        margin: "auto"
+        
+        height: "18vh",
+        borderColor: borderColors,
+        paddingTop: '20px',
     },
 
     toRight: {
-        float: 'right'
+        float: 'right',
+        paddingTop:'20px',
+        paddingBottom: '30px'
     },
 
     toLeft: {
@@ -100,9 +124,12 @@ export const useStyles = createUseStyles({
     },
 
     introductionBox: {
-        width: "30vw",
+        width: "90%",
         height: "20vh",
-        resize: "none" 
+        resize: "none",
+        borderRadius: "20px",
+        borderColor: "gray",
+        backgroundColor: "whitesmoke"
     },
 
     imgTag:{
@@ -115,21 +142,48 @@ export const useStyles = createUseStyles({
     },
     
     btn:{
-        border: "solid",
-        height: "40px",
-        width: "70px",
-        borderRadius: "10px",
-        cursor: "pointer"
+        cursor: "pointer",
+        borderColor: "#7FFFD4",
+        borderWidth: "2px",
+        paddingRight: titlePadding
     },
 
     btnText: {
+        border: "solid",
+        height: "35px",
+        width: "80px",
+        borderRadius: "20px",
         textAlign: "center",
+        fontWeight:'bold',
         margin: "auto",
-        paddingTop: "5px"
+        color: "#006400"
     },
 
     quizNameField: {
-        width: "40vw"
+        width: "40vw",
+        borderRadius: "20px",
+        height: "40px",
+        backgroundColor: "whitesmoke",
+        textAlign: "center"
+    },
+
+    plusContainer:{
+        border: "solid",
+        height: "150px",
+        width: "200px",
+        margin: "auto",
+        borderRadius: "20px",
+        cursor: "pointer",
+        marginTop: "2.5%",
+        borderColor: "gray"
+    },
+
+    plus: {
+        textAlign: "center",
+        margin: "auto",
+        paddingTop: "25%",
+        color: "gray",
+        fontSize: "30px"
     },
 
     imgContainer:{
@@ -139,7 +193,8 @@ export const useStyles = createUseStyles({
     },
 
     toCenter: {
-        margin: "auto"
+        margin: "auto",
+        marginBottom: "2%"
     },
 
     flexBox: {
@@ -149,30 +204,95 @@ export const useStyles = createUseStyles({
     },
 
     unit: {
-        marginLeft: "0.5%"
+        marginLeft: "0.5%",
+        fontWeight: "lighter"
+    },
+
+    timeBox: {
+        width: "20%",
+        resize: "none",
+        borderRadius: "20px",
+        borderColor: "gray",
+        backgroundColor: "whitesmoke",
+        textAlign: "center"
     },
 
     quizCategory: {
-        border: "solid",
-        width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        height: "15vh",
-        margin: "auto"
+        
+        width: "100%",
+        
+        borderColor: borderColors,
+        height: "23vh",
+        paddingTop: '20px',
     },
 
     questionContainer:{
-        border: "solid",
+        
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        minHeight: "20vh"
+        
+        borderColor: borderColors,
+        minHeight: "23vh",
+        paddingTop: '20px',
     },
 
     checkboxPadding:{
-        margin: "auto"
+        margin: "auto",
+        display: "grid",
+        gridTemplateColumns:'10% 60% 15% 15%'
+    },
+
+    checkboxPaddingHeader:{
+        margin: "auto",
+        display: "grid",
+        gridTemplateColumns:'10% 60% 15% 15%',
+        fontSize:'20px',
+        fontWeight:'bold',
+        paddingBottom:'20px'
+
+    },
+
+    questionMargin: {
+        marginLeft: "12%"
+    },
+
+    questionText:{
+        fontWeight: "lighter"
+    },
+
+    alignTextLeft:{
+        textAlign:'left'
+    },
+    alignTextCenter:{
+        textAlign:'center'
     },
 
     delete: {
         paddingLeft: "1%",
-        cursor: "default"
+        cursor: "pointer",
+        color: "red"
+    },
+
+    errorMsg: {
+        margin: '0 15px',
+        fontSize: '12px',
+        color: 'red',
+        textAlign: 'center'
+    },
+
+    autoContainer:{
+        marginLeft: "25%"
+    },
+
+    tableContainer:{
+        borderCollapse: "separate",
+        borderSpacing: "50px 0"
+    },
+
+    editBtn:{
+        cursor: "pointer",
+        borderColor: "gray",
+        borderRadius: "10px",
+        borderWidth: "1px",
+        color: "green"
     }
 })
