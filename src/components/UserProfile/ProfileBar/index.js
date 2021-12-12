@@ -21,7 +21,7 @@ const ProfileBar = (props) => {
     const [userInfo, setUserInfo] = useState({})
     const { userId } = useParams()
     const [subscribeStatus, setSubscribeStatus] = useState(false)
-
+    const [subscriberCount, setSubscriberCount] = useState(0)
     const [expBarPercentage, setExpBarPercentage] = useState(0)
     const [showModal, setShowModal] = useState(false);
     const calculateProgress = (userLevel, expNeeded) => {
@@ -72,6 +72,8 @@ const ProfileBar = (props) => {
             }
             await userApis.subscribe(payload, headers)
             setSubscribeStatus(true)
+            //changes in front End
+            setSubscriberCount(subscriberCount + 1)
         }
         else {
             setShowModal(true)
@@ -89,6 +91,8 @@ const ProfileBar = (props) => {
             }
             await userApis.unsubscribe(payload, headers)
             setSubscribeStatus(false)
+             //changes in front End
+             setSubscriberCount(subscriberCount - 1)
         }
     }
 
@@ -115,8 +119,13 @@ const ProfileBar = (props) => {
             //Loads the user information 
             await userApis.getUserInfo(userId).then((response) => {
                 setUserInfo(response.data[0])
-                console.log(response.data)
                 calculateProgress(response.data[0].userLevel, response.data[0].expForLevelUp)
+            })
+
+            //get the number of subscribers
+            await userApis.getSubscriberCount(userId).then((response)=>{
+                setSubscriberCount(response.data[0]["COUNT(*)"]);
+                //console.log("this channel has " + response.data[0]["COUNT(*)"])
             })
         }
 
@@ -193,7 +202,7 @@ const ProfileBar = (props) => {
 
 
                     <div className={classes.ChannelNameText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.displayName}</div>
-                    <div className={classes.EmailText}>{(userInfo == null || userInfo === undefined) ? "loading" : userInfo.email}</div>
+                    <div className={classes.Subscribers}>{(userInfo == null || userInfo === undefined) ? "loading" : `Subscribers: ${subscriberCount}`}</div>
                     <div className={classes.subscribeBtn}>
                         {!self && !subscribeStatus && <div className={`${classes.btn} ${classes.colorGreen}`} onClick={onSubscribe}>Subscribe</div>}
                         {!self && subscribeStatus && <div className={`${classes.btn} ${classes.colorRed}`} onClick={unsubscribe}>Unsubscribe</div>}

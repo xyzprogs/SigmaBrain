@@ -13,6 +13,7 @@ export const setTopFeatureQuiz = (payload, config) => api.post('/profile/setTopF
 export const getProfileImage = (userId)=>api.get(`/profile/profileImage/${userId}`)
 export const getBackgroundImage = (userId)=>api.get(`/profile/backgroundImage/${userId}`)
 export const getUserDescription = (userId)=>api.get(`/profile/userDescription/${userId}`)
+export const getSubscriberCount = (userId)=>api.get(`/profile/subscriber/${userId}`)
 export const subscribe = (payload, headers)=>api.post('/subscribe', payload, {headers: headers})
 export const unsubscribe = (payload, headers)=>api.post('/unsubscribe', payload, {headers: headers})
 export const getSubscriptions = (headers)=>api.get('/subscriptions', {headers: headers})
@@ -46,6 +47,7 @@ const userApis = {
     getUserInfo,
     getUserDisplayName,
     getFollowers,
+    getSubscriberCount,
     updateUserExperience,
     updateUserDisplayNamem,
     updateUserLevel,
