@@ -36,5 +36,9 @@ export const useStyles = createUseStyles({
     },
     commentTittleContainer:{
         marginLeft:"5px"
+    },
+    levelbox: {
+        textAlign: "left",
+        fontSize: "10px"
     }
 })

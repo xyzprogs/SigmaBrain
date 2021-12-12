@@ -20,6 +20,7 @@ const DescriptionBox = (props)=>{
     const [thumbnail, setThumbnail] = useState("")
     const [ownerName, setOwnerName] = useState("")
     const [userImage, setUserImage] = useState("")
+    const [level, setLevel] = useState(0)
     const [showModal, setShowModal] = useState(false);
     const [admin, setAdmin] = useState(false);
     const [likedStatus, setLikedStatus] = useState(2)
@@ -50,6 +51,7 @@ const DescriptionBox = (props)=>{
                 return
             }
             setQuiz(response.data[0])
+            setLevel(response.data[0][BODY.USERLEVEL])
             setOwnerName(response.data[0][BODY.DISPLAYNAME])
             loadQuizThumbnail(response.data[0][BODY.QUIZID])
             loadUserImage(response.data[0][BODY.USERID])
@@ -335,7 +337,7 @@ const DescriptionBox = (props)=>{
 
                         <div className={classes.nameBtnContainer}>
                             <div className={classes.userDisplayName}>
-                                {ownerName}
+                                {ownerName} . Level {level}
                             </div>
 
                             {!self && !subscribeStatus && <div onClick={onSubscribe} className={`${classes.subscribeBtn} ${classes.btn} ${classes.colorGreen}`}>Subscribe</div>}

@@ -29,6 +29,9 @@ const PostCommentBox = ({comment})=>{
                 <div className={classes.namebox}>
                     {comment[BODY.DISPLAYNAME]}
                 </div>
+                <div className={classes.levelbox}>
+                    Level {comment[BODY.USERLEVEL]}
+                </div>
             </div>
             <div className={classes.commentContainer}>
                 {comment[BODY.POSTCOMMENT]}

@@ -16,8 +16,8 @@ const SearchInput = ({searchInput,setSearchInput}) => {
     }
 
 
-    const chooseSearch = (i)=>{
-        console.log("choose", searches[i])
+    const chooseSearch = (i, event)=>{
+        event.stopPropagation();
         searchAndRedirect(searches[i])
         setSearches([])
         setUserSearch("")
@@ -36,11 +36,11 @@ const SearchInput = ({searchInput,setSearchInput}) => {
         }
     }
 
-    const loseFocus = ()=>{
+    const loseFocus = (event)=>{
         setSearches([])
     }
 
-
+    
     return (
         <div className = {classes.searchBarContainer}>
             <input 
@@ -59,7 +59,7 @@ const SearchInput = ({searchInput,setSearchInput}) => {
             <div className={classes.searchResult}>
                 {searches.map((search,i)=>{
                     return (
-                    <div key={i} onClick={()=>{chooseSearch(i)}} className={classes.resultBox}>
+                    <div key={i} onMouseDown={(event)=>{chooseSearch(i, event)}} className={classes.resultBox}>
                         <div className={classes.resultText}>
                             {search}
                         </div>
