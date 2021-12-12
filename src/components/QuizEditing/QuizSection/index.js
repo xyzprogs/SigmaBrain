@@ -36,7 +36,13 @@ const QuizSection = ({ quiz }) => {
         setIntroduction(event.target.value)
     }
     const onChangeTimeLimit = (event) => {
-        setTimeLimit(event.target.value)
+        let regexp = /^[0-9\b]+$/
+        if (event.target.value === '' || regexp.test(event.target.value))
+            setTimeLimit(event.target.value)
+    }
+    const checkIfTimeNull =()=>{
+        if(timeLimit === '')
+            setTimeLimit(5)
     }
     const onAutoChange = (event, value) => {
         if (value != null) {
@@ -88,7 +94,7 @@ const QuizSection = ({ quiz }) => {
 
 
     return (
-        <div className = {classes.centerContainer}>
+        <div className={classes.centerContainer}>
             <div className={classes.container}>
                 <input type="file" name="image" id="image" alt="quiz thumbnail" ref={imgRef} onChange={onImageUpload} className={classes.imgTag} />
                 <div className={classes.quizName}>
@@ -113,8 +119,15 @@ const QuizSection = ({ quiz }) => {
                 <div className={classes.divider}></div>
                 <div className={classes.timeLimit}>
                     <div className={classes.subTitle}>Time Limit</div>
+                    <div>Please choose a time betweeen 5 mins and 60 mins</div>
                     <div className={classes.flexBox}>
-                        <input defaultValue={quiz[BODY.TIMELIMIT]} onKeyUp={onChangeTimeLimit} />
+                        <input onChange={onChangeTimeLimit}
+                            className={classes.timeBox}
+                            type="number"
+                            value={timeLimit}
+                            min='5'
+                            max='60'
+                            onBlur={checkIfTimeNull} />
                         <div className={classes.unit}>min</div>
                     </div>
                 </div>
@@ -130,7 +143,7 @@ const QuizSection = ({ quiz }) => {
                             isOptionEqualToValue={(option, value) => option.value === value.value}
                             sx={{ width: 300 }}
                             onChange={onAutoChange}
-                            renderInput={(params) => <TextField {...params} label="Movie" />}
+                            renderInput={(params) => <TextField {...params} label="Catergory" />}
                         /> : <div>loading</div>}
 
                 </div>
