@@ -7,7 +7,7 @@ import userApi from '../../../api/user-api'
 const ForumCard = ({post, isTop10}) => {
     const classes = useStyles()
     const [image, setImage] = useState("")
-    const [name, setName] = useState("")
+    const [user, setUser] = useState()
     //const [isTop10, setIsTop10] = useState(false)
     function CreateDate(date){
         const array=date.split("T");
@@ -29,13 +29,9 @@ const ForumCard = ({post, isTop10}) => {
         }
 
         const loadUserName = async()=>{
-            try{
-                let response = await userApi.getUserDisplayName(post[BODY.USERID])
-                setName(response.data[0][BODY.DISPLAYNAME])
-            }catch{
-                setName("fail to load")
-            }
-
+            // let response = await userApi.getUserDisplayName(post[BODY.USERID])
+            let response = await userApi.getUserInfo(post[BODY.USERID])
+            setUser(response.data[0])
         }
         loadProfile()
         loadUserName()
@@ -49,9 +45,10 @@ const ForumCard = ({post, isTop10}) => {
                     <img className={classes.imgSize} src={image}/>
                 </div>
                 <div>
-                    <div className={classes.UserName}>
-                        {name}
+                    {user && <div className={classes.UserName}>
+                        {user[BODY.DISPLAYNAME]} . Level {user[BODY.USERLEVEL]}
                     </div>
+                    }
                     {isTop10(post) && 
                         <div className={classes.top10Container}>
                             <div className={classes.top10}>Top 10</div>
@@ -75,19 +72,3 @@ const ForumCard = ({post, isTop10}) => {
     )
 }
 export default ForumCard
-
-/*
-            <table>
-                <thead>
-                    <tr>
-                        <td width="10%">
-                            {post[BODY.POSTTITLE]}
-                        </td>
-                        <td width="30%">
-                            {post[BODY.CREATIONTIME]}
-                        </td>
-                    </tr>
-                </thead>
-            </table>
-            <hr size="2" width="70%" color="black"/> 
-*/

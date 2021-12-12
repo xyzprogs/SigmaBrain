@@ -28,7 +28,6 @@ function SearchContextProvider(props){
         localStorage.setItem(LOCAL_CONSTANT.SEARCH_KEYWORD, keyword)
         // updateSearches(response)
         setSearchResult(response.data)
-        console.log("search and redirect", response.data)
         history.push(`/searchResult`)
     }
 
@@ -49,7 +48,6 @@ function SearchContextProvider(props){
         let keyword = localStorage.getItem(LOCAL_CONSTANT.SEARCH_KEYWORD)
         let row = searchResult.length
         let response = await quizApis.getMoreSearchResult(keyword, row)
-        console.log(response.data)
         updateSearches(response)
     }
 

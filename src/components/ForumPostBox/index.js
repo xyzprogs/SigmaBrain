@@ -121,7 +121,7 @@ const ForumPostBox = ()=>{
             </div>
             <div className={classes.ownerBox}>
                 <img src={ownerProfileImage} className={classes.imgSize}/>
-                <div className={classes.ownerName}>{post[BODY.DISPLAYNAME]}</div>
+                <div className={classes.ownerName}>{post[BODY.DISPLAYNAME]}. Level {post[BODY.USERLEVEL]}</div>
             </div>
             <div className={classes.titleBox}>{post[BODY.POSTTITLE]}</div>
             <div className={classes.commentsContainer}> 
