@@ -134,7 +134,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
             >
                 <Box className={classes.modal}>
                     <div className={classes.titleText} id="modal-modal-title" variant="h6" component="h3">
-                        Create Question
+                        Edit Question
                     </div>
                     <Typography 
                     id="modal-modal-description" 
