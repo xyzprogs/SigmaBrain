@@ -56,15 +56,18 @@ const About = ({ self }) => {
     return (
         self ?
             <div>
-                <div className={classes.aboutText}>About Me!</div>
+                <div className={classes.Container}>
+                    <div className={classes.aboutText}>About Me!</div>
+                    <div className={classes.ButtonStyle} onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</div>
+                    <div className={classes.ButtonStyle} onClick={() => handleSubmit()}>submit</div>
+                </div>
                 {isEditing ?
-                    <input className={classes.editContainer} defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
+                    <textarea className={classes.editContainer} defaultValue={about} onChange={e => setEditAbout(e.target.value)} />
                     :
                     <div className={classes.aboutContainer}>{about}</div>
                 }
 
-                <Button onClick={() => setIsEditing(!isEditing)}>{isEditing ? "cancel" : "edit"}</Button>
-                <Button onClick={() => handleSubmit()}>submit</Button>
+
             </div>
             :
             <div>
