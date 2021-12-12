@@ -5,19 +5,18 @@ import UserQuizDisplay from "../UserQuizDisplay";
 import About from "../About";
 import FollowerList from "../FollowerList";
 import ChannelLeaderboard from "../../Leaderboard/ChannelLeaderboard";
-const ProfileSectionWrapper = ({tag, userId, self})=>{
+const ProfileSectionWrapper = ({tag, setTag, userId, self})=>{
     
     if(tag===0){
         return(
             <div>
                 <UserFeatureQuiz userId={userId} self={self}/>
-                <MyQuizList userId={userId} self={self}/>
+                <MyQuizList userId={userId} self={self} setTag={setTag}/>
             </div>
         )
     }
 
     if(tag===1){
-        console.log(tag)
         return(
             <div>
                 <UserQuizDisplay/>
