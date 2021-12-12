@@ -97,7 +97,7 @@ const QuestionCreationModal = (props) => {
         if (question[BODY.QUESTION].length === 0) {
             error.QuestionError = "Question cannot be empty";
         }
-        
+
         if (question[BODY.NUMBEROFCHOICE] === 0) {
             error.AnswerError = "Question must have at least one answer choice";
         }
@@ -110,12 +110,12 @@ const QuestionCreationModal = (props) => {
                     break;
                 }
             }
-            if(!temp)
+            if (!temp)
                 error.CorrectError = "Answer choices must have at least one correct choice"
         }
         setErrorMsg(error);
-        
-        if (Object.keys(error).length !== 0){
+
+        if (Object.keys(error).length !== 0) {
             return
         }
 
@@ -154,9 +154,9 @@ const QuestionCreationModal = (props) => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
                 <Box className={classes.modal}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <div className={classes.titleText} id="modal-modal-title" variant="h6" component="h3">
                         Create Question
-                    </Typography>
+                    </div>
                     <Typography
                         id="modal-modal-description"
                         sx={{ mt: 2 }}
@@ -170,14 +170,18 @@ const QuestionCreationModal = (props) => {
                                     <p className={classes.errorMsg}>{errorMsg.QuestionError}</p>
                                 )}
                             </div>
+
+                            <div className={classes.divider}></div>
+
                             <div className={classes.subSection}>
                                 <div className={classes.toCenter}>
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <th >&nbsp;</th>
-                                                <th>Number</th>
-                                                <th>Choices</th>
+                                                <th className={classes.tableSelector}>&nbsp;</th>
+                                                <th className={classes.tableNumber}>Number</th>
+                                                <th className={classes.tableChoices}>Choices</th>
+                                                <th className={classes.tableDelete}>Delete</th>
                                             </tr>
                                             {
                                                 choices.map((x, i) => {
@@ -203,13 +207,16 @@ const QuestionCreationModal = (props) => {
                                     <p className={classes.errorMsg}>{errorMsg.NumberOfChoiceError}</p>
                                 )}
                             </div>
+                            
+                            <div className={classes.divider}></div>
+
                             <div className={classes.buttonPosition}>
-                                <Button onClick={handleClose}>
+                                <button className={classes.buttonstyle} onClick={handleClose}>
                                     Close
-                                </Button>
-                                <Button onClick={onSave}>
+                                </button>
+                                <button className={classes.buttonstyle} onClick={onSave}>
                                     Save
-                                </Button>
+                                </button>
                             </div>
                         </div>
                     </Typography>

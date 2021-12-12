@@ -1,3 +1,4 @@
+import { fontWeight } from '@mui/system'
 import { createUseStyles } from 'react-jss'
 
 export const userStyles = createUseStyles({
@@ -13,12 +14,24 @@ export const userStyles = createUseStyles({
         minHeight: "50vh",
         minWidth: "50vw"
     },
+    titleText:{
+        paddingLeft:'15px',
+        paddingTop:'15px',
+        fontSize:'30px',
+        fontWeight:'bold',
+        paddingBottom: '10px',
+        backgroundColor: '#7FFFD4'
+    },
+    divider:{
+        height:'1px',
+        backgroundImage:"linear-gradient(to right, transparent, rgb(48,49,51), transparent)"
+    },
 
     subSection:{
-        border: "solid",
+        paddingLeft:'25px',
+        paddingTop:'20px',
+        paddingBottom:'20px',
         width: "50vw",
-        borderWidth: "0px 0px 1px 0px",
-        
     },
 
     subTitle:{
@@ -64,5 +77,17 @@ export const userStyles = createUseStyles({
         borderRadius:20,
         marginTop:10,
         marginBottom:10
+    },
+    tableSelector:{
+        width:'5%'
+    },
+    tableNumber:{
+        width:'10%'
+    },
+    tableChoices:{
+        width: '30%'
+    },
+    tableDelete:{
+        width: '35%'
     }
 })
