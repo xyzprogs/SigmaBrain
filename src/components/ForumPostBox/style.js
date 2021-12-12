@@ -5,12 +5,12 @@ export const useStyles = createUseStyles({
     titleBox: {
         //border: "solid",
         //borderWidth:"2px",
-        width: "50vw",
+        width: "100vw",
         //height: "10vh",
         margin: "auto",
-        paddingRight: "60%",
+        paddingRight: "40%",
         marginBottom: "1%",
-        fontSize:30,
+        fontSize:24,
         borderRadius:10
     },
 
@@ -76,7 +76,7 @@ export const useStyles = createUseStyles({
 
     ownerName:{
         marginLeft: "2%",
-        fontSize: "24px"
+        fontSize: "18px"
     },
 
     line:{

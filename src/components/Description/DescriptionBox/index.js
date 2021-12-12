@@ -11,11 +11,13 @@ import userApis from '../../../api/user-api'
 import default_thumbnial from '../../../images/default_quiz_thumbnail.png'
 import RecommendListCard from '../../RecommendListCard'
 import AdminModal from '../../AdminModal'
+import default_profile from '../../../images/Default_profile.png'
 const DescriptionBox = (props)=>{
     const classes = useStyles()
     const {quizId} = useParams()
     const [quiz, setQuiz] = useState()
-    const [image, setImage] = useState("")
+    // const [image, setImage] = useState("")
+    const [thumbnail, setThumbnail] = useState("")
     const [ownerName, setOwnerName] = useState("")
     const [userImage, setUserImage] = useState("")
     const [showModal, setShowModal] = useState(false);
@@ -58,15 +60,27 @@ const DescriptionBox = (props)=>{
         const loadQuizThumbnail = async(quizId)=>{
             try{
                 let response2 = await quizApis.getQuizThumbnail(quizId)
-                setImage(response2.data)
+                if(response2.data==null || response2.data==""){
+                    setThumbnail(default_thumbnial)
+                    return
+                }
+                setThumbnail(response2.data)
             }catch{
-                setImage(default_thumbnial)
+                setThumbnail(default_thumbnial)
             }
         }
 
         const loadUserImage = async (userId)=>{
-            let response = await userApis.getProfileImage(userId)
-            setUserImage(response.data)
+            try{
+                let response = await userApis.getProfileImage(userId)
+                if(response.data==null || response.data==""){
+                    setUserImage(default_profile)
+                    return
+                }
+                setUserImage(response.data)
+            }catch{
+                setUserImage(default_profile)
+            }
         }
 
         const loadQuizAdmin = async ()=> {
@@ -330,7 +344,7 @@ const DescriptionBox = (props)=>{
                 </div>
             
                 <div className={classes.cardSize}>
-                    <img className={classes.imgSize} variant="top" src={image} />
+                    <img className={classes.imgSize} variant="top" src={thumbnail} />
                 </div>
                 <div className={classes.quizName}>{quiz[BODY.QUIZNAME]}</div>
                 <div className={classes.informationBox}>

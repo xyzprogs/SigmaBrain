@@ -18,6 +18,10 @@ const ForumCard = ({post, isTop10}) => {
         const loadProfile = async()=>{
             try{
                 let response = await userApi.getProfileImage(post[BODY.USERID])
+                if(response.data==null || response.data===""){
+                    setImage(profile_image)
+                    return
+                }
                 setImage(response.data)
             }catch{
                 setImage(profile_image)

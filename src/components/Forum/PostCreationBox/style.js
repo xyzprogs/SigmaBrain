@@ -15,9 +15,10 @@ export const useStyles = createUseStyles({
     },
 
     inputTitleBox:{
-        height: "10%",
+        height: "40px",
         width: "80%",
         borderRadius:10,
+        fontSize: "18px"
     },
 
     postBox: {
@@ -26,6 +27,7 @@ export const useStyles = createUseStyles({
         resize: "none",
         marginTop: "2.5%",
         borderRadius:10,
+        fontSize: "16px"
     },
     titleText:{
         fontSize:"20px"

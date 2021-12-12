@@ -20,7 +20,7 @@ const ForumSection = () => {
     const loadPosts = async ()=> {
         console.log("load posts")
         let response = await forumApi.getForumPost(userId)
-        setPosts(response.data)
+        updatePosts(response, true)
     }
 
     useEffect(()=>{
@@ -45,6 +45,9 @@ const ForumSection = () => {
         if(response.data.length>0){
             if(response.data.length !== 10){
                 setEnd(true)
+            }
+            else{
+                setEnd(false)
             }
             let new_posts = []
             if(!firstLoad){

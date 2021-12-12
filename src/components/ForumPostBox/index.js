@@ -24,13 +24,16 @@ const ForumPostBox = ()=>{
         setComment(event.target.value)
     }
 
-    const updateComments = (response)=>{
+    const updateComments = (response, firstload)=>{
         let sub_arr = response.data
         if(response.data.length>0){
             if(response.data.length !== 10){
                 setEnd(true)
             }
-            let newarr = [...comments]
+            let newarr = []
+            if(!firstload){
+                newarr = [...comments]
+            }
             for(var i = 0; i < sub_arr.length; i++){
                 newarr.push(sub_arr[i])
             }
@@ -55,11 +58,17 @@ const ForumPostBox = ()=>{
         }
 
         await forumnApi.createFroumPostComment(payload, headers)
-        // loadComments()
-        if(end){
+        if(comments.length<10){
+            loadComments()
+        }else{
             setEnd(false)
         }
+    
         setComment("")
+    }
+    const loadComments = async ()=>{
+        let response = await forumnApi.getFroumPostComment(forumPostId)
+        updateComments(response, true)
     }
 
     useEffect(()=>{
@@ -67,18 +76,16 @@ const ForumPostBox = ()=>{
         const loadPost = async ()=>{
             let response = await forumnApi.getForumPostById(forumPostId)
             setPost(response.data[0])
-            console.log(response.data)
-            let image = await userApi.getProfileImage(response.data[0][BODY.USERID])
-            if(response.data==null || response.data==""){
+            try{
+                let image = await userApi.getProfileImage(response.data[0][BODY.USERID])
+                if(image.data==null || image.data===""){
+                    setOwnerProfileImage(default_profile)
+                    return
+                }
+                setOwnerProfileImage(image.data)
+            }catch{
                 setOwnerProfileImage(default_profile)
-                return
             }
-            setOwnerProfileImage(image.data)
-        }
-
-        const loadComments = async ()=>{
-            let response = await forumnApi.getFroumPostComment(forumPostId)
-            updateComments(response)
         }
 
         loadPost()
