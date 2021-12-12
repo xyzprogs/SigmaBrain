@@ -2,7 +2,7 @@ import { createUseStyles } from "react-jss";
 
 export const userStyles = createUseStyles({
     questionCardContainer: {
-        width: '30vw'
+        width: '30vw',
     },
 
     titleFont: {
