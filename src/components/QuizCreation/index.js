@@ -15,7 +15,7 @@ const QuizCreation = () => {
     const classes = userStyles()
     const imgRef = useRef()
     const [introduction, setIntroduction] = useState()
-    const [timeLimit, setTimeLimit] = useState(0)
+    const [timeLimit, setTimeLimit] = useState(5)
     const [image, setImage] = useState()
     const [imageAsFile, setImageAsFile] = useState()
     const [name, setName] = useState()
@@ -57,7 +57,9 @@ const QuizCreation = () => {
     }
 
     const onChangeTimeLimit = (event) => {
-        setTimeLimit(event.target.value)
+        let regexp = /^[0-9\b]+$/
+        if(event.target.value === '' || regexp.test(event.target.value))
+            setTimeLimit(event.target.value)
     }
 
     const onChangeName = (event) => {
@@ -157,6 +159,10 @@ const QuizCreation = () => {
         setEdit(index)
         setOpen(true)
     }
+    
+    const numbersOnly = ()=>{
+
+    }
 
     useEffect(() => {
         let categorylist = []
@@ -224,7 +230,12 @@ const QuizCreation = () => {
             <div className={classes.timeLimit}>
                 <div className={classes.subTitle}>Time Limit</div>
                 <div className={classes.flexBox}>
-                    <input onKeyUp={onChangeTimeLimit} className={classes.timeBox} />
+                    <input 
+                        onChange={onChangeTimeLimit} 
+                        className={classes.timeBox} 
+                        type= "number" 
+                        value = {timeLimit}
+                    />
                     <div className={classes.unit}>min</div>
                 </div>
                 {errorMsg?.TimeLimitError && (
