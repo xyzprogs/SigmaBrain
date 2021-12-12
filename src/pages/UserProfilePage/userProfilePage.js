@@ -29,6 +29,7 @@ const UserProfilePage = () => {
                 <ProfileBar userId={userId} self={self} setTag={setTag} tag={tag}/>
                 <ProfileSectionWrapper
                 tag={tag}
+                setTag={setTag}
                 userId={userId}
                 self={self}
                 />

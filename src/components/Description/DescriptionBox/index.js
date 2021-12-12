@@ -32,6 +32,8 @@ const DescriptionBox = (props) => {
     const history = useHistory()
     const [remove, setRemove] = useState(false)
     const [block, setBlock] = useState(false)
+    const [likeCounts, setLikeCounts] = useState(0)
+    const [dislikeCounts, setDislikeCounts] = useState(0)
     const adminRemoveMsg = "Are you going to remove this quiz using admin privilege?"
     const adminBlockMsg = "Are you going to block this quiz using admin privilege?"
     useEffect(() => {
@@ -57,6 +59,8 @@ const DescriptionBox = (props) => {
             loadUserImage(response.data[0][BODY.USERID])
             getSubscribeStatus(response.data[0][BODY.USERID])
             loadRelevantQuiz(response.data[0][BODY.QUIZNAME], response.data[0][BODY.USERID])
+            setLikeCounts(response.data[0][BODY.LIKES])
+            setDislikeCounts(response.data[0][BODY.DISLIKES])
         }
 
 
@@ -121,8 +125,12 @@ const DescriptionBox = (props) => {
                     [HEADER.TOKEN]: token
                 }
                 let response = await quizApis.getLikedStatusOnQuiz(quizId, headers)
+                console.log(response.data, quizId)
                 if (response.data.length > 0) {
                     setLikedStatus(response.data[0][BODY.LIKEDSTATUS])
+                }
+                else{
+                    setLikedStatus(2)
                 }
             }
         }
@@ -170,20 +178,23 @@ const DescriptionBox = (props) => {
     }, [quizId, auth.user])
 
     /*Can integrate together with a like status parameter*/
-    const changeLikedStatusOnQuiz = async (likeStatus) => {
+    const changeLikedStatusOnQuiz = async (like) => {
         if (!auth.loggedIn) {
             setShowModal(true);
             return
         }
+
+        updateLikeCounts(like)
+
         const token = await auth.user.getIdToken()
         let headers = {
             [HEADER.TOKEN]: token
         }
         let payload = {
             [BODY.QUIZID]: quizId,
-            [BODY.LIKEDSTATUS]: likeStatus
+            [BODY.LIKEDSTATUS]: like
         }
-        setLikedStatus(likeStatus)
+        setLikedStatus(like)
         await quizApis.likedQuiz(payload, headers)
     }
 
@@ -313,6 +324,33 @@ const DescriptionBox = (props) => {
         }
     }
 
+    const updateLikeCounts = (like)=>{
+        if(like===2 && likedStatus===1){
+            setLikeCounts(likeCounts-1)
+        }
+        else if(like===2 && likedStatus===0){
+            setDislikeCounts(dislikeCounts-1)
+        }
+        else if(likedStatus===2){
+            if(like===1){
+                setLikeCounts(likeCounts+1)
+            }
+            else if(like===0){
+                setDislikeCounts(dislikeCounts+1)
+            }
+        }
+        else if(like !== likedStatus){
+            if(like===1){
+                setLikeCounts(likeCounts+1)
+                setDislikeCounts(dislikeCounts-1)
+            }
+            else if(like===0){
+                setLikeCounts(likeCounts-1)
+                setDislikeCounts(dislikeCounts+1)
+            }
+        }
+    }
+
     const reformatDate = (date) => {
         return date.slice(0, 10)
     }
@@ -362,9 +400,9 @@ const DescriptionBox = (props) => {
                             <span>{reformatDate(quiz[BODY.CREATIONTIME])}</span>
                         </div>
                         <div className={classes.subtitleLikes}>
-                            <span>{quiz[BODY.LIKES]} likes</span>
+                            <span>{likeCounts} likes</span>
                             <span> &#8226; </span>
-                            <span>{quiz[BODY.DISLIKES]} dislikes</span>
+                            <span>{dislikeCounts} dislikes</span>
                         </div>
                     </div>
                     <div className={classes.quizDescription}>

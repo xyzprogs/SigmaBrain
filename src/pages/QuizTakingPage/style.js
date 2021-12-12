@@ -7,7 +7,8 @@ export const useStyles = createUseStyles({
         position: 'fixed',
         width: '100%',
         height: '100%',
-        backgroundColor: '#DCDCDC'
+        backgroundColor: '#DCDCDC',
+        overflowY: "auto",
     },
 
     quizContainer: {

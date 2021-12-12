@@ -110,6 +110,15 @@ const ROW = "row"
 
 const CHANNELOWNER = "channelOwner"
 
+
+const INCREASELIKE = "increaselike"
+
+const DECREASELIKE = "decreaselike"
+
+const INCREASEDISLIKE = "increasedislike"
+
+const DECREASEDISLIKE = "decreasedislike"
+const LIKEDSTATUSCHANGE = "likedstatuschange"
 const BODY_CONSTANT = {
     //Common
     OWNERID,
@@ -217,7 +226,16 @@ const BODY_CONSTANT = {
 
     HISTORYTIME,
 
-    CHANNELOWNER
+    CHANNELOWNER,
+
+    INCREASELIKE,
+
+    DECREASELIKE,
+
+    INCREASEDISLIKE,
+
+    DECREASEDISLIKE,
+    LIKEDSTATUSCHANGE
 }
 
 export default BODY_CONSTANT

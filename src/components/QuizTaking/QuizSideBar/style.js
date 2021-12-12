@@ -7,7 +7,8 @@ export const useStyles = createUseStyles({
         width: "15vw",
         // marginTop: "50px",
         position: "fixed",
-        backgroundColor:"white"
+        backgroundColor:"white",
+        overflowY: "auto"
     },
 
     sideBarSelect: {
