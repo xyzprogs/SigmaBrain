@@ -111,17 +111,18 @@ export const useStyles = createUseStyles({
 
     },
     ChannelNameText:{
-        fontSize:"18px",
+        fontSize:"20px",
         textAlign:"Left",
         fontWeight:"bold",
         paddingLeft: "35%",
         marginTop: "5%",
         whiteSpace: "nowrap",
     },
-    EmailText:{
+    Subscribers:{
         fontSize:"15px",
         textAlign:"left",
-        marginLeft: "35%"
+        paddingLeft:'35%',
+        whiteSpace: "nowrap",
     },
     colorRed:{
         color: "red"
@@ -135,5 +136,16 @@ export const useStyles = createUseStyles({
 
     subscribeBtn:{
         marginLeft: "45%"
+    },
+    textToLeft:{
+        textAlign:'left'
+    },
+    levelDetail:{
+        fontSize:'22px',
+        fontWeight:'bold'
+    },
+    expText:{
+        color:'red',
+        fontWeight:'bold'
     }
 })
