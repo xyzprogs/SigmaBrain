@@ -122,7 +122,9 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
     }
 
     const onChecked = (event, i)=>{
-        correct[i] = event.currentTarget.checked
+        let newCorrect = new Array(correct.length).fill(false)
+        newCorrect[i] = event.currentTarget.checked
+        setCorrect(newCorrect)
     }
 
     return(
@@ -163,7 +165,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
                                         {
                                             choices.map((x, i)=>{
                                                 return <tr key={i}> 
-                                                    <td><input defaultChecked={correct[i]} type="checkbox" onChange={(event)=>{onChecked(event, i)}}/>&nbsp;</td>
+                                                    <td><input checked={correct[i]} type="checkbox" onChange={(event)=>{onChecked(event, i)}}/>&nbsp;</td>
                                                     <td>#{i+1}</td>
                                                     <td><input type="text" value={x} onChange={(event)=>{editChoice(event, i)}}/></td>
                                                     <td className={classes.delete} onClick={()=>{onDelete(i)}}>&#10005;</td>
