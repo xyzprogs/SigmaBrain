@@ -22,7 +22,7 @@ const QuizCard = (props)=>{
         const loadImage = async ()=>{
             try{
                 let response = await quizApis.getQuizThumbnail(props.quiz[BODY.QUIZID])
-                if(response.data==null || response.data==""){
+                if(response.data==null || response.data===""){
                     setImage(default_thumbnail)
                     return
                 }

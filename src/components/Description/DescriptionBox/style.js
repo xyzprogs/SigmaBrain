@@ -86,7 +86,8 @@ export const useStyles = createUseStyles({
         height: "60px",
         borderStyle: "solid",
         marginLeft: "1.5%",
-        marginTop: "1%"
+        marginTop: "1%",
+        cursor: "pointer"
     },
 
     userDisplayName:{

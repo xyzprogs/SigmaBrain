@@ -41,7 +41,6 @@ const PostCreationBox = ({loadPosts})=>{
         setPost("")
         setTitle("")
         loadPosts()
-        console.log("created")
     }
 
     return(
