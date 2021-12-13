@@ -19,7 +19,6 @@ const QuestionCreationModal = (props) => {
     useEffect(() => {
         if (props.edit !== -1) {
             setEditMode(true)
-            console.log(props.questions[props.edit])
             let editQuestion = props.questions[props.edit]
             let choicels = editQuestion[BODY.CHOICES]
             let questionCorrects = []
@@ -46,7 +45,9 @@ const QuestionCreationModal = (props) => {
     const handleClose = () => {
         clearModal()
         props.handleClose()
-        props.setEdit(-1)
+        if(props.setEdit!==undefined){
+            props.setEdit(-1)
+        }
     }
 
     const addChoice = () => {

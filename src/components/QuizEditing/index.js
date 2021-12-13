@@ -17,14 +17,12 @@ const QuizEditing = () => {
     }
     useEffect(()=>{
         const loadQuiz = async () => {
-            console.log("loading quiz for editing")
             if(auth.user != null){
                 const token = await auth.user.getIdToken()
                 let headers = {
                     [HEADER.TOKEN] : token
                 }
                 let response = await quizApis.getSingleUserQuizAuthenticated(quizId, headers)
-                console.log(response.data)
                 if(response.data.length>0){
                     setQuiz(response.data[0])
                 }
