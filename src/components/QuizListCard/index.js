@@ -4,10 +4,12 @@ import {useState, useEffect} from 'react'
 import quizApis from '../../api/quiz-api'
 import default_thumbnail from '../../images/default_banner.png'
 import {useHistory} from 'react-router-dom'
+import userApis from '../../api/user-api'
 const QuizListCard = ({quiz}) => {
     const classes = useStyles()
     const [image, setImage] = useState("")
     const history = useHistory()
+    const [displayname, setDisplayname] = useState("loading")
     useEffect(()=>{
         const loadQuizThumbnail = async ()=>{
             try{
@@ -21,8 +23,20 @@ const QuizListCard = ({quiz}) => {
                 setImage(default_thumbnail)
             }
         }
+
+        const loadDisplayName = async ()=>{
+            try{
+                let response = await userApis.getUserDisplayName(quiz[BODY.USERID])
+                if(response.data.length>0){
+                    setDisplayname(response.data[0][BODY.DISPLAYNAME])
+                }
+            }catch{
+                console.log("user doesn't exist")
+            }
+        }
+        loadDisplayName()
         loadQuizThumbnail()
-    })
+    }, [])
 
     const redirectToQuizPage = ()=>{
         history.push(`/quizDescription/${quiz[BODY.QUIZID]}`)
@@ -38,7 +52,7 @@ const QuizListCard = ({quiz}) => {
                     {quiz[BODY.QUIZNAME]}
                 </div>
                 <div>
-                    <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]}</div>
+                    <div className={classes.subtitle}>{quiz[BODY.TAKECOUNTS]} take counts . {quiz[BODY.CREATIONTIME]} . {displayname}</div>
                 </div>
                 <div className={classes.quizDescription}>{quiz[BODY.QUIZDESCRIPTION]}</div>
             </div>
