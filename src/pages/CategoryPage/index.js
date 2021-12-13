@@ -68,7 +68,7 @@ const CategoryPage = () => {
             <div className={classes.pageContainer}>
                 <div>
                     <div className={classes.title}>Category: {QUIZ_CATEGORY_NAME[categoryId]}</div>
-                    <div className={classes.toLeft}><Button onClick={redirectToGlobalBoard}>Check Global Ranking</Button></div>
+                    {(categoryId!=0) && <div className={classes.toLeft}><Button onClick={redirectToGlobalBoard}>Check Global Ranking</Button></div>}
                     <div>
                         {quizzes.map((quiz, i) => {
                                     return <QuizListCard key={i} quiz={quiz}/>
