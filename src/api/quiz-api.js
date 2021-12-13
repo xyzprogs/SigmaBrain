@@ -53,6 +53,7 @@ export const getQuizCommentByCommentId = (quizCommentId) => api.get(`/quizCommen
 export const getSingleUserQuizAuthenticated = (quizId, headers) => api.get(`/authenticated/quiz/${quizId}`, {headers: headers})
 export const getRelevantQuiz = ({userId, quizName, row}) => api.get(`/quizRecommendation/relevant?userId=${userId}&quizName=${quizName}&row=${row}`)
 export const checkQuiz = (payload, headers) => api.post('/checkQuiz', payload,{headers: headers})
+export const addNewQuestion = (payload, headers) => api.post('/addNewQuestion', payload, {headers: headers})
 const quizApis = {
     getMostPopularQuiz,
     getQuizThumbnail,
@@ -101,7 +102,8 @@ const quizApis = {
     getQuizCommentByCommentId,
     getSingleUserQuizAuthenticated,
     getRelevantQuiz,
-    checkQuiz
+    checkQuiz,
+    addNewQuestion
 }
 
 export default quizApis

@@ -42,7 +42,7 @@ export const userStyles = createUseStyles({
         width: '220px',
         height: '220px',
         marginTop: '20px',
-        objectFit: 'cover'
+        objectFit: 'cover',
     },
 
     title: {
@@ -75,7 +75,7 @@ export const userStyles = createUseStyles({
         
         width: "50vw",
         height: "40vh",
-        
+        marginBottom: "5%",
         paddingTop: '20px',
         borderColor: borderColors,
     },
@@ -152,7 +152,7 @@ export const userStyles = createUseStyles({
         textAlign: "center",
         fontWeight:'bold',
         margin: "auto",
-        paddingTop: "5%",
+        // paddingTop: "5%",
         color: "#006400"
     },
 

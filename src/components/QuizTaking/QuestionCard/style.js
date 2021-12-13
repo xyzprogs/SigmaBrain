@@ -31,6 +31,18 @@ export const userStyles = createUseStyles({
         color:"black",
         backgroundColor:"#EBEBEB",
     },
+
+    buttonMarginNoBG: {
+        width: '28vw',
+        marginLeft: '2px',
+        fontSize: '20px',
+        marginTop: `10px`,
+        fontWeight: 'bold',
+        fontFamily: 'Arial',
+        borderRadius: '20px',
+        color:"black",
+    },
+
     nextButton:{
         width: '28vw',
         marginLeft: '2px',

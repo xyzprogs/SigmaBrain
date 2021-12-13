@@ -10,7 +10,7 @@ const CatgeorySideBar = ({bar, refs, loadPreferences})=>{
     const classes = useStyles()
     const [open, setOpen] = useState(false)
     // const [openSidebar, setOpenSidebar] = useState(false)
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
     const {auth} = useContext(AuthContext)
     const scroll = (i)=>{
         refs[i].current.scrollIntoView({block:"center"})
@@ -18,7 +18,7 @@ const CatgeorySideBar = ({bar, refs, loadPreferences})=>{
 
     const openCustomizationModal = ()=>{
         if(!auth.loggedIn){
-            setShowModal(true)
+            // setShowModal(true)
             return
         }
         setOpen(true)
@@ -31,9 +31,11 @@ const CatgeorySideBar = ({bar, refs, loadPreferences})=>{
                 {bar.map((category,i)=>{
                     return <div className={classes.item} key={i} onClick={()=>{scroll(i)}} title={QUIZ_CATEGORY_NAME[category['categoryId']]}>{QUIZ_CATEGORY_NAME[category['categoryId']]}</div>
                 })}
+                {auth.loggedIn && 
                 <div >
                     <Button onClick={openCustomizationModal}>Customize</Button>
-                </div>  
+                </div>
+                }  
             </div>}
 
             <CustomizationModal
@@ -41,9 +43,9 @@ const CatgeorySideBar = ({bar, refs, loadPreferences})=>{
                 setOpen={setOpen}
                 bar={bar}
                 loadPreferences={loadPreferences}/>
-            <div>
+            {/* <div>
                 <NoUserModal show={showModal} continue={true} handleClose={() => setShowModal(false)}></NoUserModal>
-            </div>
+            </div> */}
         </div>
     )
 }
