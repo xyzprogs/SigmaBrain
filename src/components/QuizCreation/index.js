@@ -35,6 +35,7 @@ const QuizCreation = () => {
 
     const handleClose = () => {
         setOpen(false)
+        setEdit(-1)
     }
 
     const onAutoChange = (event, value) => {
