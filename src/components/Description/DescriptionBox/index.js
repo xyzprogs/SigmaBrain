@@ -175,7 +175,7 @@ const DescriptionBox = (props) => {
         checkAdmin()
         getLikedStatus()
         getSavelaterStatus()
-    }, [quizId, auth.user, quiz])
+    }, [quizId, auth.user])
 
     /*Can integrate together with a like status parameter*/
     const changeLikedStatusOnQuiz = async (like) => {
