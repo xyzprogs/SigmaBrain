@@ -13,9 +13,6 @@ const QuizTakingPage = () => {
     const classes = useStyles();
     const { auth } = useContext(AuthContext)
     const { quizId } = useParams();
-
-    const [quizTime, setQuizTime] = useState(0);
-    const [time, setTime] = useState(0);
     const [flag, setFlag] = useState(false);
     const [answerChoices, setAnswerChoices] = useState([[]]);
     const [correctChoices, setCorrectChoices] = useState([]);
@@ -24,9 +21,6 @@ const QuizTakingPage = () => {
     useEffect(() => {
         const getQuiz = async () => {
             let quiz = await quizApis.getQuiz(quizId)
-            let timeLimit = quiz.data[0].timeLimit * 60 * 1000
-            setQuizTime(timeLimit);
-            setTime(timeLimit);
             setCreator(quiz.data[0][BODY.USERID])
         }
         getQuiz()
@@ -45,8 +39,6 @@ const QuizTakingPage = () => {
             }
             await quizApis.createQuizGrade(payload, headers);
         }
-
-        setQuizTime(time);
         updateChannelLeaderboardScore(correct);
     }
 
@@ -92,7 +84,6 @@ const QuizTakingPage = () => {
         // }
         // saveResults(correct);
     }
-
     const sendAnswer = ()=>{
         
     }
@@ -111,15 +102,6 @@ const QuizTakingPage = () => {
                 changeFlag={changeFlag}
             />
 
-
-            {!flag &&
-                <Countdown
-                    key={quizTime.toString()}
-                    date={Date.now() + quizTime}
-                    onTick={() => setQuizTime(quizTime - 1000)}
-                    onComplete={() => changeFlag()}
-                />
-            }
         </div>
     )
 }

@@ -30,6 +30,12 @@ const QuizCreation = () => {
     // const [categoryText, setCategoryText] = useState("")
 
     const handleOpen = () => {
+        let error = {};
+        if(questions.length >= 50){
+            error.QuizAddQuestionError = "Quiz can't have more than 50 questions!";
+            setErrorMsg(error);
+            return
+        }
         setOpen(true)
     }
 
@@ -94,46 +100,35 @@ const QuizCreation = () => {
             [BODY.TIMELIMIT]: timeLimit
         }
         let error = {};
-        let flag = false;
 
         if (quiz[BODY.QUIZCATEGORY] === undefined) {
             quiz[BODY.QUIZCATEGORY] = 0;
         }
-        console.log(quiz);
 
         if (quiz[BODY.QUIZNAME] === undefined) {
             error.QuizTitleError = "Please add a quiz title"
-            flag = true;
         } else if (quiz[BODY.QUIZNAME].length === 0) {
             error.QuizTitleError = "Quiz title cannot be empty"
-            flag = true;
         } else if (quiz[BODY.QUIZNAME].length > 50) {
             error.QuizTitleError = "Quiz title cannot be more than 50 characters"
-            flag = true;
         }
 
         if (timeLimit < 5.0 || timeLimit > 60.0) {
             error.TimeLimitError = "Time of quiz must be anywhere in between 5 minutes to 60 minutes"
-            flag = true;
         }
 
         if (quiz[BODY.QUIZDESCRIPTION] === undefined) {
             error.QuizDescriptionError = "Please add a quiz description"
-            flag = true;
         } else if (quiz[BODY.QUIZDESCRIPTION].length === 0) {
             error.QuizDescriptionError = "Quiz description cannot be empty"
-            flag = true;
         } else if (quiz[BODY.QUIZDESCRIPTION].length > 200) {
             error.QuizDescriptionError = "Quiz description cannot be more than 200 characters"
-            flag = true;
         }
         if (quiz[BODY.QUESTIONS].length === 0) {
             error.QuizQuestionError = "A quiz must have atleast one question";
-            flag = true;
         }
-
         setErrorMsg(error);
-        if (flag) {
+        if (Object.keys(error).length !== 0) {
             return
         }
 
@@ -267,6 +262,9 @@ const QuizCreation = () => {
                 <div className={`${classes.btn} ${classes.toCenter}`} onClick={handleOpen}>
                     <div className={classes.btnText}>Add</div>
                 </div>
+                {errorMsg?.QuizAddQuestionError && (
+                    <p className={classes.errorMsg}>{errorMsg.QuizAddQuestionError}</p>
+                )}
                 <div>
                     {questions.length !== 0 &&
 

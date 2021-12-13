@@ -44,7 +44,7 @@ export const userStyles = createUseStyles({
     },
 
     nextButton:{
-        width: '28vw',
+        width: '100%',
         marginLeft: '2px',
         fontSize: '20px',
         marginTop: `10px`,
@@ -55,7 +55,7 @@ export const userStyles = createUseStyles({
         backgroundColor:"#417CA2",
     },
     previousButton:{
-        width: '28vw',
+        width: '100%',
         marginLeft: '2px',
         fontSize: '20px',
         marginTop: `10px`,
@@ -66,6 +66,22 @@ export const userStyles = createUseStyles({
         backgroundColor:"#9E9E9E",
     },
 
+    warningButton:{
+        width: '100%',
+        marginLeft: '2px',
+        fontSize: '20px',
+        marginTop: `10px`,
+        fontWeight: 'bold',
+        fontFamily: 'Arial',
+        borderRadius: '20px',
+        color:"white",
+        backgroundColor: 'red'
+    },
+
+    timer:{
+        textAlign: 'center',
+        borderRadius: '10px'
+    },
 
     image: {
         maxHeight: '300px'

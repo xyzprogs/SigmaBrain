@@ -3,6 +3,8 @@ import { userStyles} from "./style";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import BODY from '../../../constant/body';
+import { Col, Row } from 'react-bootstrap';
+import Countdown from 'react-countdown';
 
 const QuestionCard = (props) => {
     const classes = userStyles();
@@ -67,7 +69,9 @@ const QuestionCard = (props) => {
     }
 
     const prevButtonRender = () =>{
-        if (index !== 0){
+        if (index === 0){
+            return(<Button variant="contained" className={classes.warningButton} name='prev'>Previous Question</Button>)
+        }else{
             return(<Button variant="contained" className={classes.previousButton} name='prev' onClick={changeQuestionHandler}>Previous Question</Button>)
         }
     }
@@ -92,6 +96,10 @@ const QuestionCard = (props) => {
         return(answers.map((choice, index) => buttonRender(choice, index)));
     }
 
+    const renderer = ({minutes, seconds}) => {
+        return <span>{minutes}:{seconds}</span>;
+    }
+
     return(
         // <div>
 
@@ -101,13 +109,29 @@ const QuestionCard = (props) => {
                 {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
                 <Card.Body>
                     <Card.Title className={classes.titleFont}>
-                        Question {props.index + 1}
+                    <Row>
+                        <Col>Question {props.index + 1}</Col>
+                        <Col className={classes.timer}>
+                            {!props.flag &&
+                                <Countdown
+                                    key={props.quizTime.toString()}
+                                    date={Date.now() + props.quizTime}
+                                    renderer={renderer}
+                                    onTick={() => props.setQuizTime(props.quizTime - 1000)}
+                                    onComplete={() => props.changeFlag()}
+                                />
+                            }
+                        </Col>
+                    </Row>
                     </Card.Title>
                     {renderQuestion()}
                     {renderImage()}
                     {renderAnswer()}
-                    {prevButtonRender()}
-                    {nextButtonRender()}
+                    <Row>
+                        <Col>{prevButtonRender()}</Col>
+                        <Col>{nextButtonRender()}</Col>
+                    </Row>
+    
 
                 </Card.Body>
             </Card>

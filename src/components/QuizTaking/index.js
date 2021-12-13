@@ -9,7 +9,7 @@ import NoUserModal from '../NoUserModal';
 // The following array is hard coded and will be replaced with
 // data queried from the database.
 
-const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctChoices, setCorrectChoices, changeFlag }) => {
+const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, changeQuizTime, correctChoices, setCorrectChoices, changeFlag }) => {
     // const classes = userStyles()
     const classes = useStyles();
     const { auth } = useContext(AuthContext)
@@ -17,15 +17,25 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState([]);
     const [showModal, setShowModal] = useState(false);
-
+    const [quizTime, setQuizTime] = useState(0);
+    const [time, setTime] = useState(0);
     const quizId = window.location.pathname.split("/")[2];
 
     useEffect(() => {
         const loadQuestions = async () => {
             let response = await quizApis.getQuestion(quizId);
+            let response2 = await quizApis.getQuiz(quizId);
             if (response.data.length <= 0) {
                 return
             }
+            if(response2.data.length <= 0){
+                return
+            }
+
+            let timeLimit = response2.data[0].timeLimit * 60 * 1000
+            setQuizTime(timeLimit);
+            setTime(timeLimit);
+
             let answerArray = [];
             let correctArray = [];
 
@@ -84,6 +94,7 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
         setFlag(false);
         setQuestions([]);
         setIndex(0);
+        setQuizTime(time);
     }
 
 
@@ -119,6 +130,9 @@ const QuizTaking = ({ flag, setFlag, answerChoices, setAnswerChoices, correctCho
                     </div>
                     <div className={classes.quizContainer}>
                         <QuestionCard
+                            flag={flag}
+                            quizTime={quizTime}
+                            setQuizTime={setQuizTime}
                             questions={questions[index]} answers={answers[index]} index={index} answerChoices={answerChoices} correctChoices={correctChoices}
                             changeIndex={changeIndex}
                             changeFlag={changeFlag}
