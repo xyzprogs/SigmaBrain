@@ -32,7 +32,13 @@ function SearchContextProvider(props){
     }
 
     const updateSearches = (response, newsearch) => {
-        if(response.data.length===0)return
+        if(response.data.length===0){
+            if(newsearch){
+                setSearchResult([])
+                setEnd(true)
+            }
+            return
+        }
         let sub_arr = response.data
         if(sub_arr.length<5){
             setEnd(true)
