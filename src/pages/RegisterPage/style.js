@@ -4,7 +4,7 @@ const flexCenter = { display: 'flex', justifyContent: 'center', alignItems: 'cen
 
 export const useStyles = createUseStyles({
     pageContainer: {
-        position: 'fixed',
+        //position: 'fixed',
         width: '100%',
         height: '100%',
         backgroundColor: '#DCDCDC'
