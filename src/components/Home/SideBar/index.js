@@ -132,7 +132,7 @@ const SideBar = () => {
                                         subscribeTo={sub[BODY.SUBSCRIBETO]}/></div>
                         })}
 
-                        {   end?<div>Thta's the end</div>:
+                        {   end?<div>That's the end</div>:
                             <Button onClick={getMore}>More</Button>
                         }
                     </div>
