@@ -27,7 +27,7 @@ const SearchResultPage = () => {
                         })}
                     </div>
                     {
-                        end?<div className={classes.endLine}>No More</div>
+                        end?<div className={classes.endLine}>No More Results!</div>
                         :<Button onClick={getMoreSearchResult}>More</Button>
                     }
                 </div>

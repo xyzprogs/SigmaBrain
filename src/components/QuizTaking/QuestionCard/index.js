@@ -128,7 +128,7 @@ const QuestionCard = (props) => {
                     {renderImage()}
                     {renderAnswer()}
                     <Row>
-                        <Col>{prevButtonRender()}</Col>
+                        {index !==0 && <Col>{prevButtonRender()}</Col>}
                         <Col>{nextButtonRender()}</Col>
                     </Row>
     
