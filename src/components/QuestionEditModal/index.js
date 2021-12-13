@@ -39,7 +39,7 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
         setErrorMsg({});
     }
 
-    const clsoeModal = ()=>{
+    const closeModal = ()=>{
         clearModal()
         handleClose()
     }
@@ -122,7 +122,9 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
     }
 
     const onChecked = (event, i)=>{
-        correct[i] = event.currentTarget.checked
+        let newCorrect = new Array(correct.length).fill(false)
+        newCorrect[i] = event.currentTarget.checked
+        setCorrect(newCorrect)
     }
 
     return(
@@ -133,9 +135,9 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
             aria-describedby="modal-modal-description"
             >
                 <Box className={classes.modal}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Create Question
-                    </Typography>
+                    <div className={classes.titleText} id="modal-modal-title" variant="h6" component="h3">
+                        Edit Question
+                    </div>
                     <Typography 
                     id="modal-modal-description" 
                     sx={{ mt: 2 }}
@@ -146,20 +148,24 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
                                 <div className={classes.subTitle}>Question Name</div>
                                 <input defaultValue={questionName} onKeyUp={onChangeQuestionName} className={classes.questionNameField}/>
                             </div>
+
+                            <div className={classes.divider}></div>
+
                             <div className={classes.subSection}>
                                 <table className={classes.toCenter}>
                                     <thead>
                                         <tr>
-                                            <th >&nbsp;</th>
-                                            <th>Number</th>
-                                            <th>Choices</th>
+                                            <th className={classes.tableSelector}>&nbsp;</th>
+                                            <th className={classes.tableNumber}>Number</th>
+                                            <th className={classes.tableChoices}>Choices</th>
+                                            <th className={classes.tableDelete}>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
                                             choices.map((x, i)=>{
                                                 return <tr key={i}> 
-                                                    <td><input defaultChecked={correct[i]} type="checkbox" onChange={(event)=>{onChecked(event, i)}}/>&nbsp;</td>
+                                                    <td><input checked={correct[i]} type="checkbox" onChange={(event)=>{onChecked(event, i)}}/>&nbsp;</td>
                                                     <td>#{i+1}</td>
                                                     <td><input type="text" value={x} onChange={(event)=>{editChoice(event, i)}}/></td>
                                                     <td className={classes.delete} onClick={()=>{onDelete(i)}}>&#10005;</td>
@@ -168,7 +174,10 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
                                         }
                                     </tbody>
                                 </table>
-                                <Button onClick={addChoice}>Add Choice</Button>
+
+                                <div className={classes.divider}></div>
+
+                                <div className={classes.buttonstyle} onClick={addChoice}>Add Choice</div>
                                 {errorMsg?.AnswerError && (
                                     <p className={classes.errorMsg}>{errorMsg.AnswerError}</p>
                                 )}
@@ -179,12 +188,14 @@ const QuestionEditModal = ({open, handleClose, anschoices, question, quizId, aut
                                     <p className={classes.errorMsg}>{errorMsg.NumberOfChoiceError}</p>
                                 )}
                             </div>
-                            <Button onClick={clsoeModal}>
-                                Close
-                            </Button>
-                            <Button onClick={onUpdate}>
-                                Update
-                            </Button>
+                            <div className={classes.buttonPosition}>
+                                <button className={classes.buttonstyle} onClick={closeModal}>
+                                    Close
+                                </button>
+                                <button className={classes.buttonstyle} onClick={onUpdate}>
+                                    Update
+                                </button>
+                            </div>
                         </div>
                     </Typography>
                 </Box>

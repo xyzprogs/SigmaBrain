@@ -152,7 +152,6 @@ export const userStyles = createUseStyles({
         textAlign: "center",
         fontWeight:'bold',
         margin: "auto",
-        // paddingTop: "5%",
         color: "#006400"
     },
 
@@ -234,7 +233,18 @@ export const userStyles = createUseStyles({
 
     checkboxPadding:{
         margin: "auto",
-        display: "flex"
+        display: "grid",
+        gridTemplateColumns:'10% 60% 15% 15%'
+    },
+
+    checkboxPaddingHeader:{
+        margin: "auto",
+        display: "grid",
+        gridTemplateColumns:'10% 60% 15% 15%',
+        fontSize:'20px',
+        fontWeight:'bold',
+        paddingBottom:'20px'
+
     },
 
     questionMargin: {
@@ -243,6 +253,13 @@ export const userStyles = createUseStyles({
 
     questionText:{
         fontWeight: "lighter"
+    },
+
+    alignTextLeft:{
+        textAlign:'left'
+    },
+    alignTextCenter:{
+        textAlign:'center'
     },
 
     delete: {
@@ -269,11 +286,9 @@ export const userStyles = createUseStyles({
 
     editBtn:{
         cursor: "pointer",
-        
         borderColor: "gray",
         borderRadius: "10px",
         borderWidth: "1px",
-        width: "5%",
         color: "green"
     }
 })
