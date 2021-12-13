@@ -18,6 +18,8 @@ const SettingPage = ()=>{
     const [originalPassword, setOriginalPassword] = useState("")
     const [errorMessages, setErrorMessages] = useState([])
     const [sucessMessages, setSucessMessages] = useState([])
+    const [nameErrorMessages, setNameErrorMessages] = useState([])
+    const [nameSucessMessages, setNameSucessMessages] = useState([])
     const history = useHistory()
     useEffect(()=>{
         const loadUserInfo = async (userId)=>{
@@ -60,6 +62,15 @@ const SettingPage = ()=>{
     }
 
     const submitChangeDisplayName = async ()=>{
+        if(displayName===""){
+            setNameErrorMessages(["Name Can'be Empty"])
+            return
+        }
+        if(displayName.length>50){
+            setNameErrorMessages(["Name Can't be exceed 50 characters"])
+            return
+        }
+
         if(displayName !== "" && auth.user != null){
             const token = await auth.user.getIdToken()
             let headers = {
@@ -73,6 +84,7 @@ const SettingPage = ()=>{
             let newUser = {...user}
             newUser[BODY.DISPLAYNAME] = displayName
             setUser(newUser)
+            setNameSucessMessages(["Sucessfully change your name"])
         }
     }
 
@@ -87,6 +99,9 @@ const SettingPage = ()=>{
         }
         if(auth.user != null){
             auth.changePassword(originalPassword, password)
+            setPassword("")
+            setConfirmPassword("")
+            setOriginalPassword("")
         }
     }
 
@@ -99,14 +114,30 @@ const SettingPage = ()=>{
             <div className={classes.subTitle}>
                 Name Changing
             </div>
-            <div className={classes.Nametext}>
-                <div className={classes.lowContainer}>Current Displayname: {user===undefined?"loading":user[BODY.DISPLAYNAME]}</div>
-                <div className={classes.lowContainer}>
-                    <div className={classes.nameField}>Change to: </div>
-                    <input onChange={onChangeDisplayName} value={displayName} className={classes.inputField}/>
-                </div>
-                <div onClick={submitChangeDisplayName} className={classes.btn}>Change Displayname</div>
+            <div className={classes.changePasswordContainer}>
+                {
+                    nameSucessMessages.map((sucess, i)=>{
+                        return <div key={i} className="alert alert-success" role="alert">
+                            {sucess}
+                        </div>
+                    })
+                }
+                {
+                    nameErrorMessages.map((error, i)=>{
+                        return <div key={i} className="alert alert-danger" role="alert">
+                            {error}
+                        </div>
+                    })
+                }
             </div>
+                <div className={classes.Nametext}>
+                    <div className={classes.lowContainer}>Current Displayname: {user===undefined?"loading":user[BODY.DISPLAYNAME]}</div>
+                    <div className={classes.lowContainer}>
+                        <div className={classes.nameField}>Change to: </div>
+                        <input onChange={onChangeDisplayName} value={displayName} className={classes.inputField}/>
+                    </div>
+                    <div onClick={submitChangeDisplayName} className={classes.btn}>Change Displayname</div>
+                </div>
             -------------------------------------------------------------------------------------------------------------------------------------------
             <div className={classes.subTitle}>
                 Password Changing

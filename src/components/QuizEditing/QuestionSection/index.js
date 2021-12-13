@@ -8,11 +8,13 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import QuestionEditModal from '../../QuestionEditModal'
+import QuestionCreationModal from '../../QuestionCreationModal';
 import HEADER from '../../../constant/header'
 const QuestionSection = ({quiz})=>{
     const { auth } = useContext(AuthContext)
     const [questions, setQuestions] = useState([])
     const [open, setOpen] = useState(false)
+    const [openCreate, setOpenCreate] = useState(false)
     const [choices, setChoices] = useState([])
     const [question, setQuestion] = useState()
     const [questionIndex, setQuestionIndex] = useState(-1)
@@ -28,6 +30,11 @@ const QuestionSection = ({quiz})=>{
         loadQuestions()
     }, [quiz])
 
+    const loadQuestions = async () => {
+        let quizId = quiz[BODY.QUIZID]
+        let response = await quizApis.getQuestions(quizId)
+        setQuestions(response.data)
+    }
 
     const selectQuestion = async (i) => {
         let questionId = questions[i][BODY.QUESTIONID]
@@ -48,8 +55,24 @@ const QuestionSection = ({quiz})=>{
         setQuestions(newQuestions)
     }
 
+    const addQuestion = async (question)=>{
+        if(auth.user!=null && auth.user!==undefined){
+            const token = await auth.user.getIdToken()
+            let headers = {
+                [HEADER.TOKEN] : token
+            }
+            let payload = {
+                [BODY.QUESTION]: question,
+                [BODY.QUIZID]: quiz[BODY.QUIZID]
+            }
+            await quizApis.addNewQuestion(payload, headers)
+            loadQuestions()
+        }
+    }    
+
     return(
         <div>
+            <Button onClick={()=>{setOpenCreate(true)}}>Add New Question</Button>
             <div>
                 {questions.map((q,i)=>{
                     return (<Card key={i}>
@@ -73,6 +96,14 @@ const QuestionSection = ({quiz})=>{
                 auth={auth}
                 updateQuestionName={updateQuestionName}
                 questionIndex={questionIndex}
+                />
+
+                <QuestionCreationModal
+                    edit={-1}
+                    open={openCreate}
+                    addQuestion={addQuestion}
+                    handleClose={()=>{setOpenCreate(false)}}
+                    handleOpen={()=>{setOpenCreate(true)}}
                 />
         </div>
     )

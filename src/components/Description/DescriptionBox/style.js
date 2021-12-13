@@ -145,7 +145,7 @@ export const useStyles = createUseStyles({
 
     quizDescription: {
         textAlign: "left",
-        marginLeft: "27%",
+        marginLeft: "25%",
         fontWeight: "lighter",
     },
 

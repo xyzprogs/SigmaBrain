@@ -41,7 +41,8 @@ export const useStyles = createUseStyles({
         fontWeight:"bold",
         marginLeft:"6%",
         height:"35px",
-        paddingTop:"3px"
+        paddingTop:"3px",
+        cursor: "pointer"
         
     },
     Update:{
@@ -54,7 +55,8 @@ export const useStyles = createUseStyles({
         fontSize:"30px",
         fontWeight:"bold",
         marginTop:"5px",
-        marginBottom:"5px"
+        marginBottom:"5px",
+        cursor: "pointer"
     },
     text:{
         fontWeight:"bold",

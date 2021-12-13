@@ -32,8 +32,6 @@ const QuestionCreationModal = (props) => {
             setCorrect(questionCorrects)
             setNumOfChoices(choicels.length)
             setQuestionName(editQuestion['question'])
-
-            //console.log("use effect from question creation modal", props.edit)
         }
     }, [props.edit])
 

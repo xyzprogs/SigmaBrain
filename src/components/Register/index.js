@@ -165,13 +165,8 @@ const Register = () => {
                 {
                     <div className={classes.loginOptions}>
                         <span className={classes.forgotPassword}>
-                            <Link to="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
+                            <Link to="/login" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
                                 Have An Account?
-                            </Link>
-                        </span>
-                        <span className={classes.forgotPassword}>
-                            <Link to="#" style={{ textDecoration: 'none', fontWeight: 'bold' }}>
-                                Forgot Password?
                             </Link>
                         </span>
                     </div>
