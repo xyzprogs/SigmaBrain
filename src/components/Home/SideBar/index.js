@@ -77,6 +77,7 @@ const SideBar = () => {
     }
 
     const redirectToProfile = (userId)=>{
+        localStorage.setItem(LOCAL_CONSTANT.PROFILE_TAG, 0)
         history.push(`/profile/${userId}`)
     }
 
